@@ -2,4 +2,5 @@
 #####redirect#####
 Redirect permanent /blog http://munieru.hatenablog.com
 Redirect permanent /twitter https://twitter.com/munieru_jp
+Redirect permanent /github https://github.com/munierujp
 #####end:redirect#####
