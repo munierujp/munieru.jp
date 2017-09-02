@@ -1,0 +1,4 @@
+
+#####redirect#####
+Redirect permanent /blog http://munieru.hatenablog.com
+#####end:redirect#####
