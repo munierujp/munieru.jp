@@ -4,4 +4,5 @@ Redirect permanent /blog http://munieru.hatenablog.com
 Redirect permanent /twitter https://twitter.com/munieru_jp
 Redirect permanent /github https://github.com/munierujp
 Redirect permanent /qiita http://qiita.com/munieru
+Redirect permanent /booklog http://booklog.jp/users/munierujp
 #####end:redirect#####
