@@ -1,6 +1,6 @@
 
 #####redirect#####
-Redirect permanent /blog http://munieru.hatenablog.com
+Redirect permanent /blog http://blog.munieru.jp/
 Redirect permanent /twitter https://twitter.com/munieru_jp
 Redirect permanent /github https://github.com/munierujp
 Redirect permanent /qiita http://qiita.com/munieru_jp
