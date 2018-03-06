@@ -8,4 +8,5 @@ Redirect permanent /booklog http://booklog.jp/users/munierujp
 Redirect permanent /tabelog https://tabelog.com/rvwr/munieru/
 Redirect permanent /pixiv https://pixiv.me/munieru_jp
 Redirect permanent /niconico http://www.nicovideo.jp/user/65528596
+Redirect permanent /wikipedia https://ja.wikipedia.org/wiki/User:Munieru
 #####end:redirect#####
