@@ -1,12 +1,12 @@
 
 #####redirect#####
 Redirect permanent /blog http://blog.munieru.jp/
-Redirect permanent /twitter https://twitter.com/munieru_jp
-Redirect permanent /github https://github.com/munierujp
-Redirect permanent /qiita http://qiita.com/munieru_jp
 Redirect permanent /booklog http://booklog.jp/users/munierujp
-Redirect permanent /tabelog https://tabelog.com/rvwr/munieru/
-Redirect permanent /pixiv https://pixiv.me/munieru_jp
+Redirect permanent /github https://github.com/munierujp
 Redirect permanent /niconico http://www.nicovideo.jp/user/65528596
+Redirect permanent /pixiv https://pixiv.me/munieru_jp
+Redirect permanent /qiita http://qiita.com/munieru_jp
+Redirect permanent /tabelog https://tabelog.com/rvwr/munieru/
+Redirect permanent /twitter https://twitter.com/munieru_jp
 Redirect permanent /wikipedia https://ja.wikipedia.org/wiki/User:Munieru
 #####end:redirect#####
