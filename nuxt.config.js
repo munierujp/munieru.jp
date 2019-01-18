@@ -3,7 +3,7 @@ const { URL } = require('url')
 const Stylelint = require('stylelint-webpack-plugin')
 
 const config = loadConfig('./config.json')
-const { BASE_DIR, TWITTER_ID, OG_IMAGE_PATH, ORIGIN } = config
+const { BASE_DIR, GOOGLE_ANALYTICS_UA, TWITTER_ID, OG_IMAGE_PATH, ORIGIN } = config
 const BASE_URL = new URL(BASE_DIR, ORIGIN).toString()
 const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, BASE_URL).toString()
 const TWITTER_ACCOUNT = `@${TWITTER_ID}`
@@ -68,7 +68,10 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    ['nuxt-i18n', i18n]
+    ['nuxt-i18n', i18n],
+    ['@nuxtjs/google-analytics', {
+      id: GOOGLE_ANALYTICS_UA
+    }]
   ],
 
   /*
@@ -106,12 +109,14 @@ function loadConfig (filepath) {
   } catch (ignored) {
     const {
       BASE_DIR,
+      GOOGLE_ANALYTICS_UA,
       TWITTER_ID,
       OG_IMAGE_PATH,
       ORIGIN
     } = process.env
     return {
       BASE_DIR,
+      GOOGLE_ANALYTICS_UA,
       TWITTER_ID,
       OG_IMAGE_PATH,
       ORIGIN
