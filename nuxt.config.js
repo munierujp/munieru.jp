@@ -3,9 +3,10 @@ const { URL } = require('url')
 const Stylelint = require('stylelint-webpack-plugin')
 
 const config = loadConfig('./config.json')
-const { BASE_DIR, OG_IMAGE_PATH, ORIGIN } = config
+const { BASE_DIR, TWITTER_ID, OG_IMAGE_PATH, ORIGIN } = config
 const BASE_URL = new URL(BASE_DIR, ORIGIN).toString()
 const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, BASE_URL).toString()
+const TWITTER_ACCOUNT = `@${TWITTER_ID}`
 
 const i18n = require('./nuxt-i18n.config')
 const lang = require(`./${i18n.langDir}${i18n.defaultLocale}`)
@@ -31,7 +32,9 @@ module.exports = {
       { hid: 'og:site_name', property: 'og:title', content: APP_NAME },
       { hid: 'og:image', property: 'og:image', content: OG_IMAGE_URL },
       { hid: 'og:image:width', property: 'og:image:width', content: '256' },
-      { hid: 'og:image:height', property: 'og:image:height', content: '256' }
+      { hid: 'og:image:height', property: 'og:image:height', content: '256' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+      { hid: 'twitter:site', name: 'twitter:site', content: TWITTER_ACCOUNT }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -103,11 +106,13 @@ function loadConfig (filepath) {
   } catch (ignored) {
     const {
       BASE_DIR,
+      TWITTER_ID,
       OG_IMAGE_PATH,
       ORIGIN
     } = process.env
     return {
       BASE_DIR,
+      TWITTER_ID,
       OG_IMAGE_PATH,
       ORIGIN
     }
