@@ -1,5 +1,8 @@
+const fs = require('fs')
 const Stylelint = require('stylelint-webpack-plugin')
 
+const config = loadConfig('./config.json')
+const { BASE_DIR } = config
 const i18n = require('./nuxt-i18n.config')
 const lang = require(`./${i18n.langDir}${i18n.defaultLocale}`)
 
@@ -68,6 +71,24 @@ module.exports = {
           files: '**/*.{css,scss,vue}'
         }))
       }
+    }
+  },
+
+  router: {
+    base: BASE_DIR
+  }
+}
+
+function loadConfig (filepath) {
+  try {
+    const data = fs.readFileSync(filepath, 'utf-8')
+    return JSON.parse(data)
+  } catch (ignored) {
+    const {
+      BASE_DIR
+    } = process.env
+    return {
+      BASE_DIR
     }
   }
 }
