@@ -1,10 +1,16 @@
 const fs = require('fs')
+const { URL } = require('url')
 const Stylelint = require('stylelint-webpack-plugin')
 
 const config = loadConfig('./config.json')
-const { BASE_DIR } = config
+const { BASE_DIR, OG_IMAGE_PATH, ORIGIN } = config
+const BASE_URL = new URL(BASE_DIR, ORIGIN).toString()
+const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, BASE_URL).toString()
+
 const i18n = require('./nuxt-i18n.config')
 const lang = require(`./${i18n.langDir}${i18n.defaultLocale}`)
+const APP_NAME = lang.APP_NAME
+const APP_DESCRIPTION = lang.APP_DESCRIPTION
 
 module.exports = {
   mode: 'spa',
@@ -13,11 +19,19 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: lang.APP_NAME,
+    title: APP_NAME,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: lang.APP_DESCRIPTION }
+      { hid: 'description', name: 'description', content: APP_DESCRIPTION },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:title', property: 'og:title', content: APP_NAME },
+      { hid: 'og:description', property: 'og:description', content: APP_DESCRIPTION },
+      { hid: 'og:url', property: 'og:url', content: BASE_URL },
+      { hid: 'og:site_name', property: 'og:title', content: APP_NAME },
+      { hid: 'og:image', property: 'og:image', content: OG_IMAGE_URL },
+      { hid: 'og:image:width', property: 'og:image:width', content: '256' },
+      { hid: 'og:image:height', property: 'og:image:height', content: '256' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -88,10 +102,14 @@ function loadConfig (filepath) {
     return JSON.parse(data)
   } catch (ignored) {
     const {
-      BASE_DIR
+      BASE_DIR,
+      OG_IMAGE_PATH,
+      ORIGIN
     } = process.env
     return {
-      BASE_DIR
+      BASE_DIR,
+      OG_IMAGE_PATH,
+      ORIGIN
     }
   }
 }
