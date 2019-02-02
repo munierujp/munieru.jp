@@ -41,7 +41,7 @@ module.exports = {
       { rel: 'icon', type: 'image/png', href: '/favicon-256x256.png', sizes: '256x256' },
       { rel: 'icon', type: 'image/png', href: '/android-chrome-192x192.png', sizes: '192x192' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon-180x180.png', sizes: '180x180' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons|Noto+Sans+JP' }
     ]
   },
 
