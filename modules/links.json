@@ -1,0 +1,58 @@
+[
+  {
+    "title": "ブログ",
+    "url": "https://blog.munieru.jp/",
+    "image": "https://cdn.blog.st-hatena.com/images/favicon.ico",
+    "color": "white",
+    "light": true
+  },
+  {
+    "title": "Twitter",
+    "url": "https://twitter.com/munieru_jp",
+    "icon": "fab fa-twitter",
+    "color": "#1da1f2",
+    "dark": true
+  },
+  {
+    "title": "GitHub",
+    "url": "https://github.com/munierujp",
+    "icon": "fab fa-github",
+    "color": "#333",
+    "dark": true
+  },
+  {
+    "title": "Qiita",
+    "url": "https://qiita.com/munieru_jp",
+    "image": "https://cdn.qiita.com/assets/favicons/public/production.ico",
+    "color": "#55c500",
+    "dark": true
+  },
+  {
+    "title": "Speaker Deck",
+    "url": "https://speakerdeck.com/munieru_jp",
+    "image": "https://speakerd.herokuapp.com/assets/favicon.png",
+    "color": "#38444b",
+    "dark": true
+  },
+  {
+    "title": "Wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru",
+    "icon": "fab fa-wikipedia-w",
+    "color": "white",
+    "light": true
+  },
+  {
+    "title": "ブクログ",
+    "url": "https://booklog.jp/users/munierujp",
+    "image": "https://booklog.jp/favicon.ico",
+    "color": "#4ea6cc",
+    "dark": true
+  },
+  {
+    "title": "食べログ",
+    "url": "https://tabelog.com/rvwr/munieru/",
+    "image": "https://tblg.k-img.com/favicon.ico",
+    "color": "#f3980a",
+    "dark": true
+  }
+]
