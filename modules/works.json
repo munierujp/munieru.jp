@@ -1,0 +1,16 @@
+[
+  {
+    "title": "direct helper",
+    "description": "ビジネスチャットツールdirectに便利な機能を追加するChrome拡張",
+    "url": "https://chrome.google.com/webstore/detail/direct-helper/fhbllgfoempopcijliicheinpdbohdic",
+    "github": "https://github.com/munierujp/direct_helper",
+    "image": "direct_helper.png"
+  },
+  {
+    "title": "回文メーカー",
+    "description": "回文を作って共有できるサービス",
+    "url": "http://kaibunmaker.com",
+    "github": "https://github.com/munierujp/kaibunmaker",
+    "image": "kaibunmaker.png"
+  }
+]
