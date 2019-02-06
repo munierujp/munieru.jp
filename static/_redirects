@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+http://munieru.netlify.com/* http://munieru.jp/:splat 301!
