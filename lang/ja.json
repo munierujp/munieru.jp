@@ -1,10 +1,16 @@
 {
   "APP_NAME": "munieru.jp",
   "APP_DESCRIPTION": "ムニエルのウェブサイト",
+  "BIO": "江戸川区在住のアプリケーションエンジニア。<br>埼玉生まれ東京育ち。<br>趣味は読書とプログラミング。",
   "FOOTER_CREATOR": "Created by {creator}",
   "FOOTER_CREATOR_URL": "https://twitter.com/munieru_jp",
   "FOOTER_CREATOR_LABEL": "@munieru_jp",
   "FOOTER_HOSTING_SITE": "Hosted on {site}",
   "FOOTER_HOSTING_SITE_URL": "https://github.com/munierujp/munieru.jp",
-  "FOOTER_HOSTING_SITE_LABEL": "GitHub"
+  "FOOTER_HOSTING_SITE_LABEL": "GitHub",
+  "HEADER_LINKS": "Links",
+  "HEADER_PROFILE": "Profile",
+  "HEADER_SKILLS": "Skills",
+  "HEADER_WORKS": "Works",
+  "NAME": "ムニエル"
 }
