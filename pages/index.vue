@@ -30,7 +30,7 @@
       <v-flex text-xs-center>
         <app-skill-button
           v-for="skill in skills"
-          :key="skill.title"
+          :key="skill.name"
           v-bind="skill" />
       </v-flex>
       <v-flex>
