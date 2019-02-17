@@ -8,9 +8,11 @@
   "FOOTER_HOSTING_SITE": "Hosted on {site}",
   "FOOTER_HOSTING_SITE_URL": "https://github.com/munierujp/munieru.jp",
   "FOOTER_HOSTING_SITE_LABEL": "GitHub",
+  "HEADER_DONATE": "Donate",
   "HEADER_LINKS": "Links",
   "HEADER_PROFILE": "Profile",
   "HEADER_SKILLS": "Skills",
   "HEADER_WORKS": "Works",
-  "NAME": "ムニエル"
+  "NAME": "ムニエル",
+  "WISH_LIST": "ほしい物リスト"
 }

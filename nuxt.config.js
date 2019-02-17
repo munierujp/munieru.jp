@@ -100,6 +100,10 @@ module.exports = {
 
   router: {
     base: BASE_DIR
+  },
+
+  env: {
+    config
   }
 }
 
@@ -113,14 +117,16 @@ function loadConfig (filepath) {
       GOOGLE_ANALYTICS_UA,
       TWITTER_ID,
       OG_IMAGE_PATH,
-      ORIGIN
+      ORIGIN,
+      WISH_LIST_URL
     } = process.env
     return {
       BASE_DIR,
       GOOGLE_ANALYTICS_UA,
       TWITTER_ID,
       OG_IMAGE_PATH,
-      ORIGIN
+      ORIGIN,
+      WISH_LIST_URL
     }
   }
 }

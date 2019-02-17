@@ -15,6 +15,9 @@
       :width="iconSize"
       :height="iconSize"
       class="app-link-button-image" />
+    <span
+      v-if="label"
+      class="app-link-button-label">{{ label }}</span>
   </v-btn>
 </template>
 
@@ -24,6 +27,10 @@ export default {
     title: {
       type: String,
       required: true
+    },
+    label: {
+      type: String,
+      default: ''
     },
     url: {
       type: String,
@@ -59,5 +66,9 @@ export default {
 <style lang="scss" scoped>
 .app-link-button {
   min-width: 0;
+}
+
+.app-link-button-label {
+  margin-left: 8px;
 }
 </style>
