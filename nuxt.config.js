@@ -100,6 +100,10 @@ module.exports = {
 
   router: {
     base: BASE_DIR
+  },
+
+  env: {
+    config
   }
 }
 
