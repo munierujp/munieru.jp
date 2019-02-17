@@ -3,5 +3,6 @@
   "GOOGLE_ANALYTICS_UA": "UA-100023168-2",
   "TWITTER_ID": "munieru_jp",
   "OG_IMAGE_PATH": "favicon-256x256.png",
-  "ORIGIN": "http://localhost:3000/"
+  "ORIGIN": "http://localhost:3000/",
+  "WISH_LIST_URL": "http://amzn.asia/9qD1BsF"
 }
