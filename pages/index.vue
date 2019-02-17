@@ -49,6 +49,12 @@
           </v-flex>
         </v-layout>
       </v-flex>
+      <v-flex>
+        <app-header-2>{{ $t('HEADER_DONATE') }}</app-header-2>
+      </v-flex>
+      <v-flex>
+        <app-wish-list-button />
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -62,6 +68,7 @@ import AppHeader2 from '~/components/AppHeader2'
 import AppLinkButton from '~/components/AppLinkButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
 import AppSkillButton from '~/components/AppSkillButton'
+import AppWishListButton from '~/components/AppWishListButton'
 import AppWorkCard from '~/components/AppWorkCard'
 
 export default {
@@ -71,6 +78,7 @@ export default {
     AppLinkButton,
     AppProfileIcon,
     AppSkillButton,
+    AppWishListButton,
     AppWorkCard
   },
   data: () => ({
