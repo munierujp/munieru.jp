@@ -35,6 +35,13 @@
     "dark": true
   },
   {
+    "title": "pixiv",
+    "url": "https://pixiv.me/munieru_jp",
+    "image": "https://www.pixiv.net//favicon.ico",
+    "color": "#0096fa",
+    "light": true
+  },
+  {
     "title": "Wikipedia",
     "url": "https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru",
     "icon": "fab fa-wikipedia-w",
