@@ -12,5 +12,12 @@
     "url": "http://kaibunmaker.com",
     "github": "https://github.com/munierujp/kaibunmaker",
     "image": "kaibunmaker.png"
+  },
+  {
+    "title": "CYBER XEED PLUS",
+    "description": "勤怠管理システムCYBER XEEDに便利な機能を追加するChrome拡張",
+    "url": "https://chrome.google.com/webstore/detail/cyber-xeed-plus/fjcippambnmompkjifmbabafjemcccda",
+    "github": "https://github.com/munierujp/CyberXeedPlus",
+    "image": "CyberXeedPlus.png"
   }
 ]
