@@ -1,7 +1,9 @@
 <template>
   <v-card
     :href="url"
-    target="_blank">
+    target="_blank"
+    width="320px"
+    max-width="100%">
     <v-img
       :src="image"
       :aspect-ratio="16 / 9" />
