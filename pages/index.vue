@@ -37,17 +37,7 @@
         <app-header-2>{{ $t('HEADER_WORKS') }}</app-header-2>
       </v-flex>
       <v-flex>
-        <v-layout
-          justify-space-around
-          wrap>
-          <v-flex
-            v-for="work in works"
-            :key="work.title"
-            xs12
-            sm6>
-            <app-work-card v-bind="work" />
-          </v-flex>
-        </v-layout>
+        <app-works />
       </v-flex>
       <v-flex>
         <app-header-2>{{ $t('HEADER_DONATE') }}</app-header-2>
@@ -62,14 +52,13 @@
 <script>
 import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
-import works from '~/modules/works.json'
 import AppHeader1 from '~/components/AppHeader1'
 import AppHeader2 from '~/components/AppHeader2'
 import AppLinkButton from '~/components/AppLinkButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
 import AppSkillButton from '~/components/AppSkillButton'
 import AppWishListButton from '~/components/AppWishListButton'
-import AppWorkCard from '~/components/AppWorkCard'
+import AppWorks from '~/components/AppWorks'
 
 export default {
   components: {
@@ -79,12 +68,11 @@ export default {
     AppProfileIcon,
     AppSkillButton,
     AppWishListButton,
-    AppWorkCard
+    AppWorks
   },
   data: () => ({
     links,
-    skills,
-    works
+    skills
   })
 }
 </script>
