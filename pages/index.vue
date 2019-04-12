@@ -42,8 +42,17 @@
       <v-flex>
         <app-header-2>{{ $t('HEADER_DONATE') }}</app-header-2>
       </v-flex>
-      <v-flex>
-        <app-wish-list-button />
+      <v-flex text-xs-center>
+        <v-layout
+          justify-space-around
+          wrap>
+          <v-flex>
+            <app-pay-pay-button />
+          </v-flex>
+          <v-flex>
+            <app-wish-list-button />
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -55,6 +64,7 @@ import skills from '~/modules/skills.json'
 import AppHeader1 from '~/components/AppHeader1'
 import AppHeader2 from '~/components/AppHeader2'
 import AppLinkButton from '~/components/AppLinkButton'
+import AppPayPayButton from '~/components/AppPayPayButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
 import AppSkillButton from '~/components/AppSkillButton'
 import AppWishListButton from '~/components/AppWishListButton'
@@ -65,6 +75,7 @@ export default {
     AppHeader1,
     AppHeader2,
     AppLinkButton,
+    AppPayPayButton,
     AppProfileIcon,
     AppSkillButton,
     AppWishListButton,
