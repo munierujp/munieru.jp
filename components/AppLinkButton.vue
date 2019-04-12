@@ -1,40 +1,26 @@
 <template>
-  <v-btn
+  <app-button
+    :label="label"
+    :icon="icon"
+    :image="image"
     :color="color"
     :dark="dark"
     :light="light"
     :href="url"
-    target="_blank"
-    class="app-link-button">
-    <v-icon
-      v-if="icon"
-      class="app-link-button-icon">{{ icon }}</v-icon>
-    <v-img
-      v-if="image"
-      :src="image"
-      :width="iconSize"
-      :height="iconSize"
-      class="app-link-button-image" />
-    <span
-      v-if="label"
-      class="app-link-button-label">{{ label }}</span>
-  </v-btn>
+    target="_blank" />
 </template>
 
 <script>
+import AppButton from '~/components/AppButton'
+
 export default {
+  components: {
+    AppButton
+  },
   props: {
-    title: {
-      type: String,
-      required: true
-    },
     label: {
       type: String,
       default: ''
-    },
-    url: {
-      type: String,
-      required: true
     },
     icon: {
       type: String,
@@ -55,20 +41,11 @@ export default {
     light: {
       type: Boolean,
       default: false
+    },
+    url: {
+      type: String,
+      required: true
     }
-  },
-  data: () => ({
-    iconSize: 24
-  })
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-.app-link-button {
-  min-width: 0;
-}
-
-.app-link-button-label {
-  margin-left: 8px;
-}
-</style>
