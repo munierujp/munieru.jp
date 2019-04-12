@@ -4,16 +4,20 @@
       column
       align-center>
       <v-flex>
-        <app-header-1>{{ $t('NAME') }}</app-header-1>
+        <app-header-1>{{ $t('APP_NAME') }}</app-header-1>
       </v-flex>
       <v-flex>
         <app-profile-icon url="icon.png" />
       </v-flex>
-      <v-flex>
-        <app-header-2>{{ $t('HEADER_PROFILE') }}</app-header-2>
+      <v-flex text-xs-center>
+        <app-text
+          font-size="24px"
+          font-weight="bold">{{ $t('NAME') }}</app-text>
       </v-flex>
       <v-flex text-xs-center>
-        <span v-html="$t('BIO')"/>
+        <app-text
+          font-size="16px"
+          v-html="$t('BIO')"/>
       </v-flex>
       <v-flex>
         <app-header-2>{{ $t('HEADER_LINKS') }}</app-header-2>
@@ -67,6 +71,7 @@ import AppLinkButton from '~/components/AppLinkButton'
 import AppPayPayButton from '~/components/AppPayPayButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
 import AppSkillButton from '~/components/AppSkillButton'
+import AppText from '~/components/AppText'
 import AppWishListButton from '~/components/AppWishListButton'
 import AppWorks from '~/components/AppWorks'
 
@@ -78,6 +83,7 @@ export default {
     AppPayPayButton,
     AppProfileIcon,
     AppSkillButton,
+    AppText,
     AppWishListButton,
     AppWorks
   },

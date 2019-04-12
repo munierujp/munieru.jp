@@ -4,7 +4,7 @@
 
 <style lang="scss" scoped>
 $relative-max-width: 600px;
-$ratio: 0.1;
+$ratio: 0.09;
 $relative-font-size: 100vw * $ratio;
 $absolute-font-size: $relative-max-width * $ratio;
 
