@@ -24,6 +24,9 @@ $relative-size: 100vw * ($absolute-size / $relative-max-width);
   width: $absolute-size;
   height: $absolute-size;
   border: {
+    style: solid;
+    color: #fff;
+    width: 4px;
     radius: 50%;
   }
 }
