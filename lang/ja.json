@@ -4,7 +4,7 @@
   "BIO": "江戸川区在住のアプリケーションエンジニア。<br>埼玉生まれ東京育ち。<br>趣味は読書とプログラミング。",
   "CLOSE": "閉じる",
   "DONATE_WITH_PAYPAY_TITLE": "PayPayで寄付",
-  "DONATE_WITH_PAYPAY_DESCRIPTION": "PayPayアプリでQRコードを読み取ってください。",
+  "DONATE_WITH_PAYPAY_MESSAGE": "PayPayアプリでQRコードを読み取ってください。",
   "FOOTER_CREATOR": "Created by {creator}",
   "FOOTER_CREATOR_URL": "https://twitter.com/munieru_jp",
   "FOOTER_CREATOR_LABEL": "@munieru_jp",

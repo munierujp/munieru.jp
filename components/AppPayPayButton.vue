@@ -14,7 +14,7 @@
           <v-img src="paypay.png" />
         </v-card-text>
         <v-card-text>
-          {{ $t('DONATE_WITH_PAYPAY_DESCRIPTION') }}
+          {{ $t('DONATE_WITH_PAYPAY_MESSAGE') }}
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
