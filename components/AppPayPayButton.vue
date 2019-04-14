@@ -23,6 +23,9 @@
         <v-card-actions>
           <v-spacer/>
           <app-dialog-button
+            :label="$t('COPY_PAYPAY_ID')"
+            @click="copy" />
+          <app-dialog-button
             :label="$t('CLOSE')"
             @click="close" />
         </v-card-actions>
@@ -34,6 +37,7 @@
 <script>
 import AppButton from '~/components/AppButton'
 import AppDialogButton from '~/components/AppDialogButton'
+import copyToClipboard from '~/modules/copyToClipboard'
 
 const { PAYPAY_ID } = process.env.config
 
@@ -63,6 +67,10 @@ export default {
     },
     close () {
       this.showDialog = false
+    },
+    copy () {
+      const copied = copyToClipboard(PAYPAY_ID)
+      this.showDialog = !copied
     }
   }
 }
