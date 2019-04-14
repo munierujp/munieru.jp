@@ -10,9 +10,11 @@
         <v-card-title class="headline">
           {{ $t('DONATE_WITH_PAYPAY_TITLE') }}
         </v-card-title>
-        <v-card-text>
-          <v-img src="paypay.png" />
-        </v-card-text>
+        <v-layout justify-center>
+          <v-flex xs6>
+            <v-img src="paypay.png" />
+          </v-flex>
+        </v-layout>
         <v-card-text>
           <i18n
             tag="span"
