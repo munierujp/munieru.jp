@@ -18,11 +18,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
-          <v-btn
-            flat
-            @click="close">
-            {{ $t('CLOSE') }}
-          </v-btn>
+          <app-dialog-button
+            :label="$t('CLOSE')"
+            @click="close" />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -31,10 +29,12 @@
 
 <script>
 import AppButton from '~/components/AppButton'
+import AppDialogButton from '~/components/AppDialogButton'
 
 export default {
   components: {
-    AppButton
+    AppButton,
+    AppDialogButton
   },
   data: () => ({
     showDialog: false
