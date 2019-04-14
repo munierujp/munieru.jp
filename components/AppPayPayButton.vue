@@ -14,7 +14,11 @@
           <v-img src="paypay.png" />
         </v-card-text>
         <v-card-text>
-          {{ $t('DONATE_WITH_PAYPAY_MESSAGE') }}
+          <i18n
+            tag="span"
+            path="DONATE_WITH_PAYPAY_MESSAGE">
+            <span place="id">{{ paypayId }}</span>
+          </i18n>
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
@@ -31,12 +35,15 @@
 import AppButton from '~/components/AppButton'
 import AppDialogButton from '~/components/AppDialogButton'
 
+const { PAYPAY_ID } = process.env.config
+
 export default {
   components: {
     AppButton,
     AppDialogButton
   },
   data: () => ({
+    paypayId: PAYPAY_ID,
     showDialog: false
   }),
   computed: {
