@@ -10,19 +10,26 @@
         <v-card-title class="headline">
           {{ $t('DONATE_WITH_PAYPAY_TITLE') }}
         </v-card-title>
+        <v-layout justify-center>
+          <v-flex xs6>
+            <v-img src="paypay.png" />
+          </v-flex>
+        </v-layout>
         <v-card-text>
-          <v-img src="paypay.png" />
-        </v-card-text>
-        <v-card-text>
-          {{ $t('DONATE_WITH_PAYPAY_DESCRIPTION') }}
+          <i18n
+            tag="span"
+            path="DONATE_WITH_PAYPAY_MESSAGE">
+            <span place="id">{{ paypayId }}</span>
+          </i18n>
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
-          <v-btn
-            flat
-            @click="close">
-            {{ $t('CLOSE') }}
-          </v-btn>
+          <app-dialog-button
+            :label="$t('COPY_PAYPAY_ID')"
+            @click="copy" />
+          <app-dialog-button
+            :label="$t('CLOSE')"
+            @click="close" />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -31,12 +38,18 @@
 
 <script>
 import AppButton from '~/components/AppButton'
+import AppDialogButton from '~/components/AppDialogButton'
+import copyToClipboard from '~/modules/copyToClipboard'
+
+const { PAYPAY_ID } = process.env.config
 
 export default {
   components: {
-    AppButton
+    AppButton,
+    AppDialogButton
   },
   data: () => ({
+    paypayId: PAYPAY_ID,
     showDialog: false
   }),
   computed: {
@@ -56,6 +69,10 @@ export default {
     },
     close () {
       this.showDialog = false
+    },
+    copy () {
+      const copied = copyToClipboard(PAYPAY_ID)
+      this.showDialog = !copied
     }
   }
 }

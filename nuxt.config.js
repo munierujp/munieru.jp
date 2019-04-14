@@ -115,6 +115,7 @@ function loadConfig (filepath) {
     const {
       BASE_DIR,
       GOOGLE_ANALYTICS_UA,
+      PAYPAY_ID,
       TWITTER_ID,
       OG_IMAGE_PATH,
       ORIGIN,
@@ -123,6 +124,7 @@ function loadConfig (filepath) {
     return {
       BASE_DIR,
       GOOGLE_ANALYTICS_UA,
+      PAYPAY_ID,
       TWITTER_ID,
       OG_IMAGE_PATH,
       ORIGIN,
