@@ -14,10 +14,24 @@
     "dark": true
   },
   {
+    "title": "Qiitadon",
+    "url": "https://qiitadon.com/@munieru_jp",
+    "image": "https://qiitadon.com/favicon.ico",
+    "color": "#55c500",
+    "dark": true
+  },
+  {
     "title": "GitHub",
     "url": "https://github.com/munierujp",
     "icon": "fab fa-github",
     "color": "#333",
+    "dark": true
+  },
+  {
+    "title": "Dev",
+    "url": "https://dev.to/munieru_jp",
+    "icon": "fab fa-dev",
+    "color": "#0a0a0a",
     "dark": true
   },
   {
@@ -30,8 +44,8 @@
   {
     "title": "Speaker Deck",
     "url": "https://speakerdeck.com/munieru_jp",
-    "image": "https://speakerd.herokuapp.com/assets/favicon.png",
-    "color": "#38444b",
+    "icon": "fab fa-speaker-deck",
+    "color": "#009287",
     "dark": true
   },
   {
