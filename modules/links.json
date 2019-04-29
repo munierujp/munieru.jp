@@ -28,6 +28,13 @@
     "dark": true
   },
   {
+    "title": "Dev",
+    "url": "https://dev.to/munieru_jp",
+    "icon": "fab fa-dev",
+    "color": "#0a0a0a",
+    "dark": true
+  },
+  {
     "title": "Qiita",
     "url": "https://qiita.com/munieru_jp",
     "image": "https://cdn.qiita.com/assets/favicons/public/production.ico",
