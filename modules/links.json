@@ -44,8 +44,8 @@
   {
     "title": "Speaker Deck",
     "url": "https://speakerdeck.com/munieru_jp",
-    "image": "https://speakerd.herokuapp.com/assets/favicon.png",
-    "color": "#38444b",
+    "icon": "fab fa-speaker-deck",
+    "color": "#009287",
     "dark": true
   },
   {
