@@ -14,6 +14,13 @@
     "dark": true
   },
   {
+    "title": "Qiitadon",
+    "url": "https://qiitadon.com/@munieru_jp",
+    "image": "https://qiitadon.com/favicon.ico",
+    "color": "#55c500",
+    "dark": true
+  },
+  {
     "title": "GitHub",
     "url": "https://github.com/munierujp",
     "icon": "fab fa-github",
