@@ -19,5 +19,12 @@
     "url": "https://chrome.google.com/webstore/detail/cyber-xeed-plus/fjcippambnmompkjifmbabafjemcccda",
     "github": "https://github.com/munierujp/cyber-xeed-plus",
     "image": "cyber-xeed-plus.png"
+  },
+  {
+    "title": "Qiita:Team Plus",
+    "description": "Qiita:Teamに便利な機能を追加するChrome拡張",
+    "url": "https://chrome.google.com/webstore/detail/qiitateam-plus/hcfgcklmbbanbcgkdfohjmakcpmghnbj",
+    "github": "https://github.com/munierujp/qiita-team-plus",
+    "image": "qiita-team-plus.png"
   }
 ]
