@@ -2,7 +2,8 @@
   <v-btn
     flat
     class="app-dialog-button"
-    @click="click">
+    @click="click"
+  >
     {{ label }}
   </v-btn>
 </template>

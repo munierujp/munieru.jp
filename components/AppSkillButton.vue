@@ -1,7 +1,10 @@
 <template>
   <v-chip
     outline
-    color="white">{{ name }}</v-chip>
+    color="white"
+  >
+    {{ name }}
+  </v-chip>
 </template>
 
 <script>

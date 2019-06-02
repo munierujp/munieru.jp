@@ -1,7 +1,8 @@
 <template>
   <img
     :src="url"
-    class="app-profile-icon">
+    class="app-profile-icon"
+  >
 </template>
 
 <script>

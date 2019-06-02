@@ -1,5 +1,7 @@
 <template>
-  <h1 class="app-header-1"><slot/></h1>
+  <h1 class="app-header-1">
+    <slot />
+  </h1>
 </template>
 
 <style lang="scss" scoped>

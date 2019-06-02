@@ -2,17 +2,20 @@
   <v-layout
     justify-space-around
     wrap
-    class="app-works">
+    class="app-works"
+  >
     <v-flex
       v-for="work in works"
       :key="work.title"
-      class="app-work">
+      class="app-work"
+    >
       <app-work-card v-bind="work" />
     </v-flex>
     <v-flex
       v-for="work in works"
       :key="work.title"
-      class="app-work app-work-dummy">
+      class="app-work app-work-dummy"
+    >
       <div />
     </v-flex>
   </v-layout>
