@@ -2,10 +2,12 @@
   <div>
     <app-button
       v-bind="link"
-      @click.stop="open" />
+      @click.stop="open"
+    />
     <v-dialog
       v-model="showDialog"
-      width="320px">
+      width="320px"
+    >
       <v-card>
         <v-card-title class="headline">
           {{ $t('DONATE_WITH_PAYPAY_TITLE') }}
@@ -18,18 +20,21 @@
         <v-card-text>
           <i18n
             tag="span"
-            path="DONATE_WITH_PAYPAY_MESSAGE">
+            path="DONATE_WITH_PAYPAY_MESSAGE"
+          >
             <span place="id">{{ paypayId }}</span>
           </i18n>
         </v-card-text>
         <v-card-actions>
-          <v-spacer/>
+          <v-spacer />
           <app-dialog-button
             :label="$t('COPY_PAYPAY_ID')"
-            @click="copy" />
+            @click="copy"
+          />
           <app-dialog-button
             :label="$t('CLOSE')"
-            @click="close" />
+            @click="close"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>

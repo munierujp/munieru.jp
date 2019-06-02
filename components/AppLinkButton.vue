@@ -7,7 +7,8 @@
     :dark="dark"
     :light="light"
     :href="url"
-    target="_blank" />
+    target="_blank"
+  />
 </template>
 
 <script>

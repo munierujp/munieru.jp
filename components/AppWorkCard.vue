@@ -3,23 +3,28 @@
     :href="url"
     target="_blank"
     width="320px"
-    max-width="100%">
+    max-width="100%"
+  >
     <v-img
       :src="image"
-      :aspect-ratio="16 / 9" />
+      :aspect-ratio="16 / 9"
+    />
     <v-card-title primary-title>
       <div>
-        <div class="headline">{{ title }}</div>
+        <div class="headline">
+          {{ title }}
+        </div>
         <div>{{ description }}</div>
       </div>
     </v-card-title>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn
         v-if="github"
         :href="github"
         target="_blank"
-        icon>
+        icon
+      >
         <v-icon>fab fa-github</v-icon>
       </v-btn>
     </v-card-actions>

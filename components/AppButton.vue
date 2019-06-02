@@ -7,25 +7,33 @@
     :to="to"
     :target="target"
     class="app-button"
-    @click="click">
+    @click="click"
+  >
     <v-icon
       v-if="icon"
       :style="iconStyle"
-      class="app-button-icon">{{ icon }}</v-icon>
+      class="app-button-icon"
+    >
+      {{ icon }}
+    </v-icon>
     <v-img
       v-if="image"
       :style="iconStyle"
       :src="image"
       :width="imageWidth"
       :height="imageHeight"
-      class="app-button-icon" />
+      class="app-button-icon"
+    />
     <span
       v-if="label"
-      class="app-button-label">{{ label }}</span>
+      class="app-button-label"
+    >{{ label }}</span>
   </v-btn>
 </template>
 
 <script>
+const DEFAULT_ICON_STYLE = {}
+
 export default {
   props: {
     label: {
@@ -80,6 +88,7 @@ export default {
           'margin-right': '8px'
         }
       }
+      return DEFAULT_ICON_STYLE
     }
   },
   methods: {
