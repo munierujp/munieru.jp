@@ -1,5 +1,6 @@
 {
   "BASE_DIR": "/",
+  "GIFTEE_URL": "https://giftee.co/u/munieru_jp",
   "GOOGLE_ANALYTICS_UA": "UA-100023168-2",
   "PAYPAY_ID": "munieru_jp",
   "TWITTER_ID": "munieru_jp",

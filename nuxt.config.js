@@ -115,6 +115,7 @@ function loadConfig (filepath) {
   } catch (ignored) {
     const {
       BASE_DIR,
+      GIFTEE_URL,
       GOOGLE_ANALYTICS_UA,
       PAYPAY_ID,
       TWITTER_ID,
@@ -124,6 +125,7 @@ function loadConfig (filepath) {
     } = process.env
     return {
       BASE_DIR,
+      GIFTEE_URL,
       GOOGLE_ANALYTICS_UA,
       PAYPAY_ID,
       TWITTER_ID,
