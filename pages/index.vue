@@ -64,6 +64,9 @@
           <v-flex>
             <app-wish-list-button />
           </v-flex>
+          <v-flex>
+            <app-giftee-button />
+          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
@@ -73,6 +76,7 @@
 <script>
 import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
+import AppGifteeButton from '~/components/AppGifteeButton'
 import AppHeader1 from '~/components/AppHeader1'
 import AppHeader2 from '~/components/AppHeader2'
 import AppLinkButton from '~/components/AppLinkButton'
@@ -85,6 +89,7 @@ import AppWorks from '~/components/AppWorks'
 
 export default {
   components: {
+    AppGifteeButton,
     AppHeader1,
     AppHeader2,
     AppLinkButton,
