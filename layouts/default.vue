@@ -19,8 +19,8 @@ export default {
 
 <style lang="scss">
 #app {
-  color: #fafafa;
-  background-color: #0d47a1;
+  color: #293030;
+  background-color: #f9fafb;
   font-family: Roboto, "Noto Sans JP", sans-serif;
 }
 </style>
