@@ -9,10 +9,13 @@
     "name": "JavaScript"
   },
   {
-    "name": "jQuery"
+    "name": "Node.js"
   },
   {
-    "name": "Node.js"
+    "name": "TypeScript"
+  },
+  {
+    "name": "jQuery"
   },
   {
     "name": "Vue.js"
