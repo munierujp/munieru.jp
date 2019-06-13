@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import works from '~/modules/works.json'
+import works from '~/modules/works'
 import AppWorkCard from '~/components/AppWorkCard'
 
 export default {
