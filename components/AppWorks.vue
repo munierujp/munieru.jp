@@ -12,8 +12,8 @@
       <app-work-card v-bind="work" />
     </v-flex>
     <v-flex
-      v-for="work in works"
-      :key="work.title"
+      v-for="i in works.length"
+      :key="i"
       class="app-work app-work-dummy"
     >
       <div />
