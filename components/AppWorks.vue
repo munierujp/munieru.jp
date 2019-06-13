@@ -11,18 +11,20 @@
     >
       <app-work-card v-bind="work" />
     </v-flex>
+    <!-- dummy components for layout (align left) -->
     <v-flex
-      v-for="work in works"
-      :key="work.title"
+      v-for="i in works.length"
+      :key="i"
       class="app-work app-work-dummy"
     >
       <div />
     </v-flex>
+    <!-- /dummy components for layout (align left) -->
   </v-layout>
 </template>
 
 <script>
-import works from '~/modules/works.json'
+import works from '~/modules/works'
 import AppWorkCard from '~/components/AppWorkCard'
 
 export default {
