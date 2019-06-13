@@ -11,6 +11,7 @@
     >
       <app-work-card v-bind="work" />
     </v-flex>
+    <!-- dummy components for layout (align left) -->
     <v-flex
       v-for="i in works.length"
       :key="i"
@@ -18,6 +19,7 @@
     >
       <div />
     </v-flex>
+    <!-- /dummy components for layout (align left) -->
   </v-layout>
 </template>
 
