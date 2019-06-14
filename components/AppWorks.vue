@@ -6,7 +6,7 @@
   >
     <v-flex
       v-for="work in works"
-      :key="work.title"
+      :key="work.key"
       class="app-work"
     >
       <app-work-card v-bind="work" />

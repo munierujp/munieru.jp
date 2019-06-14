@@ -11,10 +11,15 @@
     />
     <v-card-title primary-title>
       <div>
-        <div class="headline">
-          {{ title }}
+        <div class="grey--text">
+          <span>{{ date }}</span>
         </div>
-        <div>{{ description }}</div>
+        <div class="headline">
+          <span>{{ title }}</span>
+        </div>
+        <div>
+          <span>{{ description }}</span>
+        </div>
       </div>
     </v-card-title>
     <v-card-actions>
@@ -39,6 +44,10 @@ export default {
       required: true
     },
     description: {
+      type: String,
+      required: true
+    },
+    date: {
       type: String,
       required: true
     },
