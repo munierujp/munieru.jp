@@ -1,5 +1,6 @@
 export default [
   {
+    key: 'direct_helper',
     title: 'direct helper',
     description: 'ビジネスチャットツールdirectに便利な機能を追加するChrome拡張',
     url: 'https://chrome.google.com/webstore/detail/direct-helper/fhbllgfoempopcijliicheinpdbohdic',
@@ -7,6 +8,7 @@ export default [
     image: require('~/assets/direct_helper.png')
   },
   {
+    key: 'gasunit',
     title: 'GASUnit',
     description: 'Google Apps Script用のテストライブラリ',
     url: 'https://github.com/gasunit/GASUnit',
@@ -14,6 +16,7 @@ export default [
     image: require('~/assets/gasunit.png')
   },
   {
+    key: 'kaibunmaker',
     title: '回文メーカー',
     description: '回文を作って共有できるサービス',
     url: 'http://kaibunmaker.com',
@@ -21,6 +24,7 @@ export default [
     image: require('~/assets/kaibunmaker.png')
   },
   {
+    key: 'cyber-xeed-plus',
     title: 'CYBER XEED PLUS',
     description: '勤怠管理システムCYBER XEEDに便利な機能を追加するChrome拡張',
     url: 'https://chrome.google.com/webstore/detail/cyber-xeed-plus/fjcippambnmompkjifmbabafjemcccda',
@@ -28,6 +32,7 @@ export default [
     image: require('~/assets/cyber-xeed-plus.png')
   },
   {
+    key: 'qiita-team-plus',
     title: 'Qiita:Team Plus',
     description: 'Qiita:Teamに便利な機能を追加するChrome拡張',
     url: 'https://chrome.google.com/webstore/detail/qiitateam-plus/hcfgcklmbbanbcgkdfohjmakcpmghnbj',
