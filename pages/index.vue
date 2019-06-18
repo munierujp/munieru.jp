@@ -51,6 +51,12 @@
         <app-works />
       </v-flex>
       <v-flex>
+        <app-header-2>{{ $t('HEADER_BOOKS') }}</app-header-2>
+      </v-flex>
+      <v-flex>
+        <app-books />
+      </v-flex>
+      <v-flex>
         <app-header-2>{{ $t('HEADER_DONATE') }}</app-header-2>
       </v-flex>
       <v-flex text-xs-center>
@@ -76,6 +82,7 @@
 <script>
 import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
+import AppBooks from '~/components/AppBooks'
 import AppGifteeButton from '~/components/AppGifteeButton'
 import AppHeader1 from '~/components/AppHeader1'
 import AppHeader2 from '~/components/AppHeader2'
@@ -89,6 +96,7 @@ import AppWorks from '~/components/AppWorks'
 
 export default {
   components: {
+    AppBooks,
     AppGifteeButton,
     AppHeader1,
     AppHeader2,
