@@ -70,6 +70,13 @@
     "dark": true
   },
   {
+    "title": "映画.com",
+    "url": "https://eiga.com/mypage/861618/",
+    "image": "https://eiga.k-img.com/favicon.ico",
+    "color": "#044899",
+    "dark": true
+  },
+  {
     "title": "食べログ",
     "url": "https://tabelog.com/rvwr/munieru/",
     "image": "https://tblg.k-img.com/favicon.ico",
