@@ -43,5 +43,14 @@ export default [
     url: 'https://chrome.google.com/webstore/detail/qiitateam-plus/hcfgcklmbbanbcgkdfohjmakcpmghnbj',
     github: 'https://github.com/munierujp/qiita-team-plus',
     image: require('~/assets/qiita-team-plus.png')
+  },
+  {
+    key: 'imgcalc',
+    title: 'imgcalc',
+    description: 'アスペクト比から画像サイズを計算するツール',
+    date: '2019-07-16',
+    url: 'https://imgcalc.netlify.com/',
+    github: 'https://github.com/munierujp/imgcalc',
+    image: require('~/assets/imgcalc.png')
   }
 ]
