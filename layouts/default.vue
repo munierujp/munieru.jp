@@ -1,7 +1,9 @@
 <template>
   <v-app id="app">
     <v-content>
-      <nuxt />
+      <v-container grid-list-xl>
+        <nuxt />
+      </v-container>
     </v-content>
     <app-footer />
   </v-app>
