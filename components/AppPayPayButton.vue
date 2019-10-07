@@ -43,7 +43,7 @@
 
 <script>
 import AppButton from '~/components/elements/AppButton'
-import AppDialogButton from '~/components/AppDialogButton'
+import AppDialogButton from '~/components/elements/AppDialogButton'
 import copyToClipboard from '~/modules/copyToClipboard'
 
 const { PAYPAY_ID } = process.env.config
