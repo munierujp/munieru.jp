@@ -89,7 +89,7 @@ import AppPayPayButton from '~/components/matters/AppPayPayButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
 import AppSkillButton from '~/components/matters/AppSkillButton'
 import AppText from '~/components/elements/AppText'
-import AppWishListButton from '~/components/AppWishListButton'
+import AppWishListButton from '~/components/matters/AppWishListButton'
 import AppWorks from '~/components/AppWorks'
 
 export default {
