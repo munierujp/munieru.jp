@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AppAgeText from '~/components/AppAgeText'
+import AppAgeText from '~/components/matters/AppAgeText'
 
 export default {
   layout: 'fullscreen',

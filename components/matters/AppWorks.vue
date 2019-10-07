@@ -2,20 +2,20 @@
   <v-layout
     justify-space-around
     wrap
-    class="app-books"
+    class="app-works"
   >
     <v-flex
-      v-for="book in books"
-      :key="book.key"
-      class="app-book"
+      v-for="work in works"
+      :key="work.key"
+      class="app-work"
     >
-      <app-book-card v-bind="book" />
+      <app-work-card v-bind="work" />
     </v-flex>
     <!-- dummy components for layout (align left) -->
     <v-flex
-      v-for="i in books.length"
+      v-for="i in works.length"
       :key="i"
-      class="app-book app-book-dummy"
+      class="app-work app-work-dummy"
     >
       <div />
     </v-flex>
@@ -24,33 +24,33 @@
 </template>
 
 <script>
-import books from '~/modules/books'
-import AppBookCard from '~/components/AppBookCard'
+import works from '~/modules/works'
+import AppWorkCard from '~/components/matters/AppWorkCard'
 
 export default {
   components: {
-    AppBookCard
+    AppWorkCard
   },
   data: () => ({
-    books
+    works
   })
 }
 </script>
 
 <style lang="scss" scoped>
-$book-card-width: 320px;
+$work-card-width: 320px;
 
-.app-book {
+.app-work {
   flex-grow: 0;
 }
 
-.app-book-dummy {
+.app-work-dummy {
   height: 0;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 
   div {
-    width: $book-card-width;
+    width: $work-card-width;
   }
 }
 </style>

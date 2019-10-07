@@ -80,17 +80,17 @@
 <script>
 import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
-import AppBooks from '~/components/AppBooks'
-import AppGifteeButton from '~/components/AppGifteeButton'
-import AppHeader1 from '~/components/AppHeader1'
-import AppHeader2 from '~/components/AppHeader2'
-import AppLinkButton from '~/components/AppLinkButton'
-import AppPayPayButton from '~/components/AppPayPayButton'
-import AppProfileIcon from '~/components/AppProfileIcon'
-import AppSkillButton from '~/components/AppSkillButton'
-import AppText from '~/components/AppText'
-import AppWishListButton from '~/components/AppWishListButton'
-import AppWorks from '~/components/AppWorks'
+import AppBooks from '~/components/matters/AppBooks'
+import AppGifteeButton from '~/components/matters/AppGifteeButton'
+import AppHeader1 from '~/components/elements/AppHeader1'
+import AppHeader2 from '~/components/elements/AppHeader2'
+import AppLinkButton from '~/components/elements/AppLinkButton'
+import AppPayPayButton from '~/components/matters/AppPayPayButton'
+import AppProfileIcon from '~/components/matters/AppProfileIcon'
+import AppSkillButton from '~/components/matters/AppSkillButton'
+import AppText from '~/components/elements/AppText'
+import AppWishListButton from '~/components/matters/AppWishListButton'
+import AppWorks from '~/components/matters/AppWorks'
 
 export default {
   components: {
