@@ -80,7 +80,7 @@
 <script>
 import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
-import AppBooks from '~/components/AppBooks'
+import AppBooks from '~/components/matters/AppBooks'
 import AppGifteeButton from '~/components/AppGifteeButton'
 import AppHeader1 from '~/components/elements/AppHeader1'
 import AppHeader2 from '~/components/elements/AppHeader2'
