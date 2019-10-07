@@ -88,7 +88,7 @@ import AppLinkButton from '~/components/elements/AppLinkButton'
 import AppPayPayButton from '~/components/AppPayPayButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
 import AppSkillButton from '~/components/AppSkillButton'
-import AppText from '~/components/AppText'
+import AppText from '~/components/elements/AppText'
 import AppWishListButton from '~/components/AppWishListButton'
 import AppWorks from '~/components/AppWorks'
 
