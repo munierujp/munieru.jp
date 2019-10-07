@@ -25,7 +25,7 @@
 
 <script>
 import works from '~/modules/works'
-import AppWorkCard from '~/components/AppWorkCard'
+import AppWorkCard from '~/components/matters/AppWorkCard'
 
 export default {
   components: {
