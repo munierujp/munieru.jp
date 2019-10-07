@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import AppButton from '~/components/AppButton'
+import AppButton from '~/components/elements/AppButton'
 import AppDialogButton from '~/components/AppDialogButton'
 import copyToClipboard from '~/modules/copyToClipboard'
 
