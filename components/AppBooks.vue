@@ -25,7 +25,7 @@
 
 <script>
 import books from '~/modules/books'
-import AppBookCard from '~/components/AppBookCard'
+import AppBookCard from '~/components/matters/AppBookCard'
 
 export default {
   components: {
