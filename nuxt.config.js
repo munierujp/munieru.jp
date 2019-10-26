@@ -116,6 +116,7 @@ function loadConfig (filepath) {
     const {
       BASE_DIR,
       GIFTEE_URL,
+      GITHUB_SPONSOERS_URL,
       GOOGLE_ANALYTICS_UA,
       PAYPAY_ID,
       TWITTER_ID,
@@ -126,6 +127,7 @@ function loadConfig (filepath) {
     return {
       BASE_DIR,
       GIFTEE_URL,
+      GITHUB_SPONSOERS_URL,
       GOOGLE_ANALYTICS_UA,
       PAYPAY_ID,
       TWITTER_ID,
