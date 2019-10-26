@@ -67,6 +67,9 @@
           <app-git-hub-sponsors-button />
         </v-flex>
         <v-flex>
+          <app-pay-pal-button />
+        </v-flex>
+        <v-flex>
           <app-pay-pay-button />
         </v-flex>
         <v-flex>
@@ -89,6 +92,7 @@ import AppGitHubSponsorsButton from '~/components/matters/AppGitHubSponsorsButto
 import AppHeader1 from '~/components/elements/AppHeader1'
 import AppHeader2 from '~/components/elements/AppHeader2'
 import AppLinkButton from '~/components/elements/AppLinkButton'
+import AppPayPalButton from '~/components/matters/AppPayPalButton'
 import AppPayPayButton from '~/components/matters/AppPayPayButton'
 import AppProfileIcon from '~/components/matters/AppProfileIcon'
 import AppSkillButton from '~/components/matters/AppSkillButton'
@@ -104,6 +108,7 @@ export default {
     AppHeader1,
     AppHeader2,
     AppLinkButton,
+    AppPayPalButton,
     AppPayPayButton,
     AppProfileIcon,
     AppSkillButton,
