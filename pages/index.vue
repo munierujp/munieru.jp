@@ -64,6 +64,9 @@
         wrap
       >
         <v-flex>
+          <app-git-hub-sponsors-button />
+        </v-flex>
+        <v-flex>
           <app-pay-pay-button />
         </v-flex>
         <v-flex>
@@ -82,6 +85,7 @@ import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
 import AppBooks from '~/components/matters/AppBooks'
 import AppGifteeButton from '~/components/matters/AppGifteeButton'
+import AppGitHubSponsorsButton from '~/components/matters/AppGitHubSponsorsButton'
 import AppHeader1 from '~/components/elements/AppHeader1'
 import AppHeader2 from '~/components/elements/AppHeader2'
 import AppLinkButton from '~/components/elements/AppLinkButton'
@@ -96,6 +100,7 @@ export default {
   components: {
     AppBooks,
     AppGifteeButton,
+    AppGitHubSponsorsButton,
     AppHeader1,
     AppHeader2,
     AppLinkButton,
