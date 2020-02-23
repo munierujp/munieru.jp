@@ -6,6 +6,7 @@
     max-width="100%"
   >
     <v-img
+      v-if="image"
       :src="image"
       :aspect-ratio="16 / 9"
     />

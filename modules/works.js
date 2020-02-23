@@ -52,5 +52,14 @@ export default [
     url: 'https://imgcalc.netlify.com/',
     github: 'https://github.com/munierujp/imgcalc',
     image: require('~/assets/imgcalc.png')
+  },
+  {
+    key: 'kintai',
+    title: 'kintai',
+    description: '勤怠管理システム',
+    date: '2019-12-25',
+    url: 'https://kintai.munieru.app/',
+    github: 'https://github.com/munierujp/kintai',
+    image: require('~/assets/kintai.png')
   }
 ]
