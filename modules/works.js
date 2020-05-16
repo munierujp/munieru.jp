@@ -37,7 +37,7 @@ export default [
   },
   {
     key: 'qiita-team-plus',
-    title: 'Qiita:Team Plus',
+    title: 'Qiita Team Plus',
     description: 'Qiita:Teamに便利な機能を追加するChrome拡張',
     date: '2019-05-13',
     url: 'https://chrome.google.com/webstore/detail/qiitateam-plus/hcfgcklmbbanbcgkdfohjmakcpmghnbj',
