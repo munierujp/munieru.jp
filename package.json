@@ -26,7 +26,7 @@
     "@nuxtjs/google-analytics": "2.4.0",
     "babel-eslint": "8.2.6",
     "eslint": "5.16.0",
-    "eslint-config-standard": "12.0.0",
+    "eslint-config-standard": "15.0.1",
     "eslint-loader": "2.2.1",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-node": "8.0.1",
