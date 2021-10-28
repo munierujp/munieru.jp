@@ -30,7 +30,7 @@
     "eslint-loader": "2.2.1",
     "eslint-plugin-import": "2.23.4",
     "eslint-plugin-node": "8.0.1",
-    "eslint-plugin-promise": "5.1.0",
+    "eslint-plugin-promise": "5.1.1",
     "eslint-plugin-standard": "4.1.0",
     "eslint-plugin-vue": "4.7.1",
     "get-age": "1.0.1",
