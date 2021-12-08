@@ -4,9 +4,6 @@
   "APP_DESCRIPTION": "ムニエルのウェブサイト",
   "BIO": "江戸川区在住のアプリケーションエンジニア。<br>埼玉生まれ東京育ち。<br>趣味は読書とプログラミング。",
   "CLOSE": "閉じる",
-  "COPY_PAYPAY_ID": "PayPay IDをコピー",
-  "DONATE_WITH_PAYPAY_TITLE": "PayPayで寄付",
-  "DONATE_WITH_PAYPAY_MESSAGE": "PayPayアプリでQRコードを読み取るか、PayPay IDとして {id} を入力してください。",
   "FOOTER_CREATOR": "Created by {creator}",
   "FOOTER_CREATOR_URL": "https://twitter.com/munieru_jp",
   "FOOTER_CREATOR_LABEL": "@munieru_jp",
@@ -23,6 +20,5 @@
   "HEADER_WORKS": "Works",
   "NAME": "ムニエル",
   "PAYPAL": "PayPal",
-  "PAYPAY": "PayPay",
   "WISH_LIST": "ほしい物リスト"
 }

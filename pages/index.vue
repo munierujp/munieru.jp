@@ -70,9 +70,6 @@
           <app-pay-pal-button />
         </v-flex>
         <v-flex>
-          <app-pay-pay-button />
-        </v-flex>
-        <v-flex>
           <app-wish-list-button />
         </v-flex>
         <v-flex>
@@ -93,7 +90,6 @@ import AppHeader1 from '~/components/elements/AppHeader1'
 import AppHeader2 from '~/components/elements/AppHeader2'
 import AppLinkButton from '~/components/elements/AppLinkButton'
 import AppPayPalButton from '~/components/matters/AppPayPalButton'
-import AppPayPayButton from '~/components/matters/AppPayPayButton'
 import AppProfileIcon from '~/components/matters/AppProfileIcon'
 import AppSkillButton from '~/components/matters/AppSkillButton'
 import AppText from '~/components/elements/AppText'
@@ -109,7 +105,6 @@ export default {
     AppHeader2,
     AppLinkButton,
     AppPayPalButton,
-    AppPayPayButton,
     AppProfileIcon,
     AppSkillButton,
     AppText,
