@@ -7,7 +7,7 @@
       <app-header-1>{{ $t('APP_NAME') }}</app-header-1>
     </v-flex>
     <v-flex>
-      <app-profile-icon url="icon.png" />
+      <app-profile-icon url="profile.jpg" />
     </v-flex>
     <v-flex text-xs-center>
       <app-text
