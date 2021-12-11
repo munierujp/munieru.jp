@@ -1,35 +1,47 @@
 [
   {
-    "name": "Java"
+    "name": "Chrome Extension"
+  },
+  {
+    "name": "CSS"
   },
   {
     "name": "Go"
   },
   {
+    "name": "Google Apps Script"
+  },
+  {
+    "name": "HTML"
+  },
+  {
+    "name": "Java"
+  },
+  {
     "name": "JavaScript"
-  },
-  {
-    "name": "Node.js"
-  },
-  {
-    "name": "TypeScript"
   },
   {
     "name": "jQuery"
   },
   {
-    "name": "Vue.js"
+    "name": "Node.js"
   },
   {
     "name": "Nuxt.js"
   },
   {
+    "name": "React"
+  },
+  {
+    "name": "Sass"
+  },
+  {
+    "name": "TypeScript"
+  },
+  {
+    "name": "Vue.js"
+  },
+  {
     "name": "Vuetify.js"
-  },
-  {
-    "name": "Google Apps Script"
-  },
-  {
-    "name": "Chrome Extension"
   }
 ]
