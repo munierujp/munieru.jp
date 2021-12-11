@@ -1,35 +1,35 @@
 [
   {
-    "name": "Java"
+    "name": "Chrome Extension"
   },
   {
     "name": "Go"
   },
   {
+    "name": "Google Apps Script"
+  },
+  {
+    "name": "Java"
+  },
+  {
     "name": "JavaScript"
-  },
-  {
-    "name": "Node.js"
-  },
-  {
-    "name": "TypeScript"
   },
   {
     "name": "jQuery"
   },
   {
-    "name": "Vue.js"
+    "name": "Node.js"
   },
   {
     "name": "Nuxt.js"
   },
   {
+    "name": "TypeScript"
+  },
+  {
+    "name": "Vue.js"
+  },
+  {
     "name": "Vuetify.js"
-  },
-  {
-    "name": "Google Apps Script"
-  },
-  {
-    "name": "Chrome Extension"
   }
 ]
