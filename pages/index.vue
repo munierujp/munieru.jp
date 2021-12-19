@@ -56,7 +56,7 @@
       <app-books />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_DONATE') }}</app-header-2>
+      <app-header-2>{{ $t('HEADER_DONATION') }}</app-header-2>
     </v-flex>
     <v-flex text-xs-center>
       <v-layout
