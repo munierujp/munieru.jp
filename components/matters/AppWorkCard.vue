@@ -5,11 +5,6 @@
     width="320px"
     max-width="100%"
   >
-    <v-img
-      v-if="image"
-      :src="image"
-      :aspect-ratio="16 / 9"
-    />
     <v-card-title primary-title>
       <div>
         <div class="grey--text">
@@ -59,10 +54,6 @@ export default {
     github: {
       type: String,
       default: ''
-    },
-    image: {
-      type: String,
-      required: true
     }
   }
 }
