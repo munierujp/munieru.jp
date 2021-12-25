@@ -54,5 +54,13 @@ export default [
     date: '2019-12-25',
     url: 'https://kintai.munieru.app/',
     github: 'https://github.com/munierujp/kintai'
+  },
+  {
+    key: 'npm-update-package',
+    title: 'npm-update-package',
+    description: 'npmパッケージを更新するためのプルリクエストを作成するためのCLIツール',
+    date: '2021-11-24',
+    url: 'https://github.com/npm-update-package/npm-update-package',
+    github: 'https://github.com/npm-update-package/npm-update-package'
   }
 ]
