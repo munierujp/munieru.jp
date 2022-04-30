@@ -1,4 +1,6 @@
+const fiber = require('fibers')
 const fs = require('fs')
+const sass = require('sass')
 const { URL } = require('url')
 const Stylelint = require('stylelint-webpack-plugin')
 
@@ -95,6 +97,14 @@ module.exports = {
         config.plugins.push(new Stylelint({
           files: '**/*.{css,scss,vue}'
         }))
+      }
+    },
+    loaders: {
+      scss: {
+        implementation: sass,
+        sassOptions: {
+          fiber
+        }
       }
     }
   },
