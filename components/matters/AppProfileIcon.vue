@@ -19,7 +19,7 @@ export default {
 <style lang="scss" scoped>
 $relative-max-width: 600px;
 $absolute-size: 300px;
-$relative-size: 100vw * ($absolute-size / $relative-max-width);
+$relative-size: 100vw * calc($absolute-size / $relative-max-width);
 
 .app-profile-icon {
   width: $absolute-size;
