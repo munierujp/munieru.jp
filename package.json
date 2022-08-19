@@ -7,12 +7,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt",
-    "fix": "npm-run-all -p fix:*",
-    "fix:css": "stylelint --fix '**/*.{css,scss,vue}'",
     "generate": "nuxt generate",
-    "lint": "npm-run-all -p lint:*",
-    "lint:css": "stylelint '**/*.{css,scss,vue}'",
-    "precommit": "npm run lint",
     "start": "nuxt start"
   },
   "dependencies": {
@@ -29,10 +24,6 @@
     "nuxt-i18n": "6.28.1",
     "sass": "1.54.4",
     "sass-loader": "10.3.1",
-    "stylelint": "13.13.1",
-    "stylelint-config-standard": "22.0.0",
-    "stylelint-scss": "3.21.0",
-    "stylelint-webpack-plugin": "3.3.0",
     "stylus": "0.59.0",
     "stylus-loader": "4.3.3"
   }
