@@ -16,7 +16,7 @@
     "vuetify": "1.5.24"
   },
   "devDependencies": {
-    "@babel/core": "7.18.10",
+    "@babel/core": "7.18.13",
     "@nuxtjs/google-analytics": "2.4.0",
     "fibers": "5.0.2",
     "nodemon": "2.0.19",
