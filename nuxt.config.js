@@ -1,4 +1,3 @@
-const fiber = require('fibers')
 const fs = require('fs')
 const sass = require('sass')
 const { URL } = require('url')
@@ -87,10 +86,7 @@ module.exports = {
     extend (config, ctx) {},
     loaders: {
       scss: {
-        implementation: sass,
-        sassOptions: {
-          fiber
-        }
+        implementation: sass
       }
     }
   },
