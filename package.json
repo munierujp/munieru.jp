@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27928371.c30fa0f",
     "@nuxtjs/google-analytics": "2.4.0",
     "nodemon": "2.0.20",
     "nuxt-i18n": "6.28.1",
