@@ -1,6 +1,9 @@
-const fs = require('fs')
-const sass = require('sass')
-const { URL } = require('url')
+import { defineNuxtConfig } from '@nuxt/bridge'
+import fs from 'fs'
+import sass from 'sass'
+import { URL } from 'url'
+import lang from './lang/ja.json'
+import i18n from './nuxt-i18n.config.json'
 
 const config = loadConfig('./config.json')
 const { BASE_DIR, GOOGLE_ANALYTICS_UA, TWITTER_ID, OG_IMAGE_PATH, ORIGIN } = config
@@ -8,12 +11,40 @@ const BASE_URL = new URL(BASE_DIR, ORIGIN).toString()
 const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, BASE_URL).toString()
 const TWITTER_ACCOUNT = `@${TWITTER_ID}`
 
-const i18n = require('./nuxt-i18n.config')
-const lang = require(`./${i18n.langDir}${i18n.defaultLocale}`)
 const APP_NAME = lang.APP_NAME
 const APP_DESCRIPTION = lang.APP_DESCRIPTION
 
-module.exports = {
+const loadConfig = (filepath) => {
+  try {
+    const data = fs.readFileSync(filepath, 'utf-8')
+    return JSON.parse(data)
+  } catch (ignored) {
+    const {
+      BASE_DIR,
+      GIFTEE_URL,
+      GITHUB_SPONSOERS_URL,
+      GOOGLE_ANALYTICS_UA,
+      PAYPAL_URL,
+      TWITTER_ID,
+      OG_IMAGE_PATH,
+      ORIGIN,
+      WISH_LIST_URL
+    } = process.env
+    return {
+      BASE_DIR,
+      GIFTEE_URL,
+      GITHUB_SPONSOERS_URL,
+      GOOGLE_ANALYTICS_UA,
+      PAYPAL_URL,
+      TWITTER_ID,
+      OG_IMAGE_PATH,
+      ORIGIN,
+      WISH_LIST_URL
+    }
+  }
+}
+
+export default defineNuxtConfig({
   mode: 'spa',
 
   /*
@@ -98,34 +129,4 @@ module.exports = {
   env: {
     config
   }
-}
-
-function loadConfig (filepath) {
-  try {
-    const data = fs.readFileSync(filepath, 'utf-8')
-    return JSON.parse(data)
-  } catch (ignored) {
-    const {
-      BASE_DIR,
-      GIFTEE_URL,
-      GITHUB_SPONSOERS_URL,
-      GOOGLE_ANALYTICS_UA,
-      PAYPAL_URL,
-      TWITTER_ID,
-      OG_IMAGE_PATH,
-      ORIGIN,
-      WISH_LIST_URL
-    } = process.env
-    return {
-      BASE_DIR,
-      GIFTEE_URL,
-      GITHUB_SPONSOERS_URL,
-      GOOGLE_ANALYTICS_UA,
-      PAYPAL_URL,
-      TWITTER_ID,
-      OG_IMAGE_PATH,
-      ORIGIN,
-      WISH_LIST_URL
-    }
-  }
-}
+})
