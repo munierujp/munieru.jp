@@ -5,10 +5,10 @@
   "author": "Munieru",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt",
-    "generate": "nuxt generate",
-    "start": "nuxt start"
+    "build": "nuxi build",
+    "dev": "nuxi dev",
+    "generate": "nuxi generate",
+    "start": "nuxi preview"
   },
   "dependencies": {
     "cross-env": "7.0.3",
