@@ -5,15 +5,6 @@ import { URL } from 'url'
 import lang from './lang/ja.json'
 import i18n from './nuxt-i18n.config.json'
 
-const config = loadConfig('./config.json')
-const { BASE_DIR, GOOGLE_ANALYTICS_UA, TWITTER_ID, OG_IMAGE_PATH, ORIGIN } = config
-const BASE_URL = new URL(BASE_DIR, ORIGIN).toString()
-const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, BASE_URL).toString()
-const TWITTER_ACCOUNT = `@${TWITTER_ID}`
-
-const APP_NAME = lang.APP_NAME
-const APP_DESCRIPTION = lang.APP_DESCRIPTION
-
 const loadConfig = (filepath) => {
   try {
     const data = fs.readFileSync(filepath, 'utf-8')
@@ -43,6 +34,15 @@ const loadConfig = (filepath) => {
     }
   }
 }
+
+const config = loadConfig('./config.json')
+const { BASE_DIR, GOOGLE_ANALYTICS_UA, TWITTER_ID, OG_IMAGE_PATH, ORIGIN } = config
+const BASE_URL = new URL(BASE_DIR, ORIGIN).toString()
+const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, BASE_URL).toString()
+const TWITTER_ACCOUNT = `@${TWITTER_ID}`
+
+const APP_NAME = lang.APP_NAME
+const APP_DESCRIPTION = lang.APP_DESCRIPTION
 
 export default defineNuxtConfig({
   mode: 'spa',
