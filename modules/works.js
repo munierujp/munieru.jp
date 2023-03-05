@@ -62,5 +62,13 @@ export default [
     date: '2021-11-24',
     url: 'https://github.com/npm-update-package/npm-update-package',
     github: 'https://github.com/npm-update-package/npm-update-package'
+  },
+  {
+    key: 'chatgpt-web-app',
+    title: 'ChatGPT Web App',
+    description: 'ChatGPTのためのウェブアプリ',
+    date: '2023-03-05',
+    url: 'https://chatgpt.munieru.app/',
+    github: 'https://github.com/munierujp/chatgpt-web-app'
   }
 ]
