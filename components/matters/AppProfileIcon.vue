@@ -2,6 +2,9 @@
   <img
     :src="url"
     class="app-profile-icon"
+    width="300"
+    height="300"
+    decoding="async"
   >
 </template>
 
@@ -17,25 +20,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$relative-max-width: 600px;
-$absolute-size: 300px;
-$relative-size: 100vw * calc($absolute-size / $relative-max-width);
-
 .app-profile-icon {
-  width: $absolute-size;
-  height: $absolute-size;
-  border: {
-    style: solid;
-    color: #fff;
-    width: 4px;
-    radius: 50%;
-  }
-}
-
-@media (max-width: $relative-max-width) {
-  .app-profile-icon {
-    width: $relative-size;
-    height: $relative-size;
-  }
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
 }
 </style>
