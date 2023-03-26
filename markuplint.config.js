@@ -30,22 +30,11 @@ const config = {
           }
         }
       }
-    }
-  },
-  nodeRules: [
-    {
-      selector: '.app-header-1',
-      rules: {
-        'require-accessible-name': false
-      }
     },
-    {
-      selector: '.app-header-2',
-      rules: {
-        'require-accessible-name': false
-      }
+    'require-accessible-name': {
+      severity: 'warning'
     }
-  ]
+  }
 }
 
 module.exports = config
