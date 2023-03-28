@@ -4,7 +4,7 @@
     align-center
   >
     <v-flex>
-      <app-header-1>{{ $t('APP_NAME') }}</app-header-1>
+      <app-heading-first>{{ $t('APP_NAME') }}</app-heading-first>
     </v-flex>
     <v-flex>
       <app-profile-icon url="profile.jpg" />
@@ -24,7 +24,7 @@
       />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_LINKS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_LINKS') }}</app-heading-second>
     </v-flex>
     <v-flex text-xs-center>
       <app-link-button
@@ -34,7 +34,7 @@
       />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_SKILLS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_SKILLS') }}</app-heading-second>
     </v-flex>
     <v-flex text-xs-center>
       <app-skill-button
@@ -44,19 +44,19 @@
       />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_WORKS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_WORKS') }}</app-heading-second>
     </v-flex>
     <v-flex>
       <app-works />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_BOOKS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_BOOKS') }}</app-heading-second>
     </v-flex>
     <v-flex>
       <app-books />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_DONATION') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_DONATION') }}</app-heading-second>
     </v-flex>
     <v-flex text-xs-center>
       <v-layout
@@ -81,28 +81,28 @@
 </template>
 
 <script>
+import AppBooks from '~/components/AppBooks'
+import AppGifteeButton from '~/components/AppGifteeButton'
+import AppGitHubSponsorsButton from '~/components/AppGitHubSponsorsButton'
+import AppHeadingFirst from '~/components/AppHeadingFirst'
+import AppHeadingSecond from '~/components/AppHeadingSecond'
+import AppLinkButton from '~/components/AppLinkButton'
+import AppPayPalButton from '~/components/AppPayPalButton'
+import AppProfileIcon from '~/components/AppProfileIcon'
+import AppSkillButton from '~/components/AppSkillButton'
+import AppText from '~/components/AppText'
+import AppWishListButton from '~/components/AppWishListButton'
+import AppWorks from '~/components/AppWorks'
 import links from '~/modules/links.json'
 import skills from '~/modules/skills.json'
-import AppBooks from '~/components/matters/AppBooks'
-import AppGifteeButton from '~/components/matters/AppGifteeButton'
-import AppGitHubSponsorsButton from '~/components/matters/AppGitHubSponsorsButton'
-import AppHeader1 from '~/components/elements/AppHeader1'
-import AppHeader2 from '~/components/elements/AppHeader2'
-import AppLinkButton from '~/components/elements/AppLinkButton'
-import AppPayPalButton from '~/components/matters/AppPayPalButton'
-import AppProfileIcon from '~/components/matters/AppProfileIcon'
-import AppSkillButton from '~/components/matters/AppSkillButton'
-import AppText from '~/components/elements/AppText'
-import AppWishListButton from '~/components/matters/AppWishListButton'
-import AppWorks from '~/components/matters/AppWorks'
 
 export default {
   components: {
     AppBooks,
     AppGifteeButton,
     AppGitHubSponsorsButton,
-    AppHeader1,
-    AppHeader2,
+    AppHeadingFirst,
+    AppHeadingSecond,
     AppLinkButton,
     AppPayPalButton,
     AppProfileIcon,

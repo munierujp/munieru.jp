@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AppLinkButton from '~/components/elements/AppLinkButton'
+import AppLinkButton from '~/components/AppLinkButton'
 
 const { WISH_LIST_URL } = process.env.config
 

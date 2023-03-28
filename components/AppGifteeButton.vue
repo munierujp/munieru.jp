@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AppLinkButton from '~/components/elements/AppLinkButton'
+import AppLinkButton from '~/components/AppLinkButton'
 
 const { GIFTEE_URL } = process.env.config
 
