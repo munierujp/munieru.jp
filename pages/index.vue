@@ -4,7 +4,7 @@
     align-center
   >
     <v-flex>
-      <app-header-1>{{ $t('APP_NAME') }}</app-header-1>
+      <app-heading-first>{{ $t('APP_NAME') }}</app-heading-first>
     </v-flex>
     <v-flex>
       <app-profile-icon url="profile.jpg" />
@@ -84,7 +84,7 @@
 import AppBooks from '~/components/AppBooks'
 import AppGifteeButton from '~/components/AppGifteeButton'
 import AppGitHubSponsorsButton from '~/components/AppGitHubSponsorsButton'
-import AppHeader1 from '~/components/AppHeader1'
+import AppHeadingFirst from '~/components/AppHeadingFirst'
 import AppHeader2 from '~/components/AppHeader2'
 import AppLinkButton from '~/components/AppLinkButton'
 import AppPayPalButton from '~/components/AppPayPalButton'
@@ -101,7 +101,7 @@ export default {
     AppBooks,
     AppGifteeButton,
     AppGitHubSponsorsButton,
-    AppHeader1,
+    AppHeadingFirst,
     AppHeader2,
     AppLinkButton,
     AppPayPalButton,

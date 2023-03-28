@@ -1,5 +1,5 @@
 <template>
-  <h1 class="app-header-1">
+  <h1 class="app-heading-first">
     <slot />
   </h1>
 </template>
@@ -10,13 +10,13 @@ $ratio: 0.18;
 $relative-font-size: 100vw * $ratio;
 $absolute-font-size: $relative-max-width * $ratio;
 
-.app-header-1 {
+.app-heading-first {
   overflow-wrap: break-word;
   font-size: $absolute-font-size;
 }
 
 @media (max-width: $relative-max-width) {
-  .app-header-1 {
+  .app-heading-first {
     font-size: $relative-font-size;
   }
 }
