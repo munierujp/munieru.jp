@@ -18,7 +18,7 @@
     "vuetify": "1.5.24"
   },
   "devDependencies": {
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.3",
     "@markuplint/vue-parser": "3.5.0",
     "@markuplint/vue-spec": "3.5.0",
     "@nuxtjs/google-analytics": "2.4.0",
