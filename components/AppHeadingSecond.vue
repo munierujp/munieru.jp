@@ -1,5 +1,5 @@
 <template>
-  <h2 class="app-header-2">
+  <h2 class="app-heading-second">
     <slot />
   </h2>
 </template>
@@ -10,13 +10,13 @@ $ratio: 0.09;
 $relative-font-size: 100vw * $ratio;
 $absolute-font-size: $relative-max-width * $ratio;
 
-.app-header-2 {
+.app-heading-second {
   overflow-wrap: break-word;
   font-size: $absolute-font-size;
 }
 
 @media (max-width: $relative-max-width) {
-  .app-header-2 {
+  .app-heading-second {
     font-size: $relative-font-size;
   }
 }

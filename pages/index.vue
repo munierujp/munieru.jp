@@ -24,7 +24,7 @@
       />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_LINKS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_LINKS') }}</app-heading-second>
     </v-flex>
     <v-flex text-xs-center>
       <app-link-button
@@ -34,7 +34,7 @@
       />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_SKILLS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_SKILLS') }}</app-heading-second>
     </v-flex>
     <v-flex text-xs-center>
       <app-skill-button
@@ -44,19 +44,19 @@
       />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_WORKS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_WORKS') }}</app-heading-second>
     </v-flex>
     <v-flex>
       <app-works />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_BOOKS') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_BOOKS') }}</app-heading-second>
     </v-flex>
     <v-flex>
       <app-books />
     </v-flex>
     <v-flex>
-      <app-header-2>{{ $t('HEADER_DONATION') }}</app-header-2>
+      <app-heading-second>{{ $t('HEADER_DONATION') }}</app-heading-second>
     </v-flex>
     <v-flex text-xs-center>
       <v-layout
@@ -85,7 +85,7 @@ import AppBooks from '~/components/AppBooks'
 import AppGifteeButton from '~/components/AppGifteeButton'
 import AppGitHubSponsorsButton from '~/components/AppGitHubSponsorsButton'
 import AppHeadingFirst from '~/components/AppHeadingFirst'
-import AppHeader2 from '~/components/AppHeader2'
+import AppHeadingSecond from '~/components/AppHeadingSecond'
 import AppLinkButton from '~/components/AppLinkButton'
 import AppPayPalButton from '~/components/AppPayPalButton'
 import AppProfileIcon from '~/components/AppProfileIcon'
@@ -102,7 +102,7 @@ export default {
     AppGifteeButton,
     AppGitHubSponsorsButton,
     AppHeadingFirst,
-    AppHeader2,
+    AppHeadingSecond,
     AppLinkButton,
     AppPayPalButton,
     AppProfileIcon,
