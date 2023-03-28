@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import AppButton from '~/components/elements/AppButton'
+import AppButton from '~/components/AppButton'
 
 export default {
   components: {

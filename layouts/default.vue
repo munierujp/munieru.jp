@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AppFooter from '~/components/matters/AppFooter'
+import AppFooter from '~/components/AppFooter'
 
 export default {
   components: {
