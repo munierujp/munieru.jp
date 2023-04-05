@@ -70,5 +70,13 @@ export default [
     date: '2023-03-05',
     url: 'https://chatgpt.munieru.app/',
     github: 'https://github.com/munierujp/chatgpt-web-app'
+  },
+  {
+    key: 'anohi-no-tweet',
+    title: '#あの日のツイートを表示するやつ',
+    description: 'ChatGPTのためのウェブアプリ',
+    date: '2023-04-06',
+    url: 'http://anohi-no-tweet.munieru.app/',
+    github: 'https://github.com/munierujp/anohi-no-tweet'
   }
 ]
