@@ -78,5 +78,13 @@ export default [
     date: '2023-04-06',
     url: 'http://anohi-no-tweet.munieru.app/',
     github: 'https://github.com/munierujp/anohi-no-tweet'
+  },
+  {
+    key: 'tweet-web-app',
+    title: 'Tweet Web App',
+    description: 'ツイートをするためのウェブアプリ',
+    date: '2023-04-09',
+    url: 'https://tweet.munieru.app/',
+    github: 'https://github.com/munierujp/tweet-web-app'
   }
 ]
