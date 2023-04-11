@@ -74,7 +74,7 @@ export default [
   {
     key: 'anohi-no-tweet',
     title: '#あの日のツイートを表示するやつ',
-    description: '指定した日付のツイートの検索結果、Twilog、ツイセーブなどを開きます。',
+    description: '指定した条件にマッチするツイートの検索結果、Twilog、ツイセーブなどを開くためのウェブアプリ',
     date: '2023-04-06',
     url: 'http://anohi-no-tweet.munieru.app/',
     github: 'https://github.com/munierujp/anohi-no-tweet'
