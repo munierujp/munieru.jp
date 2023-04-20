@@ -35,6 +35,13 @@
     "dark": true
   },
   {
+    "title": "Zenn",
+    "url": "https://zenn.dev/munieru_jp",
+    "image": "https://zenn.dev/favicon.ico",
+    "color": "#3ea8ff",
+    "dark": true
+  },
+  {
     "title": "Speaker Deck",
     "url": "https://speakerdeck.com/munieru_jp",
     "icon": "fab fa-speaker-deck",
