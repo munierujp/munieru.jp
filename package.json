@@ -23,7 +23,7 @@
     "@markuplint/vue-spec": "3.5.0",
     "@nuxtjs/google-analytics": "2.4.0",
     "markuplint": "3.5.0",
-    "nodemon": "2.0.20",
+    "nodemon": "2.0.22",
     "npm-run-all2": "6.0.4",
     "nuxt-i18n": "6.28.1",
     "sass": "1.60.0",
