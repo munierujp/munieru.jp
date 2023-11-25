@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.22.9",
-    "@markuplint/vue-parser": "3.9.1",
+    "@markuplint/vue-parser": "3.11.0",
     "@markuplint/vue-spec": "3.10.0",
     "@nuxtjs/google-analytics": "2.4.0",
     "markuplint": "3.12.0",
