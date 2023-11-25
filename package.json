@@ -12,6 +12,9 @@
     "lint:html": "markuplint \"**/*.{html,vue}\"",
     "start": "nuxt start"
   },
+  "engines": {
+    "node": "16.19.1"
+  },
   "dependencies": {
     "cross-env": "7.0.3",
     "nuxt": "2.16.3",
