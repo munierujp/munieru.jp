@@ -44,7 +44,7 @@ export default [
     title: 'imgcalc',
     description: 'アスペクト比から画像サイズを計算するツール',
     date: '2019-07-16',
-    url: 'https://imgcalc.netlify.com/',
+    url: 'https://imgcalc.munieru.app/',
     github: 'https://github.com/munierujp/imgcalc'
   },
   {
