@@ -11,7 +11,7 @@
     "start": "nuxt start"
   },
   "engines": {
-    "node": "20.11.0"
+    "node": "20.18.1"
   },
   "dependencies": {
     "cross-env": "7.0.3",
