@@ -28,6 +28,13 @@
     "dark": true
   },
   {
+    "title": "mixi2",
+    "url": "https://mixi.social/@munieru",
+    "image": "https://mixi.social/favicon/favicon.ico?v=20240207",
+    "color": "#000000",
+    "dark": true
+  },
+  {
     "title": "GitHub",
     "url": "https://github.com/munierujp",
     "icon": "fab fa-github",
