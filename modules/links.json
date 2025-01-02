@@ -9,7 +9,7 @@
   {
     "title": "X",
     "url": "https://x.com/munieru_jp",
-    "image": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "icon": "fab fa-x-twitter",
     "color": "#000000",
     "dark": true
   },
@@ -23,8 +23,8 @@
   {
     "title": "Bluesky",
     "url": "https://bsky.app/profile/munieru.jp",
-    "image": "https://bsky.app/static/favicon.png",
-    "color": "#ffffff",
+    "icon": "fab fa-bluesky",
+    "color": "rgb(0, 112, 255)",
     "dark": true
   },
   {
@@ -72,7 +72,7 @@
   {
     "title": "pixiv",
     "url": "https://pixiv.me/munieru_jp",
-    "image": "https://www.pixiv.net//favicon.ico",
+    "icon": "fab fa-pixiv",
     "color": "#0096fa",
     "light": true
   },
