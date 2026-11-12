@@ -1,6 +1,6 @@
 <template>
   <!-- アイコンだけのリンクには、読み上げ名とツールチップを共通で付ける。 -->
-  <a class="icon-link" :href="href" :aria-label="label" :title="label">
+  <a class="icon-link" :href="href" target="_blank" rel="noopener" :aria-label="label" :title="label">
     <slot>
       <AppIcon v-if="icon" :name="icon" />
     </slot>

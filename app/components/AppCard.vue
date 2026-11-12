@@ -5,7 +5,7 @@
     <div class="card-content">
       <slot name="metadata" />
       <h3>
-        <a v-if="href" class="card-primary-link" :href="href" :aria-label="linkLabel || undefined" :lang="titleLang || undefined">{{ title }}</a>
+        <a v-if="href" class="card-primary-link" :href="href" target="_blank" rel="noopener" :aria-label="linkLabel || undefined" :lang="titleLang || undefined">{{ title }}</a>
         <span v-else :lang="titleLang || undefined">{{ title }}</span>
         <slot name="status" />
       </h3>

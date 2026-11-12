@@ -9,6 +9,8 @@
         v-for="link in supportLinks"
         :key="link.title"
         :href="link.url"
+        target="_blank"
+        rel="noopener"
         class="support-button"
       >
         <span class="social-icon" aria-hidden="true">

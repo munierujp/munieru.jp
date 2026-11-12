@@ -8,7 +8,7 @@
     </div>
     <ul class="social-links" role="list">
       <li v-for="link in links" :key="link.title">
-        <a :href="link.url">
+        <a :href="link.url" target="_blank" rel="noopener">
           <span class="social-name">
             <span class="social-icon" aria-hidden="true">
               <img
