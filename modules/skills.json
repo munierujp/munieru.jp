@@ -1,44 +1,58 @@
 [
   {
-    "name": "Chrome Extension"
+    "name": "Chrome拡張機能",
+    "image": "/skill-icons/chrome.svg"
   },
   {
-    "name": "CSS"
+    "name": "CSS",
+    "image": "/skill-icons/css.svg"
   },
   {
-    "name": "Go"
+    "name": "Go",
+    "image": "/skill-icons/go.svg"
   },
   {
-    "name": "Google Apps Script"
+    "name": "Google Apps Script",
+    "image": "/skill-icons/google-apps-script.png"
   },
   {
-    "name": "HTML"
+    "name": "HTML",
+    "image": "/skill-icons/html.svg"
   },
   {
-    "name": "Java"
+    "name": "Java",
+    "image": "/skill-icons/java.svg"
   },
   {
-    "name": "JavaScript"
+    "name": "JavaScript",
+    "image": "/skill-icons/javascript.svg"
   },
   {
-    "name": "Node.js"
+    "name": "Node.js",
+    "image": "/skill-icons/nodejs.svg"
   },
   {
-    "name": "Nuxt.js"
+    "name": "Nuxt",
+    "image": "/skill-icons/nuxt.svg"
   },
   {
-    "name": "React"
+    "name": "Python",
+    "image": "/skill-icons/python.svg"
   },
   {
-    "name": "Sass"
+    "name": "React",
+    "image": "/skill-icons/react.svg"
   },
   {
-    "name": "TypeScript"
+    "name": "Sass",
+    "image": "/skill-icons/sass.svg"
   },
   {
-    "name": "Vue.js"
+    "name": "TypeScript",
+    "image": "/skill-icons/typescript.svg"
   },
   {
-    "name": "Vuetify.js"
+    "name": "Vue.js",
+    "image": "/skill-icons/vue.svg"
   }
 ]

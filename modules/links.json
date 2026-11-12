@@ -1,107 +1,132 @@
 [
   {
-    "title": "ブログ",
-    "url": "https://blog.munieru.jp/",
-    "image": "https://cdn.blog.st-hatena.com/images/favicon.png",
-    "color": "white",
-    "light": true
-  },
-  {
     "title": "X",
     "url": "https://x.com/munieru_jp",
-    "image": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "image": "/service-icons/x.png",
     "color": "#000000",
     "dark": true
   },
   {
     "title": "Mastodon",
     "url": "https://mstdn.jp/@munieru_jp",
-    "icon": "fab fa-mastodon",
     "color": "#5B4ADF",
-    "dark": true
+    "dark": true,
+    "image": "/service-icons/mastodon.png"
   },
   {
     "title": "Bluesky",
     "url": "https://bsky.app/profile/munieru.jp",
-    "image": "https://bsky.app/static/favicon.png",
+    "image": "/service-icons/bluesky.png",
     "color": "#ffffff",
     "dark": true
   },
   {
     "title": "mixi2",
     "url": "https://mixi.social/@munieru",
-    "image": "https://mixi.social/favicon/favicon.ico?v=20240207",
+    "image": "/service-icons/mixi2.ico",
     "color": "#ffffff",
     "dark": true
   },
   {
+    "title": "Twilog",
+    "url": "https://twilog.togetter.com/munieru_jp",
+    "image": "/service-icons/twilog.jpg"
+  },
+  {
+    "title": "はてなブログ",
+    "url": "https://blog.munieru.jp/",
+    "image": "/service-icons/blog.png",
+    "color": "white",
+    "light": true
+  },
+  {
+    "title": "note",
+    "url": "https://note.com/munieru_jp/",
+    "image": "/service-icons/note.ico"
+  },
+  {
+    "title": "はてなブックマーク",
+    "url": "https://b.hatena.ne.jp/munieru_jp/",
+    "image": "/service-icons/hatena-bookmark.ico"
+  },
+  {
     "title": "GitHub",
     "url": "https://github.com/munierujp",
-    "icon": "fab fa-github",
     "color": "#333",
-    "dark": true
+    "dark": true,
+    "image": "/service-icons/github.svg"
   },
   {
     "title": "Dev",
     "url": "https://dev.to/munieru_jp",
-    "icon": "fab fa-dev",
     "color": "#0a0a0a",
-    "dark": true
+    "dark": true,
+    "image": "/service-icons/dev.png"
   },
   {
     "title": "Qiita",
     "url": "https://qiita.com/munieru_jp",
-    "image": "https://cdn.qiita.com/assets/favicons/public/production.ico",
+    "image": "/service-icons/qiita.ico",
     "color": "#55c500",
     "dark": true
   },
   {
     "title": "Zenn",
     "url": "https://zenn.dev/munieru_jp",
-    "image": "https://zenn.dev/images/logo-transparent.png",
+    "image": "/service-icons/zenn.png",
     "color": "white",
     "dark": true
   },
   {
     "title": "Speaker Deck",
     "url": "https://speakerdeck.com/munieru_jp",
-    "icon": "fab fa-speaker-deck",
     "color": "#009287",
-    "dark": true
-  },
-  {
-    "title": "pixiv",
-    "url": "https://pixiv.me/munieru_jp",
-    "image": "https://www.pixiv.net//favicon.ico",
-    "color": "#0096fa",
-    "light": true
-  },
-  {
-    "title": "Wikipedia",
-    "url": "https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru",
-    "icon": "fab fa-wikipedia-w",
-    "color": "white",
-    "light": true
+    "dark": true,
+    "image": "/service-icons/speaker-deck.ico"
   },
   {
     "title": "ブクログ",
     "url": "https://booklog.jp/users/munierujp",
-    "image": "https://booklog.jp/favicon.ico",
+    "image": "/service-icons/booklog.ico",
     "color": "#4ea6cc",
     "dark": true
   },
   {
     "title": "映画.com",
     "url": "https://eiga.com/user/861618/",
-    "image": "https://eiga.k-img.com/favicon.ico",
+    "image": "/service-icons/eiga.ico",
     "color": "#044899",
     "dark": true
   },
   {
+    "title": "シネファボ",
+    "url": "https://cinefav.com/user_page/86",
+    "image": "/service-icons/cinefav.ico"
+  },
+  {
     "title": "食べログ",
     "url": "https://tabelog.com/rvwr/munieru/",
-    "image": "https://tblg.k-img.com/favicon.ico",
+    "image": "/service-icons/tabelog.ico",
     "color": "#f3980a",
     "dark": true
+  },
+  {
+    "title": "ボドゲーマ",
+    "url": "https://bodoge.hoobby.net/friends/111403",
+    "image": "/service-icons/bodogema.png"
+  },
+  {
+    "title": "pixiv",
+    "url": "https://pixiv.me/munieru_jp",
+    "image": "/service-icons/pixiv.ico",
+    "color": "#0096fa",
+    "light": true
+  },
+  {
+    "title": "Wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru",
+    "color": "white",
+    "light": true,
+    "image": "/service-icons/wikipedia.ico"
   }
 ]

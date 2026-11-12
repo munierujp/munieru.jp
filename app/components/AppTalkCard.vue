@@ -1,0 +1,58 @@
+<template>
+  <AppCard
+    class="talk-card"
+    :title="talk.title"
+    :title-lang="titleLanguage(talk.title)"
+    :href="talk.eventUrl"
+    :link-label="t('ui.eventInfo', { title: talk.title })"
+  >
+    <template #media>
+      <NuxtImg
+        class="talk-cover"
+        :src="talk.image"
+        format="webp"
+        sizes="mobile:100vw tablet:192px"
+        densities="1x 2x"
+        :alt="t('ui.cover', { title: talk.title })"
+        :width="talk.imageWidth"
+        :height="talk.imageHeight"
+        loading="lazy"
+        decoding="async"
+      />
+    </template>
+    <template #metadata>
+      <span class="work-category">
+        {{ talk.format }} /
+        <time :datetime="talk.date">{{ formatDate(talk.date) }}</time>
+        <span v-if="isEnglish" class="content-language">{{ t('ui.slidesLanguage') }}</span>
+      </span>
+    </template>
+    <!-- 原題を資料と照合できるよう残し、参考英訳は見出しとは別に添える。 -->
+    <template v-if="isEnglish && talk.englishTitle" #subtitle>
+      <p class="title-translation" lang="en">{{ talk.englishTitle }}</p>
+    </template>
+    <span :lang="titleLanguage(talk.eventTitle)">{{ talk.eventTitle }}</span>
+    <span v-if="isEnglish && talk.englishEventTitle" class="event-translation" lang="en">{{ talk.englishEventTitle }}</span>
+    <template #action>
+      <AppIconLink
+        class="talk-slides-link"
+        :href="talk.slidesUrl"
+        :label="t('ui.slidesInfo', { title: talk.title })"
+      >
+        <img :src="asset('service-icons/speaker-deck.ico')" alt="" width="24" height="24" >
+      </AppIconLink>
+    </template>
+  </AppCard>
+</template>
+
+<script setup lang="ts">
+import type { Talk } from '~/types/content'
+import { useRuntimeConfig } from '#app'
+
+// 登壇の表紙・イベント情報を表示し、発表資料は独立したリンクにする。
+defineProps<{ talk: Talk }>()
+const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
+// サブディレクトリ配信でもpublic内の画像を正しいパスで参照する。
+const config = useRuntimeConfig().public.siteConfig
+const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
+</script>

@@ -1,0 +1,47 @@
+{
+  "ui": {
+    "headings": {
+      "links": "リンク",
+      "skills": "スキル",
+      "works": "作品",
+      "books": "書籍",
+      "talks": "登壇",
+      "support": "活動を支援する"
+    },
+    "categories": {
+      "all": "すべて",
+      "web": "ウェブアプリ",
+      "extension": "Chrome拡張機能",
+      "library": "ライブラリ",
+      "cli": "CLI"
+    },
+    "workTypes": "作品の種類",
+    "workCount": "{count}件",
+    "workCountOne": "{count}件",
+    "publicationEnded": "公開終了",
+    "developmentEnded": "開発終了",
+    "sourceCode": "{title}のソースコード（GitHub）",
+    "cover": "{title}の表紙",
+    "eventInfo": "{title}のイベント情報（connpass）",
+    "slidesInfo": "{title}の発表資料（Speaker Deck）",
+    "slidesLanguage": "",
+    "profileImage": "プロフィール画像",
+    "wishList": "ほしい物リスト",
+    "theme": "表示モード：{theme}",
+    "themeGroup": "表示モード",
+    "language": "言語：{language}",
+    "languageGroup": "言語",
+    "themes": {
+      "system": "システム",
+      "light": "ライト",
+      "dark": "ダーク"
+    },
+    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp"
+  },
+  "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。",
+  "error": {
+    "unexpectedTitle": "エラーが発生しました",
+    "unexpectedDescription": "時間をおいて、もう一度お試しください。",
+    "home": "トップページへ"
+  }
+}
