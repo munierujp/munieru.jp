@@ -34,7 +34,7 @@ const background = await loadImage(fileURLToPath(new URL('design/ogp/background.
  * @param {number} [spacing] - 字間（px）。省略時は0。
  * @throws 24pxまで縮小しても幅570pxに収まらない場合。
  */
-function drawText(context, text, top, size, weight, spacing = 0) {
+function drawText (context, text, top, size, weight, spacing = 0) {
   context.letterSpacing = `${spacing}px`
   // 長い名前も左側の領域に収まるまで縮める。横方向への変形はしない。
   do {

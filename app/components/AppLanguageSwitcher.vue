@@ -86,8 +86,8 @@ const { locales, setLocaleCookie } = useI18n()
 /** Nuxt I18nの対応言語をメニュー表示用の値とラベルへ変換した一覧。 */
 const languages = computed(() => locales.value.map(language => ({ value: language.code, label: language.name || language.code })))
 /** 現在の言語に対応するメニュー項目。不明な言語名はコードで表示する。 */
-const currentLanguage = computed(() => languages.value.find(language => language.value === locale.value)
-  ?? { value: locale.value, label: locale.value })
+const currentLanguage = computed(() => languages.value.find(language => language.value === locale.value) ??
+  { value: locale.value, label: locale.value })
 const label = computed(() => t('ui.language', { language: currentLanguage.value.label }))
 /** クライアントでメニュー操作が可能になったかどうか。 */
 const ready = ref(false)
@@ -96,7 +96,7 @@ const ready = ref(false)
  * @param event - 言語リンクのクリックイベント。
  * @param value - 保存する言語コード。
  */
-function selectLanguage(event: MouseEvent, value: Locale) {
+function selectLanguage (event: MouseEvent, value: Locale) {
   // 通常のリンク移動より先に保存し、英語ブラウザから日本語を選んでも自動転送で戻されないようにする。
   setLocaleCookie(value)
   // 選択中の言語は再読込せずに閉じる。別言語へは通常のリンクとして移動する。

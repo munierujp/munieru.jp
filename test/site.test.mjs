@@ -25,7 +25,7 @@ test('Nodeと型定義のメジャー・マイナーバージョンを揃える'
   assert.equal(process.versions.node.split('.').slice(0, 2).join('.'), majorMinor)
 })
 
-function metaTag(attribute, value, document = html) {
+function metaTag (attribute, value, document = html) {
   return [...document.matchAll(/<meta\s[^>]*>/g)].map(match => match[0])
     .find(tag => tag.includes(`${attribute}="${value}"`))
 }

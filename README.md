@@ -131,7 +131,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 ## ESLint
 
 Nuxt公式の`@nuxt/eslint`で、Vue・TypeScript・JavaScriptの推奨ルールをチェックします。
-設定は`eslint.config.ts`で、Nuxtが生成するプロジェクト用の設定を読み込みます。TS設定の読み込みにはESLintが対応する`jiti`を使います。
+設定は`eslint.config.ts`で、Standard系の規約を提供する`neostandard`と、Nuxtが生成するプロジェクト用の設定を組み合わせます。`ts: true`と`filesTs: ['**/*.vue']`でTypeScriptとVueの`script setup`を対象にし、JSX向けのルールは使いません。neostandardを先に適用し、Vueのパーサー・自動インポートなどは後段のNuxt設定に任せます。TS設定の読み込みにはESLintが対応する`jiti`を使います。
 インストール直後は`npm run prepare`で生成ファイルを用意してください。
 
 ```sh

@@ -112,7 +112,7 @@ export default defineNuxtConfig({
     preset: 'static',
     prerender: { routes: ['/ja/', '/en/'] },
     hooks: {
-      async 'prerender:done'() {
+      async 'prerender:done' () {
         // prefix構成ではNuxt I18nがルートの事前描画を除外する。
         // CSR用のHTMLを入口に使い、ブラウザで判定してから言語別ページへ移動する。
         const html = await readFile(rootPath('./dist/200.html'), 'utf8')

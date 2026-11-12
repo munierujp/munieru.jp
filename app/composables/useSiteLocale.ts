@@ -10,7 +10,7 @@ import type { LocalizedContent } from '~/types/content'
  * @returns 言語状態、翻訳関数、一覧の翻訳、日付整形、原題の言語判定。
  * @remarks URL・日付・画像を共通データに残し、翻訳辞書にある表示文だけを上書きする。
  */
-export function useSiteLocale() {
+export function useSiteLocale () {
   const { locale, t, tm, rt, d } = useI18n()
   /** 英語の補足文・表示名を使用するかどうか。言語切り替えに追従する。 */
   const isEnglish = computed(() => locale.value === 'en')

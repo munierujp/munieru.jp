@@ -3,8 +3,8 @@
  * @packageDocumentation
  */
 ;(function () {
-  var root = document.documentElement
-  var preference = 'system'
+  const root = document.documentElement
+  let preference = 'system'
   try {
     preference = window.localStorage.getItem('munieru-theme')
   } catch {

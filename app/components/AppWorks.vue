@@ -57,7 +57,8 @@ const works = computed<Work[]>(() => workData.map(work => {
 }).sort((a, b) => b.date.localeCompare(a.date)))
 /** 選択した分類に一致する作品。全件表示では整列済みの一覧をそのまま返す。 */
 const filteredWorks = computed(() => activeFilter.value === 'all'
-  ? works.value : works.value.filter(work => work.category === activeFilter.value))
+  ? works.value
+  : works.value.filter(work => work.category === activeFilter.value))
 // JSが使えない場合も全作品を読めるよう、操作できる状態になってから絞り込みを表示する。
 onMounted(() => { ready.value = true })
 </script>

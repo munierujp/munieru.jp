@@ -13,11 +13,17 @@ const output = join(root, 'dist')
 if (!existsSync(join(output, 'index.html'))) throw new Error('先に npm run build を実行してください。')
 /** 静的ファイルの拡張子に対応するContent-Type。不明な種類はバイナリとして扱う。 */
 const types = {
-  '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
-  '.xml': 'application/xml; charset=utf-8', '.txt': 'text/plain; charset=utf-8',
-  '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
-  '.ico': 'image/x-icon', '.webp': 'image/webp'
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.ico': 'image/x-icon',
+  '.webp': 'image/webp'
 }
 
 /**
@@ -26,7 +32,7 @@ const types = {
  * @param {string} pathname - デコード済みのリクエストパス。
  * @remarks 未対応言語や公開パス外のURLは、言語判定用の入口へ転送する。
  */
-function redirectToHome(response, pathname) {
+function redirectToHome (response, pathname) {
   const language = pathname.startsWith(config.BASE_DIR) ? pathname.slice(config.BASE_DIR.length).split('/')[0] : ''
   const target = language === 'ja' || language === 'en' ? `${config.BASE_DIR}${language}/` : config.BASE_DIR
   response.writeHead(302, { Location: target, 'Cache-Control': 'no-store' }).end()

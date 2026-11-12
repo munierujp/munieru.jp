@@ -3,7 +3,7 @@
  * @param event - img要素のerrorイベント。
  * @remarks 領域を残してレイアウトの変化を抑える。画像以外のイベント対象には何もしない。
  */
-export function hideFailedImage(event: Event) {
+export function hideFailedImage (event: Event) {
   if (event.target instanceof HTMLImageElement) {
     event.target.style.visibility = 'hidden'
   }

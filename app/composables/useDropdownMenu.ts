@@ -12,7 +12,7 @@ import { nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue'
  * マウント中だけ文書全体の操作を監視する。外側へのクリックやフォーカス移動で閉じ、
  * Escapeで閉じるときはトリガーへフォーカスを戻す。
  */
-export function useDropdownMenu() {
+export function useDropdownMenu () {
   // SSRとクライアントで一致し、複数のメニュー間で重複しないIDを生成する。
   const id = useId()
   const triggerId = `${id}-trigger`
@@ -29,7 +29,7 @@ export function useDropdownMenu() {
    * メニューを開き、必要なら描画後に指定項目へフォーカスする。
    * @param index - フォーカス先の添字。省略時は現在のフォーカスを維持する。
    */
-  function openMenu(index?: number) {
+  function openMenu (index?: number) {
     menuOpen.value = true
     if (index !== undefined) nextTick(() => items.value[index]?.focus())
   }
@@ -37,7 +37,7 @@ export function useDropdownMenu() {
    * メニューを閉じる。
    * @param restoreFocus - 閉じる前にトリガーへフォーカスを戻すかどうか。
    */
-  function closeMenu(restoreFocus = false) {
+  function closeMenu (restoreFocus = false) {
     if (restoreFocus) trigger.value?.focus()
     menuOpen.value = false
   }
@@ -45,7 +45,7 @@ export function useDropdownMenu() {
    * トリガーで開閉し、キーボード由来のクリックでは先頭項目を選ぶ。
    * @param event - トリガーのクリックイベント。
    */
-  function toggleMenu(event: MouseEvent) {
+  function toggleMenu (event: MouseEvent) {
     if (menuOpen.value) closeMenu()
     // キーボードで開いた時だけ、先頭項目へフォーカスを移す。
     else openMenu(event.detail === 0 ? 0 : undefined)
@@ -54,7 +54,7 @@ export function useDropdownMenu() {
    * 上下キーで最初・最後の項目を開き、Escapeでは閉じる。
    * @param event - トリガー上で発生したキー操作。
    */
-  function onTriggerKeydown(event: KeyboardEvent) {
+  function onTriggerKeydown (event: KeyboardEvent) {
     if (!['ArrowDown', 'ArrowUp', 'Escape'].includes(event.key)) return
     event.preventDefault()
     if (event.key === 'Escape') closeMenu(true)
@@ -64,7 +64,7 @@ export function useDropdownMenu() {
    * 項目間の巡回、Home・End、Escape・Tab、リンクのSpace選択を処理する。
    * @param event - メニュー内で発生したキー操作。
    */
-  function onMenuKeydown(event: KeyboardEvent) {
+  function onMenuKeydown (event: KeyboardEvent) {
     if (event.key === 'Tab') return closeMenu(true)
     if (event.key === 'Escape') {
       event.preventDefault()
@@ -79,15 +79,18 @@ export function useDropdownMenu() {
     if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) || !items.value.length) return
     event.preventDefault()
     const current = items.value.findIndex(item => item === document.activeElement)
-    const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.value.length - 1
-      : (current + (event.key === 'ArrowUp' ? -1 : 1) + items.value.length) % items.value.length
+    const next = event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? items.value.length - 1
+        : (current + (event.key === 'ArrowUp' ? -1 : 1) + items.value.length) % items.value.length
     items.value[next]?.focus()
   }
   /**
    * メニュー領域外へのクリック・フォーカス移動で閉じる。
    * @param event - 文書全体で監視するpointerdownまたはfocusinイベント。
    */
-  function dismiss(event: Event) {
+  function dismiss (event: Event) {
     if (!(event.target instanceof Node) || !switcher.value?.contains(event.target)) closeMenu()
   }
   onMounted(() => {

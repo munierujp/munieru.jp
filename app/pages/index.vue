@@ -38,7 +38,8 @@ useHead(() => ({
   title: pageTitle.value,
   htmlAttrs: { ...localeHead.value.htmlAttrs, lang: locale.value },
   link: (localeHead.value.link || []).map(link => 'hreflang' in link && link.hreflang === 'x-default'
-    ? { ...link, href: config.BASE_URL } : link),
+    ? { ...link, href: config.BASE_URL }
+    : link),
   meta: [
     ...(localeHead.value.meta || []),
     { name: 'description', content: t('description') },
