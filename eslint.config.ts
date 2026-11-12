@@ -1,5 +1,3 @@
-// @ts-check
-
 import withNuxt from './.nuxt/eslint.config.mjs'
 
 // Nuxtが生成するVue・TypeScript・JavaScriptの推奨設定を使う。

@@ -124,12 +124,12 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ## リンターの設定方針
 
-ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。各リンターの設定は`// @ts-check`付きのJavaScriptにし、公式の型定義または設定ヘルパーで型を検査します。対応形式の違いにより、SecretlintのみCommonJS、ほかはES Modulesを使います。
+ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。各リンターの設定本体はTypeScriptにし、公式の型定義または設定ヘルパーで型を検査します。SecretlintはTS設定を直接検出しないため、読み込み専用の`.secretlintrc.cjs`から`secretlint.config.ts`を読み込みます。
 
 ## ESLint
 
 Nuxt公式の`@nuxt/eslint`で、Vue・TypeScript・JavaScriptの推奨ルールをチェックします。
-設定は`eslint.config.mjs`で、Nuxtが生成するプロジェクト用の設定を読み込みます。
+設定は`eslint.config.ts`で、Nuxtが生成するプロジェクト用の設定を読み込みます。TS設定の読み込みにはESLintが対応する`jiti`を使います。
 インストール直後は`npm run prepare`で生成ファイルを用意してください。
 
 ```sh
@@ -142,7 +142,7 @@ npm run lint:fix
 
 ## Secretlint
 
-公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.cjs`です。`@secretlint/types`の型定義で設定の構造を検査します。
+公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定本体は`secretlint.config.ts`です。`@secretlint/types`の型定義で設定の構造を検査します。`.secretlintrc.cjs`を経由し、Node.jsの標準TS対応で読み込みます。
 
 ```sh
 npm run lint:secretlint
@@ -153,7 +153,7 @@ GitHub Actionsの`lint.yml`でもESLintに続けて実行します。指摘内�
 
 ## Stylelint
 
-公式の`stylelint-config-standard`で、`assets/**/*.css`をチェックします。設定は`stylelint.config.mjs`です。
+公式の`stylelint-config-standard`で、`assets/**/*.css`をチェックします。設定は`stylelint.config.ts`です。
 
 ```sh
 npm run lint:stylelint
@@ -166,7 +166,7 @@ GitHub Actionsの`lint.yml`でも実行します。
 
 ## markuplint
 
-Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parser`・`@markuplint/vue-spec`を使い、`app/**/*.vue`のHTML構造・属性・アクセシビリティをチェックします。設定は`markuplint.config.mjs`です。`@markuplint/ml-config`の型定義で設定の構造を検査します。
+Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parser`・`@markuplint/vue-spec`を使い、`app/**/*.vue`のHTML構造・属性・アクセシビリティをチェックします。設定は`markuplint.config.ts`です。`@markuplint/ml-config`の型定義で設定の構造を検査します。
 
 ```sh
 npm run lint:markuplint

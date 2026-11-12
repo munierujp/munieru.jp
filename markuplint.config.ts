@@ -1,6 +1,5 @@
-// @ts-check
+import type { Config } from '@markuplint/ml-config'
 
-/** @satisfies {import('@markuplint/ml-config').Config} */
 export default {
   // Vueのテンプレート構文に対応した推奨ルールを共通の基準にする。
   extends: ['markuplint:recommended-vue'],
@@ -20,4 +19,4 @@ export default {
       }
     }
   ]
-}
+} satisfies Config
