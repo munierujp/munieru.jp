@@ -1,20 +1,26 @@
-# OGP画像の制作元
+# OGP画像の生成
 
-`blue-charcoal.png`は採用したOGP画像の元データです。組み込みのimage_genで生成した水色・チャコール文字のデザインを、新しいサイト名に合わせて更新しました。
+背景・キャラクターと文字を分離し、実際のフォントで組版してPNGへ書き出します。
 
-表示する文字は「ムニエル OFFICIAL SITE」とURL「munieru.jp」だけです。サイト名は2行に分け、単独のローマ字名や追加のコピーは入れていません。背景とキャラクターは従来のデザインを引き継いでいます。
+- 文字なし背景: `background.png`（image_genで従来のOGPから文字を除去した素材）
+- 書き出しスクリプト: `../../scripts/generate-ogp.swift`
+- 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / munieru.jp）
+- 英語版: `../../public/ogp-en.png`（Munieru OFFICIAL SITE / munieru.jp）
 
-公開用は1200×630pxのPNG（フルカラー・可逆圧縮）として書き出しています。
+## 再生成
 
-- 日本語版: `blue-charcoal.png` → `public/ogp.png`（ムニエル OFFICIAL SITE / munieru.jp）
-- 英語版: `blue-charcoal-en.png` → `public/ogp-en.png`（Munieru OFFICIAL SITE / munieru.jp）
+macOSのヒラギノ角ゴシックとSwift（Xcode Command Line Tools）が必要です。リポジトリのルートで実行します。
 
-英語版は日本語版を元に、名前だけを「Munieru」へ差し替えて生成しています。
+```sh
+swift scripts/generate-ogp.swift
+```
 
-日本語版の更新時の生成指示:
+名前はHiragino Sans W7、OFFICIAL SITEはW6、URLはW3で描画します。文字色は`#242824`、出力は1200×630pxのPNGです。書体が見つからない場合は代替フォントを使わず停止します。フォントファイル自体はリポジトリへ含めません。
 
-Use case: text-localization / precise-object-edit. Edit the existing sky-blue OGP banner with the smallest possible change. Preserve the entire smiling grilled fish character with lemon on the right, including its size, placement, pose, expression, outlines, colors, textures and shadow. Preserve the wide social-card composition. Keep only the website name and URL, arranged as three left-aligned lines: "ムニエル" (largest), "OFFICIAL SITE" (bold sans serif), and "munieru.jp" (smaller). Remove the standalone Romanized name "Munieru". Keep all lettering neutral dark charcoal #242824, generous clear margins and balanced spacing. No extra wording, tagline, decoration or watermark.
+文字・配置・太さを変える場合はスクリプトを編集して再生成してください。文字の変更に画像生成は不要です。背景を変更する場合だけ素材を更新します。ビルドやCIは生成済みPNGを配信するため、macOSやフォントのインストールは不要です。
 
-英語版の生成指示:
+従来の文字入り生成画像`blue-charcoal.png`・`blue-charcoal-en.png`は、文字なし背景とスクリプトに置き換えました。
 
-Use case: text-localization. Replace only the largest Japanese text "ムニエル" with "Munieru" (capital M, lowercase unieru). Preserve "OFFICIAL SITE" and "munieru.jp", the sky-blue textured background, and all character details, scale, placement and shadow. Keep the same wide composition, dark charcoal lettering and margins. No additional wording or decoration.
+## 背景作成時の指示
+
+Edit this existing OGP banner to produce a reusable TEXT-FREE BACKGROUND PLATE. Remove ALL lettering on the left: the Japanese name ムニエル, OFFICIAL SITE, and munieru.jp. Fill only the removed letter areas seamlessly with the same sky-blue softly textured background. Keep the entire fish character with lemon on the right, including every outline, color, texture, size, placement, wave, expression, feet, lemon, and ground shadow exactly as in the supplied image. Keep the same wide landscape composition and full-bleed background. Do not move or redesign the character. Do not add ANY text, glyphs, logo, decoration or watermark. The left half must be clean empty blue background suitable for later deterministic typesetting. Preserve the image's 1200:630 aspect ratio.
