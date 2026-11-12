@@ -8,7 +8,7 @@ VuetifyなどのUIライブラリは使わず、CSSで見た目を調整して�
 
 ## 必要な環境
 
-Node.jsと`@types/node`はメジャー・マイナーバージョンを揃えます。現在はNode.js 24.19.0（`.nvmrc`）と`@types/node` 24.19.2です。`engines.node`も24.19系に限定しています。
+Node.jsと`@types/node`はメジャー・マイナーバージョンを揃えます。現在はNode.js 26.6.0（`.nvmrc`）と`@types/node` 26.6.6です。`engines.node`も26.6系に限定しています。
 更新時は、対応する型定義が公開されているNode.jsを選び、`.nvmrc`・`engines.node`・`@types/node`を一緒に更新してください。パッチバージョンは一致不要です。
 nvmを使う場合は、以下でプロジェクト用のバージョンに切り替えます。
 
@@ -189,7 +189,7 @@ npm run typecheck
 ```
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
-型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 24用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
+型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
 `public/theme-init.js`と初期描画用のテーマスクリプトは、ブラウザがビルド処理なしで実行するためJavaScriptを維持しています。
 
 ## 日本語・英語の更新
