@@ -124,7 +124,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ## リンターの設定方針
 
-ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。コメントを書けるよう、ESLint・StylelintはJavaScript、Secretlint・markuplintはYAMLで設定します。
+ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。コメントを書けるよう、ESLint・StylelintはJavaScript、Secretlint・markuplintはJSONCで設定します。
 
 ## ESLint
 
@@ -142,7 +142,7 @@ npm run lint:fix
 
 ## Secretlint
 
-公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.yml`です。
+公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.jsonc`です。SecretlintはJSONCの拡張子を自動検出しないため、npmスクリプトの`--secretlintrc`で明示します。
 
 ```sh
 npm run lint:secretlint
@@ -166,7 +166,7 @@ GitHub Actionsの`lint.yml`でも実行します。
 
 ## markuplint
 
-Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parser`・`@markuplint/vue-spec`を使い、`app/**/*.vue`のHTML構造・属性・アクセシビリティをチェックします。設定は`.markuplintrc.yml`です。
+Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parser`・`@markuplint/vue-spec`を使い、`app/**/*.vue`のHTML構造・属性・アクセシビリティをチェックします。設定は`.markuplintrc.jsonc`です。
 
 ```sh
 npm run lint:markuplint

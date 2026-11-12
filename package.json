@@ -15,7 +15,7 @@
     "typecheck": "nuxt typecheck",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix --max-warnings=0",
-    "lint:secretlint": "secretlint \"**/*\"",
+    "lint:secretlint": "secretlint --secretlintrc .secretlintrc.jsonc \"**/*\"",
     "lint:stylelint": "stylelint \"assets/**/*.css\" --max-warnings=0",
     "lint:stylelint:fix": "npm run lint:stylelint -- --fix",
     "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0"
