@@ -122,6 +122,10 @@ HTMLをJavaScript文字列として編集する必要はありません。
 `app/layouts/default.vue`がヘッダー・main・フッターを配置します。新しいページは`app/pages/`へ追加し、mainを重複させず本文だけを書きます。共通レイアウトは既定で適用されます。
 作品・書籍・登壇カードは項目ごとに内容が異なるため、引き続きpropsでデータを受け取ります。
 
+## リンターの設定方針
+
+ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。コメントを書けるよう、ESLint・StylelintはJavaScript、Secretlint・markuplintはYAMLで設定します。
+
 ## ESLint
 
 Nuxt公式の`@nuxt/eslint`で、Vue・TypeScript・JavaScriptの推奨ルールをチェックします。
@@ -138,7 +142,7 @@ npm run lint:fix
 
 ## Secretlint
 
-公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.json`です。
+公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.yml`です。
 
 ```sh
 npm run lint:secretlint
@@ -162,7 +166,7 @@ GitHub Actionsの`lint.yml`でも実行します。
 
 ## markuplint
 
-Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parser`・`@markuplint/vue-spec`を使い、`app/**/*.vue`のHTML構造・属性・アクセシビリティをチェックします。設定は`.markuplintrc.json`です。
+Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parser`・`@markuplint/vue-spec`を使い、`app/**/*.vue`のHTML構造・属性・アクセシビリティをチェックします。設定は`.markuplintrc.yml`です。
 
 ```sh
 npm run lint:markuplint
