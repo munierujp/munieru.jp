@@ -70,12 +70,14 @@ test('日英の静的本文・言語指定・canonical・相互参照を出力�
   }
 })
 
-test('言語別のタイトル・著者・共有画像の説明と構造化データを出力する', () => {
+test('言語別のタイトル・著者・共有画像の説明と構造化データを出力する', async () => {
   for (const [document, language] of [[html, 'ja'], [englishHtml, 'en']]) {
     const title = language === 'ja' ? 'ムニエル OFFICIAL SITE' : 'Munieru OFFICIAL SITE'
     const name = language === 'ja' ? 'ムニエル' : 'Munieru'
     const alternateName = language === 'ja' ? 'Munieru' : 'ムニエル'
-    const image = `https://munieru.jp/${language === 'ja' ? 'ogp.png' : 'ogp-en.png'}`
+    const imagePath = language === 'ja' ? 'ogp.png' : 'en/ogp.png'
+    const image = `https://munieru.jp/${imagePath}`
+    assert.ok((await stat(join(root, 'dist', imagePath))).isFile())
     assert.ok(document.includes(`<title>${title}</title>`))
     assert.ok(metaTag('name', 'twitter:card', document).includes('content="summary_large_image"'))
     assert.ok(metaTag('property', 'og:image:width', document).includes('content="1200"'))

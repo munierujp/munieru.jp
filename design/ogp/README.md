@@ -5,7 +5,7 @@
 - 文字なし背景: `background.png`（image_genで従来のOGPから文字を除去した素材）
 - 書き出しスクリプト: `../../scripts/generate-ogp.swift`
 - 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / munieru.jp）
-- 英語版: `../../public/ogp-en.png`（Munieru OFFICIAL SITE / munieru.jp）
+- 英語版: `../../public/en/ogp.png`（Munieru OFFICIAL SITE / munieru.jp）
 
 ## 再生成
 

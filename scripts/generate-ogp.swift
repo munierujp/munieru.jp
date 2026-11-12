@@ -38,7 +38,7 @@ func drawText(_ text: String, top: CGFloat, size: CGFloat, face: String, kern: C
     line.draw(at: NSPoint(x: 64, y: CGFloat(height) - top - line.size().height))
 }
 
-for (name, path) in [("ムニエル", "public/ogp.png"), ("Munieru", "public/ogp-en.png")] {
+for (name, path) in [("ムニエル", "public/ogp.png"), ("Munieru", "public/en/ogp.png")] {
     guard let bitmap = NSBitmapImageRep(
         bitmapDataPlanes: nil, pixelsWide: width, pixelsHigh: height,
         bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
@@ -60,6 +60,7 @@ for (name, path) in [("ムニエル", "public/ogp.png"), ("Munieru", "public/ogp
         fatalError("PNGの書き出しに失敗しました")
     }
     let output = root.appendingPathComponent(path)
+    try FileManager.default.createDirectory(at: output.deletingLastPathComponent(), withIntermediateDirectories: true)
     try data.write(to: output)
     print("\(path): \(width)×\(height), Hiragino Sans, \(data.count) bytes")
 }

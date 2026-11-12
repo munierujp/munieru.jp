@@ -10,7 +10,7 @@ const defaults = {
   "PAYPAL_URL": "https://www.paypal.me/munieru",
   "TWITTER_ID": "munieru_jp",
   "OG_IMAGE_PATH": "ogp.png",
-  "OG_IMAGE_PATH_EN": "ogp-en.png",
+  "OG_IMAGE_PATH_EN": "en/ogp.png",
   "ORIGIN": "https://munieru.jp/",
   "WISH_LIST_URL": "http://amzn.asia/9qD1BsF"
 }
