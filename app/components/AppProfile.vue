@@ -37,6 +37,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * プロフィール本文と画像を表示する。日英の本文はテンプレートで直接管理する。
+ * @packageDocumentation
+ */
 // プロフィール本文は各言語のtemplateで直接編集する。
 const { isEnglish, t } = useSiteLocale()
 </script>

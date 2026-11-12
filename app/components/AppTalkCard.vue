@@ -46,6 +46,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 登壇の原題・表紙・イベントへの主リンクと、独立した資料リンクを表示する。
+ * @packageDocumentation
+ */
 import type { Talk } from '~/types/content'
 import { useRuntimeConfig } from '#app'
 
@@ -54,5 +58,10 @@ defineProps<{ talk: Talk }>()
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 // サブディレクトリ配信でもpublic内の画像を正しいパスで参照する。
 const config = useRuntimeConfig().public.siteConfig
+/**
+ * public内の画像パスに公開サブディレクトリを付ける。
+ * @param path - publicを基準とした画像パス。先頭のスラッシュは省略可能。
+ * @returns 現在の配信先で有効な画像URLのパス。
+ */
 const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
 </script>

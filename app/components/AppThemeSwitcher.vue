@@ -47,11 +47,16 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * ブラウザ側のテーマ管理APIと、テーマ選択メニューの表示を同期する。
+ * @packageDocumentation
+ */
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { IconName, ThemePreference } from '~/types/ui'
 
 const { t } = useSiteLocale()
 const { menuOpen, switcher, trigger, items, triggerId, menuId, closeMenu, toggleMenu, onTriggerKeydown, onMenuKeydown } = useDropdownMenu()
+/** 選択肢の表示順と、現在の言語のラベル・状態を表すアイコン。 */
 const themes = computed(() => [
   { value: 'system', label: t('ui.themes.system'), icon: 'monitor' },
   { value: 'light', label: t('ui.themes.light'), icon: 'sun' },
@@ -59,14 +64,20 @@ const themes = computed(() => [
 ] as const satisfies readonly { value: ThemePreference; label: string; icon: IconName }[])
 // SSRと初回描画は同じ状態にし、マウント後にブラウザの設定へ同期する。
 const preference = ref<ThemePreference>('system')
+/** テーマ管理APIを利用できる状態かどうか。SSR中の操作を防ぐ。 */
 const ready = ref(false)
+/** 保存された選択に対応する表示項目。不明な値ではシステムへ戻す。 */
 const currentTheme = computed(() => themes.value.find(theme => theme.value === preference.value) ?? themes.value[0])
 
-// 保存・OS設定の追従は public/theme-init.js が担当し、このコンポーネントはUIを同期する。
+/** DOMに適用された選択状態を読み、メニュー表示へ反映する。保存やOS追従はtheme-init.jsが担当する。 */
 function syncTheme() {
   const value = document.documentElement.dataset.themePreference
   preference.value = value === 'light' || value === 'dark' ? value : 'system'
 }
+/**
+ * 選択したテーマを保存・適用し、トリガーへフォーカスを戻して閉じる。
+ * @param value - システム・ライト・ダークのいずれか。
+ */
 function changeTheme(value: ThemePreference) {
   window.munieruTheme?.setPreference(value)
   closeMenu(true)

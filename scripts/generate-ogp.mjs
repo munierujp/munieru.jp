@@ -1,3 +1,7 @@
+/**
+ * macOSのヒラギノで日英のOGP画像を生成する。ビルド時には実行しない。
+ * @packageDocumentation
+ */
 import { mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { createCanvas, GlobalFonts, loadImage, setTextRenderer } from '@napi-rs/canvas'
@@ -7,6 +11,7 @@ import { createCanvas, GlobalFonts, loadImage, setTextRenderer } from '@napi-rs/
 if (process.platform !== 'darwin') {
   throw new Error('OGPの再生成には、ヒラギノ角ゴシックがあるmacOSが必要です')
 }
+/** 必要な太さが利用できるか確認する、システムのヒラギノの登録情報。 */
 const family = GlobalFonts.families.find(font => font.family === 'Hiragino Sans')
 if (![400, 700, 800].every(weight => family?.styles.some(style => style.weight === weight))) {
   throw new Error('Hiragino Sans W3・W6・W7が必要です')
@@ -19,6 +24,16 @@ const width = 1200
 const height = 630
 const background = await loadImage(fileURLToPath(new URL('design/ogp/background.png', root)))
 
+/**
+ * 指定位置へ一行の文字を描き、左側の領域に収まるまでサイズを調整する。
+ * @param {import("@napi-rs/canvas").SKRSContext2D} context - 背景を描画済みの2Dコンテキスト。
+ * @param {string} text - 描画する文字列。
+ * @param {number} top - 画像上端からの位置（px）。
+ * @param {number} size - 初期フォントサイズ（px）。
+ * @param {number} weight - CoreTextに渡すCSSフォントウェイト。
+ * @param {number} [spacing] - 字間（px）。省略時は0。
+ * @throws 24pxまで縮小しても幅570pxに収まらない場合。
+ */
 function drawText(context, text, top, size, weight, spacing = 0) {
   context.letterSpacing = `${spacing}px`
   // 長い名前も左側の領域に収まるまで縮める。横方向への変形はしない。

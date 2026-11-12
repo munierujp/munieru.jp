@@ -1,3 +1,7 @@
+/**
+ * 初回描画の前に保存設定とOS設定を読み、テーマのちらつきを抑える。
+ * @packageDocumentation
+ */
 ;(function () {
   var root = document.documentElement
   var preference = 'system'

@@ -126,6 +126,8 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。各リンターの設定本体はTypeScriptにし、公式の型定義または設定ヘルパーで型を検査します。SecretlintはTS設定を直接検出しないため、読み込み専用の`.secretlintrc.cjs`から`secretlint.config.ts`を読み込みます。
 
+関数・クラス・型・意味や制約のある変数には、TSDoc形式の`/** ... */`コメントを積極的に記載します。ファイル全体の責務は`@packageDocumentation`、引数は`@param`、戻り値は`@returns`、副作用や設計上の注意は`@remarks`、例外は`@throws`で説明します。TypeScriptの型をコメントで繰り返すより、用途・単位・前提条件・変更理由を優先します。JavaScriptでは、必要な型情報をJSDocの型構文で補います。処理途中の判断理由やテンプレート内の説明は、通常のコメントを併用します。
+
 ## ESLint
 
 Nuxt公式の`@nuxt/eslint`で、Vue・TypeScript・JavaScriptの推奨ルールをチェックします。

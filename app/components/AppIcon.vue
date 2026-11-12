@@ -17,6 +17,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * アイコン辞書からSVGのパスを描画する。読み上げ名は呼び出し側で管理する。
+ * @packageDocumentation
+ */
 import { computed } from 'vue'
 import icons from '~~/assets/icons.json'
 import type { IconName } from '~/types/ui'

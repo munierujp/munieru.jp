@@ -8,6 +8,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * アイコンだけの外部リンクに、読み上げ名とツールチップを付ける。
+ * @packageDocumentation
+ */
 import type { IconName } from '~/types/ui'
 // SVGはiconで指定し、画像などはデフォルトスロットへ渡す。
 // スロットに画像を渡す場合、リンクのlabelと重複しないようaltは空にする。

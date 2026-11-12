@@ -46,6 +46,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 作品の分類・公開状態・専用アイコン・GitHubリンクを組み合わせる。
+ * @packageDocumentation
+ */
 import type { Work } from '~/types/content'
 import type { IconName } from '~/types/ui'
 import { computed, ref } from 'vue'
@@ -57,7 +61,13 @@ const { t, titleLanguage, formatDate } = useSiteLocale()
 // 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
 const imageFailed = ref(false)
 const config = useRuntimeConfig().public.siteConfig
+/**
+ * public内の画像パスに公開サブディレクトリを付ける。
+ * @param path - publicを基準とした画像パス。先頭のスラッシュは省略可能。
+ * @returns 現在の配信先で有効な画像URLのパス。
+ */
 const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
 const icons = { web: 'globe', extension: 'puzzle', library: 'code', cli: 'terminal' } satisfies Record<Work['category'], IconName>
+/** 作品分類に対応する、翻訳済みの表示名と代替アイコン。 */
 const category = computed(() => ({ label: t(`ui.categories.${props.work.category}`), icon: icons[props.work.category] }))
 </script>

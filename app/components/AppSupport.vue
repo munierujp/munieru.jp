@@ -30,12 +30,21 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 公開設定にURLのある支援先だけを、独立したセクションに表示する。
+ * @packageDocumentation
+ */
 import { computed, useId } from 'vue'
 
 // 同じコンポーネントを複数配置しても見出しIDが重複しないようにする。
 const headingId = useId()
 const { t } = useSiteLocale()
 const config = useRuntimeConfig().public.siteConfig
+/**
+ * public内の画像パスに公開サブディレクトリを付ける。
+ * @param path - publicを基準とした画像パス。先頭のスラッシュは省略可能。
+ * @returns 現在の配信先で有効な画像URLのパス。
+ */
 const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
 // URLが空の支援先は表示しない。SPONSOERSは既存設定との互換性を保つための綴り。
 const supportLinks = computed(() => [

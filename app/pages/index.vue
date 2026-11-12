@@ -9,6 +9,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * トップページのセクション構成と、言語別のSEO・構造化データを定義する。
+ * @packageDocumentation
+ */
 import { computed } from 'vue'
 import { useHead, useRuntimeConfig } from '#app'
 import linksData from '~~/modules/links.json'
@@ -18,11 +22,16 @@ const { isEnglish, locale, t } = useSiteLocale()
 const config = useRuntimeConfig().public.siteConfig
 // 言語別のcanonical・hreflang・OGPロケールはNuxt I18nに任せる。
 const localeHead = useLocaleHead()
+/** 現在の言語ページの絶対URL。構造化データの識別子にも使う。 */
 const pageUrl = computed(() => new URL(`${locale.value}/`, config.BASE_URL).href)
+/** ページの言語に合わせた主名義。メタ情報と構造化データで共有する。 */
 const displayName = computed(() => isEnglish.value ? 'Munieru' : 'ムニエル')
+/** 主名義と異なる文字表記。構造化データのalternateNameへ残す。 */
 const alternateName = computed(() => isEnglish.value ? 'ムニエル' : 'Munieru')
+/** ヘッダーと揃えた言語別のサイト名。 */
 const pageTitle = computed(() => `${displayName.value} OFFICIAL SITE`)
 // 共有元のページの言語に合わせ、クローラーが読む静的HTMLにも画像URLを出力する。
+/** 共有元ページの言語に対応するOGP画像の絶対URL。 */
 const shareImage = computed(() => new URL(isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH, config.BASE_URL).href)
 useHead(() => ({
   ...localeHead.value,

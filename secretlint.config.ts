@@ -1,3 +1,7 @@
+/**
+ * 秘密情報の混入を検知する公式推奨プリセットを定義する。
+ * @packageDocumentation
+ */
 import type { SecretLintConfigDescriptor } from '@secretlint/types'
 
 export default {

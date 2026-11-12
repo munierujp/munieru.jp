@@ -1,3 +1,7 @@
+/**
+ * 静的生成したdistを配信し、未定義URLの転送をNetlifyと同じ方針で再現する。
+ * @packageDocumentation
+ */
 import { createServer } from 'node:http'
 import { createReadStream, existsSync } from 'node:fs'
 import { stat } from 'node:fs/promises'
@@ -7,6 +11,7 @@ import { loadConfig, root } from './config.mjs'
 const config = loadConfig()
 const output = join(root, 'dist')
 if (!existsSync(join(output, 'index.html'))) throw new Error('先に npm run build を実行してください。')
+/** 静的ファイルの拡張子に対応するContent-Type。不明な種類はバイナリとして扱う。 */
 const types = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
@@ -15,13 +20,19 @@ const types = {
   '.ico': 'image/x-icon', '.webp': 'image/webp'
 }
 
-// Netlifyの生成ルールと同じく、見つからないURLは言語別トップへ転送する。
+/**
+ * 見つからないURLを、パス内の言語に対応するトップへ302転送する。
+ * @param {import("node:http").ServerResponse} response - 転送レスポンスの書き込み先。
+ * @param {string} pathname - デコード済みのリクエストパス。
+ * @remarks 未対応言語や公開パス外のURLは、言語判定用の入口へ転送する。
+ */
 function redirectToHome(response, pathname) {
   const language = pathname.startsWith(config.BASE_DIR) ? pathname.slice(config.BASE_DIR.length).split('/')[0] : ''
   const target = language === 'ja' || language === 'en' ? `${config.BASE_DIR}${language}/` : config.BASE_DIR
   response.writeHead(302, { Location: target, 'Cache-Control': 'no-store' }).end()
 }
 
+/** GET・HEADだけを受け付け、配信ディレクトリ外へのアクセスを拒否するプレビューサーバー。 */
 const server = createServer(async (request, response) => {
   let pathname = config.BASE_DIR
   try {

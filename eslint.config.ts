@@ -1,3 +1,7 @@
+/**
+ * Nuxtの推奨設定を基準に、トップページのFragmentだけを例外として扱う。
+ * @packageDocumentation
+ */
 import withNuxt from './.nuxt/eslint.config.mjs'
 
 // Nuxtが生成するVue・TypeScript・JavaScriptの推奨設定を使う。

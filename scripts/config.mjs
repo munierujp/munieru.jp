@@ -1,8 +1,13 @@
+/**
+ * 静的生成とローカルプレビューで共有する公開設定を、環境変数から組み立てる。
+ * @packageDocumentation
+ */
 import { fileURLToPath } from 'node:url'
 
+/** 作業ディレクトリに依存しない、リポジトリルートの絶対パス。 */
 export const root = fileURLToPath(new URL('../', import.meta.url))
 
-// サイトとローカルプレビューで共有する公開設定。環境変数で上書きできる。
+/** クライアントにも公開する初期値。秘密情報は含めず、同名の環境変数で上書きする。 */
 const defaults = {
   "BASE_DIR": "/",
   "GIFTEE_URL": "https://giftee.com/u/munieru_jp",
@@ -15,7 +20,12 @@ const defaults = {
   "WISH_LIST_URL": "http://amzn.asia/9qD1BsF"
 }
 
-/** @param {Record<string, string | undefined>} [environment] */
+/**
+ * 環境変数を公開設定へ重ね、配信元と公開パスを検証・正規化する。
+ * @param {Record<string, string | undefined>} [environment] - 上書き値。省略時はprocess.env。
+ * @returns 正規化済みのBASE_DIRと、絶対URLのBASE_URLを含む公開設定。
+ * @throws ORIGINがhttp(s)以外、またはBASE_DIRが公開パスとして不正な場合。
+ */
 export function loadConfig(environment = process.env) {
   const config = { ...defaults, BASE_URL: '' }
   for (const key of /** @type {(keyof typeof defaults)[]} */ (Object.keys(defaults))) {

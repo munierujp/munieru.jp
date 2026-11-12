@@ -11,6 +11,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 404は言語別トップへ移動し、それ以外のエラーでは再訪用リンクを表示する。
+ * @packageDocumentation
+ */
 import { computed, onMounted } from 'vue'
 import type { NuxtError } from '#app'
 
