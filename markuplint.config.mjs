@@ -1,19 +1,22 @@
-{
+// @ts-check
+
+/** @satisfies {import('@markuplint/ml-config').Config} */
+export default {
   // Vueのテンプレート構文に対応した推奨ルールを共通の基準にする。
-  "extends": ["markuplint:recommended-vue"],
-  "parser": {
-    "\\.vue$": "@markuplint/vue-parser"
+  extends: ['markuplint:recommended-vue'],
+  parser: {
+    '\\.vue$': '@markuplint/vue-parser'
   },
-  "specs": {
-    "\\.vue$": "@markuplint/vue-spec"
+  specs: {
+    '\\.vue$': '@markuplint/vue-spec'
   },
-  "nodeRules": [
+  nodeRules: [
     {
-      "selector": "ul[role=\"list\"]",
-      "rules": {
+      selector: 'ul[role="list"]',
+      rules: {
         // Safariではlist-style: noneのリストが読み上げ時にリスト扱いされないため、
         // 明示的なrole="list"を残す。この要素だけ暗黙のroleとの重複チェックを除外する。
-        "a11y/wai-aria/implicit-role": false
+        'a11y/wai-aria/implicit-role': false
       }
     }
   ]
