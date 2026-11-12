@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
   telemetry: false,
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint'],
   site: {
     url: new URL(config.BASE_URL).origin,
     name: site.title,
