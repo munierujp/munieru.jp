@@ -180,10 +180,6 @@ npm run lint:markuplint
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
 その他の指摘はテンプレート側で修正し、見出しとメニューのIDはVueの`useId()`で生成します。
 
-## やること
-
-[TODO.md](TODO.md)で管理しています。
-
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
