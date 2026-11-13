@@ -23,7 +23,5 @@ npm run dev
 
 ## ドキュメント
 
-- [開発ガイド](docs/development.md): 環境構築、ビルド、検証、GitHub Actions、構成、設定方針
-- [内容の更新](docs/development.md#内容の更新): プロフィール、リンク、作品などの編集先
-- [日本語・英語の更新](docs/development.md#日本語英語の更新): 翻訳とルーティング
+- [開発ガイド](docs/development.md): 環境構築、ビルド、検証、GitHub Actions、構成、設定方針、内容・翻訳の更新
 - [OGP画像の生成](design/ogp/README.md): 素材、フォント、再生成手順
