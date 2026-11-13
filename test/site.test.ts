@@ -105,7 +105,7 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     const image = `https://munieru.jp/${imagePath}`
     assert.ok((await stat(join(root, 'dist', imagePath))).isFile())
     assert.ok(document.includes(`<title>${title}</title>`))
-    assert.ok(document.includes(`<span class="wordmark">${title}</span>`))
+    assert.ok(document.includes(`<h1 class="wordmark">${title}</h1>`))
     assert.ok(document.includes(`<small lang="${language}">© ${name}</small>`))
     assert.equal([...document.matchAll(/<h1\b/g)].length, 1)
     assert.ok(metaTag('name', 'twitter:card', document).includes('content="summary_large_image"'))
@@ -141,8 +141,8 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     assert.equal(profile.mainEntity.image, 'https://munieru.jp/profile.png')
     assert.deepEqual(profile.mainEntity.sameAs, data.links.map(link => link.url))
   }
-  assert.ok(html.includes('<h1 lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></h1>'))
-  assert.ok(englishHtml.includes('<h1 lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></h1>'))
+  assert.ok(html.includes('<h2 class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></h2>'))
+  assert.ok(englishHtml.includes('<h2 class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></h2>'))
 })
 
 test('日英のサイトマップとrobots.txtの公開URLが一致する', async () => {

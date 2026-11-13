@@ -1,8 +1,8 @@
 <template>
   <!-- 全ページ共通のサイト名と、言語・テーマの選択を表示する。 -->
   <header class="site-header wrap">
-    <!-- サイト名はロゴとして扱い、ページのh1は本文側に置く。 -->
-    <span class="wordmark">{{ t('site.title') }}</span>
+    <!-- サイト名をページ全体の見出しとして表示する。 -->
+    <h1 class="wordmark">{{ t('site.title') }}</h1>
     <div class="header-actions">
       <AppLanguageSwitcher />
       <AppThemeSwitcher />

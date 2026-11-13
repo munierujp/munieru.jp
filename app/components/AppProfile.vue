@@ -2,8 +2,8 @@
   <!-- プロフィール本文はここで編集する。画像は public/profile.png で管理する。 -->
   <section class="hero wrap">
     <div class="hero-copy">
-      <h1 v-if="isEnglish" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></h1>
-      <h1 v-else lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></h1>
+      <h2 v-if="isEnglish" class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></h2>
+      <h2 v-else class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></h2>
       <div class="hero-description">
         <template v-if="isEnglish">
           <p>I'm an otaku and IT engineer based in Edogawa, Tokyo, Japan. Originally from Kawaguchi, Saitama.</p>
