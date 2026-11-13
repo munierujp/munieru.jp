@@ -1,5 +1,4 @@
 {
-  // 依存更新の共通方針は共有プリセットへ集約する。
   "extends": [
     "github>munierujp/renovate-config"
   ]
