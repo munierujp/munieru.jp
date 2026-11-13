@@ -50,8 +50,6 @@ export interface Work {
   image?: string
   /** 公開終了時は主リンクを出さず、GitHubへの補助リンクを残す。 */
   publicationEnded?: boolean
-  /** 開発終了のラベルを表示する。公開終了とは独立して扱う。 */
-  developmentEnded?: boolean
 }
 
 /** 寄稿書籍の販売先・表紙・原題と、英語ページ向けの補足情報。 */

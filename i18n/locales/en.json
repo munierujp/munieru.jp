@@ -24,7 +24,6 @@
     "workTypes": "Work categories",
     "workCount": "Showing {count} of {total}",
     "publicationEnded": "Discontinued",
-    "developmentEnded": "No longer maintained",
     "sourceCode": "Source code for {title} (GitHub)",
     "cover": "Cover: {title}",
     "eventInfo": "Event information for {title} (connpass)",

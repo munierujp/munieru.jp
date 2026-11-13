@@ -24,7 +24,6 @@
     "workTypes": "作品の種類",
     "workCount": "全{total}件中{count}件表示",
     "publicationEnded": "公開終了",
-    "developmentEnded": "開発終了",
     "sourceCode": "{title}のソースコード（GitHub）",
     "cover": "{title}の表紙",
     "eventInfo": "{title}のイベント情報（connpass）",

@@ -12,7 +12,6 @@
   },
   {
     "key": "gasunit",
-    "developmentEnded": true,
     "title": "GASUnit",
     "description": "Google Apps Script用のテストライブラリ",
     "date": "2018-08-23",

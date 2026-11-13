@@ -31,7 +31,6 @@
     <!-- 公開終了でも、補助リンクのGitHubからソースコードを開ける。 -->
     <template #status>
       <span v-if="work.publicationEnded" class="work-status">{{ t('ui.publicationEnded') }}</span>
-      <span v-if="work.developmentEnded" class="work-status">{{ t('ui.developmentEnded') }}</span>
     </template>
     {{ work.description }}
     <template #action>
