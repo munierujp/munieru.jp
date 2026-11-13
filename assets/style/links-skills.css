@@ -103,10 +103,6 @@
   gap: 28px;
 }
 
-.section-label h2 {
-  font-size: 1.5rem;
-}
-
 .skills {
   display: flex;
   flex-wrap: wrap;

@@ -124,10 +124,6 @@
     padding-block: 44px;
   }
 
-  .section-label h2 {
-    font-size: 1.4rem;
-  }
-
   .work-toolbar {
     display: flex;
     gap: 8px 12px;
