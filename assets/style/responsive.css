@@ -51,36 +51,58 @@
   }
 
   .site-header {
-    padding-block: 20px;
+    padding-block: 16px;
+    gap: 12px;
   }
 
   .wordmark {
     font-size: 1.2rem;
   }
 
+  /* 名前と画像を並べ、本文をその下へ置いて最初の画面に画像を収めやすくする。 */
   .hero {
-    grid-template-columns: 1fr;
-    padding-top: 38px;
-    gap: 0;
+    grid-template-columns: minmax(0, 1fr) 112px;
+    grid-template-areas:
+      'name image'
+      'description description';
+    padding-top: 24px;
+    padding-bottom: 32px;
+    gap: 24px 16px;
+  }
+
+  .hero-copy {
+    display: contents;
   }
 
   .hero-name {
-    font-size: clamp(2.8rem, 2rem + 4vw, 4rem);
-    margin-top: 22px;
+    grid-area: name;
+    align-self: center;
+    font-size: clamp(2rem, 1rem + 5vw, 2.8rem);
+    margin-top: 0;
   }
 
   .hero-description {
+    grid-area: description;
     font-size: 0.85rem;
-    margin-top: 20px;
+    line-height: 1.9;
+    margin-top: 0;
   }
 
   .hero-art {
-    min-height: 300px;
-    margin-top: 32px;
+    grid-area: image;
+    min-height: 0;
+    margin-top: 0;
   }
 
   .profile-print {
-    width: 210px;
+    width: 112px;
+    max-width: 100%;
+    padding: 6px;
+    border-radius: var(--radius-lg);
+  }
+
+  .photo-frame {
+    border-radius: calc(var(--radius-lg) - 6px);
   }
 
   .links-section,
@@ -181,10 +203,3 @@
 .work-row .card-content {
   min-width: 0;
 }
-
-@media (width <= 560px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
