@@ -42,7 +42,12 @@
       "light": "ライト",
       "dark": "ダーク"
     },
-    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp"
+    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp",
+    "switchLanguage": "英語版を表示"
   },
-  "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。"
+  "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。",
+  "profile": {
+    "summary": "東京都江戸川区在住のオタク兼ITエンジニア。埼玉県川口市出身。",
+    "activities": "休日はだいたい映画館で映画を見るか、ライブ、コンサート、フェス、舞台、ミュージカルなどのイベントに行っています。"
+  }
 }

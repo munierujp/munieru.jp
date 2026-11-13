@@ -71,7 +71,7 @@ Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組�
 
 日常的な更新はJSONを編集します。既存の項目をコピーして追加できます。
 
-- 名前・プロフィール本文: `app/components/AppProfile.vue` の `<template>`
+- 名前・プロフィール本文: `i18n/locales/ja.json`・`en.json`の`site`・`profile`
 - フッターの著作権表記: `app/components/AppFooter.vue` の `<template>`
 - サイト名（`title`）: `modules/site.json`
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`

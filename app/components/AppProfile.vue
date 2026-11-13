@@ -1,18 +1,12 @@
 <template>
-  <!-- プロフィール本文はここで編集する。画像は public/profile.png で管理する。 -->
+  <!-- プロフィール本文は翻訳辞書、画像は public/profile.png で管理する。 -->
   <section class="hero wrap">
     <div class="hero-copy">
-      <p v-if="isEnglish" class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></p>
-      <p v-else class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></p>
+      <p v-if="isEnglish" class="hero-name" lang="en">{{ t('site.name') }}<span class="hero-secondary" lang="ja">{{ t('site.alternateName') }}</span></p>
+      <p v-else class="hero-name" lang="ja">{{ t('site.name') }}<span class="hero-secondary" lang="en">{{ t('site.alternateName') }}</span></p>
       <div class="hero-description">
-        <template v-if="isEnglish">
-          <p>I'm an otaku and IT engineer based in Edogawa, Tokyo, Japan. Originally from Kawaguchi, Saitama.</p>
-          <p>On my days off, you'll usually find me at the cinema or at live shows, concerts, festivals, plays, and musicals.</p>
-        </template>
-        <template v-else>
-          <p>東京都江戸川区在住のオタク兼ITエンジニア。埼玉県川口市出身。</p>
-          <p>休日はだいたい映画館で映画を見るか、ライブ、コンサート、フェス、舞台、ミュージカルなどのイベントに行っています。</p>
-        </template>
+        <p>{{ t('profile.summary') }}</p>
+        <p>{{ t('profile.activities') }}</p>
       </div>
     </div>
     <div class="hero-art">
@@ -38,9 +32,9 @@
 
 <script setup lang="ts">
 /**
- * プロフィール本文と画像を表示する。日英の本文はテンプレートで直接管理する。
+ * 翻訳辞書のプロフィール本文と、ローカルの画像を表示する。
  * @packageDocumentation
  */
-// プロフィール本文は各言語のtemplateで直接編集する。
+// 主名義・別表記と本文は、表示言語の翻訳辞書から取得する。
 const { isEnglish, t } = useSiteLocale()
 </script>

@@ -24,7 +24,7 @@
       class="language-trigger"
       :href="languagePath(isEnglish ? 'ja' : 'en')"
       :hreflang="isEnglish ? 'ja' : 'en'"
-      :aria-label="isEnglish ? 'Switch to Japanese' : '英語版を表示'"
+      :aria-label="t('ui.switchLanguage')"
       :title="label"
     >
       <AppIcon name="languages" />
