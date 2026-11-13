@@ -11,7 +11,7 @@
         class="talk-cover"
         :src="talk.image"
         format="webp"
-        sizes="100vw 752px:192px 1068px:560px"
+        sizes="mobile:100vw 752px:192px 1068px:560px"
         densities="1x 2x"
         :alt="t('ui.cover', { title: talk.title })"
         :width="talk.imageWidth"
