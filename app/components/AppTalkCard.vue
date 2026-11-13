@@ -24,7 +24,6 @@
       <span class="work-category">
         {{ talk.format }} /
         <time :datetime="talk.date">{{ formatDate(talk.date) }}</time>
-        <span v-if="isEnglish" class="content-language">{{ t('ui.slidesLanguage') }}</span>
       </span>
     </template>
     <!-- 原題を資料と照合できるよう残し、参考英訳は見出しとは別に添える。 -->

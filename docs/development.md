@@ -237,7 +237,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - プロフィール: `i18n/locales/ja.json`・`en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
 - 作品・書籍・登壇など: 日本語は従来の`modules/*.json`、英語は`i18n/locales/en.json`の同じ`key`にある表示文を更新します。
-- URL・日付・画像・並び順は共有します。固有名詞は基本的に元の表記を使い、書籍やスライドが日本語であることは英語版に表示します。
+- URL・日付・画像・並び順は共有します。固有名詞は基本的に元の表記を使い、原題と、必要な参考英訳を表示します。
 - 日付はJSONと`datetime`属性では`YYYY-MM-DD`を使い、表示は日本語で「2026年11月3日」、英語で「Nov 3, 2026」にします。Vue I18nの書式は`i18n/i18n.config.ts`で管理し、日付が端末のタイムゾーンでずれないようUTCに固定しています。
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
 - 寄稿した章名も原題を残します。`modules/books.json`の`chapterTitle`が原題、英語データの`englishChapterTitle`が参考英訳、`contributionLabel`が寄稿を示す説明です。
