@@ -47,8 +47,15 @@
 
 .work-list {
   display: grid;
+
+  /* 説明文を読める幅を確保し、絞り込み後に1件になっても列幅を維持する。 */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
   gap: 12px;
   margin-top: 16px;
+}
+
+.work-list > li {
+  min-width: 0;
 }
 
 /* 主リンクの有無とカード共通の枠・操作領域はAppCardで統一する。 */
@@ -95,6 +102,9 @@
   display: grid;
   grid-template-columns: 66px minmax(0, 1fr) 44px;
   align-items: center;
+
+  /* 説明文の長さが異なっても、同じ行のカードの高さを揃える。 */
+  height: 100%;
 }
 
 .work-symbol {
