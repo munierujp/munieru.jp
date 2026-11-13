@@ -2,17 +2,17 @@
   <!-- 装飾用の共通アイコン。操作の名前は呼び出し側のリンクやボタンで指定する。 -->
   <svg
     class="app-icon"
-    :viewBox="name === 'github' ? '0 0 32 32' : '0 0 24 24'"
+    :viewBox="icon.viewBox"
     width="24"
     height="24"
     aria-hidden="true"
-    :fill="name === 'github' ? 'currentColor' : 'none'"
-    :stroke="name === 'github' ? 'none' : 'currentColor'"
+    :fill="icon.fill"
+    :stroke="icon.stroke"
     stroke-width="1.75"
     stroke-linecap="round"
     stroke-linejoin="round"
   >
-    <path v-for="(path, index) in paths" :key="index" :d="path" />
+    <path v-for="(path, index) in icon.paths" :key="index" :d="path" />
   </svg>
 </template>
 
@@ -25,7 +25,7 @@ import { computed } from 'vue'
 import icons from '~~/assets/icons.json'
 import type { IconName } from '~/types/ui'
 
-// name は assets/icons.json のキーに対応する。GitHubだけ塗りつぶし・32px座標系を使う。
+// 座標系・塗り・線の違いは辞書へ集約し、コンポーネントでは名前ごとに分岐しない。
 const props = defineProps<{ name: IconName }>()
-const paths = computed(() => icons[props.name] || [])
+const icon = computed(() => icons[props.name])
 </script>

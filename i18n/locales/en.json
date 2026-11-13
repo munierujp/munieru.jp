@@ -1,4 +1,10 @@
 {
+  "site": {
+    "title": "Munieru OFFICIAL SITE",
+    "name": "Munieru",
+    "alternateName": "ムニエル",
+    "copyright": "© {name}"
+  },
   "ui": {
     "headings": {
       "links": "Links",

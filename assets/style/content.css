@@ -1,0 +1,182 @@
+/* 書籍・登壇・フッター・エラー表示。読み込み順はportfolio.cssで維持する。 */
+.books-section {
+  padding: 66px 0 80px;
+}
+
+.book-link {
+  display: grid;
+  grid-template-columns: 144px minmax(0, 1fr);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.book-link h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-block: 6px;
+}
+
+.book-link p {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.talks-section,
+.support-section {
+  padding-block: 64px;
+}
+
+.talk-list {
+  display: grid;
+  gap: 12px;
+}
+
+.talk-card {
+  display: grid;
+  grid-template-columns: 192px minmax(0, 1fr) 44px;
+  align-items: start;
+  gap: 16px;
+}
+
+.talk-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.talk-card h3 {
+  margin-block: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.work-row .card-content h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 4px 0 6px;
+  overflow-wrap: anywhere;
+}
+
+.talk-card p {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.hero-description p + p {
+  margin-top: 12px;
+}
+
+.work-row .card-content p {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.talk-card .title-translation {
+  margin-block: 4px 8px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.event-translation,
+.chapter-translation {
+  display: block;
+  margin-top: 4px;
+}
+
+.talk-slides-link {
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+@media (width <= 560px) {
+  .talks-section,
+  .support-section {
+    padding-block: 44px;
+  }
+
+  .talk-card {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .talk-cover {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .talk-card .card-content {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .talk-slides-link {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+.site-footer {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 28px;
+  align-items: center;
+  padding-block: 28px;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+/* smallの意味付けだけを変更し、著作権表記の表示サイズは維持する。 */
+.site-footer small {
+  font-size: inherit;
+}
+
+/* 404以外の予期しないエラーの案内。トップへのリンクはタップしやすい大きさにする。 */
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-block-size: 60vh;
+  padding-block: 64px;
+}
+
+.error-status {
+  color: var(--muted);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.error-page h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.error-description {
+  color: var(--muted);
+  max-inline-size: 40rem;
+}
+
+.error-home {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 48px;
+  padding: 10px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--soft);
+}
+
+.error-home:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+

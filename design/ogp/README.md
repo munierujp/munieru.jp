@@ -35,4 +35,6 @@ Node.jsへの移行時に、変更前（コミット`820d9de`）のPNGと同じm
 
 ## 背景作成時の指示
 
+```text
 Edit this existing OGP banner to produce a reusable TEXT-FREE BACKGROUND PLATE. Remove ALL lettering on the left: the Japanese name ムニエル, OFFICIAL SITE, and munieru.jp. Fill only the removed letter areas seamlessly with the same sky-blue softly textured background. Keep the entire fish character with lemon on the right, including every outline, color, texture, size, placement, wave, expression, feet, lemon, and ground shadow exactly as in the supplied image. Keep the same wide landscape composition and full-bleed background. Do not move or redesign the character. Do not add ANY text, glyphs, logo, decoration or watermark. The left half must be clean empty blue background suitable for later deterministic typesetting. Preserve the image's 1200:630 aspect ratio.
+```

@@ -105,6 +105,9 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     const image = `https://munieru.jp/${imagePath}`
     assert.ok((await stat(join(root, 'dist', imagePath))).isFile())
     assert.ok(document.includes(`<title>${title}</title>`))
+    assert.ok(document.includes(`<span class="wordmark">${title}</span>`))
+    assert.ok(document.includes(`<small lang="${language}">© ${name}</small>`))
+    assert.equal([...document.matchAll(/<h1\b/g)].length, 1)
     assert.ok(metaTag('name', 'twitter:card', document).includes('content="summary_large_image"'))
     assert.ok(metaTag('property', 'og:image:width', document).includes('content="1200"'))
     assert.ok(metaTag('property', 'og:image:height', document).includes('content="630"'))

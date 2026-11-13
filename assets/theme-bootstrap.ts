@@ -1,5 +1,6 @@
 /**
  * 初回描画の前に保存設定とOS設定を読み、テーマのちらつきを抑える。
+ * @remarks nuxt.config.tsが通常のJSへ変換してheadの先頭付近へ埋め込む。
  * @packageDocumentation
  */
 ;(function () {

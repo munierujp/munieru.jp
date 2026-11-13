@@ -1,7 +1,8 @@
 <template>
   <!-- 全ページ共通のサイト名と、言語・テーマの選択を表示する。 -->
   <header class="site-header wrap">
-    <span class="wordmark">{{ isEnglish ? 'Munieru OFFICIAL SITE' : 'ムニエル OFFICIAL SITE' }}</span>
+    <!-- サイト名はロゴとして扱い、ページのh1は本文側に置く。 -->
+    <span class="wordmark">{{ t('site.title') }}</span>
     <div class="header-actions">
       <AppLanguageSwitcher />
       <AppThemeSwitcher />
@@ -15,5 +16,5 @@
  * @packageDocumentation
  */
 // ヘッダーのサイト名は、ページタイトルと同じく表示言語に合わせる。
-const { isEnglish } = useSiteLocale()
+const { t } = useSiteLocale()
 </script>

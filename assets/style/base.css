@@ -1,0 +1,142 @@
+/* 共通の配色・要素・ヘッダー。読み込み順はportfolio.cssで維持する。 */
+:root {
+  --paper: #faf9f6;
+  --ink: #242824;
+
+  /* 装飾・操作状態はテーマごとのアクセント色と淡い背景色で揃える。 */
+  --accent: #17677d;
+  --accent-soft: #e7f1f3;
+  --muted: #686c68;
+  --line: #dedfd8;
+  --soft: #efeee9;
+  --symbol-web-bg: var(--accent-soft);
+  --symbol-web-ink: var(--accent);
+  --symbol-library-bg: #eee8f2;
+  --symbol-library-ink: #785298;
+  --symbol-extension-bg: #e6ecdf;
+  --symbol-extension-ink: #547149;
+
+  /* 部品の大きさに合わせた角丸。アイコンだけの操作は正円を使う。 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+
+  /* Macはヒラギノ、Windowsは游ゴシックなど、端末搭載の書体を優先する。 */
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo,
+    system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+}
+
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.4;
+}
+
+p {
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+.social-links a {
+  overflow-wrap: anywhere;
+}
+
+.wrap {
+  width: min(1120px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: center;
+  justify-content: flex-start;
+  padding-block: 32px;
+}
+
+.wordmark {
+  font-size: 1.45rem;
+  font-weight: 750;
+  letter-spacing: -0.06em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.wordmark > span {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.header-actions {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.content-language {
+  display: block;
+  margin-top: 4px;
+}
+

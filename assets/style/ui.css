@@ -1,0 +1,193 @@
+/* アイコン・切り替えメニュー・補助要素。読み込み順はportfolio.cssで維持する。 */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.app-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.theme-switcher,
+.language-switcher {
+  position: relative;
+  flex-shrink: 0;
+}
+
+:is(.theme-trigger, .language-trigger) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.language-trigger {
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.language-trigger > .app-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.language-trigger > .language-chevron {
+  width: 12px;
+  height: 12px;
+}
+
+:is(.theme-trigger, .language-trigger):hover,
+:is(.theme-trigger, .language-trigger)[aria-expanded='true'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.theme-trigger:disabled {
+  cursor: default;
+}
+
+:is(.theme-trigger, .language-trigger, .dropdown-option):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 10;
+  inset-block-start: calc(100% + 8px);
+  inset-inline-end: 0;
+  width: 184px;
+  max-width: calc(100vw - 40px);
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.dropdown-option:hover,
+.dropdown-option:focus,
+.dropdown-option[aria-checked='true'] {
+  background: var(--accent-soft);
+}
+
+.dropdown-option[aria-checked='true'] {
+  color: var(--accent);
+}
+
+.dropdown-option::after {
+  content: '';
+  width: 1em;
+  margin-inline-start: auto;
+}
+
+.dropdown-option[aria-checked='true']::after {
+  content: '✓';
+}
+
+.dropdown-option .app-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.icon-link:hover {
+  background: var(--accent-soft);
+}
+
+.work-symbol .app-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.book-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+
+@media (width <= 560px) {
+  .book-link {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+@media (width <= 560px) {
+  .support-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+    width: 100%;
+  }
+}
+
+.skills img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.skills li > span {
+  min-width: 0;
+}

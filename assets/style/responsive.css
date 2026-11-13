@@ -1,0 +1,190 @@
+/* 画面幅と文字サイズに応じたレイアウト調整。読み込み順はportfolio.cssで維持する。 */
+@media (width >= 1500px) {
+  .hero {
+    padding-top: 92px;
+  }
+
+  .hero-art {
+    min-height: 420px;
+  }
+}
+
+@media (width <= 800px) {
+  .wrap {
+    width: calc(100% - 48px);
+  }
+
+  .hero {
+    gap: 24px;
+    padding-top: 52px;
+  }
+
+  .profile-print {
+    width: 220px;
+  }
+
+  .hero-art {
+    margin: 0;
+    min-height: 360px;
+  }
+
+  .hero-description {
+    font-size: 0.8rem;
+  }
+
+  .support-links {
+    justify-content: flex-start;
+  }
+
+  .work-toolbar {
+    align-items: flex-start;
+  }
+
+  .work-count {
+    padding-top: 10px;
+  }
+}
+
+@media (width <= 560px) {
+  .wrap {
+    width: calc(100% - 40px);
+  }
+
+  .site-header {
+    padding-block: 20px;
+  }
+
+  .wordmark {
+    font-size: 1.2rem;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 38px;
+    gap: 0;
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 2rem + 4vw, 4rem);
+    margin-top: 22px;
+  }
+
+  .hero-description {
+    font-size: 0.85rem;
+    margin-top: 20px;
+  }
+
+  .hero-art {
+    min-height: 300px;
+    margin-top: 32px;
+  }
+
+  .profile-print {
+    width: 210px;
+  }
+
+  .links-section,
+  .works-section {
+    padding-block: 48px;
+  }
+
+  .section-top {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .social-links a {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .about-section {
+    padding-block: 44px;
+  }
+
+  .section-label h2 {
+    font-size: 1.4rem;
+  }
+
+  .work-toolbar {
+    display: flex;
+    gap: 8px 12px;
+  }
+
+  .filters {
+    gap: 4px;
+  }
+
+  .work-toolbar .filters {
+    flex-basis: 100%;
+  }
+
+  .filters button {
+    font-size: 0.68rem;
+    padding: 6px 10px;
+  }
+
+  .work-count {
+    display: block;
+    font-size: 0.6rem;
+    padding: 12px 0 0;
+  }
+
+  .work-row {
+    grid-template-columns: 45px minmax(0, 1fr) 44px;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .work-symbol {
+    width: 45px;
+    border-radius: var(--radius-md);
+    font-size: 1.4rem;
+    margin-top: 5px;
+  }
+
+  .work-row .card-content {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .source-link {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .work-row .card-content h3 {
+    font-size: 1rem;
+  }
+
+  .books-section {
+    padding-block: 44px;
+  }
+
+  .site-footer {
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding-block: 24px;
+  }
+
+  .site-footer > a:not(.wordmark) {
+    padding-block: 5px;
+  }
+}
+
+/* Keep layout usable when browser text size is increased. */
+
+.hero-copy,
+.hero-art,
+.section-stack > *,
+.work-row .card-content {
+  min-width: 0;
+}
+
+@media (width <= 560px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+

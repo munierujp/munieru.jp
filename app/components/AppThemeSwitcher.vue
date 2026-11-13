@@ -79,13 +79,13 @@ function syncTheme () {
  * @param value - システム・ライト・ダークのいずれか。
  */
 function changeTheme (value: ThemePreference) {
-  window.munieruTheme?.setPreference(value)
+  window.appTheme?.setPreference(value)
   closeMenu(true)
 }
 // 保存設定とUIを同期し、解除時にリスナーを取り除く。
 onMounted(() => {
   syncTheme()
-  ready.value = Boolean(window.munieruTheme)
+  ready.value = Boolean(window.appTheme)
   window.addEventListener('munieru-theme-change', syncTheme)
 })
 onBeforeUnmount(() => {

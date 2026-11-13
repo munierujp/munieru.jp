@@ -1,5 +1,10 @@
+/**
+ * サイトマップの言語未指定URLを、言語判定用の入口へ揃えるNitroプラグイン。
+ * @remarks server/plugins配下のためNuxtが自動登録し、サイトマップ生成時に実行する。
+ * @packageDocumentation
+ */
 export default defineNitroPlugin(nitroApp => {
-  // HTMLのhreflangと同じく、言語を指定しない入口をx-defaultにする。
+  // x-defaultは特定言語に対応しない利用者向けの入口。HTMLのhreflangと同じBASE_URLへ揃える。
   nitroApp.hooks.hook('sitemap:resolved', context => {
     const baseUrl = useRuntimeConfig().public.siteConfig.BASE_URL
     for (const page of context.urls) {

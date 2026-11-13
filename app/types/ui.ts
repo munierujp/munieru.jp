@@ -13,7 +13,7 @@ export type ThemePreference = 'system' | 'light' | 'dark'
 declare global {
   interface Window {
     /** 初期化後に利用できるテーマ操作API。SSRや初期化前は存在しない。 */
-    munieruTheme?: {
+    appTheme?: {
       /**
        * 選択を保存して適用し、munieru-theme-changeイベントでUIへ通知する。
        * @param value - システム・ライト・ダークのいずれか。
