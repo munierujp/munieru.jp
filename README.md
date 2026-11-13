@@ -59,10 +59,11 @@ URLは `http://127.0.0.1:4173/` です。ポートは `PORT=4174 npm start` な�
 PR・既定ブランチ（master）へのpush・手動実行で、以下のチェックをそれぞれ実行します。
 
 - `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
+- `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
 - `.github/workflows/test.yml`: 静的サイトのビルド後に既存テスト
 
-各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`と`npm run prepare`を先に実行します。
+各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
 Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組みで行います。
 
@@ -136,7 +137,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用の形式が必要な設定はその形式を維持します。コンテンツ・翻訳・アイコンのデータJSONと、自動生成するロックファイルは形式変更の対象外です。
 
-ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
+ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。lockfile-lintはTS設定と公式の型定義に対応しないため、ES Modules形式の`lockfile-lint.config.js`を使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
 
 ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。
 
@@ -153,7 +154,7 @@ npm run lint:eslint
 npm run lint:eslint:fix
 ```
 
-`lint:eslint:fix`はESLintの自動修正を行います。`npm run lint`は4種類のリンターを順に実行し、`npm run lint:fix`はESLint・Stylelintの自動修正後に全リンターで確認します。整形はneostandardに従い、個別のスタイルルールは追加していません。
+`lint:eslint:fix`はESLintの自動修正を行います。`npm run lint`は5種類のリンターを順に実行し、`npm run lint:fix`はESLint・Stylelintの自動修正後に全リンターで確認します。整形はneostandardに従い、個別のスタイルルールは追加していません。
 トップページはページ遷移アニメーションを使わずFragmentで構成するため、`app/pages/index.vue`だけ単一ルートのルールを例外にしています。
 
 ## Secretlint
@@ -193,6 +194,16 @@ npm run lint:markuplint
 
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
 その他の指摘はテンプレート側で修正し、見出しとメニューのIDはVueの`useId()`で生成します。
+
+## lockfile-lint
+
+`lockfile-lint.config.js`で`package-lock.json`を検査します。取得先をnpm公式レジストリのHTTPSに限定し、パッケージ名と取得先URLの一致、SHA-512ハッシュの欠落・形式不正をチェックします。ホスト名のない取得先も許可せず、例外指定は設けていません。
+
+```sh
+npm run lint:lockfile
+```
+
+`npm run lint`にも含め、GitHub Actionsの`lockfile-lint.yml`で独立して実行します。チェック対象はURLやlockfileの整合性情報です。配布物の内容とハッシュの照合はnpmが行い、既知の脆弱性の確認には別途`npm audit`を使います。
 
 ## TypeScriptと型チェック
 
