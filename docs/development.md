@@ -23,7 +23,7 @@ npm run prepare
 `.npmrc` でインストール時のスクリプト実行を無効にしているため、Nuxtの準備は明示的に実行します。
 `npm run dev` やビルドでもNuxtの生成ファイルは準備されます。
 
-GitHub Actionsの検査には、別途[actionlint](https://github.com/rhysd/actionlint/blob/main/docs/install.md)の実行ファイルも必要です。macOSでHomebrewを使う場合は`brew install actionlint`で導入できます。CIは公式配布の1.7.12を使います。
+GitHub Actionsの検査には、別途[actionlint](https://github.com/rhysd/actionlint/blob/main/docs/install.md)の実行ファイルも必要です。macOSでHomebrewを使う場合は`brew install actionlint`で導入できます。CIは公式Dockerイメージの1.7.12を使います。
 
 ## ローカル開発
 
@@ -215,7 +215,7 @@ npm run lint:actionlint
 
 `npm run lint`にも含めます。actionlintはGo製の実行ファイルなのでnpm依存には追加せず、PATHが通った場所へ別途導入してください。インストール方法は[公式ドキュメント](https://github.com/rhysd/actionlint/blob/main/docs/install.md)を参照してください。
 
-CIは`.github/workflows/actionlint.yml`で独立して実行します。公式Linux版の1.7.12とSHA-256を固定し、ダウンロードしたアーカイブを検証してから展開します。更新時はバージョンと、その公式配布物のSHA-256を一緒に変更します。Node.jsやNuxtの準備は不要です。ShellCheckやpyflakesが利用可能な環境では、actionlintの標準連携も有効になります。
+CIは`.github/workflows/actionlint.yml`で独立して実行します。公式Dockerイメージの1.7.12とdigestを固定し、YAML内にインストール用のスクリプトは記述しません。更新時はイメージのバージョンとdigestを一緒に変更します。Node.jsやNuxtの準備は不要です。公式イメージにはShellCheck・pyflakesも含まれます。ローカルでは、これらが利用可能な場合にactionlintの標準連携が有効になります。
 
 ## TypeScriptと型チェック
 
