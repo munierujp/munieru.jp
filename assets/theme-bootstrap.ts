@@ -7,7 +7,7 @@
   const root = document.documentElement
   let preference: string | null = 'system'
   try {
-    preference = window.localStorage.getItem('munieru-theme')
+    preference = window.localStorage.getItem('app-theme')
   } catch {
     // 保存領域が使えない場合はシステム設定で表示する。
   }

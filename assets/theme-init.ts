@@ -7,7 +7,7 @@
   /** Vueのメニューと共有する、保存可能なテーマの選択値。 */
   type ThemePreference = import('../app/types/ui.ts').ThemePreference
   /** 明示的なテーマ選択の保存キー。システム選択では値を削除する。 */
-  const storageKey = 'munieru-theme'
+  const storageKey = 'app-theme'
   const root = document.documentElement
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
   let preference: ThemePreference = 'system'
