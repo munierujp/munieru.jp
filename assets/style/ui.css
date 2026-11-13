@@ -161,14 +161,6 @@
   }
 }
 
-@media (width <= 560px) {
-  .support-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
-    width: 100%;
-  }
-}
-
 .skills img {
   display: block;
   width: 24px;

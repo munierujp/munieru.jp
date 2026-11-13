@@ -75,23 +75,22 @@
 
 .support-links a {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
   min-height: 48px;
   padding: 8px 12px;
   line-height: 1.5;
+
+  /* サービス名は改行せず、収まらない場合はボタン全体を次の行に送る。 */
+  white-space: nowrap;
 }
 
 .social-links a:hover,
 .support-links a:hover {
   background: var(--accent-soft);
   border-color: var(--accent);
-}
-
-.support-button > span {
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 
 .about-section {
