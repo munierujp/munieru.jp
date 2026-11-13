@@ -51,17 +51,10 @@
  * @packageDocumentation
  */
 import type { Talk } from '~/types/content'
-import { useRuntimeConfig } from '#app'
 
 // 登壇の表紙・イベント情報を表示し、発表資料は独立したリンクにする。
 defineProps<{ talk: Talk }>()
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 // サブディレクトリ配信でもpublic内の画像を正しいパスで参照する。
-const config = useRuntimeConfig().public.siteConfig
-/**
- * public内の画像パスに公開サブディレクトリを付ける。
- * @param path - publicを基準とした画像パス。先頭のスラッシュは省略可能。
- * @returns 現在の配信先で有効な画像URLのパス。
- */
-const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
+const asset = usePublicAsset()
 </script>

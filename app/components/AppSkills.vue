@@ -38,11 +38,5 @@ import skillsData from '~~/modules/skills.json'
 const { t, localize } = useSiteLocale()
 /** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
 const skills = computed<Skill[]>(() => skillsData.map(skill => localize('skills', skill)))
-const config = useRuntimeConfig().public.siteConfig
-/**
- * public内の画像パスに公開サブディレクトリを付ける。
- * @param path - publicを基準とした画像パス。先頭のスラッシュは省略可能。
- * @returns 現在の配信先で有効な画像URLのパス。
- */
-const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
+const asset = usePublicAsset()
 </script>
