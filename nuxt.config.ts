@@ -10,14 +10,14 @@ import site from './modules/site.json'
 import { ModuleKind, ScriptTarget, transpileModule } from 'typescript'
 
 const config = loadConfig()
-const rootPath = (path: string) => fileURLToPath(new URL(path, import.meta.url))
-const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
+const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
+const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
 /**
  * テーマ用TSを、型注釈やモジュール読込を必要としないブラウザ用JSへ変換する。
  * @param path - リポジトリルートからのソースパス。
  * @returns headへ埋め込む通常のスクリプト。型の検査はtypecheckで別途行う。
  */
-const browserScript = (path: string) => transpileModule(readFileSync(rootPath(path), 'utf8'), {
+const browserScript = (path: string): string => transpileModule(readFileSync(rootPath(path), 'utf8'), {
   compilerOptions: { target: ScriptTarget.ES2022, module: ModuleKind.None, removeComments: true }
 }).outputText
 
@@ -121,7 +121,7 @@ export default defineNuxtConfig({
     preset: 'static',
     prerender: { routes: ['/ja/', '/en/'] },
     hooks: {
-      async 'prerender:done' () {
+      async 'prerender:done' (): Promise<void> {
         // prefix構成ではNuxt I18nがルートの事前描画を除外する。
         // CSR用のHTMLを入口に使い、ブラウザで判定してから言語別ページへ移動する。
         const html = await readFile(rootPath('./dist/200.html'), 'utf8')

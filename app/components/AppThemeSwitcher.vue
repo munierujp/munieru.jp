@@ -70,7 +70,7 @@ const ready = ref(false)
 const currentTheme = computed(() => themes.value.find(theme => theme.value === preference.value) ?? themes.value[0])
 
 /** DOMに適用された選択状態を読み、メニュー表示へ反映する。保存やOS追従はassets/theme-init.tsが担当する。 */
-function syncTheme () {
+function syncTheme (): void {
   const value = document.documentElement.dataset.themePreference
   preference.value = value === 'light' || value === 'dark' ? value : 'system'
 }
@@ -78,7 +78,7 @@ function syncTheme () {
  * 選択したテーマを保存・適用し、トリガーへフォーカスを戻して閉じる。
  * @param value - システム・ライト・ダークのいずれか。
  */
-function changeTheme (value: ThemePreference) {
+function changeTheme (value: ThemePreference): void {
   window.appTheme?.setPreference(value)
   closeMenu(true)
 }

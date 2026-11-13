@@ -3,14 +3,28 @@
  * @packageDocumentation
  */
 import { computed } from 'vue'
+import type { ComputedRef } from 'vue'
 import type { LocalizedContent } from '~/types/content'
+
+/** Nuxt I18nが提供する翻訳関数・言語状態の型。 */
+type SiteI18n = ReturnType<typeof useI18n>
+
+/** 表示言語の状態と、コンテンツ翻訳・日付表示の共通処理。 */
+export interface SiteLocale {
+  isEnglish: ComputedRef<boolean>
+  locale: SiteI18n['locale']
+  t: SiteI18n['t']
+  localize: <K extends keyof LocalizedContent>(group: K, entry: LocalizedContent[K]) => LocalizedContent[K]
+  titleLanguage: (title: string) => 'ja' | undefined
+  formatDate: (date: string) => string
+}
 
 /**
  * 現在の言語に対応する表示用ヘルパーを取得する。
  * @returns 言語状態、翻訳関数、一覧の翻訳、日付整形、原題の言語判定。
  * @remarks URL・日付・画像を共通データに残し、翻訳辞書にある表示文だけを上書きする。
  */
-export function useSiteLocale () {
+export function useSiteLocale (): SiteLocale {
   const { locale, t, tm, rt, d } = useI18n()
   /** 英語の補足文・表示名を使用するかどうか。言語切り替えに追従する。 */
   const isEnglish = computed(() => locale.value === 'en')
@@ -35,12 +49,12 @@ export function useSiteLocale () {
    * @param title - 表示する原題。
    * @returns 日本語文字がある英語ページではja、それ以外は親要素の言語を継承するundefined。
    */
-  const titleLanguage = (title: string) => isEnglish.value && /[\u3040-\u30ff\u3400-\u9fff]/u.test(title) ? 'ja' : undefined
+  const titleLanguage = (title: string): 'ja' | undefined => isEnglish.value && /[\u3040-\u30ff\u3400-\u9fff]/u.test(title) ? 'ja' : undefined
   /**
    * ISO日付を現在の言語の表示形式へ整形する。
    * @param date - 元データに保存されたYYYY-MM-DD形式の日付。
    * @returns Nuxt I18nのdate書式に従う日付文字列。datetime属性の元データは変更しない。
    */
-  const formatDate = (date: string) => d(date, 'date')
+  const formatDate = (date: string): string => d(date, 'date')
   return { isEnglish, locale, t, localize, titleLanguage, formatDate }
 }

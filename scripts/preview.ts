@@ -33,14 +33,14 @@ const types: Record<string, string> = {
  * @param pathname - デコード済みのリクエストパス。
  * @remarks 未対応言語や公開パス外のURLは、言語判定用の入口へ転送する。
  */
-function redirectToHome (response: ServerResponse, pathname: string) {
+function redirectToHome (response: ServerResponse, pathname: string): void {
   const language = pathname.startsWith(config.BASE_DIR) ? pathname.slice(config.BASE_DIR.length).split('/')[0] : ''
   const target = language === 'ja' || language === 'en' ? `${config.BASE_DIR}${language}/` : config.BASE_DIR
   response.writeHead(302, { Location: target, 'Cache-Control': 'no-store' }).end()
 }
 
 /** GET・HEADだけを受け付け、配信ディレクトリ外へのアクセスを拒否するプレビューサーバー。 */
-const server = createServer(async (request, response) => {
+const server = createServer(async (request, response): Promise<void> => {
   let pathname = config.BASE_DIR
   try {
     if (!['GET', 'HEAD'].includes(request.method ?? '')) {

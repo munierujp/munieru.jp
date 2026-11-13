@@ -79,7 +79,7 @@ type Locale = ReturnType<typeof useI18n>['locale']['value']
  * @param language - 移動先の言語コード。
  * @returns サブディレクトリも含むRouter解決済みのhref。
  */
-const languagePath = (language: Locale) => router.resolve(switchLocalePath(language) || localePath({ name: 'index' }, language)).href
+const languagePath = (language: Locale): string => router.resolve(switchLocalePath(language) || localePath({ name: 'index' }, language)).href
 const { menuOpen, switcher, trigger, items, triggerId, menuId, closeMenu, toggleMenu, onTriggerKeydown, onMenuKeydown } = useDropdownMenu()
 // 言語名・対応言語はnuxt.config.tsのlocalesを共通の定義として使う。
 const { locales, setLocaleCookie } = useI18n()
@@ -96,7 +96,7 @@ const ready = ref(false)
  * @param event - 言語リンクのクリックイベント。
  * @param value - 保存する言語コード。
  */
-function selectLanguage (event: MouseEvent, value: Locale) {
+function selectLanguage (event: MouseEvent, value: Locale): void {
   // 通常のリンク移動より先に保存し、英語ブラウザから日本語を選んでも自動転送で戻されないようにする。
   setLocaleCookie(value)
   // 選択中の言語は再読込せずに閉じる。別言語へは通常のリンクとして移動する。

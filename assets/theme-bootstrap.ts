@@ -3,7 +3,7 @@
  * @remarks nuxt.config.tsが通常のJSへ変換してheadの先頭付近へ埋め込む。
  * @packageDocumentation
  */
-;(function () {
+;(function (): void {
   const root = document.documentElement
   let preference: string | null = 'system'
   try {

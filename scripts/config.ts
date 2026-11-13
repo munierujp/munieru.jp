@@ -26,7 +26,7 @@ const defaults = {
  * @returns 正規化済みのBASE_DIRと、絶対URLのBASE_URLを含む公開設定。
  * @throws ORIGINがhttp(s)以外、またはBASE_DIRが公開パスとして不正な場合。
  */
-export function loadConfig (environment: Record<string, string | undefined> = process.env) {
+export function loadConfig (environment: Record<string, string | undefined> = process.env): typeof defaults & { BASE_URL: string } {
   const config = { ...defaults, BASE_URL: '' }
   for (const key of Object.keys(defaults) as (keyof typeof defaults)[]) {
     config[key] = environment[key] ?? defaults[key]

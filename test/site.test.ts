@@ -33,7 +33,7 @@ function matchRequired (value: string, pattern: RegExp): RegExpMatchArray {
   assert.ok(match, `HTMLのパターンが見つかりません: ${pattern}`)
   return match
 }
-const escapeHtml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
+const escapeHtml = (value: string): string => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
 test('Nodeと型定義のメジャー・マイナーバージョンを揃える', async () => {
   const version = (await readFile(join(root, '.nvmrc'), 'utf8')).trim()
@@ -46,7 +46,7 @@ test('Nodeと型定義のメジャー・マイナーバージョンを揃える'
   assert.equal(process.versions.node.split('.').slice(0, 2).join('.'), majorMinor)
 })
 
-function metaTag (attribute: string, value: string, document = html) {
+function metaTag (attribute: string, value: string, document = html): string {
   const tag = [...document.matchAll(/<meta\s[^>]*>/g)].map(match => match[0])
     .find(tag => tag.includes(`${attribute}="${value}"`))
   assert.ok(tag, `meta要素がありません: ${attribute}=${value}`)

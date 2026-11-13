@@ -35,7 +35,7 @@ const background = await loadImage(fileURLToPath(new URL('design/ogp/background.
  * @param spacing - 字間（px）。省略時は0。
  * @throws 24pxまで縮小しても幅570pxに収まらない場合。
  */
-function drawText (context: SKRSContext2D, text: string, top: number, size: number, weight: number, spacing = 0) {
+function drawText (context: SKRSContext2D, text: string, top: number, size: number, weight: number, spacing = 0): void {
   context.letterSpacing = `${spacing}px`
   // 長い名前も左側の領域に収まるまで縮める。横方向への変形はしない。
   do {
