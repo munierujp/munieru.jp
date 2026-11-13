@@ -122,9 +122,22 @@ HTMLをJavaScript文字列として編集する必要はありません。
 `app/layouts/default.vue`がヘッダー・main・フッターを配置します。新しいページは`app/pages/`へ追加し、mainを重複させず本文だけを書きます。共通レイアウトは既定で適用されます。
 作品・書籍・登壇カードは項目ごとに内容が異なるため、引き続きpropsでデータを受け取ります。
 
-## リンターの設定方針
+## 設定ファイル・コメントの方針
 
-ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。各リンターの設定本体はTypeScriptにし、公式の型定義または設定ヘルパーで型を検査します。SecretlintはTS設定を直接検出しないため、読み込み専用の`.secretlintrc.cjs`から`secretlint.config.ts`を読み込みます。
+設定ファイルの形式は、利用するツールが対応する範囲で次の順に選びます。TSを読み込むためだけのラッパーは追加しません。
+
+1. `.ts`が使える場合はTypeScript。
+2. TS非対応でも型定義がある場合は、`// @ts-check`と型定義を使うJavaScript（`.js`・`.mjs`・`.cjs`）。
+3. 型定義がなくてもJavaScriptで書ける場合はJavaScript。
+4. JavaScript非対応の場合は、JSONC・JSON5などコメントに対応したJSON形式。
+5. JSONC・JSON5の拡張子は非対応でもコメントを読み飛ばせる場合は、`.json`にコメントを記載。
+6. いずれも使えない場合は、コメントなしのJSON。
+
+GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用の形式が必要な設定はその形式を維持します。コンテンツ・翻訳・アイコンのデータJSONと、自動生成するロックファイルは形式変更の対象外です。
+
+ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
+
+ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。
 
 関数・クラス・型・意味や制約のある変数には、TSDoc形式の`/** ... */`コメントを積極的に記載します。ファイル全体の責務は`@packageDocumentation`、引数は`@param`、戻り値は`@returns`、副作用や設計上の注意は`@remarks`、例外は`@throws`で説明します。TypeScriptの型をコメントで繰り返すより、用途・単位・前提条件・変更理由を優先します。JavaScriptでは、必要な型情報をJSDocの型構文で補います。処理途中の判断理由やテンプレート内の説明は、通常のコメントを併用します。
 
@@ -144,7 +157,7 @@ npm run lint:fix
 
 ## Secretlint
 
-公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定本体は`secretlint.config.ts`です。`@secretlint/types`の型定義で設定の構造を検査します。`.secretlintrc.cjs`を経由し、Node.jsの標準TS対応で読み込みます。
+公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。
 
 ```sh
 npm run lint:secretlint
@@ -241,7 +254,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 
 ## 設定
 
-公開設定の既定値は`scripts/config.mjs`に定義し、同名の環境変数で上書きできます。公開先の設定は生成時に反映します。
+公開設定の既定値は`scripts/config.ts`に定義し、同名の環境変数で上書きできます。公開先の設定は生成時に反映します。
 
 - `ORIGIN`: 公開サイトのオリジン。既定は `https://munieru.jp/`
 - `BASE_DIR`: 公開パス。既定は `/`。サブディレクトリなら `/portfolio/` など

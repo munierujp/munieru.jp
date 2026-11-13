@@ -22,13 +22,13 @@ const defaults = {
 
 /**
  * 環境変数を公開設定へ重ね、配信元と公開パスを検証・正規化する。
- * @param {Record<string, string | undefined>} [environment] - 上書き値。省略時はprocess.env。
+ * @param environment - 上書き値。省略時はprocess.env。
  * @returns 正規化済みのBASE_DIRと、絶対URLのBASE_URLを含む公開設定。
  * @throws ORIGINがhttp(s)以外、またはBASE_DIRが公開パスとして不正な場合。
  */
-export function loadConfig (environment = process.env) {
+export function loadConfig (environment: Record<string, string | undefined> = process.env) {
   const config = { ...defaults, BASE_URL: '' }
-  for (const key of /** @type {(keyof typeof defaults)[]} */ (Object.keys(defaults))) {
+  for (const key of Object.keys(defaults) as (keyof typeof defaults)[]) {
     config[key] = environment[key] ?? defaults[key]
   }
   const origin = new URL(config.ORIGIN)

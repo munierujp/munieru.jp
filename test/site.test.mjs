@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
-import { loadConfig, root } from '../scripts/config.mjs'
+import { loadConfig, root } from '../scripts/config.ts'
 
 const names = ['site', 'links', 'skills', 'works', 'books', 'talks']
 const data = Object.fromEntries(await Promise.all(names.map(async name => [

@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import { loadConfig } from './scripts/config.mjs'
+import { loadConfig } from './scripts/config.ts'
 import site from './modules/site.json'
 
 const config = loadConfig()

@@ -1,4 +1,5 @@
 {
+  // 型チェックの設定はNuxtが生成する各実行環境向けの設定へ委譲する。
   "files": [],
   "references": [
     { "path": "./.nuxt/tsconfig.app.json" },

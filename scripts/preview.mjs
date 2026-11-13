@@ -6,7 +6,7 @@ import { createServer } from 'node:http'
 import { createReadStream, existsSync } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { extname, join, resolve, sep } from 'node:path'
-import { loadConfig, root } from './config.mjs'
+import { loadConfig, root } from './config.ts'
 
 const config = loadConfig()
 const output = join(root, 'dist')
