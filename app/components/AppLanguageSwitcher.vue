@@ -1,11 +1,11 @@
 <template>
   <div ref="switcher" class="language-switcher">
     <button
-      v-if="ready"
       :id="triggerId"
       ref="trigger"
       class="language-trigger"
       type="button"
+      :disabled="!ready"
       :aria-label="label"
       :title="label"
       aria-haspopup="menu"
@@ -18,18 +18,6 @@
       <span class="language-label" :lang="locale">{{ currentLanguage.label }}</span>
       <AppIcon name="chevron-down" class="language-chevron" />
     </button>
-    <!-- JSが動かない場合も、同じ見た目の通常リンクから別言語版を開ける。 -->
-    <a
-      v-else
-      class="language-trigger"
-      :href="languagePath(isEnglish ? 'ja' : 'en')"
-      :hreflang="isEnglish ? 'ja' : 'en'"
-      :aria-label="t('ui.switchLanguage')"
-      :title="label"
-    >
-      <AppIcon name="languages" />
-      <span class="language-label" :lang="locale">{{ currentLanguage.label }}</span>
-    </a>
     <div
       :id="menuId"
       class="dropdown-menu language-menu"
@@ -66,7 +54,7 @@
  */
 import { computed, onMounted, ref } from 'vue'
 
-const { isEnglish, locale, t } = useSiteLocale()
+const { locale, t } = useSiteLocale()
 const switchLocalePath = useSwitchLocalePath()
 const localePath = useLocalePath()
 const router = useRouter()

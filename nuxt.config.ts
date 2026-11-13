@@ -125,12 +125,11 @@ export default defineNuxtConfig({
         // prefix構成ではNuxt I18nがルートの事前描画を除外する。
         // CSR用のHTMLを入口に使い、ブラウザで判定してから言語別ページへ移動する。
         const html = await readFile(rootPath('./dist/200.html'), 'utf8')
-        const fallback = `<noscript><p><a href="${asset('ja/')}">日本語</a> / <a href="${asset('en/')}">English</a></p></noscript>`
-        await writeFile(rootPath('./dist/index.html'), html.replace('<body>', '<body>' + fallback))
-        // 静的ホストのフォールバックでも404画面は表示しない。JS無効時は入口へ自動移動する。
+        await writeFile(rootPath('./dist/index.html'), html)
+        // 検索エンジンが静的ホストのフォールバックを登録しないようにする。
         const errorHtml = await readFile(rootPath('./dist/404.html'), 'utf8')
         await writeFile(rootPath('./dist/404.html'), errorHtml
-          .replace('<head>', `<head><meta name="robots" content="noindex, follow"><noscript><meta http-equiv="refresh" content="0;url=${config.BASE_DIR}"></noscript>`))
+          .replace('<head>', '<head><meta name="robots" content="noindex, follow">'))
         // Netlifyでは既存ファイルを優先し、見つからないURLだけを言語別トップへ302転送する。
         await writeFile(rootPath('./dist/_redirects'),
           '# Redirect default Netlify subdomain to primary domain\nhttp://munieru.netlify.com/* http://munieru.jp/:splat 301!\n' +

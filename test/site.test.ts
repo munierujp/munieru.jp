@@ -192,7 +192,8 @@ test('英語版でも作品・書籍・登壇の内容とリンクを維持す�
 
 test('言語切り替えのURLと言語別ラベルの変数を静的HTMLに解決する', () => {
   for (const [document, language, target] of [[html, 'ja', '/en/'], [englishHtml, 'en', '/ja/']]) {
-    assert.ok(document.includes(`class="language-trigger" href="${target}"`))
+    assert.match(document, /<button\b[^>]*class="language-trigger"/u)
+    assert.ok(document.includes(`href="${target}"`))
     assert.ok(document.includes(`aria-checked="true" aria-current="page" data-language-value="${language}"`))
     assert.ok(!document.includes('{title}'))
     assert.ok(!document.includes('{language}'))
@@ -285,10 +286,9 @@ test('不正な公開設定を黙って無視せず失敗させる', () => {
   assert.throws(() => loadConfig({ BASE_DIR: 'https://example.com/' }), /BASE_DIR/)
 })
 
-test('存在しないページの転送ルールとJavaScript無効時の自動移動を出力する', async () => {
+test('存在しないページの転送ルールとフォールバックのnoindexを出力する', async () => {
   const page = await readFile(join(root, 'dist/404.html'), 'utf8')
   assert.match(page, /<meta name="robots" content="noindex, follow">/)
-  assert.match(page, /<noscript><meta http-equiv="refresh" content="0;url=\/"><\/noscript>/)
   const redirects = await readFile(join(root, 'dist/_redirects'), 'utf8')
   assert.match(redirects, /^\/en\/\* \/en\/ 302$/m)
   assert.match(redirects, /^\/ja\/\* \/ja\/ 302$/m)
