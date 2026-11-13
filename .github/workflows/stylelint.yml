@@ -1,4 +1,4 @@
-name: lint
+name: stylelint
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
+  stylelint:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -32,11 +32,5 @@ jobs:
       # .npmrcでインストールスクリプトを無効にしているため、明示的に準備する。
       - name: Prepare Nuxt
         run: npm run prepare
-      - name: Lint
-        run: npm run lint
-      - name: Secretlint
-        run: npm run lint:secretlint
-      - name: Stylelint
+      - name: stylelint
         run: npm run lint:stylelint
-      - name: markuplint
-        run: npm run lint:markuplint

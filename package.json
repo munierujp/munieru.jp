@@ -13,12 +13,14 @@
     "prepare": "nuxt prepare",
     "test": "node --test",
     "typecheck": "nuxt typecheck",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --fix --max-warnings=0",
+    "lint": "npm run lint:eslint && npm run lint:secretlint && npm run lint:stylelint && npm run lint:markuplint",
+    "lint:fix": "npm run lint:eslint:fix && npm run lint:stylelint:fix && npm run lint",
     "lint:secretlint": "secretlint \"**/*\"",
     "lint:stylelint": "stylelint \"assets/**/*.css\" --max-warnings=0",
     "lint:stylelint:fix": "npm run lint:stylelint -- --fix",
-    "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0"
+    "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0",
+    "lint:eslint": "eslint . --max-warnings=0",
+    "lint:eslint:fix": "eslint . --fix --max-warnings=0"
   },
   "engines": {
     "node": "~26.6.0"

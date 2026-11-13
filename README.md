@@ -1,4 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/df9f63fe-2cb3-4024-a774-9c4bb1affcfc/deploy-status)](https://app.netlify.com/sites/munieru/deploys)
+[![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-7fffff?style=flat&labelColor=ff80ff)](https://github.com/neostandard/neostandard)
 
 # munieru.jp
 
@@ -57,7 +58,7 @@ URLは `http://127.0.0.1:4173/` です。ポートは `PORT=4174 npm start` な�
 
 PR・既定ブランチ（master）へのpush・手動実行で、以下のチェックをそれぞれ実行します。
 
-- `.github/workflows/lint.yml`: ESLint・Secretlint・Stylelint・markuplint
+- `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
 - `.github/workflows/test.yml`: 静的サイトのビルド後に既存テスト
 
@@ -110,9 +111,9 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 登壇カード: `app/components/AppTalkCard.vue`
 - SVGアイコンの表示: `app/components/AppIcon.vue`
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、SVGの`icon`または画像のスロットを指定）
-- SVGアイコンのパス: `assets/icons.json`
+- SVGアイコンのパス・座標系・塗り・線: `assets/icons.json`
 - ページとレイアウトの接続: `app/app.vue`
-- スタイル: `assets/style/portfolio.css`
+- スタイルの入口: `assets/style/portfolio.css`。共通要素・プロフィール・リンクとスキル・作品・書籍等・画面幅・テーマ・UIの8ファイルを順に読み込みます。
 - OGP・ファビコン・静的生成: `nuxt.config.ts`
 
 HTMLをJavaScript文字列として編集する必要はありません。
@@ -148,11 +149,11 @@ Nuxt公式の`@nuxt/eslint`で、Vue・TypeScript・JavaScriptの推奨ルール
 インストール直後は`npm run prepare`で生成ファイルを用意してください。
 
 ```sh
-npm run lint
-npm run lint:fix
+npm run lint:eslint
+npm run lint:eslint:fix
 ```
 
-`lint:fix`は自動修正できる指摘を修正します。整形専用の追加ルールは有効にしていません。
+`lint:eslint:fix`はESLintの自動修正を行います。`npm run lint`は4種類のリンターを順に実行し、`npm run lint:fix`はESLint・Stylelintの自動修正後に全リンターで確認します。整形はneostandardに従い、個別のスタイルルールは追加していません。
 トップページはページ遷移アニメーションを使わずFragmentで構成するため、`app/pages/index.vue`だけ単一ルートのルールを例外にしています。
 
 ## Secretlint
@@ -164,7 +165,7 @@ npm run lint:secretlint
 ```
 
 作業ツリー内のファイルを対象とし、隠しファイルもチェックします。`.gitignore`の対象（依存関係・生成物・`.env`など）とGitの管理データは対象外です。Gitの過去の履歴はスキャンしません。
-GitHub Actionsの`lint.yml`でもESLintに続けて実行します。指摘内容は既定のマスク表示を使い、誤検出があれば該当箇所だけを調整します。
+GitHub Actionsの`secretlint.yml`でも独立して実行します。指摘内容は既定のマスク表示を使い、誤検出があれば該当箇所だけを調整します。
 
 ## Stylelint
 
@@ -177,7 +178,7 @@ npm run lint:stylelint:fix
 
 `lint:stylelint:fix`は自動修正できる指摘を修正します。標準設定のルールを無効にする例外は設けていません。
 Vueコンポーネント内には現在`<style>`がないため、CSSファイルだけが対象です。今後Vue内にCSSを書く場合は、Vue用の構文解析設定と対象ファイルを追加してください。
-GitHub Actionsの`lint.yml`でも実行します。
+GitHub Actionsの`stylelint.yml`でも実行します。
 
 ## markuplint
 
@@ -187,7 +188,7 @@ Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parse
 npm run lint:markuplint
 ```
 
-警告も失敗として扱い、GitHub Actionsの`lint.yml`でも実行します。JavaScript・TypeScriptやVueコードのチェックは引き続きESLintが担当します。
+警告も失敗として扱い、GitHub Actionsの`markuplint.yml`でも実行します。JavaScript・TypeScriptやVueコードのチェックは引き続きESLintが担当します。
 カスタムコンポーネントを展開した最終HTMLの検証は行いません。
 
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
@@ -228,7 +229,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 
 本文・見出しには端末に搭載されたフォントを使います。Macではヒラギノ、Windowsでは游ゴシック・メイリオを優先し、それらがない場合は`system-ui`・`sans-serif`へフォールバックします。ウェブフォントの取得や配信は行いません。
 
-書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文の指定は`assets/style/portfolio.css`の`body`、分類・日付の等幅フォント指定も同じファイルにあります。
+書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文の指定は`assets/style/base.css`の`body`、分類・日付などの等幅フォント指定は`profile.css`にあります。
 
 ## 画像の最適化
 
@@ -278,7 +279,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 `assets/theme-bootstrap.ts`を通常のJavaScriptへ変換してheadへ埋め込み、保存済みのテーマを最初の描画前に適用します。
 `assets/theme-init.ts`もJavaScriptへ変換してheadへ埋め込み、設定の適用・保存とVueメニューへの通知を担当します。ブラウザはTSを直接読み込まず、従来の`public/theme-init.js`は不要です。
 独自メニューは矢印・Home・End・Esc・Tabキー、外側クリックに対応します。
-アクセント色はライトモードが濃い青緑（`#17677d`）、ダークモードが明るい青緑（`#8dcbdc`）です。`assets/style/portfolio.css`の`--accent`・`--accent-soft`で定義し、見出しのライン・ホバー時の背景と枠線・フォーカス・選択状態に共通で使います。ボタンやカードの文字・アイコンの色はホバーでは変更せず、選択中の項目だけ背景に合わせた文字色にします。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
+アクセント色はライトモードが濃い青緑（`#17677d`）、ダークモードが明るい青緑（`#8dcbdc`）です。`assets/style/base.css`と`theme.css`の`--accent`・`--accent-soft`で定義し、見出しのライン・ホバー時の背景と枠線・フォーカス・選択状態に共通で使います。ボタンやカードの文字・アイコンの色はホバーでは変更せず、選択中の項目だけ背景に合わせた文字色にします。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
 
 ## 存在しないURL・エラー表示
 
@@ -286,7 +287,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し、`/ja/*`は日本語トップ、`/en/*`は英語トップ、それ以外は言語判定の入口へ転送します。既存ファイルは転送せず通常配信します。
 付属のプレビューサーバーも同じ転送を行います。Nuxtのクライアント側で404になった場合は、`app/error.vue`が現在の言語のトップを再読み込みし、エラー状態を残さず移動します。
 静的ホスト用のフォールバックでは、JavaScript無効時にも入口へ自動移動します。
-404以外のエラーは日英の案内とトップへのリンクを表示します。文言は`i18n/locales/ja.json`・`en.json`の`error`、見た目は`assets/style/portfolio.css`の`.error-*`で変更できます。
+404以外のエラーは日英の案内とトップへのリンクを表示します。文言は`i18n/locales/ja.json`・`en.json`の`error`、見た目は`assets/style/content.css`の`.error-*`で変更できます。
 
 ## npm設定
 

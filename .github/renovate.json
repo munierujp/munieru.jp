@@ -1,5 +1,5 @@
 {
-  // Renovateは.json内のコメントを読み飛ばせる。依存更新の共通方針は共有プリセットへ集約する。
+  // 依存更新の共通方針は共有プリセットへ集約する。
   "extends": [
     "github>munierujp/renovate-config"
   ]
