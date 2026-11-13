@@ -70,7 +70,7 @@ Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組�
 
 - 名前・プロフィール本文: `i18n/locales/ja.json`・`en.json`の`site`・`profile`
 - フッターの著作権表記: `app/components/AppFooter.vue` の `<template>`
-- サイト名（`title`）: `modules/site.json`
+- サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
 - SNS・各サービス: `modules/links.json`
 - スキル: `modules/skills.json`

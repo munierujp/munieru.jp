@@ -5,10 +5,13 @@ import { readFileSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { loadConfig } from './scripts/config.ts'
-import site from './modules/site.json'
+import ja from './i18n/locales/ja.json' with { type: 'json' }
+import en from './i18n/locales/en.json' with { type: 'json' }
 import { ModuleKind, ScriptTarget, transpileModule } from 'typescript'
 
 const config = loadConfig()
+// ページとOGP画像の生成で、同じ翻訳辞書のサイト名を参照する。
+const site = ja.site
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
 /**
@@ -74,22 +77,22 @@ export default defineNuxtConfig({
       title: site.title,
       htmlAttrs: { lang: 'ja' },
       meta: [
-        { name: 'description', content: 'ムニエルのプロフィールサイト' },
-        { name: 'author', content: 'ムニエル' },
+        { name: 'description', content: ja.description },
+        { name: 'author', content: site.name },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'color-scheme', content: 'light dark', tagPriority: -15 },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: site.title },
-        { property: 'og:description', content: 'ムニエルのプロフィールサイト' },
+        { property: 'og:description', content: ja.description },
         { property: 'og:site_name', content: site.title },
         { property: 'og:image', content: new URL(config.OG_IMAGE_PATH, config.BASE_URL).href },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'ムニエル OFFICIAL SITE / munieru.jp' },
+        { property: 'og:image:alt', content: ja.ui.ogImageAlt },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@' + config.TWITTER_ID.replace(/^@/, '') },
         { name: 'twitter:creator', content: '@' + config.TWITTER_ID.replace(/^@/, '') },
-        { name: 'twitter:image:alt', content: 'ムニエル OFFICIAL SITE / munieru.jp' }
+        { name: 'twitter:image:alt', content: ja.ui.ogImageAlt }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: asset('favicon.ico') },
@@ -107,7 +110,7 @@ export default defineNuxtConfig({
             '@id': config.BASE_URL + '#website',
             url: config.BASE_URL,
             name: site.title,
-            alternateName: 'Munieru OFFICIAL SITE',
+            alternateName: en.site.title,
             inLanguage: ['ja', 'en']
           }).replace(/</g, '\\u003c')
         },
