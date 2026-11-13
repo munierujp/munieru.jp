@@ -141,8 +141,8 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     assert.equal(profile.mainEntity.image, 'https://munieru.jp/profile.png')
     assert.deepEqual(profile.mainEntity.sameAs, data.links.map(link => link.url))
   }
-  assert.ok(html.includes('<h2 class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></h2>'))
-  assert.ok(englishHtml.includes('<h2 class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></h2>'))
+  assert.ok(html.includes('<p class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></p>'))
+  assert.ok(englishHtml.includes('<p class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></p>'))
 })
 
 test('日英のサイトマップとrobots.txtの公開URLが一致する', async () => {
