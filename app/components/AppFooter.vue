@@ -8,7 +8,6 @@
 <script setup lang="ts">
 /**
  * 現在の言語に合わせた名義の著作権表記を表示する。
- * @packageDocumentation
  */
 const { locale, t } = useSiteLocale()
 </script>

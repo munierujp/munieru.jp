@@ -1,6 +1,5 @@
 /**
  * 静的生成とローカルプレビューで共有する公開設定を、環境変数から組み立てる。
- * @packageDocumentation
  */
 import { fileURLToPath } from 'node:url'
 

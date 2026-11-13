@@ -32,7 +32,6 @@
 <script setup lang="ts">
 /**
  * 公開設定にURLのある支援先だけを、独立したセクションに表示する。
- * @packageDocumentation
  */
 import { computed, useId } from 'vue'
 

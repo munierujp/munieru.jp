@@ -1,7 +1,6 @@
 /**
  * テーマ選択の保存・OS変更・別タブの変更を同期し、UI用の操作APIを公開する。
  * @remarks nuxt.config.tsがJSへ変換してheadへ埋め込み、window.appThemeを公開する。
- * @packageDocumentation
  */
 ;(function (): void {
   /** Vueのメニューと共有する、保存可能なテーマの選択値。 */

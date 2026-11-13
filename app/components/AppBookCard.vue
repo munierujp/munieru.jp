@@ -39,7 +39,6 @@
 <script setup lang="ts">
 /**
  * 書籍の表紙・寄稿内容・販売ページを一枚のカードにまとめる。
- * @packageDocumentation
  */
 import type { Book } from '~/types/content'
 // 書籍の表紙・寄稿内容と販売ページへのリンクを組み合わせる。

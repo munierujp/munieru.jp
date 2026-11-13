@@ -2,7 +2,6 @@
 
 /**
  * Secretlintの専用ローダーがCommonJSとして読み込む、型定義付きの検出ルール。
- * @packageDocumentation
  */
 
 /** @satisfies {import('@secretlint/types').SecretLintConfigDescriptor} */

@@ -48,7 +48,6 @@
 <script setup lang="ts">
 /**
  * 登壇の原題・表紙・イベントへの主リンクと、独立した資料リンクを表示する。
- * @packageDocumentation
  */
 import type { Talk } from '~/types/content'
 

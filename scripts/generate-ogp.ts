@@ -1,6 +1,5 @@
 /**
  * macOSのヒラギノで日英のOGP画像を生成する。ビルド時には実行しない。
- * @packageDocumentation
  */
 import { mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'

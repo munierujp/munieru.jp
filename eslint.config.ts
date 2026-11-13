@@ -1,6 +1,5 @@
 /**
  * neostandardのJS・TS規約と、NuxtのVue・自動インポート向け設定を組み合わせる。
- * @packageDocumentation
  */
 import withNuxt from './.nuxt/eslint.config.mjs'
 import { neostandard } from 'neostandard'

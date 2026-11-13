@@ -48,7 +48,6 @@
 <script setup lang="ts">
 /**
  * 作品の分類・公開状態・専用アイコン・GitHubリンクを組み合わせる。
- * @packageDocumentation
  */
 import type { Work } from '~/types/content'
 import type { IconName } from '~/types/ui'

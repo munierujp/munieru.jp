@@ -50,7 +50,6 @@
 <script setup lang="ts">
 /**
  * 言語選択をCookieへ保存し、選択した言語の公開URLへ移動する。
- * @packageDocumentation
  */
 import { computed, onMounted, ref } from 'vue'
 

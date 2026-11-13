@@ -1,6 +1,5 @@
 /**
  * 静的HTML・設定・配信サーバーを、Node.js標準テストで検証する。
- * @packageDocumentation
  */
 import test from 'node:test'
 import assert from 'node:assert/strict'

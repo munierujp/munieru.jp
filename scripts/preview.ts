@@ -1,6 +1,5 @@
 /**
  * 静的生成したdistを配信し、未定義URLの転送をNetlifyと同じ方針で再現する。
- * @packageDocumentation
  */
 import { createServer } from 'node:http'
 import type { ServerResponse } from 'node:http'

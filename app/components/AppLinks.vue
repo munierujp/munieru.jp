@@ -31,7 +31,6 @@
 <script setup lang="ts">
 /**
  * 公開アカウントへのリンクを、ローカルのサービスアイコンとともに表示する。
- * @packageDocumentation
  */
 import type { ServiceLink } from '~/types/content'
 import { computed } from 'vue'

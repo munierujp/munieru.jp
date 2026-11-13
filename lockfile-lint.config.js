@@ -1,7 +1,6 @@
 /**
  * パッケージの取得先と整合性情報に対する、lockfileの検査方針を定義する。
  * @remarks TypeScriptの設定ファイルと公式の型定義に対応していないため、JavaScriptを使う。
- * @packageDocumentation
  */
 export default {
   path: 'package-lock.json',

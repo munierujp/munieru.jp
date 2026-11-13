@@ -1,6 +1,5 @@
 /**
  * ルーティング・多言語・画像・SEOと、静的ホスト向け成果物の生成を設定する。
- * @packageDocumentation
  */
 import { readFileSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'

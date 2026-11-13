@@ -15,7 +15,6 @@
 <script setup lang="ts">
 /**
  * 寄稿書籍を読み込み、翻訳して日付の新しい順に表示する。
- * @packageDocumentation
  */
 import type { Book } from '~/types/content'
 import { computed } from 'vue'

@@ -1,6 +1,5 @@
 /**
  * JSONの元データと、翻訳後の表示データで共有するコンテンツの型を定義する。
- * @packageDocumentation
  */
 /** 公開アカウントへのリンク。サービス名だけを言語別に変更できる。 */
 export interface ServiceLink {

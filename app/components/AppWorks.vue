@@ -33,7 +33,6 @@
 <script setup lang="ts">
 /**
  * 作品データの分類を検証し、翻訳・日付順への整列・絞り込みを管理する。
- * @packageDocumentation
  */
 import { computed, onMounted, ref } from 'vue'
 import workData from '~~/modules/works.json'

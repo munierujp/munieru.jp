@@ -33,7 +33,6 @@
 <script setup lang="ts">
 /**
  * 翻訳辞書のプロフィール本文と、ローカルの画像を表示する。
- * @packageDocumentation
  */
 // 主名義・別表記と本文は、表示言語の翻訳辞書から取得する。
 const { isEnglish, t } = useSiteLocale()

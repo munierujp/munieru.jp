@@ -1,6 +1,5 @@
 /**
  * テーマ・言語メニューに共通する開閉とキーボード操作を管理する。
- * @packageDocumentation
  */
 import { nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue'
 import type { Ref } from 'vue'

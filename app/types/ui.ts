@@ -1,6 +1,5 @@
 /**
  * アイコン名・テーマ選択と、ブラウザへ公開するテーマAPIの型を定義する。
- * @packageDocumentation
  */
 import type icons from '~~/assets/icons.json'
 

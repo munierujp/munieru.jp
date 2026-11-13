@@ -15,7 +15,6 @@
 <script setup lang="ts">
 /**
  * 登壇情報を読み込み、翻訳して日付の新しい順に表示する。
- * @packageDocumentation
  */
 import type { Talk } from '~/types/content'
 import { computed } from 'vue'

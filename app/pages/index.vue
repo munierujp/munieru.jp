@@ -11,7 +11,6 @@
 <script setup lang="ts">
 /**
  * トップページのセクション構成と、言語別のSEO・構造化データを定義する。
- * @packageDocumentation
  */
 import { computed } from 'vue'
 import { useHead, useRuntimeConfig } from '#app'

@@ -1,6 +1,5 @@
 /**
  * Vueの推奨ルールと、Safariのリスト読み上げに必要な限定的な例外を設定する。
- * @packageDocumentation
  */
 import type { Config } from '@markuplint/ml-config'
 

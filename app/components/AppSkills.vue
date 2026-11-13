@@ -28,7 +28,6 @@
 <script setup lang="ts">
 /**
  * 技術名とローカルのアイコンを、リンクではない一覧として表示する。
- * @packageDocumentation
  */
 import type { Skill } from '~/types/content'
 import { computed } from 'vue'

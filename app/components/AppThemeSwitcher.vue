@@ -49,7 +49,6 @@
 <script setup lang="ts">
 /**
  * ブラウザ側のテーマ管理APIと、テーマ選択メニューの表示を同期する。
- * @packageDocumentation
  */
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { IconName, ThemePreference } from '~/types/ui'

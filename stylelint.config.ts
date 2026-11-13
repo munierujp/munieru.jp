@@ -1,6 +1,5 @@
 /**
  * CSSの標準ルールを適用する。独自のルール上書きは行わない。
- * @packageDocumentation
  */
 import type { Config } from 'stylelint'
 
