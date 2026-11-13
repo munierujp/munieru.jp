@@ -7,11 +7,7 @@
   padding-top: 76px;
 }
 
-.eyebrow,
-.art-coordinate,
-.hero-bottom,
 .work-category,
-.minor-heading,
 .work-count {
   font-family: SFMono-Regular, Consolas, monospace;
   font-size: 0.72rem;
@@ -94,9 +90,3 @@
   gap: 12px 24px;
   margin-bottom: 34px;
 }
-
-.section-top > p {
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-

@@ -3,16 +3,6 @@
   padding-block: 80px;
 }
 
-.text-link {
-  font-size: 0.8rem;
-  padding-block: 6px;
-}
-
-.text-link:hover,
-.site-footer > a:hover {
-  color: var(--accent);
-}
-
 /* 絞り込みと件数は、一覧の手前へ置く。 */
 .work-toolbar {
   display: flex;
@@ -183,4 +173,3 @@
 .source-link:hover {
   border-color: var(--accent);
 }
-
