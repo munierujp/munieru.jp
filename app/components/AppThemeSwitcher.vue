@@ -86,9 +86,9 @@ function changeTheme (value: ThemePreference) {
 onMounted(() => {
   syncTheme()
   ready.value = Boolean(window.appTheme)
-  window.addEventListener('munieru-theme-change', syncTheme)
+  window.addEventListener('app-theme-change', syncTheme)
 })
 onBeforeUnmount(() => {
-  window.removeEventListener('munieru-theme-change', syncTheme)
+  window.removeEventListener('app-theme-change', syncTheme)
 })
 </script>

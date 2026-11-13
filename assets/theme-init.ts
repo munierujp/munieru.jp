@@ -46,7 +46,7 @@
           : window.localStorage.setItem(storageKey, preference)
       } catch {}
     }
-    window.dispatchEvent(new Event('munieru-theme-change'))
+    window.dispatchEvent(new Event('app-theme-change'))
   }
 
   try {

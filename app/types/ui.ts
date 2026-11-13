@@ -15,7 +15,7 @@ declare global {
     /** 初期化後に利用できるテーマ操作API。SSRや初期化前は存在しない。 */
     appTheme?: {
       /**
-       * 選択を保存して適用し、munieru-theme-changeイベントでUIへ通知する。
+       * 選択を保存して適用し、app-theme-changeイベントでUIへ通知する。
        * @param value - システム・ライト・ダークのいずれか。
        */
       setPreference(value: ThemePreference): void
