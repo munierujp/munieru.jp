@@ -22,8 +22,7 @@
       "cli": "CLI tools"
     },
     "workTypes": "Work categories",
-    "workCount": "{count} works",
-    "workCountOne": "{count} work",
+    "workCount": "Showing {count} of {total}",
     "publicationEnded": "Discontinued",
     "developmentEnded": "No longer maintained",
     "sourceCode": "Source code for {title} (GitHub)",

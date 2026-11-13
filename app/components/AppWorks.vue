@@ -19,7 +19,7 @@
         </button>
       </div>
       <span class="work-count" role="status"
-        >{{ t(filteredWorks.length === 1 ? 'ui.workCountOne' : 'ui.workCount', { count: filteredWorks.length }) }}</span
+        >{{ t('ui.workCount', { total: works.length, count: filteredWorks.length }) }}</span
       >
     </div>
     <ul class="work-list" role="list">
