@@ -1,4 +1,4 @@
-/* 明示的なテーマ選択とOS設定による配色。読み込み順はportfolio.cssで維持する。 */
+/* 明示的なテーマ選択とOS設定による配色。読み込み順はmain.cssで維持する。 */
 :root[data-theme='dark'] {
   --paper: #191c1e;
   --ink: #eeeee9;

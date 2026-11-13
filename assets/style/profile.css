@@ -1,4 +1,4 @@
-/* プロフィールとセクション見出し。読み込み順はportfolio.cssで維持する。 */
+/* プロフィールとセクション見出し。読み込み順はmain.cssで維持する。 */
 .hero {
   display: grid;
   padding-bottom: 48px;

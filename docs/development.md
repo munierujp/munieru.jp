@@ -111,7 +111,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、SVGの`icon`または画像のスロットを指定）
 - SVGアイコンのパス・座標系・塗り・線: `assets/icons.json`
 - ページとレイアウトの接続: `app/app.vue`
-- スタイルの入口: `assets/style/portfolio.css`。共通要素・プロフィール・リンクとスキル・作品・書籍等・画面幅・テーマ・UIの8ファイルを順に読み込みます。
+- スタイルの入口: `assets/style/main.css`。共通要素・プロフィール・リンクとスキル・作品・書籍等・画面幅・テーマ・UIの8ファイルを順に読み込みます。
 - OGP・ファビコン・静的生成: `nuxt.config.ts`
 
 HTMLをJavaScript文字列として編集する必要はありません。

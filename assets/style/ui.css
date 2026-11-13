@@ -1,4 +1,4 @@
-/* アイコン・切り替えメニュー・補助要素。読み込み順はportfolio.cssで維持する。 */
+/* アイコン・切り替えメニュー・補助要素。読み込み順はmain.cssで維持する。 */
 .visually-hidden {
   position: absolute;
   width: 1px;

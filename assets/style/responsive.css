@@ -1,4 +1,4 @@
-/* 画面幅と文字サイズに応じたレイアウト調整。読み込み順はportfolio.cssで維持する。 */
+/* 画面幅と文字サイズに応じたレイアウト調整。読み込み順はmain.cssで維持する。 */
 @media (width >= 1500px) {
   .hero {
     padding-top: 92px;

@@ -65,7 +65,7 @@ export default defineNuxtConfig({
       { code: 'en', language: 'en-US', name: 'English', file: 'en.json' }
     ]
   },
-  css: ['~~/assets/style/portfolio.css'],
+  css: ['~~/assets/style/main.css'],
   runtimeConfig: {
     public: { siteConfig: config }
   },
