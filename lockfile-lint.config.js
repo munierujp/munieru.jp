@@ -1,6 +1,6 @@
 /**
  * パッケージの取得先と整合性情報に対する、lockfileの検査方針を定義する。
- * @remarks 標準の設定探索はTS非対応で、公式の型定義もないためJavaScriptを使う。
+ * @remarks TypeScriptの設定ファイルと公式の型定義に対応していないため、JavaScriptを使う。
  * @packageDocumentation
  */
 export default {
