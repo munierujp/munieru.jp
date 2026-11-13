@@ -207,8 +207,8 @@ test('言語切り替えのURLと言語別ラベルの変数を静的HTMLに解�
     assert.ok(!document.includes('{language}'))
     assert.ok(!document.includes('{count}'))
   }
-  assert.ok(html.includes(`${data.works.length}件`))
-  assert.ok(englishHtml.includes(`${data.works.length} works`))
+  assert.ok(html.includes(`全${data.works.length}件中${data.works.length}件表示`))
+  assert.ok(englishHtml.includes(`Showing ${data.works.length} of ${data.works.length}`))
 })
 
 test('公開終了した作品のリンクを外し、GitHubは全件に残す', () => {
