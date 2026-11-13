@@ -5,9 +5,11 @@
       <div class="section-label">
         <h2>{{ t('ui.headings.books') }}</h2>
       </div>
-      <div>
-        <AppBookCard v-for="book in books" :key="book.key" :book="book" />
-      </div>
+      <ul class="book-list" role="list">
+        <li v-for="book in books" :key="book.key">
+          <AppBookCard :book="book" />
+        </li>
+      </ul>
     </div>
   </section>
 </template>

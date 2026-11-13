@@ -3,11 +3,23 @@
   padding: 66px 0 80px;
 }
 
+/* 1冊でも引き伸ばさず左に置き、冊数と表示幅に応じて列を増やす。 */
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+  gap: 12px;
+}
+
+.book-list > li {
+  min-width: 0;
+}
+
 .book-link {
   display: grid;
   grid-template-columns: 144px minmax(0, 1fr);
   justify-content: flex-start;
   align-items: center;
+  height: 100%;
 }
 
 .book-link h3 {
@@ -28,22 +40,38 @@
 
 .talk-list {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
   gap: 12px;
 }
 
+.talk-list > li {
+  min-width: 0;
+  container-type: inline-size;
+}
+
+/* 表紙を上段全体、本文と資料リンクを下段に置く縦型カード。 */
 .talk-card {
   display: grid;
-  grid-template-columns: 192px minmax(0, 1fr) 44px;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  grid-template-rows: auto 1fr;
   align-items: start;
   gap: 16px;
+  height: 100%;
 }
 
 .talk-cover {
+  grid-column: 1 / -1;
+  grid-row: 1;
   display: block;
   width: 100%;
   height: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
+}
+
+.talk-card .card-content {
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .talk-card h3 {
@@ -90,8 +118,33 @@
 }
 
 .talk-slides-link {
+  grid-column: 2;
+  grid-row: 2;
   border: 1px solid var(--line);
   background: var(--paper);
+}
+
+/* 1列でカードが広い場合は横並びにし、表紙の過度な拡大を防ぐ。 */
+@container (width >= 44rem) {
+  .talk-card {
+    grid-template-columns: 192px minmax(0, 1fr) 44px;
+    grid-template-rows: auto;
+  }
+
+  .talk-cover {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .talk-card .card-content {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .talk-slides-link {
+    grid-column: 3;
+    grid-row: 1;
+  }
 }
 
 @media (width <= 560px) {
@@ -101,24 +154,8 @@
   }
 
   .talk-card {
-    grid-template-columns: minmax(0, 1fr) 44px;
     gap: 12px;
     padding: 16px;
-  }
-
-  .talk-cover {
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-
-  .talk-card .card-content {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .talk-slides-link {
-    grid-column: 2;
-    grid-row: 2;
   }
 }
 
