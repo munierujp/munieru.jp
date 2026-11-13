@@ -51,8 +51,8 @@ test('Nodeと型定義のメジャー・マイナーバージョンを揃える'
   assert.match(pkg.devDependencies['@types/node'], /^\d+\.\d+\.\d+$/)
   const majorMinor = version.split('.').slice(0, 2).join('.')
   assert.equal(pkg.devDependencies['@types/node'].split('.').slice(0, 2).join('.'), majorMinor)
-  assert.equal(pkg.engines.node, `~${majorMinor}.0`)
-  assert.equal(process.versions.node.split('.').slice(0, 2).join('.'), majorMinor)
+  assert.equal(pkg.engines.node, version)
+  assert.equal(process.versions.node, version)
 })
 
 function metaTag (attribute: string, value: string, document = html): string {
