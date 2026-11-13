@@ -20,6 +20,7 @@ npm run dev
 ```
 
 開発サーバーは `http://127.0.0.1:3000/` です。
+全lintの実行には[actionlintの導入](docs/development.md#actionlint)も必要です。
 
 ## ドキュメント
 
