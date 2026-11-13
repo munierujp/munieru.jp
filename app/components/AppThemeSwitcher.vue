@@ -69,7 +69,7 @@ const ready = ref(false)
 /** 保存された選択に対応する表示項目。不明な値ではシステムへ戻す。 */
 const currentTheme = computed(() => themes.value.find(theme => theme.value === preference.value) ?? themes.value[0])
 
-/** DOMに適用された選択状態を読み、メニュー表示へ反映する。保存やOS追従はtheme-init.jsが担当する。 */
+/** DOMに適用された選択状態を読み、メニュー表示へ反映する。保存やOS追従はassets/theme-init.tsが担当する。 */
 function syncTheme () {
   const value = document.documentElement.dataset.themePreference
   preference.value = value === 'light' || value === 'dark' ? value : 'system'

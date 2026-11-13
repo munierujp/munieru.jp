@@ -1,18 +1,39 @@
+/**
+ * 静的HTML・設定・配信サーバーを、Node.js標準テストで検証する。
+ * @packageDocumentation
+ */
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
 import { loadConfig, root } from '../scripts/config.ts'
+import { Script } from 'node:vm'
+import type { ServiceLink, Skill, Work, Book, Talk } from '../app/types/content.ts'
 
-const names = ['site', 'links', 'skills', 'works', 'books', 'talks']
-const data = Object.fromEntries(await Promise.all(names.map(async name => [
-  name, JSON.parse(await readFile(join(root, 'modules', `${name}.json`), 'utf8'))
-])))
+/** テスト対象のローカルJSONを、既存のコンテンツ型に対応付けて読み込む。 */
+async function readJson<T> (path: string): Promise<T> {
+  return JSON.parse(await readFile(join(root, path), 'utf8')) as T
+}
+const data = {
+  links: await readJson<ServiceLink[]>('modules/links.json'),
+  skills: await readJson<Skill[]>('modules/skills.json'),
+  works: await readJson<Work[]>('modules/works.json'),
+  books: await readJson<Book[]>('modules/books.json'),
+  talks: await readJson<Talk[]>('modules/talks.json')
+}
 const html = await readFile(join(root, 'dist/ja/index.html'), 'utf8')
 const englishHtml = await readFile(join(root, 'dist/en/index.html'), 'utf8')
-const english = JSON.parse(await readFile(join(root, 'i18n/locales/en.json'), 'utf8'))
-const escapeHtml = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
+/** テストで使用する、英語の一覧表示文。URLなどは元のJSONに残す。 */
+type Translation = { description?: string; englishTitle?: string; englishChapterTitle?: string }
+const english = await readJson<{ description: string } & Record<'works' | 'books' | 'talks', Record<string, Translation>>>('i18n/locales/en.json')
+/** 必須のHTMLパターンを確認し、不在時は分かるメッセージでテストを失敗させる。 */
+function matchRequired (value: string, pattern: RegExp): RegExpMatchArray {
+  const match = value.match(pattern)
+  assert.ok(match, `HTMLのパターンが見つかりません: ${pattern}`)
+  return match
+}
+const escapeHtml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
 test('Nodeと型定義のメジャー・マイナーバージョンを揃える', async () => {
   const version = (await readFile(join(root, '.nvmrc'), 'utf8')).trim()
@@ -25,20 +46,22 @@ test('Nodeと型定義のメジャー・マイナーバージョンを揃える'
   assert.equal(process.versions.node.split('.').slice(0, 2).join('.'), majorMinor)
 })
 
-function metaTag (attribute, value, document = html) {
-  return [...document.matchAll(/<meta\s[^>]*>/g)].map(match => match[0])
+function metaTag (attribute: string, value: string, document = html) {
+  const tag = [...document.matchAll(/<meta\s[^>]*>/g)].map(match => match[0])
     .find(tag => tag.includes(`${attribute}="${value}"`))
+  assert.ok(tag, `meta要素がありません: ${attribute}=${value}`)
+  return tag
 }
 
 test('Nuxtが本文とOGPを静的HTMLとして出力する', () => {
   assert.match(html, /<!DOCTYPE html>/i)
   assert.match(html, /lang="ja"/)
   assert.match(html, /\/_nuxt\//)
-  assert.equal(new URL(metaTag('property', 'og:url').match(/content="([^"]+)"/)[1]).href, 'https://munieru.jp/ja/')
+  assert.equal(new URL(matchRequired(metaTag('property', 'og:url'), /content="([^"]+)"/)[1]).href, 'https://munieru.jp/ja/')
   assert.ok(metaTag('property', 'og:image').includes('content="https://munieru.jp/ogp.png"'))
-  assert.ok([...html.matchAll(/<link\b[^>]*>/g)].some(([tag]) => tag.includes('rel="canonical"') && new URL(tag.match(/href="([^"]+)"/)[1]).href === 'https://munieru.jp/ja/'))
+  assert.ok([...html.matchAll(/<link\b[^>]*>/g)].some(([tag]) => tag.includes('rel="canonical"') && new URL(matchRequired(tag, /href="([^"]+)"/)[1]).href === 'https://munieru.jp/ja/'))
   for (const entry of [...data.links, ...data.skills, ...data.works, ...data.books, ...data.talks]) {
-    assert.ok(html.includes(escapeHtml(entry.title || entry.name)))
+    assert.ok(html.includes(escapeHtml('title' in entry ? entry.title : entry.name)))
   }
 })
 
@@ -46,7 +69,10 @@ test('初期テーマのスクリプトより先にcolor-schemeメタを出力�
   const meta = metaTag('name', 'color-scheme')
   assert.ok(meta)
   assert.ok(html.indexOf(meta) < html.indexOf('<script id="theme-bootstrap"'))
-  assert.ok(html.includes('theme-init.js'))
+  for (const id of ['theme-bootstrap', 'theme-controller']) {
+    const script = matchRequired(html, new RegExp(`<script id="${id}"[^>]*>([\\s\\S]*?)<\\/script>`))[1]
+    assert.doesNotThrow(() => new Script(script), `${id}は通常のJSとして実行できる`)
+  }
   assert.ok(!html.includes('src="/site.js"'))
 })
 
@@ -63,9 +89,9 @@ test('日英の静的本文・言語指定・canonical・相互参照を出力�
   for (const [document, url] of [[html, 'https://munieru.jp/ja/'], [englishHtml, 'https://munieru.jp/en/']]) {
     const tags = [...document.matchAll(/<link\b[^>]*>/g)].map(([tag]) => tag)
     assert.equal(tags.filter(tag => tag.includes('rel="canonical"')).length, 1)
-    assert.ok(tags.some(tag => tag.includes('rel="canonical"') && new URL(tag.match(/href="([^"]+)"/)[1]).href === url))
+    assert.ok(tags.some(tag => tag.includes('rel="canonical"') && new URL(matchRequired(tag, /href="([^"]+)"/)[1]).href === url))
     for (const [language, target] of [['ja', 'https://munieru.jp/ja/'], ['en', 'https://munieru.jp/en/'], ['x-default', 'https://munieru.jp/']]) {
-      assert.ok(tags.some(tag => tag.includes(`hreflang="${language}"`) && new URL(tag.match(/href="([^"]+)"/)[1]).href === target))
+      assert.ok(tags.some(tag => tag.includes(`hreflang="${language}"`) && new URL(matchRequired(tag, /href="([^"]+)"/)[1]).href === target))
     }
   }
 })
@@ -134,20 +160,24 @@ test('日英のサイトマップとrobots.txtの公開URLが一致する', asyn
 })
 
 test('英語版でも作品・書籍・登壇の内容とリンクを維持する', () => {
-  for (const group of ['works', 'books', 'talks']) {
+  for (const group of ['works', 'books', 'talks'] as const) {
     assert.deepEqual(Object.keys(english[group]).sort(), data[group].map(entry => entry.key).sort())
     for (const entry of data[group]) {
       const translated = english[group][entry.key]
-      assert.ok(englishHtml.includes(escapeHtml(translated.description || translated.englishTitle || translated.englishChapterTitle)))
-      if (group === 'books' && entry.chapterTitle) {
+      const text = translated.description || translated.englishTitle || translated.englishChapterTitle
+      assert.ok(text)
+      assert.ok(englishHtml.includes(escapeHtml(text)))
+      if (group === 'books' && 'chapterTitle' in entry && entry.chapterTitle) {
         assert.ok(englishHtml.includes(escapeHtml(entry.chapterTitle)))
         assert.ok(html.includes(escapeHtml('「' + entry.chapterTitle + '」の章を寄稿')))
       }
-      if (group === 'talks') {
+      if (group === 'talks' && 'eventTitle' in entry) {
         assert.ok(englishHtml.includes(escapeHtml(entry.title)))
         assert.ok(englishHtml.includes(escapeHtml(entry.eventTitle)))
       }
-      assert.ok([...englishHtml.matchAll(/<img\b[^>]*>/g)].some(([tag]) => tag.includes(entry.image)))
+      assert.ok(entry.image)
+      const image = entry.image
+      assert.ok([...englishHtml.matchAll(/<img\b[^>]*>/g)].some(([tag]) => tag.includes(image)))
     }
   }
   for (const work of data.works) {
@@ -209,6 +239,7 @@ test('更新用データの日付・分類と、ローカル画像の存在を�
   }
   for (const work of data.works) assert.ok(['web', 'extension', 'library', 'cli'].includes(work.category))
   for (const entry of [...data.links, ...data.skills, ...data.books, ...data.talks, ...data.works.filter(work => work.image)]) {
+    assert.ok(entry.image)
     assert.ok((await stat(join(root, 'public', entry.image))).isFile())
   }
 })
@@ -216,10 +247,10 @@ test('更新用データの日付・分類と、ローカル画像の存在を�
 test('最適化した画像の全候補を静的ファイルとして出力する', async () => {
   const optimized = [...html.matchAll(/<img\b[^>]*data-nuxt-img[^>]*>/g)].map(([tag]) => tag)
   assert.equal(optimized.length, 1 + data.books.length + data.talks.length)
-  const urls = new Set()
+  const urls = new Set<string>()
   for (const tag of optimized) {
     assert.ok(tag.includes('/_ipx/f_webp'))
-    const srcset = tag.match(/srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
+    const srcset = matchRequired(tag, /srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
     for (const candidate of srcset.split(', ')) {
       const [url, width] = candidate.split(' ')
       assert.ok(parseInt(width) >= 96)
@@ -263,11 +294,11 @@ test('存在しないページの転送ルールとJavaScript無効時の自動�
 })
 
 test('静的プレビューでGET/HEAD・存在しないURLの転送・不正パスを扱う', async t => {
-  const child = spawn(process.execPath, ['scripts/preview.mjs'], {
+  const child = spawn(process.execPath, ['scripts/preview.ts'], {
     cwd: root, env: { ...process.env, PORT: '0', HOST: '127.0.0.1', BASE_DIR: '/' }, stdio: ['ignore', 'pipe', 'pipe']
   })
-  t.after(() => child.kill())
-  const origin = await new Promise((resolve, reject) => {
+  t.after(() => { child.kill() })
+  const origin = await new Promise<string>((resolve, reject) => {
     const timeout = setTimeout(() => reject(new Error('サーバー起動がタイムアウトしました。')), 10000)
     let output = ''
     child.on('error', error => { clearTimeout(timeout); reject(error) })
@@ -281,18 +312,18 @@ test('静的プレビューでGET/HEAD・存在しないURLの転送・不正パ
   assert.equal((await fetch(origin + '/')).status, 200)
   const sitemapResponse = await fetch(origin + '/sitemap_index.xml')
   assert.equal(sitemapResponse.status, 200)
-  assert.match(sitemapResponse.headers.get('content-type'), /application\/xml/)
+  assert.match(sitemapResponse.headers.get('content-type') ?? '', /application\/xml/)
   assert.match(await sitemapResponse.text(), /<sitemapindex/)
   const robotsResponse = await fetch(origin + '/robots.txt')
   assert.equal(robotsResponse.status, 200)
-  assert.match(robotsResponse.headers.get('content-type'), /text\/plain/)
+  assert.match(robotsResponse.headers.get('content-type') ?? '', /text\/plain/)
 
   const englishPage = await fetch(origin + '/en/')
   assert.equal(englishPage.status, 200)
   assert.match(await englishPage.text(), /<html\b[^>]*lang="en"/)
   const image = await fetch(origin + '/profile.png', { method: 'HEAD' })
   assert.equal(image.status, 200)
-  assert.match(image.headers.get('content-type'), /image\/png/)
+  assert.match(image.headers.get('content-type') ?? '', /image\/png/)
   assert.equal(await image.text(), '')
   for (const [path, target] of [['/missing-page', '/'], ['/ja/missing-page', '/ja/'], ['/en/missing-page', '/en/']]) {
     const response = await fetch(origin + path, { redirect: 'manual' })

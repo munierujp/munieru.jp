@@ -205,7 +205,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`public/theme-init.js`と初期描画用のテーマスクリプトは、ブラウザがビルド処理なしで実行するためJavaScriptを維持しています。
+`scripts/*.ts`と`test/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`でスクリプト・テスト・リンター設定・テーマ処理も検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。Secretlint設定だけはTSに直接対応しないため、`@ts-check`付きの`.secretlintrc.js`を維持します。
 
 ## 日本語・英語の更新
 
@@ -247,7 +247,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - `robots.txt`もビルド時に生成し、公開先のサイトマップURLを記載します。
 - HTMLのcanonical・hreflangとサイトマップの対応関係を揃え、`x-default`は言語振り分け用の`/`を指します。
 - 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。説明文は`i18n/locales/*.json`の`description`です。
-- 著者・OGP・Xカードのメタ情報と、共有画像の説明を出力します。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はmacOSのヒラギノ角ゴシックで描画しています。背景素材と再生成手順は`design/ogp/`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.mjs`にあります。
+- 著者・OGP・Xカードのメタ情報と、共有画像の説明を出力します。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はmacOSのヒラギノ角ゴシックで描画しています。背景素材と再生成手順は`design/ogp/`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、構造化データの`alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。
 - JSON-LDで`WebSite`と`ProfilePage`・`Person`を出力します。公開アカウントとの対応は`modules/links.json`から取得します。
 - `nuxt.config.ts`が共通設定、`app/pages/index.vue`が言語別メタ情報、`server/plugins/sitemap.ts`がサイトマップの`x-default`の調整を担当します。
@@ -275,8 +275,8 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。
 保存できない環境ではそのページ内で切り替えます。OS設定の変更と別タブからの変更にも追従します。
-`assets/theme-bootstrap.js` をheadへ埋め込み、保存済みのテーマを最初の描画前に適用します。
-`public/theme-init.js` が設定の適用・保存を行い、Vueのメニューと状態を同期します。
+`assets/theme-bootstrap.ts`を通常のJavaScriptへ変換してheadへ埋め込み、保存済みのテーマを最初の描画前に適用します。
+`assets/theme-init.ts`もJavaScriptへ変換してheadへ埋め込み、設定の適用・保存とVueメニューへの通知を担当します。ブラウザはTSを直接読み込まず、従来の`public/theme-init.js`は不要です。
 独自メニューは矢印・Home・End・Esc・Tabキー、外側クリックに対応します。
 アクセント色はライトモードが濃い青緑（`#17677d`）、ダークモードが明るい青緑（`#8dcbdc`）です。`assets/style/portfolio.css`の`--accent`・`--accent-soft`で定義し、見出しのライン・ホバー時の背景と枠線・フォーカス・選択状態に共通で使います。ボタンやカードの文字・アイコンの色はホバーでは変更せず、選択中の項目だけ背景に合わせた文字色にします。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
 

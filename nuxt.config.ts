@@ -7,10 +7,19 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { loadConfig } from './scripts/config.ts'
 import site from './modules/site.json'
+import { ModuleKind, ScriptTarget, transpileModule } from 'typescript'
 
 const config = loadConfig()
 const rootPath = (path: string) => fileURLToPath(new URL(path, import.meta.url))
 const asset = (path: string) => config.BASE_DIR + path.replace(/^\/+/, '')
+/**
+ * テーマ用TSを、型注釈やモジュール読込を必要としないブラウザ用JSへ変換する。
+ * @param path - リポジトリルートからのソースパス。
+ * @returns headへ埋め込む通常のスクリプト。型の検査はtypecheckで別途行う。
+ */
+const browserScript = (path: string) => transpileModule(readFileSync(rootPath(path), 'utf8'), {
+  compilerOptions: { target: ScriptTarget.ES2022, module: ModuleKind.None, removeComments: true }
+}).outputText
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
@@ -103,8 +112,8 @@ export default defineNuxtConfig({
             inLanguage: ['ja', 'en']
           }).replace(/</g, '\\u003c')
         },
-        { id: 'theme-bootstrap', tagPriority: -14, innerHTML: readFileSync(rootPath('./assets/theme-bootstrap.js'), 'utf8') },
-        { id: 'theme-controller', src: asset('theme-init.js'), defer: true }
+        { id: 'theme-bootstrap', tagPriority: -14, innerHTML: browserScript('./assets/theme-bootstrap.ts') },
+        { id: 'theme-controller', tagPriority: -13, innerHTML: browserScript('./assets/theme-init.ts') }
       ]
     }
   },

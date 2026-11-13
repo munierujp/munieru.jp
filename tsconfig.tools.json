@@ -1,0 +1,26 @@
+{
+  // Nuxt外で実行するスクリプト・テスト・設定と、通常のJSへ変換するテーマ処理も検査する。
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "lib": ["ES2023", "DOM"],
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "erasableSyntaxOnly": true,
+    "paths": { "~~/*": ["./*"] }
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "test/**/*.ts",
+    "assets/**/*.ts",
+    "eslint.config.ts",
+    "stylelint.config.ts",
+    "markuplint.config.ts",
+    ".secretlintrc.js"
+  ]
+}

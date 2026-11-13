@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import { createServer } from 'node:http'
+import type { ServerResponse } from 'node:http'
 import { createReadStream, existsSync } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { extname, join, resolve, sep } from 'node:path'
@@ -12,7 +13,7 @@ const config = loadConfig()
 const output = join(root, 'dist')
 if (!existsSync(join(output, 'index.html'))) throw new Error('先に npm run build を実行してください。')
 /** 静的ファイルの拡張子に対応するContent-Type。不明な種類はバイナリとして扱う。 */
-const types = {
+const types: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -28,11 +29,11 @@ const types = {
 
 /**
  * 見つからないURLを、パス内の言語に対応するトップへ302転送する。
- * @param {import("node:http").ServerResponse} response - 転送レスポンスの書き込み先。
- * @param {string} pathname - デコード済みのリクエストパス。
+ * @param response - 転送レスポンスの書き込み先。
+ * @param pathname - デコード済みのリクエストパス。
  * @remarks 未対応言語や公開パス外のURLは、言語判定用の入口へ転送する。
  */
-function redirectToHome (response, pathname) {
+function redirectToHome (response: ServerResponse, pathname: string) {
   const language = pathname.startsWith(config.BASE_DIR) ? pathname.slice(config.BASE_DIR.length).split('/')[0] : ''
   const target = language === 'ja' || language === 'en' ? `${config.BASE_DIR}${language}/` : config.BASE_DIR
   response.writeHead(302, { Location: target, 'Cache-Control': 'no-store' }).end()
@@ -42,11 +43,11 @@ function redirectToHome (response, pathname) {
 const server = createServer(async (request, response) => {
   let pathname = config.BASE_DIR
   try {
-    if (!['GET', 'HEAD'].includes(request.method)) {
+    if (!['GET', 'HEAD'].includes(request.method ?? '')) {
       response.writeHead(405, { Allow: 'GET, HEAD' }).end()
       return
     }
-    pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname)
+    pathname = decodeURIComponent(new URL(request.url ?? '/', 'http://localhost').pathname)
     if (!pathname.startsWith(config.BASE_DIR)) {
       redirectToHome(response, pathname)
       return
@@ -77,7 +78,7 @@ const server = createServer(async (request, response) => {
       response.writeHead(400).end('Bad request')
       return
     }
-    if (error.code === 'ENOENT' || error.code === 'ENOTDIR') {
+    if (error instanceof Error && 'code' in error && (error.code === 'ENOENT' || error.code === 'ENOTDIR')) {
       redirectToHome(response, pathname)
     } else {
       console.error(error)
@@ -89,4 +90,7 @@ const server = createServer(async (request, response) => {
 const port = Number(process.env.PORT ?? 4173)
 const host = process.env.HOST || '127.0.0.1'
 server.on('error', error => { console.error(error.message); process.exitCode = 1 })
-server.listen(port, host, () => console.log(`http://${host}:${server.address().port}${config.BASE_DIR}`))
+server.listen(port, host, () => {
+  const address = server.address()
+  if (address && typeof address !== 'string') console.log(`http://${host}:${address.port}${config.BASE_DIR}`)
+})

@@ -47,6 +47,9 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+# TypeScriptのプロジェクト参照で生成する型チェックのキャッシュ
+*.tsbuildinfo
+
 # Optional REPL history
 .node_repl_history
 

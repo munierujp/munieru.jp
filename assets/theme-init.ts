@@ -3,28 +3,30 @@
  * @packageDocumentation
  */
 ;(function () {
+  /** Vueのメニューと共有する、保存可能なテーマの選択値。 */
+  type ThemePreference = import('../app/types/ui.ts').ThemePreference
   /** 明示的なテーマ選択の保存キー。システム選択では値を削除する。 */
-  var storageKey = 'munieru-theme'
-  var root = document.documentElement
-  var systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-  var preference = 'system'
+  const storageKey = 'munieru-theme'
+  const root = document.documentElement
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+  let preference: ThemePreference = 'system'
 
   /**
    * 保存値を対応するテーマ選択へ正規化する。
-   * @param {string | null} value - 保存領域またはUIから得た値。
+   * @param value - 保存領域またはUIから得た値。
    * @returns light・dark以外はsystem。
    */
-  function normalize(value) {
+  function normalize (value: string | null): ThemePreference {
     return value === 'light' || value === 'dark' ? value : 'system'
   }
 
   /**
    * テーマをDOMへ反映し、必要なら保存してUIへ変更を通知する。
-   * @param {string | null} value - 適用するテーマ選択。
-   * @param {boolean} persist - 利用者の選択として保存するかどうか。
+   * @param value - 適用するテーマ選択。
+   * @param persist - 利用者の選択として保存するかどうか。
    * @remarks ストレージが使えなくても、現在のタブでの表示変更は継続する。
    */
-  function apply(value, persist) {
+  function apply (value: string | null, persist: boolean) {
     preference = normalize(value)
     root.dataset.themePreference = preference
     root.dataset.theme =
@@ -34,25 +36,25 @@
           : 'light'
         : preference
     root.style.colorScheme = root.dataset.theme
-    document.querySelector('meta[name="color-scheme"]').content =
-      preference === 'system' ? 'light dark' : preference
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')
+    if (meta) meta.content = preference === 'system' ? 'light dark' : preference
     if (persist) {
       try {
         preference === 'system'
           ? window.localStorage.removeItem(storageKey)
           : window.localStorage.setItem(storageKey, preference)
-      } catch (_) {}
+      } catch {}
     }
     window.dispatchEvent(new Event('munieru-theme-change'))
   }
 
   try {
     preference = normalize(window.localStorage.getItem(storageKey))
-  } catch (_) {}
+  } catch {}
   apply(preference, false)
 
   window.munieruTheme = {
-    setPreference: function (value) {
+    setPreference: function (value: ThemePreference) {
       apply(value, true)
     },
   }
@@ -60,7 +62,8 @@
     if (preference === 'system') apply('system', false)
   })
   window.addEventListener('storage', function (event) {
-    if (event.key === storageKey || event.key === null)
+    if (event.key === storageKey || event.key === null) {
       apply(event.newValue, false)
+    }
   })
 })()

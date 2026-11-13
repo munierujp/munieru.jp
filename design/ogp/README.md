@@ -3,7 +3,7 @@
 背景・キャラクターと文字を分離し、実際のフォントで組版してPNGへ書き出します。
 
 - 文字なし背景: `background.png`（image_genで従来のOGPから文字を除去した素材）
-- 書き出しスクリプト: `../../scripts/generate-ogp.mjs`
+- 書き出しスクリプト: `../../scripts/generate-ogp.ts`
 - 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / munieru.jp）
 - 英語版: `../../public/en/ogp.png`（Munieru OFFICIAL SITE / munieru.jp）
 

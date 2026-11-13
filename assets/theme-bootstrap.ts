@@ -4,7 +4,7 @@
  */
 ;(function () {
   const root = document.documentElement
-  let preference = 'system'
+  let preference: string | null = 'system'
   try {
     preference = window.localStorage.getItem('munieru-theme')
   } catch {
@@ -19,6 +19,6 @@
         : 'light'
       : preference
   root.style.colorScheme = root.dataset.theme
-  document.querySelector('meta[name="color-scheme"]').content =
-    preference === 'system' ? 'light dark' : preference
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')
+  if (meta) meta.content = preference === 'system' ? 'light dark' : preference
 })()

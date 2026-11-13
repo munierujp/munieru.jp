@@ -7,9 +7,9 @@
   "scripts": {
     "build": "nuxt generate",
     "generate": "nuxt generate",
-    "generate:ogp": "node scripts/generate-ogp.mjs",
+    "generate:ogp": "node scripts/generate-ogp.ts",
     "dev": "nuxt dev --host 127.0.0.1",
-    "start": "node scripts/preview.mjs",
+    "start": "node scripts/preview.ts",
     "prepare": "nuxt prepare",
     "test": "node --test",
     "typecheck": "nuxt typecheck",
