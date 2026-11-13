@@ -44,10 +44,5 @@
     },
     "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp"
   },
-  "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。",
-  "error": {
-    "unexpectedTitle": "エラーが発生しました",
-    "unexpectedDescription": "時間をおいて、もう一度お試しください。",
-    "home": "トップページへ"
-  }
+  "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。"
 }

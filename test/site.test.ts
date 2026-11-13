@@ -289,7 +289,6 @@ test('存在しないページの転送ルールとJavaScript無効時の自動�
   const page = await readFile(join(root, 'dist/404.html'), 'utf8')
   assert.match(page, /<meta name="robots" content="noindex, follow">/)
   assert.match(page, /<noscript><meta http-equiv="refresh" content="0;url=\/"><\/noscript>/)
-  assert.ok(!page.includes('class="error-page wrap"'))
   const redirects = await readFile(join(root, 'dist/_redirects'), 'utf8')
   assert.match(redirects, /^\/en\/\* \/en\/ 302$/m)
   assert.match(redirects, /^\/ja\/\* \/ja\/ 302$/m)
