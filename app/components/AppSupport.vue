@@ -7,7 +7,7 @@
     <div class="support-links">
       <a
         v-for="link in supportLinks"
-        :key="link.title"
+        :key="link.key"
         :href="link.url"
         target="_blank"
         rel="noopener"
@@ -34,17 +34,28 @@
  * 公開設定にURLのある支援先だけを、独立したセクションに表示する。
  */
 import { computed, useId } from 'vue'
+import type { SupportLink } from '~/types/content'
+import supportData from '~~/modules/support.json'
 
 // 同じコンポーネントを複数配置しても見出しIDが重複しないようにする。
 const headingId = useId()
-const { t } = useSiteLocale()
+const { t, localize } = useSiteLocale()
 const config = useRuntimeConfig().public.siteConfig
 const asset = usePublicAsset()
-// URLが空の支援先は表示しない。SPONSOERSは既存設定との互換性を保つための綴り。
-const supportLinks = computed(() => [
-  { title: 'GitHub Sponsors', url: config.GITHUB_SPONSOERS_URL, image: '/service-icons/github.svg' },
-  { title: 'PayPal', url: config.PAYPAL_URL, image: '/service-icons/paypal.ico' },
-  { title: t('ui.wishList'), url: config.WISH_LIST_URL, image: '/service-icons/amazon.ico' },
-  { title: 'giftee', url: config.GIFTEE_URL, image: '/service-icons/giftee.png' }
-].filter(link => link.url))
+/** 公開設定の上書き値。追加の支援先はJSONのURLをそのまま使う。 */
+const urlOverrides: Partial<Record<string, string>> = {
+  /** GitHub Sponsorsの公開URL。空文字なら非表示。 */
+  'github-sponsors': config.GITHUB_SPONSOERS_URL,
+  /** PayPalの公開URL。空文字なら非表示。 */
+  paypal: config.PAYPAL_URL,
+  /** ほしい物リストの公開URL。空文字なら非表示。 */
+  'wish-list': config.WISH_LIST_URL,
+  /** gifteeの公開URL。空文字なら非表示。 */
+  giftee: config.GIFTEE_URL
+}
+// URLが空の支援先は表示しない。表示名・並び順・画像はJSONで管理する。
+const supportLinks = computed<SupportLink[]>(() => supportData.map(link => ({
+  ...localize('support', link),
+  url: urlOverrides[link.key] ?? link.url
+})).filter(link => link.url))
 </script>

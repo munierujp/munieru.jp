@@ -1,0 +1,26 @@
+[
+  {
+    "key": "github-sponsors",
+    "title": "GitHub Sponsors",
+    "url": "https://github.com/sponsors/munierujp",
+    "image": "/service-icons/github.svg"
+  },
+  {
+    "key": "paypal",
+    "title": "PayPal",
+    "url": "https://www.paypal.me/munieru",
+    "image": "/service-icons/paypal.ico"
+  },
+  {
+    "key": "wish-list",
+    "title": "ほしい物リスト",
+    "url": "http://amzn.asia/9qD1BsF",
+    "image": "/service-icons/amazon.ico"
+  },
+  {
+    "key": "giftee",
+    "title": "giftee",
+    "url": "https://giftee.com/u/munieru_jp",
+    "image": "/service-icons/giftee.png"
+  }
+]

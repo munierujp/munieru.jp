@@ -11,6 +11,12 @@ export interface ServiceLink {
   image: string
 }
 
+/** 表示名・支援URL・サービスアイコンをまとめた支援先。 */
+export interface SupportLink extends ServiceLink {
+  /** 翻訳とURL上書きに対応付ける安定した識別子。 */
+  key: string
+}
+
 /** リンクを持たない技術名と、ローカルに保存した装飾アイコン。 */
 export interface Skill {
   /** 表示する名前。 */
@@ -102,6 +108,8 @@ export interface Talk {
 
 /** 翻訳辞書のグループ名と、上書き対象となる項目の型の対応表。 */
 export interface LocalizedContent {
+  /** 活動への支援先と、その言語別の表示名。 */
+  support: SupportLink
   /** 公開サービスへのリンク情報。 */
   links: ServiceLink
   /** スキル名とアイコンの情報。 */

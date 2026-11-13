@@ -32,7 +32,6 @@
     "slidesInfo": "Slides for {title} (Speaker Deck)",
     "slidesLanguage": "Slides in Japanese",
     "profileImage": "Profile image",
-    "wishList": "Wish list",
     "theme": "Appearance: {theme}",
     "themeGroup": "Appearance",
     "language": "Language: {language}",
@@ -127,5 +126,10 @@
   "profile": {
     "summary": "I'm an otaku and IT engineer based in Edogawa, Tokyo, Japan. Originally from Kawaguchi, Saitama.",
     "activities": "On my days off, you'll usually find me at the cinema or at live shows, concerts, festivals, plays, and musicals."
+  },
+  "support": {
+    "wish-list": {
+      "title": "Wish list"
+    }
   }
 }
