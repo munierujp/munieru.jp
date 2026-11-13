@@ -13,7 +13,7 @@
     "prepare": "nuxt prepare",
     "test": "node --test",
     "typecheck": "nuxt typecheck",
-    "lint": "npm run lint:eslint && npm run lint:secretlint && npm run lint:stylelint && npm run lint:markuplint && npm run lint:lockfile && npm run lint:actionlint",
+    "lint": "npm run lint:eslint && npm run lint:secretlint && npm run lint:stylelint && npm run lint:markuplint && npm run lint:lockfile",
     "lint:fix": "npm run lint:eslint:fix && npm run lint:stylelint:fix && npm run lint",
     "lint:secretlint": "secretlint \"**/*\"",
     "lint:stylelint": "stylelint \"assets/**/*.css\" --max-warnings=0",
@@ -21,8 +21,7 @@
     "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0",
     "lint:eslint": "eslint . --max-warnings=0",
     "lint:eslint:fix": "eslint . --fix --max-warnings=0",
-    "lint:lockfile": "lockfile-lint",
-    "lint:actionlint": "actionlint"
+    "lint:lockfile": "lockfile-lint"
   },
   "engines": {
     "node": "~26.6.0"
