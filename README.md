@@ -3,7 +3,7 @@
 
 # munieru.jp
 
-[ムニエルのプロフィールサイト](https://munieru.jp/)のソースコードです。
+[ムニエル OFFICIAL SITE](https://munieru.jp/)のソースコードです。
 Nuxt 4 / Vue 3を使い、ビルド時にHTMLを生成して静的サイトとして公開します。
 VuetifyなどのUIライブラリは使わず、CSSで見た目を調整しています。
 
