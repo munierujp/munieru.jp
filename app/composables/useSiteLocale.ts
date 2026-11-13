@@ -10,11 +10,17 @@ type SiteI18n = ReturnType<typeof useI18n>
 
 /** 表示言語の状態と、コンテンツ翻訳・日付表示の共通処理。 */
 export interface SiteLocale {
+  /** 英語ページの補足文や表示を使うかどうか。 */
   isEnglish: ComputedRef<boolean>
+  /** Nuxt I18nが管理する現在の表示言語。 */
   locale: SiteI18n['locale']
+  /** 現在の言語のメッセージを取得する翻訳関数。 */
   t: SiteI18n['t']
+  /** 共通データへ現在の言語の表示文を重ねる。 */
   localize: <K extends keyof LocalizedContent>(group: K, entry: LocalizedContent[K]) => LocalizedContent[K]
+  /** 原題の読み上げに必要なlang属性を判定する。 */
   titleLanguage: (title: string) => 'ja' | undefined
+  /** ISO日付を現在の表示言語の書式へ整形する。 */
   formatDate: (date: string) => string
 }
 

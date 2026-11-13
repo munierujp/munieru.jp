@@ -60,7 +60,14 @@ const themes = computed(() => [
   { value: 'system', label: t('ui.themes.system'), icon: 'monitor' },
   { value: 'light', label: t('ui.themes.light'), icon: 'sun' },
   { value: 'dark', label: t('ui.themes.dark'), icon: 'moon' }
-] as const satisfies readonly { value: ThemePreference; label: string; icon: IconName }[])
+] as const satisfies readonly {
+  /** 利用者の選択を識別する値。 */
+  value: ThemePreference;
+  /** 操作内容を伝える表示・読み上げ用の名前。 */
+  label: string;
+  /** テーマの状態を示すSVGアイコン名。 */
+  icon: IconName
+}[])
 // SSRと初回描画は同じ状態にし、マウント後にブラウザの設定へ同期する。
 const preference = ref<ThemePreference>('system')
 /** テーマ管理APIを利用できる状態かどうか。SSR中の操作を防ぐ。 */

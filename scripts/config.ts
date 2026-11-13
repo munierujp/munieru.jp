@@ -8,14 +8,23 @@ export const root = fileURLToPath(new URL('../', import.meta.url))
 
 /** クライアントにも公開する初期値。秘密情報は含めず、同名の環境変数で上書きする。 */
 const defaults = {
+  /** 公開先のサブディレクトリ。ルート配信は /。 */
   BASE_DIR: '/',
+  /** gifteeの公開支援ページ。空文字の場合は表示しない。 */
   GIFTEE_URL: 'https://giftee.com/u/munieru_jp',
+  /** GitHub Sponsorsの公開支援ページ。空文字の場合は表示しない。 */
   GITHUB_SPONSOERS_URL: 'https://github.com/sponsors/munierujp',
+  /** PayPalの公開支援ページ。空文字の場合は表示しない。 */
   PAYPAL_URL: 'https://www.paypal.me/munieru',
+  /** 共有カードに設定するXアカウント名。先頭の@は省略可能。 */
   TWITTER_ID: 'munieru_jp',
+  /** publicを基準とする日本語OGP画像のパス。 */
   OG_IMAGE_PATH: 'ogp.png',
+  /** publicを基準とする英語OGP画像のパス。 */
   OG_IMAGE_PATH_EN: 'en/ogp.png',
+  /** 公開サイトのhttp(s)オリジン。 */
   ORIGIN: 'https://munieru.jp/',
+  /** ほしい物リストの公開URL。空文字の場合は表示しない。 */
   WISH_LIST_URL: 'http://amzn.asia/9qD1BsF'
 }
 
@@ -25,7 +34,10 @@ const defaults = {
  * @returns 正規化済みのBASE_DIRと、絶対URLのBASE_URLを含む公開設定。
  * @throws ORIGINがhttp(s)以外、またはBASE_DIRが公開パスとして不正な場合。
  */
-export function loadConfig (environment: Record<string, string | undefined> = process.env): typeof defaults & { BASE_URL: string } {
+export function loadConfig (environment: Record<string, string | undefined> = process.env): typeof defaults & {
+  /** 公開パスを含むサイトの絶対URL。 */
+  BASE_URL: string
+} {
   const config = { ...defaults, BASE_URL: '' }
   for (const key of Object.keys(defaults) as (keyof typeof defaults)[]) {
     config[key] = environment[key] ?? defaults[key]

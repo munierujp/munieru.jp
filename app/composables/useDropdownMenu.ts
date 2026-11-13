@@ -6,15 +6,25 @@ import type { Ref } from 'vue'
 
 /** メニューの要素参照・表示状態と、操作用のイベントハンドラー。 */
 export interface DropdownMenu {
+  /** メニューが開いているかどうか。 */
   menuOpen: Ref<boolean>
+  /** 外側クリックの判定に使うメニュー全体の要素。 */
   switcher: Ref<HTMLElement | null>
+  /** 閉じた後にフォーカスを戻すトリガー要素。 */
   trigger: Ref<HTMLElement | null>
+  /** 表示順に並ぶ、フォーカス可能なメニュー項目。 */
   items: Ref<HTMLElement[]>
+  /** トリガーとメニューの関連付けに使う一意のID。 */
   triggerId: string
+  /** メニューの表示要素を識別する一意のID。 */
   menuId: string
+  /** メニューを閉じ、指定時はトリガーへフォーカスを戻す。 */
   closeMenu: (restoreFocus?: boolean) => void
+  /** トリガーの操作に応じてメニューを開閉する。 */
   toggleMenu: (event: MouseEvent) => void
+  /** トリガー上の上下キーとEscapeを処理する。 */
   onTriggerKeydown: (event: KeyboardEvent) => void
+  /** メニュー内の巡回・項目選択・閉じるキー操作を処理する。 */
   onMenuKeydown: (event: KeyboardEvent) => void
 }
 

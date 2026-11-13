@@ -25,6 +25,9 @@ import icons from '~~/assets/icons.json'
 import type { IconName } from '~/types/ui'
 
 // 座標系・塗り・線の違いは辞書へ集約し、コンポーネントでは名前ごとに分岐しない。
-const props = defineProps<{ name: IconName }>()
+const props = defineProps<{
+  /** assets/icons.jsonに定義したSVGアイコン名。 */
+  name: IconName
+}>()
 const icon = computed(() => icons[props.name])
 </script>

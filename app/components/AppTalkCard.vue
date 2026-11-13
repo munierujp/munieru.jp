@@ -52,7 +52,10 @@
 import type { Talk } from '~/types/content'
 
 // 登壇の表紙・イベント情報を表示し、発表資料は独立したリンクにする。
-defineProps<{ talk: Talk }>()
+defineProps<{
+  /** イベント・表紙・発表資料を含む登壇の情報。 */
+  talk: Talk
+}>()
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 // サブディレクトリ配信でもpublic内の画像を正しいパスで参照する。
 const asset = usePublicAsset()

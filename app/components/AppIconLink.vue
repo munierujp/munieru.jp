@@ -14,5 +14,12 @@
 import type { IconName } from '~/types/ui'
 // SVGはiconで指定し、画像などはデフォルトスロットへ渡す。
 // スロットに画像を渡す場合、リンクのlabelと重複しないようaltは空にする。
-defineProps<{ href: string; label: string; icon?: IconName }>()
+defineProps<{
+  /** リンク先の公開URL。 */
+  href: string;
+  /** 操作内容を伝える表示・読み上げ用の名前。 */
+  label: string;
+  /** 表示するSVGアイコン名。省略時はスロットの内容を使う。 */
+  icon?: IconName
+}>()
 </script>

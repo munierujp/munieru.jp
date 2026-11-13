@@ -54,7 +54,10 @@ import type { IconName } from '~/types/ui'
 import { computed, ref } from 'vue'
 
 // 作品固有の分類・公開終了表示・GitHubリンクを組み合わせる。
-const props = defineProps<{ work: Work }>()
+const props = defineProps<{
+  /** 分類・公開状態・ソースコードを含む作品の情報。 */
+  work: Work
+}>()
 const { t, titleLanguage, formatDate } = useSiteLocale()
 // 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
 const imageFailed = ref(false)

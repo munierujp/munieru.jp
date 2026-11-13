@@ -24,8 +24,18 @@ const data = {
 const html = await readFile(join(root, 'dist/ja/index.html'), 'utf8')
 const englishHtml = await readFile(join(root, 'dist/en/index.html'), 'utf8')
 /** テストで使用する、英語の一覧表示文。URLなどは元のJSONに残す。 */
-type Translation = { description?: string; englishTitle?: string; englishChapterTitle?: string }
-const english = await readJson<{ description: string } & Record<'works' | 'books' | 'talks', Record<string, Translation>>>('i18n/locales/en.json')
+type Translation = {
+  /** 表示言語に対応する説明文。 */
+  description?: string;
+  /** 原題の下へ補足する名称の参考英訳。 */
+  englishTitle?: string;
+  /** 寄稿した章名の参考英訳。 */
+  englishChapterTitle?: string
+}
+const english = await readJson<{
+  /** 表示言語に対応する説明文。 */
+  description: string
+} & Record<'works' | 'books' | 'talks', Record<string, Translation>>>('i18n/locales/en.json')
 /** 必須のHTMLパターンを確認し、不在時は分かるメッセージでテストを失敗させる。 */
 function matchRequired (value: string, pattern: RegExp): RegExpMatchArray {
   const match = value.match(pattern)
