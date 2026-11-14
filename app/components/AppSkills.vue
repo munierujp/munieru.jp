@@ -1,31 +1,26 @@
 <template>
   <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
-  <section class="about-section py-12">
-    <UContainer class="section-stack">
-      <div class="section-label mb-6">
-        <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.skills') }}</h2>
-      </div>
-      <div class="about-body">
-        <ul class="skills flex flex-wrap items-center gap-3" role="list">
-          <li v-for="skill in skills" :key="skill.name" class="min-w-0">
-            <UBadge class="ui-badge"
-              ><img
-class="size-6 object-contain"
-                :src="asset(skill.image)"
-                alt=""
-                width="24"
-                height="24"
-                loading="lazy"
-                decoding="async"
-                @error="hideFailedImage"
-              >
-              <span>{{ skill.name }}</span></UBadge
+  <UPageSection class="about-section" :title="t('ui.headings.skills')">
+    <template #body>
+      <ul class="skills flex flex-wrap items-center gap-3" role="list">
+        <li v-for="skill in skills" :key="skill.name" class="min-w-0">
+          <UBadge class="ui-badge"
+            ><img
+              class="size-6 object-contain"
+              :src="asset(skill.image)"
+              alt=""
+              width="24"
+              height="24"
+              loading="lazy"
+              decoding="async"
+              @error="hideFailedImage"
             >
-          </li>
-        </ul>
-      </div>
-    </UContainer>
-  </section>
+            <span>{{ skill.name }}</span></UBadge
+          >
+        </li>
+      </ul>
+    </template>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">

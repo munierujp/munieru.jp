@@ -92,7 +92,7 @@ test('日英の静的本文・言語指定・canonical・相互参照を出力�
   assert.match(html, /<html\b[^>]*lang="ja"/)
   assert.match(englishHtml, /<html\b[^>]*lang="en"/)
   assert.ok(englishHtml.includes('otaku and IT engineer based in Edogawa'))
-  assert.match(englishHtml, /<h2\b[^>]*>Works<\/h2>/)
+  assert.match(englishHtml.replace(/<!--[\s\S]*?-->/g, ''), /<h2\b[^>]*>Works<\/h2>/)
   assert.ok(englishHtml.includes('Support my work'))
   assert.ok(englishHtml.includes('Technical zine (Japanese)'))
   assert.ok(metaTag('property', 'og:url', englishHtml).includes('content="https://munieru.jp/en/"'))

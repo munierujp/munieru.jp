@@ -1,34 +1,36 @@
 <template>
   <!-- 支援先の一覧。設定されたURLがある場合だけ独立したセクションとして表示する。 -->
-  <UContainer v-if="supportLinks.length" as="section" class="support-section py-12" :aria-labelledby="headingId">
-    <div class="section-top mb-6">
-      <h2 :id="headingId" class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.support') }}</h2>
-    </div>
-    <div class="support-links flex flex-wrap items-center gap-3">
-      <UButton
-        v-for="link in supportLinks"
-        :key="link.key"
-        :to="link.url"
-        external
-        target="_blank"
-        rel="noopener"
-        class="ui-button support-button whitespace-nowrap"
-      >
-        <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
-          <img
-class="size-6 object-contain rounded-lg bg-white"
-            :src="asset(link.image)"
-            alt=""
-            width="20"
-            height="20"
-            loading="lazy"
-            @error="hideFailedImage"
-          >
-        </span>
-        <span>{{ link.title }}</span>
-      </UButton>
-    </div>
-  </UContainer>
+  <UPageSection v-if="supportLinks.length" class="support-section" :title="t('ui.headings.support')" :aria-labelledby="headingId">
+    <template #title>
+      <span :id="headingId">{{ t('ui.headings.support') }}</span>
+    </template>
+    <template #body>
+      <div class="support-links flex flex-wrap items-center gap-3">
+        <UButton
+          v-for="link in supportLinks"
+          :key="link.key"
+          :to="link.url"
+          external
+          target="_blank"
+          rel="noopener"
+          class="ui-button support-button whitespace-nowrap"
+        >
+          <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
+            <img
+              class="size-6 object-contain rounded-lg bg-white"
+              :src="asset(link.image)"
+              alt=""
+              width="20"
+              height="20"
+              loading="lazy"
+              @error="hideFailedImage"
+            >
+          </span>
+          <span>{{ link.title }}</span>
+        </UButton>
+      </div>
+    </template>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
