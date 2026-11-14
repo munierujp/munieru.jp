@@ -97,7 +97,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - スキル一覧: `app/components/AppSkills.vue`
-- 作品一覧・分類の絞り込み・件数: `app/components/AppWorks.vue`
+- 作品一覧・日付順への整列: `app/components/AppWorks.vue`
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`
@@ -284,7 +284,7 @@ AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限�
 
 プロフィール・リンク・全作品・書籍・登壇・OGPは、ビルド時のHTMLに含めます。
 JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて同じサイトから配信します。
-絞り込み操作はVueが動作し始めてから表示します。通常は全作品を表示します。
+作品は公開日の新しい順に全件を常時表示します。分類による絞り込みの再検討は[Issue #447](https://github.com/munierujp/munieru.jp/issues/447)で扱います。
 リンク移動そのものにはJavaScriptを使いません。
 
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。

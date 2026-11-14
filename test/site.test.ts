@@ -215,8 +215,6 @@ test('言語別の切り替えトリガーとラベルを静的HTMLに解決す�
     assert.ok(!document.includes('{language}'))
     assert.ok(!document.includes('{count}'))
   }
-  assert.ok(html.includes(`全${data.works.length}件中${data.works.length}件表示`))
-  assert.ok(englishHtml.includes(`Showing ${data.works.length} of ${data.works.length}`))
 })
 
 /** カードの構造内にあるリンク先で記事を特定し、装飾クラスやリンクの子要素には依存しない。 */

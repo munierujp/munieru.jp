@@ -15,14 +15,11 @@
       "support": "Support my work"
     },
     "categories": {
-      "all": "All",
       "web": "Web apps",
       "extension": "Chrome extensions",
       "library": "Libraries",
       "cli": "CLI tools"
     },
-    "workTypes": "Work categories",
-    "workCount": "Showing {count} of {total}",
     "publicationEnded": "Discontinued",
     "sourceCode": "Source code for {title} (GitHub)",
     "cover": "Cover: {title}",
