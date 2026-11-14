@@ -37,8 +37,10 @@ Vue・CSS・データを保存すると、開発画面に反映されます。
 ```sh
 npm run lint
 npm run typecheck
-npm run build
 npm test
+npm run build
+# ビルド成果物の検証
+npm run test:integration
 npm start
 ```
 
@@ -57,7 +59,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 - `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
 - `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
-- `.github/workflows/test.yml`: 静的サイトのビルド後に既存テスト
+- `.github/workflows/test.yml`: ビルド不要の単体テスト→Nuxtの準備・静的ビルド→成果物の結合テスト
 
 各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
@@ -217,7 +219,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`と`test/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`でスクリプト・テスト・リンター設定・テーマ処理も検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。Secretlint設定だけはTSに直接対応しないため、`@ts-check`付きの`.secretlintrc.js`を維持します。
+`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`でスクリプト・テスト・リンター設定・テーマ処理も検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。Secretlint設定だけはTSに直接対応しないため、`@ts-check`付きの`.secretlintrc.js`を維持します。
 
 ## 日本語・英語の更新
 
@@ -337,3 +339,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 ### カード一覧のグリッド
 
 作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。`app/app.config.ts`の`ui.pageGrid.base`で、カード最小幅30rem・狭い画面で1列・十分な幅で2列となる配置と12pxの間隔を共通管理します。標準の画面幅別の列数指定も上書きし、従来のコンテナー幅に応じた列数を維持します。
+
+### テストの実行単位
+
+`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの14件は`test/integration/`へ分け、`npm run build`後に`npm run test:integration`で実行します。CIはこの順序で各検証を一度ずつ実行します。

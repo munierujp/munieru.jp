@@ -1,14 +1,14 @@
 /**
- * 静的HTML・設定・配信サーバーを、Node.js標準テストで検証する。
+ * 静的HTML・配信サーバーを、Node.js標準テストで検証する。
  */
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
-import { loadConfig, root } from '../scripts/config.ts'
+import { root } from '../../scripts/config.ts'
 import { Script } from 'node:vm'
-import type { ServiceLink, Skill, Work, Book, Talk } from '../app/types/content.ts'
+import type { ServiceLink, Skill, Work, Book, Talk } from '../../app/types/content.ts'
 
 /** テスト対象のローカルJSONを、既存のコンテンツ型に対応付けて読み込む。 */
 async function readJson<T> (path: string): Promise<T> {
@@ -43,17 +43,6 @@ function matchRequired (value: string, pattern: RegExp): RegExpMatchArray {
   return match
 }
 const escapeHtml = (value: string): string => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
-
-test('Nodeと型定義のメジャー・マイナーバージョンを揃える', async () => {
-  const version = (await readFile(join(root, '.nvmrc'), 'utf8')).trim()
-  const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
-  assert.match(version, /^\d+\.\d+\.\d+$/)
-  assert.match(pkg.devDependencies['@types/node'], /^\d+\.\d+\.\d+$/)
-  const majorMinor = version.split('.').slice(0, 2).join('.')
-  assert.equal(pkg.devDependencies['@types/node'].split('.').slice(0, 2).join('.'), majorMinor)
-  assert.equal(pkg.engines.node, version)
-  assert.equal(process.versions.node, version)
-})
 
 function metaTag (attribute: string, value: string, document = html): string {
   const tag = [...document.matchAll(/<meta\s[^>]*>/g)].map(match => match[0])
@@ -312,24 +301,6 @@ test('AVIFとWebPの全候補を静的ファイルとして出力する', async 
     assert.ok(pictures[0].includes('fetchpriority="high"'))
     assert.ok(pictures[0].includes('loading="eager"'))
   }
-})
-
-test('サブディレクトリ配信の設定を正規化する', () => {
-  const config = loadConfig({ BASE_DIR: '/portfolio', ORIGIN: 'https://example.com/' })
-  assert.equal(config.BASE_DIR, '/portfolio/')
-  assert.equal(config.BASE_URL, 'https://example.com/portfolio/')
-})
-
-test('既定の公開設定を環境変数で上書きし、空の支援URLも保持する', () => {
-  const config = loadConfig({ ORIGIN: 'https://env.example/', PAYPAL_URL: '' })
-  assert.equal(config.BASE_URL, 'https://env.example/')
-  assert.equal(config.PAYPAL_URL, '')
-  assert.equal(config.GITHUB_SPONSOERS_URL, 'https://github.com/sponsors/munierujp')
-})
-
-test('不正な公開設定を黙って無視せず失敗させる', () => {
-  assert.throws(() => loadConfig({ ORIGIN: 'javascript:alert(1)' }), /ORIGIN/)
-  assert.throws(() => loadConfig({ BASE_DIR: 'https://example.com/' }), /BASE_DIR/)
 })
 
 test('存在しないページの転送ルールとフォールバックのnoindexを出力する', async () => {
