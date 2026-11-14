@@ -8,16 +8,18 @@
       <div class="about-body">
         <ul class="skills" role="list">
           <li v-for="skill in skills" :key="skill.name">
-            <img
-              :src="asset(skill.image)"
-              alt=""
-              width="24"
-              height="24"
-              loading="lazy"
-              decoding="async"
-              @error="hideFailedImage"
+            <AppUiBadge
+              ><img
+                :src="asset(skill.image)"
+                alt=""
+                width="24"
+                height="24"
+                loading="lazy"
+                decoding="async"
+                @error="hideFailedImage"
+              >
+              <span>{{ skill.name }}</span></AppUiBadge
             >
-            <span>{{ skill.name }}</span>
           </li>
         </ul>
       </div>
@@ -36,6 +38,6 @@ import skillsData from '~~/modules/skills.json'
 // スキル名と画像はmodules/skills.jsonで管理する。スキルはリンクではない。
 const { t, localize } = useSiteLocale()
 /** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
-const skills = computed<Skill[]>(() => skillsData.map(skill => localize('skills', skill)))
+const skills = computed<Skill[]>(() => skillsData.map((skill) => localize('skills', skill)))
 const asset = usePublicAsset()
 </script>

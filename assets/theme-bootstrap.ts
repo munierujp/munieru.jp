@@ -18,6 +18,8 @@
         ? 'dark'
         : 'light'
       : preference
+  // UIライブラリのdarkセレクターも初回描画前に揃える。
+  root.classList.toggle('dark', root.dataset.theme === 'dark')
   root.style.colorScheme = root.dataset.theme
   const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')
   if (meta) meta.content = preference === 'system' ? 'light dark' : preference
