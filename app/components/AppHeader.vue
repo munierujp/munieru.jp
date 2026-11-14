@@ -10,9 +10,9 @@
         :items="languages"
         @select="selectLanguage"
       >
-        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-tabler-language" />
+        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-lucide-languages" />
         <span :lang="locale">{{ locale === 'ja' ? '日本語' : 'English' }}</span>
-        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-tabler-chevron-down" />
+        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-lucide-chevron-down" />
       </AppPreferenceMenu>
       <AppPreferenceMenu
         icon-only class="theme-trigger"
@@ -41,7 +41,7 @@ const preference = computed<ThemePreference>(() =>
 )
 /** システム設定・ライト・ダークの選択状態を、現行版と同じアイコンで示す。 */
 const themeIcon = computed<IconName>(
-  () => (({ system: 'i-tabler-device-desktop', light: 'i-tabler-sun', dark: 'i-tabler-moon' }) as const)[preference.value]
+  () => (({ system: 'i-lucide-monitor', light: 'i-lucide-sun', dark: 'i-lucide-moon' }) as const)[preference.value]
 )
 const languages = computed(() =>
   ['ja', 'en'].map((value) => ({

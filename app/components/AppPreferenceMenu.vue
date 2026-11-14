@@ -1,7 +1,7 @@
 <template>
   <UDropdownMenu :items="model"
     ><UButton v-bind="$attrs" variant="outline" color="neutral" size="lg" :square="iconOnly" :class="iconOnly ? 'size-11 min-w-11 shrink-0 justify-center rounded-full p-0' : undefined"
-      ><slot>{{ label }}<UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-tabler-chevron-down" /></slot></UButton
+      ><slot>{{ label }}<UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-lucide-chevron-down" /></slot></UButton
   ></UDropdownMenu>
 </template>
 <script setup lang="ts">
