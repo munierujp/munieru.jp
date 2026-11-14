@@ -3,11 +3,6 @@
  */
 /** ローカルのLucideコレクションから使うアイコン名。呼び出し側の誤記をコンパイル時に検出する。 */
 export type IconName =
-  | 'i-lucide-monitor'
-  | 'i-lucide-languages'
-  | 'i-lucide-chevron-down'
-  | 'i-lucide-sun'
-  | 'i-lucide-moon'
   | 'i-simple-icons-github'
   | 'i-lucide-globe'
   | 'i-lucide-code'

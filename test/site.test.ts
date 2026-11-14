@@ -210,7 +210,7 @@ test('言語別の切り替えトリガーとラベルを静的HTMLに解決す�
   for (const [document, label] of [[html, '言語：日本語'], [englishHtml, 'Language: English']]) {
     const trigger = matchRequired(document, /<(?:button|ons-button)\b[^>]*class="[^"]*\blanguage-trigger\b[^"]*"[^>]*>/iu)[0]
     assert.ok(trigger.includes(`aria-label="${label}"`))
-    assert.ok(trigger.includes('aria-haspopup="menu"'))
+    assert.ok(trigger.includes('aria-haspopup="listbox"'))
     assert.ok(!document.includes('{title}'))
     assert.ok(!document.includes('{language}'))
     assert.ok(!document.includes('{count}'))

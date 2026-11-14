@@ -101,7 +101,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`
-- テーマ選択メニュー: `app/components/AppHeader.vue`と`AppPreferenceMenu.vue`
+- テーマ選択メニュー: `app/components/AppHeader.vue`の`UColorModeSelect`
 - 作品・書籍・登壇の共通カード: `app/components/AppCard.vue`（画像・分類・状態・補助リンクは名前付きスロット）
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
@@ -221,7 +221,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 
 ## 日本語・英語の更新
 
-- 日本語版: `/ja/`、英語版: `/en/`。入口の`/`から保存した言語・ブラウザ言語に応じて移動します。ヘッダーに言語アイコン・現在の言語名（`日本語`・`English`）・下向き矢印を表示し、プルダウンから選択します。
+- 日本語版: `/ja/`、英語版: `/en/`。入口の`/`から保存した言語・ブラウザ言語に応じて移動します。ヘッダーの`ULocaleSelect`に国旗・現在の言語名（`日本語`・`English`）・下向き矢印を表示し、選択肢から切り替えます。
 - プロフィール: `i18n/locales/ja.json`・`en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
 - 作品・書籍・登壇など: 日本語は従来の`modules/*.json`、英語は`i18n/locales/en.json`の同じ`key`にある表示文を更新します。
@@ -233,7 +233,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppHeader.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`description`を編集します。
 - Nuxt I18nの`prefix`構成を使います。言語別ページは静的HTML、入口はCSR用HTML（`200.html`）から生成します。言語判定・転送はモジュールに任せ、JavaScriptが無効な場合の専用処理は用意しません。
-- テーマ・言語メニューは`app/components/AppPreferenceMenu.vue`でNuxt UIの部品へ委譲します。
+- 言語選択は`ULocaleSelect`、テーマ選択は`UColorModeSelect`を直接使い、寸法・配色は`app/app.config.ts`の`selectMenu`で揃えます。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。
 
 ## フォント
@@ -288,7 +288,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。
 保存できない環境ではそのページ内で切り替えます。OS設定の変更と別タブからの変更にも追従します。
 Nuxt UIが自動登録するNuxt Color Modeと`useColorMode()`で、初期描画前の適用・OS追従・保存を行います。保存キーは従来と同じ`app-theme`です。自作のテーマスクリプト・DOM同期プラグイン・`window.appTheme`は使いません。
-静的HTMLでは保存値が分からないため、モジュールの`unknown`がfalseになるまでテーマアイコン・ラベルはsystemの表示を保ちます。別タブの変更だけは`AppHeader`のstorageイベントでpreferenceへ反映します。
+静的HTMLでは保存値が分からないため、`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名もモジュールの`unknown`がfalseになるまでsystemに揃えます。別タブの変更だけは`AppHeader`のstorageイベントでpreferenceへ反映します。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
 アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
 
@@ -308,6 +308,6 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 - ボタン・バッジは`UButton`・`UBadge`を直接使い、色・サイズ・形の共通設定は`app/app.config.ts`へ置きます。外部リンクの`to`・`external`・`target`・`rel`は使う場所で指定します。
 - `AppCard`はカードのレイアウトと主リンク・補助リンクの構造を保ち、外枠をライブラリに置き換えています。
-- 言語はアイコン＋現在の言語、テーマは現在の状態を表す44pxの円形ボタンです。GitHub・資料へのアイコンリンクも円形です。
+- 言語は国旗＋現在の言語、テーマは状態アイコン＋設定名を表示する高さ44pxのセレクトです。GitHub・資料へのアイコンリンクは円形です。
 - 既存の静的HTMLテストは、ライブラリの追加クラスやHTMLタグの大文字小文字に依存せず、表示ラベルと初期トリガーを確認します。メニュー項目の実操作はブラウザでも検証します。
 - フォントは端末搭載の書体を使うため自動フォントだけを無効にします。テーマ選択はNuxt UIのColor Mode連携を使い、メニュー用のLucideアイコンはローカルにバンドルします。

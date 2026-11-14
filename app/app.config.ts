@@ -24,12 +24,13 @@ export default defineAppConfig({
       defaultVariants: { color: 'neutral', variant: 'subtle', size: 'lg' },
       variants: { size: { lg: { base: 'gap-2 rounded-full' } } }
     },
-    dropdownMenu: {
+    // 言語とテーマのセレクトは同じ寸法・配色・操作時のカーソルで表示する。
+    selectMenu: {
+      defaultVariants: { color: 'neutral', variant: 'outline', size: 'lg' },
       slots: {
+        base: 'min-h-11 rounded-xl cursor-pointer disabled:cursor-default aria-disabled:cursor-default',
         content: 'rounded-[20px]',
-        // メニュー項目も文字色を保ち、ホバー・キー操作では背景だけを変える。
-        item: 'cursor-pointer data-disabled:cursor-default rounded-xl before:rounded-xl data-highlighted:text-default data-[state=open]:text-default data-highlighted:before:bg-elevated data-[state=open]:before:bg-elevated',
-        itemLeadingIcon: 'text-default'
+        item: 'rounded-xl cursor-pointer data-disabled:cursor-default'
       }
     }
   }

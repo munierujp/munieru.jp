@@ -2,34 +2,24 @@
   <UContainer as="header" class="site-header flex flex-wrap items-center justify-between gap-3 py-6">
     <h1 class="wordmark text-2xl font-bold leading-[1.4] max-[560px]:text-[1.2rem]">{{ t('site.title') }}</h1>
     <div class="header-actions ms-auto flex flex-wrap items-center gap-3">
-      <AppPreferenceMenu
+      <ULocaleSelect
         class="language-trigger"
-        :label="locale === 'ja' ? '日本語' : 'English'"
+        :model-value="locale"
+        :locales="[ja, en]"
         :aria-label="t('ui.language', { language: locale === 'ja' ? '日本語' : 'English' })"
-        :title="t('ui.language', { language: locale === 'ja' ? '日本語' : 'English' })"
-        :items="languages"
-        @select="selectLanguage"
-      >
-        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-lucide-languages" />
-        <span :lang="locale">{{ locale === 'ja' ? '日本語' : 'English' }}</span>
-        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" name="i-lucide-chevron-down" />
-      </AppPreferenceMenu>
-      <AppPreferenceMenu
-        icon-only class="theme-trigger"
-        :label="t(`ui.themes.${preference}`)"
+        @update:model-value="selectLanguage"
+      />
+      <UColorModeSelect
+        class="theme-trigger"
         :aria-label="t('ui.theme', { theme: t(`ui.themes.${preference}`) })"
-        :title="t('ui.theme', { theme: t(`ui.themes.${preference}`) })"
-        :items="themes"
-        @select="selectTheme"
-      >
-        <UIcon class="app-icon block size-6 shrink-0" aria-hidden="true" :name="themeIcon" />
-      </AppPreferenceMenu>
+      />
     </div>
   </UContainer>
 </template>
 <script setup lang="ts">
-/** 同じ言語・テーマ選択を、各ライブラリのメニューで操作する。 */
-import type { IconName, ThemePreference } from '~/types/ui'
+/** 言語とテーマの選択を、Nuxt UIの標準セレクトで提供する。 */
+import { ja, en } from '@nuxt/ui/locale'
+import type { ThemePreference } from '~/types/ui'
 const { locale, t, setLocale } = useI18n()
 /** 保存・OS検出・初期描画はNuxt UI連携の公式モジュールに任せる。 */
 const colorMode = useColorMode()
@@ -39,31 +29,9 @@ const preference = computed<ThemePreference>(() =>
     ? colorMode.preference
     : 'system'
 )
-/** システム設定・ライト・ダークの選択状態を、現行版と同じアイコンで示す。 */
-const themeIcon = computed<IconName>(
-  () => (({ system: 'i-lucide-monitor', light: 'i-lucide-sun', dark: 'i-lucide-moon' }) as const)[preference.value]
-)
-const languages = computed(() =>
-  ['ja', 'en'].map((value) => ({
-    value,
-    label: value === 'ja' ? '日本語' : 'English',
-    selected: locale.value === value,
-  }))
-)
-const themes = computed(() =>
-  ['system', 'light', 'dark'].map((value) => ({
-    value,
-    label: t(`ui.themes.${value}`),
-    selected: preference.value === value,
-  }))
-)
 /** 選択言語のURLへ移動し、既存の言語Cookieに保存する。 */
 async function selectLanguage (value: string): Promise<void> {
   await setLocale(value as 'ja' | 'en')
-}
-/** 選択値を公式モジュールへ渡し、配色の適用と保存を任せる。 */
-function selectTheme (value: string): void {
-  if (value === 'system' || value === 'light' || value === 'dark') colorMode.preference = value
 }
 /**
  * 公式モジュールが監視しない別タブでの保存値変更だけを補う。
@@ -72,7 +40,7 @@ function selectTheme (value: string): void {
  */
 function syncStoredPreference (event: StorageEvent): void {
   if (event.storageArea !== window.localStorage || (event.key !== 'app-theme' && event.key !== null)) return
-  selectTheme(event.newValue === 'light' || event.newValue === 'dark' ? event.newValue : 'system')
+  colorMode.preference = event.newValue === 'light' || event.newValue === 'dark' ? event.newValue : 'system'
 }
 onMounted(() => window.addEventListener('storage', syncStoredPreference))
 onBeforeUnmount(() => window.removeEventListener('storage', syncStoredPreference))
