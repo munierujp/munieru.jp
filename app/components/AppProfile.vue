@@ -20,8 +20,8 @@
       <p>{{ t('profile.activities') }}</p>
     </template>
     <div class="hero-art grid place-items-center max-[560px]:col-start-2 max-[560px]:row-start-1">
-      <!-- 内側の角丸を外側の半径から白枠の厚みを引いた値にし、輪郭を揃える。 -->
-      <figure class="profile-print w-[260px] rounded-[28px] bg-white p-3 max-[560px]:w-28 max-[560px]:rounded-[20px] max-[560px]:p-1.5">
+      <!-- 内側の角丸を外側の半径から枠の厚みを引いた値にし、輪郭を揃える。 -->
+      <figure class="profile-print w-[260px] rounded-[28px] bg-black p-3 dark:bg-white max-[560px]:w-28 max-[560px]:rounded-[20px] max-[560px]:p-1.5">
         <div class="photo-frame aspect-square overflow-hidden rounded-2xl max-[560px]:rounded-[14px]">
           <!-- 表示幅と画面密度に合わせたAVIF・WebPをビルド時に生成する。 -->
           <NuxtPicture
