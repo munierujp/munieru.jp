@@ -2,11 +2,9 @@
   <!-- 全ページ共通の著作権表記と、公開アカウント・サイトのソースコードへのリンク。 -->
   <UFooter
     class="site-footer text-muted"
-    :ui="{ container: 'flex items-center justify-between gap-3', left: 'order-first mt-0', center: 'hidden', right: 'order-last' }"
+    :ui="{ container: 'grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 lg:grid', left: 'hidden', center: 'col-start-2 row-start-1 mt-0', right: 'col-start-3 row-start-1 justify-end' }"
   >
-    <template #left>
-      <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
-    </template>
+    <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
     <template #right>
       <AppIconLink
         :href="xUrl"
