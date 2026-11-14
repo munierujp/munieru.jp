@@ -195,14 +195,17 @@ test('英語版でも作品・書籍・登壇の内容とリンクを維持す�
     assert.ok(englishHtml.includes(`href="${work.github}"`))
     if (work.publicationEnded) assert.ok(!englishHtml.includes(`href="${work.url}"`))
   }
-  assert.equal((englishHtml.match(/class="work-status">Discontinued/g) || []).length, data.works.filter(work => work.publicationEnded).length)
+  assert.equal((englishHtml.match(/class="[^"]*\bwork-status\b[^"]*"/g) || []).length, data.works.filter(work => work.publicationEnded).length)
+  assert.equal((englishHtml.match(/>\s*Discontinued\s*</g) || []).length, data.works.filter(work => work.publicationEnded).length)
 })
 
-test('言語切り替えのURLと言語別ラベルの変数を静的HTMLに解決する', () => {
-  for (const [document, language, target] of [[html, 'ja', '/en/'], [englishHtml, 'en', '/ja/']]) {
-    assert.match(document, /<button\b[^>]*class="language-trigger"/u)
-    assert.ok(document.includes(`href="${target}"`))
-    assert.ok(document.includes(`aria-checked="true" aria-current="page" data-language-value="${language}"`))
+test('言語別の切り替えトリガーとラベルを静的HTMLに解決する', () => {
+  // 各ライブラリはメニュー項目を開いた時点で生成するため、SSRでは初期トリガーを確認する。
+  // 言語別URL・相互参照は別のテストで、項目選択はブラウザ検証で確認する。
+  for (const [document, label] of [[html, '言語：日本語'], [englishHtml, 'Language: English']]) {
+    const trigger = matchRequired(document, /<(?:button|ons-button)\b[^>]*class="[^"]*\blanguage-trigger\b[^"]*"[^>]*>/iu)[0]
+    assert.ok(trigger.includes(`aria-label="${label}"`))
+    assert.ok(trigger.includes('aria-haspopup="menu"'))
     assert.ok(!document.includes('{title}'))
     assert.ok(!document.includes('{language}'))
     assert.ok(!document.includes('{count}'))
@@ -217,7 +220,8 @@ test('公開終了した作品のリンクを外し、GitHubは全件に残す',
     assert.ok(html.includes(`href="${work.github}"`))
   }
   assert.equal((html.match(/class="[^"]*\bsource-link\b[^"]*"/g) || []).length, data.works.length)
-  assert.equal((html.match(/class="work-status">公開終了/g) || []).length, data.works.filter(work => work.publicationEnded).length)
+  assert.equal((html.match(/class="[^"]*\bwork-status\b[^"]*"/g) || []).length, data.works.filter(work => work.publicationEnded).length)
+  assert.equal((html.match(/>\s*公開終了\s*</g) || []).length, data.works.filter(work => work.publicationEnded).length)
   assert.ok(html.indexOf('命の砂時計</a>') < html.indexOf('#あの日のツイートを表示するやつ</a>'))
 })
 
