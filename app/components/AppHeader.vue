@@ -55,15 +55,4 @@ const preference = computed<ThemePreference>(() =>
 async function selectLanguage (value: string): Promise<void> {
   await setLocale(value as 'ja' | 'en')
 }
-/**
- * 公式モジュールが監視しない別タブでの保存値変更だけを補う。
- * @param event - 同一オリジンのlocalStorage変更。
- * @remarks 色の判定やDOM操作は行わず、公式モジュールのpreferenceを更新する。
- */
-function syncStoredPreference (event: StorageEvent): void {
-  if (event.storageArea !== window.localStorage || (event.key !== 'app-theme' && event.key !== null)) return
-  colorMode.preference = event.newValue === 'light' || event.newValue === 'dark' ? event.newValue : 'system'
-}
-onMounted(() => window.addEventListener('storage', syncStoredPreference))
-onBeforeUnmount(() => window.removeEventListener('storage', syncStoredPreference))
 </script>
