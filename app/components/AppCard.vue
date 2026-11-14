@@ -1,37 +1,39 @@
 <template>
   <article class="app-card relative h-full">
-    <!-- 主リンクのあるカードだけ背景と枠を変え、補助リンクのみのカードと区別する。 -->
-    <UCard
-class="native-card relative h-full"
+    <!-- カード全体の主リンクとフォーカス表示はNuxt UIへ任せる。 -->
+    <UPageCard
+      class="native-card h-full"
+      :title="title"
+      :to="href || undefined"
+      target="_blank"
+      rel="noopener"
+      :aria-label="href ? (linkLabel || title) : undefined"
+      :ui="{ wrapper: 'items-stretch', body: 'w-full' }"
       :class="href ? 'hover:bg-elevated hover:ring-primary/50 has-[:focus-visible]:bg-elevated has-[:focus-visible]:ring-primary/50' : undefined"
-      ><div class="card-layout grid items-start gap-4" :class="ui.layout">
-        <slot name="media" />
-        <div class="card-content min-w-0" :class="ui.content">
-          <slot name="metadata" />
-          <h3 class="mt-1 mb-2 text-[1.05rem] font-[650] leading-normal">
-            <a
-              v-if="href"
-              class="card-primary-link after:absolute after:inset-0 after:rounded-[20px] after:content-[''] focus-visible:after:outline-3 focus-visible:after:outline-offset-3 focus-visible:after:outline-primary"
-              :href="href"
-              target="_blank"
-              rel="noopener"
-              :aria-label="linkLabel || undefined"
-              :lang="titleLang || undefined"
-              >{{ title }}</a
-            ><span v-else :lang="titleLang || undefined">{{ title }}</span> <slot name="status" />
-          </h3>
-          <slot name="subtitle" />
-          <p v-if="$slots.default" class="text-[0.85rem] text-muted"><slot /></p>
+    >
+      <template #body>
+        <div class="card-layout grid items-start gap-4" :class="ui.layout">
+          <slot name="media" />
+          <div class="card-content min-w-0" :class="ui.content">
+            <slot name="metadata" />
+            <h3 class="mt-1 mb-2 text-[1.05rem] font-[650] leading-normal">
+              <span :lang="titleLang || undefined">{{ title }}</span> <slot name="status" />
+            </h3>
+            <slot name="subtitle" />
+            <p v-if="$slots.default" class="text-[0.85rem] text-muted"><slot /></p>
+          </div>
+          <!-- 補助リンクは主リンクの兄弟として配置し、重なったリンクより手前で操作できるようにする。 -->
+          <slot name="action" />
         </div>
-        <!-- GitHub・資料などの補助リンクは、主リンクの入れ子にせず独立させる。 -->
-        <slot name="action" /></div
-    ></UCard>
+      </template>
+    </UPageCard>
   </article>
 </template>
 <script setup lang="ts">
 /**
  * カード全体を操作できる主リンクと、独立した補助リンクを持つ共通カード。
- * @remarks 画像・分類・状態は名前付きスロットで受け取り、hrefが空なら主リンクを作らない。
+ * @remarks 全体リンクはUPageCardに任せ、画像・分類・状態・補助リンクは名前付きスロットで受け取る。
+ * @remarks hrefが空の公開終了作品は主リンクを作らず、見出しのh3と言語属性は維持する。
  */
 withDefaults(defineProps<{
   /** カードや一覧に表示する名称。 */

@@ -9,7 +9,7 @@ export default defineAppConfig({
       defaultVariants: { color: 'neutral', variant: 'outline', size: 'lg' },
       variants: { square: { true: 'size-11 min-w-11 shrink-0 justify-center rounded-full p-0' } }
     },
-    card: { slots: { root: 'rounded-[20px] transition-colors duration-150 motion-reduce:transition-none' } },
+    pageCard: { slots: { root: 'rounded-[20px] transition-colors duration-150 motion-reduce:transition-none' } },
     // 使用するlgサイズの既定の角丸・間隔も、サイズ別設定で上書きする。
     badge: {
       defaultVariants: { color: 'neutral', variant: 'subtle', size: 'lg' },
