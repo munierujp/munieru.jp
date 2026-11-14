@@ -1,13 +1,27 @@
 <template>
-  <!-- 全ページ共通の著作権表記。名前の表記は現在の言語に合わせる。 -->
-  <UContainer as="footer" class="site-footer py-8 text-center text-muted">
+  <!-- 全ページ共通の著作権表記と、公開アカウント・サイトのソースコードへのリンク。 -->
+  <UFooter class="site-footer text-muted">
     <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
-  </UContainer>
+    <template #right>
+      <AppIconLink
+        :href="xUrl"
+        :label="t('ui.xAccount', { name: t('site.name') })"
+        icon="i-simple-icons-x"
+      />
+      <AppIconLink
+        href="https://github.com/munierujp/munieru.jp"
+        :label="t('ui.siteSourceCode')"
+        icon="i-simple-icons-github"
+      />
+    </template>
+  </UFooter>
 </template>
 
 <script setup lang="ts">
 /**
- * 現在の言語に合わせた名義の著作権表記を表示する。
+ * 現在の言語に合わせた著作権表記と、用途を説明するアイコンリンクを表示する。
  */
 const { locale, t } = useSiteLocale()
+/** メタ情報と同じ公開設定から、XアカウントへのURLを作る。 */
+const xUrl = `https://x.com/${useRuntimeConfig().public.siteConfig.TWITTER_ID.replace(/^@/, '')}`
 </script>

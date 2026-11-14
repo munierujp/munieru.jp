@@ -38,7 +38,9 @@
       "light": "ライト",
       "dark": "ダーク"
     },
-    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp"
+    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp",
+    "xAccount": "{name}のXアカウント",
+    "siteSourceCode": "このサイトのソースコード（GitHub）"
   },
   "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。",
   "profile": {

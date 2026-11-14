@@ -38,7 +38,9 @@
       "light": "Light",
       "dark": "Dark"
     },
-    "ogImageAlt": "Munieru OFFICIAL SITE / munieru.jp"
+    "ogImageAlt": "Munieru OFFICIAL SITE / munieru.jp",
+    "xAccount": "{name} on X",
+    "siteSourceCode": "Source code for this website (GitHub)"
   },
   "description": "Munieru's personal website: profile, social links, skills, works, books, and talks.",
   "links": {
