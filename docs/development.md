@@ -300,15 +300,14 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ## npm設定
 
-直接の依存はNuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Sitemapで、バージョンを固定しています。
+直接の依存はNuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Sitemap・Nuxt UI・Tailwind CSSで、バージョンを固定しています。
 `.npmrc` ではインストール時のスクリプト実行抑止、バージョン固定、対応npmでの公開後7日間の待機を設定しています。
 `min-release-age` が適用されるかは使用するnpmの対応状況によります。
 
-## Nuxt UI比較版の構成
+## Nuxt UIの構成
 
 - `AppUiButton`・`AppUiBadge`はNuxt UIのボタンとラベルへの薄いラッパーです。
 - `AppCard`はカードのレイアウトと主リンク・補助リンクの構造を保ち、外枠をライブラリに置き換えています。
 - 言語はアイコン＋現在の言語、テーマは現在の状態を表す44pxの円形ボタンです。GitHub・資料へのアイコンリンクも円形です。
-- 比較用ダッシュボード、測定データ、スクロール同期はこのリポジトリへ含めていません。
 - 既存の静的HTMLテストは、ライブラリの追加クラスやHTMLタグの大文字小文字に依存せず、表示ラベルと初期トリガーを確認します。メニュー項目の実操作はブラウザでも検証します。
 - フォントとテーマ選択は既存の仕組みを使います。Nuxt UIの自動フォント・color-mode機能は無効にし、メニュー用のLucideアイコンはローカルにバンドルします。
