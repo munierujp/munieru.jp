@@ -1,7 +1,12 @@
 <template>
   <!-- 全ページ共通の著作権表記と、公開アカウント・サイトのソースコードへのリンク。 -->
-  <UFooter class="site-footer text-muted">
-    <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
+  <UFooter
+    class="site-footer text-muted"
+    :ui="{ container: 'flex items-center justify-between gap-3', left: 'order-first mt-0', center: 'hidden', right: 'order-last' }"
+  >
+    <template #left>
+      <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
+    </template>
     <template #right>
       <AppIconLink
         :href="xUrl"
