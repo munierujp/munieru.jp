@@ -1,6 +1,6 @@
 <template>
   <AppCard
-layout="book"
+    :ui="cardUi"
     class="book-link"
     :title="book.title"
     :href="book.url"
@@ -47,5 +47,9 @@ defineProps<{
   /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
   book: Book
 }>()
+/** 書籍の縦長の表紙と本文を横に並べる。 */
+const cardUi = {
+  layout: 'grid-cols-[128px_minmax(0,1fr)] max-[560px]:grid-cols-[96px_minmax(0,1fr)]'
+}
 const { isEnglish, t, formatDate } = useSiteLocale()
 </script>

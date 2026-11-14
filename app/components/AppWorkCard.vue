@@ -1,5 +1,6 @@
 <template>
   <AppCard
+    :ui="cardUi"
     class="work-row"
     :class="{ 'is-ended': work.publicationEnded }"
     :data-work-category="work.category"
@@ -64,6 +65,11 @@ const props = defineProps<{
   /** 分類・公開状態・ソースコードを含む作品の情報。 */
   work: Work
 }>()
+/** 作品のアイコン・本文・GitHubリンクを、画面幅に応じて配置する。 */
+const cardUi = {
+  layout: 'grid-cols-[66px_minmax(0,1fr)_44px] max-[560px]:grid-cols-[minmax(0,1fr)_44px]',
+  content: 'max-[560px]:col-span-full max-[560px]:row-start-2'
+}
 const { t, titleLanguage, formatDate } = useSiteLocale()
 // 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
 const imageFailed = ref(false)

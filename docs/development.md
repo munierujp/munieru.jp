@@ -111,7 +111,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - SVGアイコンのパス・座標系・塗り・線: `public/icons.svg`（名前付きのsymbolをAppIconからuseで参照）
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
-- 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。共通カードの配置は`AppCard.vue`の`layout`（work・book・talk）で選びます。
+- 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードごとの配置は`AppWorkCard.vue`・`AppBookCard.vue`・`AppTalkCard.vue`の`cardUi`から、汎用`AppCard`の`ui`へ渡します。
 - 配色: `app/app.config.ts`の`ui.colors`でNuxt UI標準のcyan・zincを選びます。背景色・文字色の具体値は独自定義しません。
 - ページ幅・左右の余白: Nuxt UI標準の`UContainer`を使います。本文フォントと背景・文字色の適用は`app/app.vue`の`bodyAttrs`です。
 - スタイルの入口: `assets/style/main.css`はTailwind・Nuxt UIのimportだけです。リセットはPreflight、カード全体の主リンクは`AppCard.vue`の疑似要素クラス、hiddenの優先は`[&[hidden]]:hidden`を使います。

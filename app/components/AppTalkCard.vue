@@ -1,6 +1,6 @@
 <template>
   <AppCard
-layout="talk"
+    :ui="cardUi"
     class="talk-card"
     :title="talk.title"
     :title-lang="titleLanguage(talk.title)"
@@ -56,6 +56,11 @@ defineProps<{
   /** イベント・表紙・発表資料を含む登壇の情報。 */
   talk: Talk
 }>()
+/** 登壇の横長表紙はカード幅が十分なときだけ本文の横に置く。 */
+const cardUi = {
+  layout: 'grid-cols-[minmax(0,1fr)_44px] @min-[44rem]:grid-cols-[192px_minmax(0,1fr)_44px]',
+  content: 'col-start-1 @min-[44rem]:col-start-2'
+}
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 // サブディレクトリ配信でもpublic内の画像を正しいパスで参照する。
 const asset = usePublicAsset()

@@ -4,9 +4,9 @@
     <UCard
 class="native-card relative h-full"
       :class="href ? 'hover:bg-elevated hover:ring-primary/50 has-[:focus-visible]:bg-elevated has-[:focus-visible]:ring-primary/50' : undefined"
-      ><div class="card-layout grid items-start gap-4" :class="layouts[layout]">
+      ><div class="card-layout grid items-start gap-4" :class="ui.layout">
         <slot name="media" />
-        <div class="card-content min-w-0" :class="layout === 'work' ? 'max-[560px]:col-span-full max-[560px]:row-start-2' : layout === 'talk' ? 'col-start-1 @min-[44rem]:col-start-2' : undefined">
+        <div class="card-content min-w-0" :class="ui.content">
           <slot name="metadata" />
           <h3 class="mt-1 mb-2 text-[1.05rem] font-[650] leading-normal">
             <a
@@ -42,13 +42,12 @@ withDefaults(defineProps<{
   titleLang?: string
   /** タイトルだけでは用途が伝わらない場合の読み上げ名。 */
   linkLabel?: string
-  /** 内容の種類ごとに、画像・本文・補助リンクの配置を選ぶ。 */
-  layout?: 'work' | 'book' | 'talk'
-}>(), { layout: 'work', href: '', titleLang: '', linkLabel: '' })
-/** サイズに応じた配置。クラスを静的に列挙し、Tailwindの生成対象に含める。 */
-const layouts = {
-  work: 'grid-cols-[66px_minmax(0,1fr)_44px] max-[560px]:grid-cols-[minmax(0,1fr)_44px]',
-  book: 'grid-cols-[128px_minmax(0,1fr)] max-[560px]:grid-cols-[96px_minmax(0,1fr)]',
-  talk: 'grid-cols-[minmax(0,1fr)_44px] @min-[44rem]:grid-cols-[192px_minmax(0,1fr)_44px]'
-}
+  /** 用途を決めず、呼び出し側が内容に応じて指定する配置クラス。 */
+  ui?: {
+    /** 画像・本文・補助リンクを並べるグリッドのクラス。 */
+    layout?: string
+    /** 本文の配置を補足するクラス。 */
+    content?: string
+  }
+}>(), { href: '', titleLang: '', linkLabel: '', ui: () => ({}) })
 </script>
