@@ -21,7 +21,7 @@ const defaults = {
   /** PayPalの公開支援ページ。空文字の場合は表示しない。 */
   PAYPAL_URL: supportUrls.get('paypal') ?? '',
   /** 共有カードに設定するXアカウント名。先頭の@は省略可能。 */
-  TWITTER_ID: 'munieru_jp',
+  X_ID: 'munieru_jp',
   /** publicを基準とする日本語OGP画像のパス。 */
   OG_IMAGE_PATH: 'ogp.png',
   /** publicを基準とする英語OGP画像のパス。 */

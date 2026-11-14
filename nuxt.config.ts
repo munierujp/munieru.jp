@@ -97,8 +97,8 @@ export default defineNuxtConfig({
         { property: 'og:image:height', content: '630' },
         { property: 'og:image:alt', content: ja.ui.ogImageAlt },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:site', content: '@' + config.TWITTER_ID.replace(/^@/, '') },
-        { name: 'twitter:creator', content: '@' + config.TWITTER_ID.replace(/^@/, '') },
+        { name: 'twitter:site', content: '@' + config.X_ID.replace(/^@/, '') },
+        { name: 'twitter:creator', content: '@' + config.X_ID.replace(/^@/, '') },
         { name: 'twitter:image:alt', content: ja.ui.ogImageAlt }
       ],
       link: [

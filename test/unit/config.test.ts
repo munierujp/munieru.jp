@@ -23,9 +23,10 @@ test('サブディレクトリ配信の設定を正規化する', () => {
 })
 
 test('既定の公開設定を環境変数で上書きし、空の支援URLも保持する', () => {
-  const config = loadConfig({ ORIGIN: 'https://env.example/', PAYPAL_URL: '' })
+  const config = loadConfig({ ORIGIN: 'https://env.example/', PAYPAL_URL: '', X_ID: '@example' })
   assert.equal(config.BASE_URL, 'https://env.example/')
   assert.equal(config.PAYPAL_URL, '')
+  assert.equal(config.X_ID, '@example')
   assert.equal(config.GITHUB_SPONSOERS_URL, 'https://github.com/sponsors/munierujp')
 })
 

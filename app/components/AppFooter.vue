@@ -26,5 +26,5 @@
  */
 const { locale, t } = useSiteLocale()
 /** メタ情報と同じ公開設定から、XアカウントへのURLを作る。 */
-const xUrl = `https://x.com/${useRuntimeConfig().public.siteConfig.TWITTER_ID.replace(/^@/, '')}`
+const xUrl = `https://x.com/${useRuntimeConfig().public.siteConfig.X_ID.replace(/^@/, '')}`
 </script>
