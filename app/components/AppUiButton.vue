@@ -6,6 +6,7 @@
     :external="!!href"
     :target="href ? '_blank' : undefined"
     :rel="href ? 'noopener' : undefined"
+    :color="selected ? 'primary' : 'neutral'"
     :variant="selected ? 'solid' : 'outline'"
     :square="iconOnly"
     size="lg"
@@ -13,6 +14,6 @@
   /></UButton>
 </template>
 <script setup lang="ts">
-/** ライブラリの標準ボタンを、リンク・絞り込み・アイコン操作へ共用する。 */
+/** 通常の文字色はneutral、選択中の操作だけprimaryを使う共通ボタン。 */
 defineProps<{ href?: string; selected?: boolean; iconOnly?: boolean; pill?: boolean }>()
 </script>
