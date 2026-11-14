@@ -13,6 +13,8 @@ export default {
   'validate-https': true,
   // 同じレジストリ内でも、別名のパッケージへの差し替えを検知する。
   'validate-package-names': true,
+  // Element Plus公式の依存宣言にあるPopperのESM版への別名参照だけを許可する。
+  'allowed-package-name-aliases': ['@popperjs/core:@sxzz/popperjs-es'],
   // ハッシュの種類だけでなく、欠落や不完全なSHA-512も検知する。
   'validate-integrity-strict': true
 }
