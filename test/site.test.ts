@@ -89,7 +89,7 @@ test('日英の静的本文・言語指定・canonical・相互参照を出力�
   assert.match(html, /<html\b[^>]*lang="ja"/)
   assert.match(englishHtml, /<html\b[^>]*lang="en"/)
   assert.ok(englishHtml.includes('otaku and IT engineer based in Edogawa'))
-  assert.ok(englishHtml.includes('<h2>Works</h2>'))
+  assert.match(englishHtml, /<h2\b[^>]*>Works<\/h2>/)
   assert.ok(englishHtml.includes('Support my work'))
   assert.ok(englishHtml.includes('Technical zine (Japanese)'))
   assert.ok(metaTag('property', 'og:url', englishHtml).includes('content="https://munieru.jp/en/"'))
@@ -113,8 +113,10 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     const image = `https://munieru.jp/${imagePath}`
     assert.ok((await stat(join(root, 'dist', imagePath))).isFile())
     assert.ok(document.includes(`<title>${title}</title>`))
-    assert.ok(document.includes(`<h1 class="wordmark">${title}</h1>`))
-    assert.ok(document.includes(`<small lang="${language}">© ${name}</small>`))
+    assert.equal(matchRequired(document, /<h1\b[^>]*>([^<]+)<\/h1>/)[1], title)
+    const copyright = matchRequired(document, /<small\b[^>]*>([^<]+)<\/small>/)
+    assert.ok(copyright[0].includes(`lang="${language}"`))
+    assert.equal(copyright[1], `© ${name}`)
     assert.equal([...document.matchAll(/<h1\b/g)].length, 1)
     assert.ok(metaTag('name', 'twitter:card', document).includes('content="summary_large_image"'))
     assert.ok(metaTag('property', 'og:image:width', document).includes('content="1200"'))
@@ -149,8 +151,8 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     assert.equal(profile.mainEntity.image, 'https://munieru.jp/profile.png')
     assert.deepEqual(profile.mainEntity.sameAs, data.links.map(link => link.url))
   }
-  assert.ok(html.includes('<p class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></p>'))
-  assert.ok(englishHtml.includes('<p class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></p>'))
+  assert.match(html, /<p\b[^>]*class="hero-name[^"]*"[^>]*lang="ja">ムニエル<span\b[^>]*lang="en">Munieru<\/span><\/p>/)
+  assert.match(englishHtml, /<p\b[^>]*class="hero-name[^"]*"[^>]*lang="en">Munieru<span\b[^>]*lang="ja">ムニエル<\/span><\/p>/)
 })
 
 test('日英のサイトマップとrobots.txtの公開URLが一致する', async () => {
