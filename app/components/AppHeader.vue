@@ -5,8 +5,9 @@
     :toggle="false"
     :ui="{ root: 'h-auto min-h-(--ui-header-height)', container: 'flex-wrap gap-2 py-2.5', left: 'lg:flex-none', right: 'ms-auto gap-2 lg:flex-none' }"
   >
-    <template #title>
-      <h1 class="wordmark text-[clamp(0.875rem,4vw,1.25rem)]">{{ t('site.title') }}</h1>
+    <!-- 1ページ構成のため、サイト名はリンクにせず見出しとして表示する。 -->
+    <template #left>
+      <h1 class="wordmark font-bold text-[clamp(0.875rem,4vw,1.25rem)]">{{ t('site.title') }}</h1>
     </template>
     <template #right>
       <USelectMenu
