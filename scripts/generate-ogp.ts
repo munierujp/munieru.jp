@@ -15,8 +15,8 @@ if (process.platform !== 'darwin') {
   throw new Error('OGPの再生成には、ヒラギノ角ゴシックがあるmacOSが必要です')
 }
 /** OS間・描画エンジン間のウェイト解釈に依存せず、実際の書体を指定する。 */
-const fontFamilies = { 3: 'OGP Hiragino W3', 6: 'OGP Hiragino W6', 7: 'OGP Hiragino W7' } as const
-for (const weight of [3, 6, 7] as const) {
+const fontFamilies = { 3: 'OGP Hiragino W3', 6: 'OGP Hiragino W6', 9: 'OGP Hiragino W9' } as const
+for (const weight of [3, 6, 9] as const) {
   const path = `/System/Library/Fonts/ヒラギノ角ゴシック W${weight}.ttc`
   try {
     await access(path)
@@ -30,9 +30,9 @@ for (const weight of [3, 6, 7] as const) {
 const segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' })
 const root = new URL('../', import.meta.url)
 const config = loadConfig()
-/** サイトと同じ公開URLを、画像に表示するホスト名と公開パスへ整形する。 */
+/** サイトと同じ公開URLを、プロトコルと末尾のスラッシュを含めて表示する。 */
 const siteUrl = new URL(config.BASE_URL)
-const displayUrl = siteUrl.host + siteUrl.pathname.replace(/\/$/, '')
+const displayUrl = siteUrl.href
 /** 表示文は翻訳辞書、出力先はサイトのOGP設定を共通の定義として使う。 */
 const images = [
   { site: ja.site, imagePath: config.OG_IMAGE_PATH },
@@ -48,7 +48,7 @@ const background = await loadImage(fileURLToPath(new URL('design/ogp/background.
  * @param text - 描画する文字列。
  * @param top - 画像上端からの位置（px）。
  * @param size - 初期フォントサイズ（px）。
- * @param weight - 登録したヒラギノの太さ（W3・W6・W7）。
+ * @param weight - 登録したヒラギノの太さ（W3・W6・W9）。
  * @param spacing - 字間（px）。省略時は0。
  * @throws 24pxまで縮小しても幅570pxに収まらない場合。
  */
@@ -96,7 +96,7 @@ for (const { site, imagePath } of images) {
   context.drawImage(background, 0, 0, width, height)
   context.fillStyle = '#242824'
   context.textBaseline = 'top'
-  drawText(context, site.name, 160, 128, 7, -2)
+  drawText(context, site.name, 160, 128, 9, -2)
   drawText(context, subtitle, 340, 64, 6, -1)
   drawText(context, displayUrl, 455, 44, 3)
   await mkdir(new URL('./', output), { recursive: true })

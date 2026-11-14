@@ -4,8 +4,8 @@
 
 - 文字なし背景: `background.png`（image_genで従来のOGPから文字を除去した素材）
 - 書き出しスクリプト: `../../scripts/generate-ogp.ts`
-- 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / munieru.jp）
-- 英語版: `../../public/en/ogp.png`（Munieru OFFICIAL SITE / munieru.jp）
+- 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / https://munieru.jp/）
+- 英語版: `../../public/en/ogp.png`（Munieru OFFICIAL SITE / https://munieru.jp/）
 
 ## 再生成
 
@@ -18,11 +18,11 @@ npm rebuild canvas --ignore-scripts=false
 npm run generate:ogp
 ```
 
-Automatticの`canvas`（node-canvas）を使います。名前はヒラギノ角ゴシックW7、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録し、描画エンジンによるCSSウェイトの解釈の違いを避けます。文字色は`#242824`、出力は1200×630pxのPNGです。macOS以外や必要な書体が見つからない環境では、代替フォントを使わず停止します。フォントファイル自体はリポジトリへ含めません。
+Automatticの`canvas`（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録し、描画エンジンによるCSSウェイトの解釈の違いを避けます。文字色は`#242824`、出力は1200×630pxのPNGです。macOS以外や必要な書体が見つからない環境では、代替フォントを使わず停止します。フォントファイル自体はリポジトリへ含めません。
 
 `canvas`には`letterSpacing`がないため、文字列を書記素単位に分け、送り幅とカーニングを測定して字間を加えます。結合文字やサロゲートペアの途中では分割しません。
 
-名前・サイト名は`../../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`を、表示URLと出力先は`../../scripts/config.ts`の公開設定を参照します。サイト名を主名義とその後ろの文字列へ分け、既存の2行の組版を維持します。`site.title`は`site.name`に半角スペースを続けて始める形式にします。URLはホスト名と公開パスを表示し、プロトコルと末尾のスラッシュは省略します。
+名前・サイト名は`../../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`を、表示URLと出力先は`../../scripts/config.ts`の公開設定を参照します。サイト名を主名義とその後ろの文字列へ分け、既存の2行の組版を維持します。`site.title`は`site.name`に半角スペースを続けて始める形式にします。URLはプロトコルと末尾のスラッシュを含め、`https://munieru.jp/`の形式で表示します。
 
 文字を変更する場合は共通の定義を編集してから再生成してください。配置・太さはスクリプトで編集します。文字の変更にAIでの画像生成は不要です。背景を変更する場合だけ素材を更新します。ビルドやCIは生成済みPNGを配信するため、macOSやフォントのインストールは不要です。
 
