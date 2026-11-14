@@ -20,9 +20,9 @@
       <p>{{ t('profile.activities') }}</p>
     </template>
     <div class="hero-art grid place-items-center max-[560px]:col-start-2 max-[560px]:row-start-1">
-      <!-- 背景や枠を設けず、表示幅に合わせたAVIF・WebPの画像自体を角丸で表示する。 -->
+      <!-- 背景や枠を設けず、表示幅に合わせたAVIF・WebPの画像自体を円形で表示する。 -->
       <NuxtPicture
-        class="profile-image block aspect-square w-[260px] overflow-hidden rounded-[28px] max-[560px]:w-28 max-[560px]:rounded-[20px]"
+        class="profile-image block aspect-square w-[260px] overflow-hidden rounded-full max-[560px]:w-28"
         src="/profile.png"
         format="avif"
         legacy-format="webp"
