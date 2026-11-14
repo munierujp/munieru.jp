@@ -1,34 +1,40 @@
 /**
  * ルーティング・多言語・画像・SEOと、静的ホスト向け成果物の生成を設定する。
  */
-import { readFileSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { loadConfig } from './scripts/config.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 import en from './i18n/locales/en.json' with { type: 'json' }
-import { ModuleKind, ScriptTarget, transpileModule } from 'typescript'
 
 const config = loadConfig()
 // ページとOGP画像の生成で、同じ翻訳辞書のサイト名を参照する。
 const site = ja.site
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
-/**
- * テーマ用TSを、型注釈やモジュール読込を必要としないブラウザ用JSへ変換する。
- * @param path - リポジトリルートからのソースパス。
- * @returns headへ埋め込む通常のスクリプト。型の検査はtypecheckで別途行う。
- */
-const browserScript = (path: string): string => transpileModule(readFileSync(rootPath(path), 'utf8'), {
-  compilerOptions: { target: ScriptTarget.ES2022, module: ModuleKind.None, removeComments: true }
-}).outputText
-
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
   devtools: { enabled: false },
   telemetry: false,
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
+  // 端末フォントを使うためNuxt Fontsの自動登録を止める。
+  // テーマはNuxt UIが自動登録するNuxt Color Modeへ委譲する。
+  ui: { fonts: false },
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    // 既存の選択値を引き継ぐため、以前と同じ保存キーを使う。
+    storageKey: 'app-theme'
+  },
+  icon: {
+    // 静的生成時はローカルのLucideとSimple Iconsを使い、ブラウザでは同梱済みのアイコンだけを使う。
+    provider: { server: 'server', client: 'none' },
+    fallbackToApi: false,
+    serverBundle: { collections: ['lucide', 'simple-icons'] },
+    // テーマ・作品分類の動的な名前も取りこぼさないよう、TSのリテラルも走査する。
+    clientBundle: { scan: { globInclude: ['app/**/*.{vue,ts}'] } }
+  },
   site: {
     url: new URL(config.BASE_URL).origin,
     name: site.title,
@@ -46,7 +52,8 @@ export default defineNuxtConfig({
   image: {
     // Netlifyの画像サービスへ依存せず、静的生成時にローカルへ書き出す。
     provider: 'ipx',
-    quality: 85,
+    // 圧縮による劣化を抑える方針で、AVIF・WebPとも品質値を最大にする。
+    quality: 100,
     screens: { mobile: 560, tablet: 561, desktop: 801 }
   },
   i18n: {
@@ -113,9 +120,7 @@ export default defineNuxtConfig({
             alternateName: en.site.title,
             inLanguage: ['ja', 'en']
           }).replace(/</g, '\\u003c')
-        },
-        { id: 'theme-bootstrap', tagPriority: -14, innerHTML: browserScript('./assets/theme-bootstrap.ts') },
-        { id: 'theme-controller', tagPriority: -13, innerHTML: browserScript('./assets/theme-init.ts') }
+        }
       ]
     }
   },

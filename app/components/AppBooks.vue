@@ -1,17 +1,14 @@
 <template>
   <!-- 書籍一覧。表紙・寄稿内容・販売ページへのリンクはAppBookCardが担当する。 -->
-  <section class="books-section">
-    <div class="wrap section-stack">
-      <div class="section-label">
-        <h2>{{ t('ui.headings.books') }}</h2>
-      </div>
-      <ul class="book-list" role="list">
-        <li v-for="book in books" :key="book.key">
+  <UPageSection class="books-section" :title="t('ui.headings.books')">
+    <template #body>
+      <UPageGrid as="ul" class="book-list" role="list">
+        <li v-for="book in books" :key="book.key" class="min-w-0">
           <AppBookCard :book="book" />
         </li>
-      </ul>
-    </div>
-  </section>
+      </UPageGrid>
+    </template>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">

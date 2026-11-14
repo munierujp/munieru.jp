@@ -1,31 +1,29 @@
 <template>
   <!-- 各サービスへのリンク。名前とアイコンを含む領域全体をタップできる。 -->
-  <section class="links-section wrap">
-    <div class="section-top">
-      <div>
-        <h2>{{ t('ui.headings.links') }}</h2>
-      </div>
-    </div>
-    <ul class="social-links" role="list">
-      <li v-for="link in links" :key="link.title">
-        <a :href="link.url" target="_blank" rel="noopener">
-          <span class="social-name">
-            <span class="social-icon" aria-hidden="true">
-              <img
-                :src="asset(link.image)"
-                alt=""
-                width="20"
-                height="20"
-                loading="lazy"
-                @error="hideFailedImage"
-              >
+  <UPageSection class="links-section" :title="t('ui.headings.links')">
+    <template #body>
+      <ul class="social-links flex flex-wrap items-center gap-3" role="list">
+        <li v-for="link in links" :key="link.title" class="min-w-0">
+          <UButton class="ui-button" :to="link.url" external target="_blank" rel="noopener">
+            <span class="social-name inline-flex items-center gap-2">
+              <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
+                <img
+                  class="size-6 object-contain rounded-lg bg-white"
+                  :src="asset(link.image)"
+                  alt=""
+                  width="20"
+                  height="20"
+                  loading="lazy"
+                  @error="hideFailedImage"
+                >
+              </span>
+              <span>{{ link.title }}</span>
             </span>
-            <span>{{ link.title }}</span>
-          </span>
-        </a>
-      </li>
-    </ul>
-  </section>
+          </UButton>
+        </li>
+      </ul>
+    </template>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
@@ -39,6 +37,6 @@ import linksData from '~~/modules/links.json'
 // リンク一覧の表示文を現在の言語に合わせる。URLと画像は日英で共有する。
 const { t, localize } = useSiteLocale()
 /** 元データの順序を保ち、現在の言語のサービス名を表示する一覧。 */
-const links = computed<ServiceLink[]>(() => linksData.map(link => localize('links', link)))
+const links = computed<ServiceLink[]>(() => linksData.map((link) => localize('links', link)))
 const asset = usePublicAsset()
 </script>

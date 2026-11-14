@@ -1,15 +1,14 @@
 <template>
   <!-- 登壇一覧。イベントを主リンクとし、発表資料へのリンクは各カードに配置する。 -->
-  <section class="talks-section wrap">
-    <div class="section-top">
-      <h2>{{ t('ui.headings.talks') }}</h2>
-    </div>
-    <ul class="talk-list" role="list">
-      <li v-for="talk in talks" :key="talk.key">
-        <AppTalkCard :talk="talk" />
-      </li>
-    </ul>
-  </section>
+  <UPageSection class="talks-section" :title="t('ui.headings.talks')">
+    <template #body>
+      <UPageGrid as="ul" class="talk-list" role="list">
+        <li v-for="talk in talks" :key="talk.key" class="min-w-0 @container">
+          <AppTalkCard :talk="talk" />
+        </li>
+      </UPageGrid>
+    </template>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">

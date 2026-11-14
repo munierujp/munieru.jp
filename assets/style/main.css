@@ -1,9 +1,2 @@
-/* 適用順を維持しながら、用途ごとのファイルへ分割する。 */
-@import url('./base.css');
-@import url('./profile.css');
-@import url('./links-skills.css');
-@import url('./works.css');
-@import url('./content.css');
-@import url('./responsive.css');
-@import url('./theme.css');
-@import url('./ui.css');
+@import 'tailwindcss';
+@import '@nuxt/ui';

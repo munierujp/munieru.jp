@@ -15,14 +15,11 @@
       "support": "Support my work"
     },
     "categories": {
-      "all": "All",
       "web": "Web apps",
       "extension": "Chrome extensions",
       "library": "Libraries",
       "cli": "CLI tools"
     },
-    "workTypes": "Work categories",
-    "workCount": "Showing {count} of {total}",
     "publicationEnded": "Discontinued",
     "sourceCode": "Source code for {title} (GitHub)",
     "cover": "Cover: {title}",
@@ -38,7 +35,9 @@
       "light": "Light",
       "dark": "Dark"
     },
-    "ogImageAlt": "Munieru OFFICIAL SITE / munieru.jp"
+    "ogImageAlt": "Munieru OFFICIAL SITE / munieru.jp",
+    "xAccount": "{name} on X",
+    "siteSourceCode": "Source code for this website (GitHub)"
   },
   "description": "Munieru's personal website: profile, social links, skills, works, books, and talks.",
   "links": {

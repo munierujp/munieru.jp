@@ -1,14 +1,12 @@
 <template>
   <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
-  <section class="about-section">
-    <div class="wrap section-stack">
-      <div class="section-label">
-        <h2>{{ t('ui.headings.skills') }}</h2>
-      </div>
-      <div class="about-body">
-        <ul class="skills" role="list">
-          <li v-for="skill in skills" :key="skill.name">
-            <img
+  <UPageSection class="about-section" :title="t('ui.headings.skills')">
+    <template #body>
+      <ul class="skills flex flex-wrap items-center gap-3" role="list">
+        <li v-for="skill in skills" :key="skill.name" class="min-w-0">
+          <UBadge class="ui-badge"
+            ><img
+              class="size-6 object-contain"
               :src="asset(skill.image)"
               alt=""
               width="24"
@@ -17,12 +15,12 @@
               decoding="async"
               @error="hideFailedImage"
             >
-            <span>{{ skill.name }}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
+            <span>{{ skill.name }}</span></UBadge
+          >
+        </li>
+      </ul>
+    </template>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
@@ -36,6 +34,6 @@ import skillsData from '~~/modules/skills.json'
 // スキル名と画像はmodules/skills.jsonで管理する。スキルはリンクではない。
 const { t, localize } = useSiteLocale()
 /** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
-const skills = computed<Skill[]>(() => skillsData.map(skill => localize('skills', skill)))
+const skills = computed<Skill[]>(() => skillsData.map((skill) => localize('skills', skill)))
 const asset = usePublicAsset()
 </script>

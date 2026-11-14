@@ -74,22 +74,25 @@ test('Nuxtが本文とOGPを静的HTMLとして出力する', () => {
   }
 })
 
-test('初期テーマのスクリプトより先にcolor-schemeメタを出力する', () => {
+test('公式Color Modeの初期化スクリプトとcolor-schemeを静的HTMLへ出力する', () => {
   const meta = metaTag('name', 'color-scheme')
   assert.ok(meta)
-  assert.ok(html.indexOf(meta) < html.indexOf('<script id="theme-bootstrap"'))
-  for (const id of ['theme-bootstrap', 'theme-controller']) {
-    const script = matchRequired(html, new RegExp(`<script id="${id}"[^>]*>([\\s\\S]*?)<\\/script>`))[1]
-    assert.doesNotThrow(() => new Script(script), `${id}は通常のJSとして実行できる`)
-  }
-  assert.ok(!html.includes('src="/site.js"'))
+  const initialScript = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+    .find(([, body]) => body.includes('__NUXT_COLOR_MODE__'))
+  assert.ok(initialScript, '初期描画前にテーマを適用する公式スクリプトがある')
+  assert.ok(html.indexOf(meta) < html.indexOf(initialScript[0]))
+  assert.ok(html.indexOf(initialScript[0]) < html.indexOf('</head>'))
+  assert.ok(initialScript[1].includes('app-theme'), '既存の保存キーを維持する')
+  assert.doesNotThrow(() => new Script(initialScript[1]))
+  assert.ok(!html.includes('theme-bootstrap'))
+  assert.ok(!html.includes('theme-controller'))
 })
 
 test('日英の静的本文・言語指定・canonical・相互参照を出力する', () => {
   assert.match(html, /<html\b[^>]*lang="ja"/)
   assert.match(englishHtml, /<html\b[^>]*lang="en"/)
   assert.ok(englishHtml.includes('otaku and IT engineer based in Edogawa'))
-  assert.ok(englishHtml.includes('<h2>Works</h2>'))
+  assert.match(englishHtml.replace(/<!--[\s\S]*?-->/g, ''), /<h2\b[^>]*>Works<\/h2>/)
   assert.ok(englishHtml.includes('Support my work'))
   assert.ok(englishHtml.includes('Technical zine (Japanese)'))
   assert.ok(metaTag('property', 'og:url', englishHtml).includes('content="https://munieru.jp/en/"'))
@@ -113,8 +116,10 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     const image = `https://munieru.jp/${imagePath}`
     assert.ok((await stat(join(root, 'dist', imagePath))).isFile())
     assert.ok(document.includes(`<title>${title}</title>`))
-    assert.ok(document.includes(`<h1 class="wordmark">${title}</h1>`))
-    assert.ok(document.includes(`<small lang="${language}">© ${name}</small>`))
+    assert.equal(matchRequired(document, /<h1\b[^>]*>([^<]+)<\/h1>/)[1], title)
+    const copyright = matchRequired(document, /<small\b[^>]*>([^<]+)<\/small>/)
+    assert.ok(copyright[0].includes(`lang="${language}"`))
+    assert.equal(copyright[1], `© ${name}`)
     assert.equal([...document.matchAll(/<h1\b/g)].length, 1)
     assert.ok(metaTag('name', 'twitter:card', document).includes('content="summary_large_image"'))
     assert.ok(metaTag('property', 'og:image:width', document).includes('content="1200"'))
@@ -149,8 +154,8 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     assert.equal(profile.mainEntity.image, 'https://munieru.jp/profile.png')
     assert.deepEqual(profile.mainEntity.sameAs, data.links.map(link => link.url))
   }
-  assert.ok(html.includes('<p class="hero-name" lang="ja">ムニエル<span class="hero-secondary" lang="en">Munieru</span></p>'))
-  assert.ok(englishHtml.includes('<p class="hero-name" lang="en">Munieru<span class="hero-secondary" lang="ja">ムニエル</span></p>'))
+  assert.match(html.replace(/<!--[\s\S]*?-->/g, ''), /<p\b[^>]*data-slot="title"[^>]*><span\b[^>]*lang="ja">ムニエル<\/span><span\b[^>]*lang="en">Munieru<\/span><\/p>/)
+  assert.match(englishHtml.replace(/<!--[\s\S]*?-->/g, ''), /<p\b[^>]*data-slot="title"[^>]*><span\b[^>]*lang="en">Munieru<\/span><span\b[^>]*lang="ja">ムニエル<\/span><\/p>/)
 })
 
 test('日英のサイトマップとrobots.txtの公開URLが一致する', async () => {
@@ -195,37 +200,53 @@ test('英語版でも作品・書籍・登壇の内容とリンクを維持す�
     assert.ok(englishHtml.includes(`href="${work.github}"`))
     if (work.publicationEnded) assert.ok(!englishHtml.includes(`href="${work.url}"`))
   }
-  assert.equal((englishHtml.match(/class="work-status">Discontinued/g) || []).length, data.works.filter(work => work.publicationEnded).length)
+  assert.equal((englishHtml.match(/class="[^"]*\bwork-status\b[^"]*"/g) || []).length, data.works.filter(work => work.publicationEnded).length)
+  assert.equal((englishHtml.match(/>\s*Discontinued\s*</g) || []).length, data.works.filter(work => work.publicationEnded).length)
 })
 
-test('言語切り替えのURLと言語別ラベルの変数を静的HTMLに解決する', () => {
-  for (const [document, language, target] of [[html, 'ja', '/en/'], [englishHtml, 'en', '/ja/']]) {
-    assert.match(document, /<button\b[^>]*class="language-trigger"/u)
-    assert.ok(document.includes(`href="${target}"`))
-    assert.ok(document.includes(`aria-checked="true" aria-current="page" data-language-value="${language}"`))
+test('言語別の切り替えトリガーとラベルを静的HTMLに解決する', () => {
+  // 各ライブラリはメニュー項目を開いた時点で生成するため、SSRでは初期トリガーを確認する。
+  // 言語別URL・相互参照は別のテストで、項目選択はブラウザ検証で確認する。
+  for (const [document, label] of [[html, '言語：日本語'], [englishHtml, 'Language: English']]) {
+    const trigger = matchRequired(document, /<(?:button|ons-button)\b[^>]*class="[^"]*\blanguage-trigger\b[^"]*"[^>]*>/iu)[0]
+    assert.ok(trigger.includes(`aria-label="${label}"`))
+    assert.ok(trigger.includes('aria-haspopup="listbox"'))
     assert.ok(!document.includes('{title}'))
     assert.ok(!document.includes('{language}'))
     assert.ok(!document.includes('{count}'))
   }
-  assert.ok(html.includes(`全${data.works.length}件中${data.works.length}件表示`))
-  assert.ok(englishHtml.includes(`Showing ${data.works.length} of ${data.works.length}`))
 })
 
+/** カードの構造内にあるリンク先で記事を特定し、装飾クラスやリンクの子要素には依存しない。 */
+function cardWithLink (document: string, url: string): string {
+  const cards = [...document.matchAll(/<article\b[^>]*>[\s\S]*?<\/article>/g)].map(([card]) => card)
+  const matches = cards.filter(card => card.includes(`href="${escapeHtml(url)}"`))
+  assert.equal(matches.length, 1, `リンク先に対応するカードが一件ある: ${url}`)
+  return matches[0]
+}
+
 test('公開終了した作品のリンクを外し、GitHubは全件に残す', () => {
-  for (const work of data.works.filter(work => work.publicationEnded)) {
-    assert.ok(!html.includes(`href="${work.url}"`))
-    assert.ok(html.includes(`href="${work.github}"`))
+  for (const [document, endedLabel] of [[html, '公開終了'], [englishHtml, 'Discontinued']]) {
+    const positions = []
+    for (const work of [...data.works].sort((a, b) => b.date.localeCompare(a.date))) {
+      const card = cardWithLink(document, work.github)
+      assert.equal(card.includes(`href="${escapeHtml(work.url)}"`), !work.publicationEnded, work.title)
+      assert.equal(card.includes(endedLabel), !!work.publicationEnded, work.title)
+      positions.push(document.indexOf(card))
+    }
+    // タイトルのマークアップではなく、各作品カードの位置で日付の新しい順を検証する。
+    assert.deepEqual(positions, [...positions].sort((a, b) => a - b))
   }
-  assert.equal((html.match(/class="[^"]*\bsource-link\b[^"]*"/g) || []).length, data.works.length)
-  assert.equal((html.match(/class="work-status">公開終了/g) || []).length, data.works.filter(work => work.publicationEnded).length)
-  assert.ok(html.indexOf('命の砂時計</a>') < html.indexOf('#あの日のツイートを表示するやつ</a>'))
 })
 
 test('登壇カードのイベントリンク・資料リンクと表紙を維持する', () => {
-  for (const talk of data.talks) {
-    assert.ok(html.includes(`class="card-primary-link" href="${talk.eventUrl}"`))
-    assert.ok([...html.matchAll(/<a\b[^>]*>/g)].some(([tag]) => tag.includes('talk-slides-link') && tag.includes(`href="${talk.slidesUrl}"`)))
-    assert.ok([...html.matchAll(/<img\b[^>]*>/g)].some(([tag]) => tag.includes(talk.image)))
+  for (const document of [html, englishHtml]) {
+    for (const talk of data.talks) {
+      const card = cardWithLink(document, talk.eventUrl)
+      assert.ok(card.includes(escapeHtml(talk.title)))
+      assert.ok(card.includes(`href="${escapeHtml(talk.slidesUrl)}"`))
+      assert.ok([...card.matchAll(/<img\b[^>]*>/g)].some(([tag]) => tag.includes(talk.image)))
+    }
   }
 })
 
@@ -256,23 +277,40 @@ test('更新用データの日付・分類と、ローカル画像の存在を�
   }
 })
 
-test('最適化した画像の全候補を静的ファイルとして出力する', async () => {
-  const optimized = [...html.matchAll(/<img\b[^>]*data-nuxt-img[^>]*>/g)].map(([tag]) => tag)
-  assert.equal(optimized.length, 1 + data.books.length + data.talks.length)
-  const urls = new Set<string>()
-  for (const tag of optimized) {
-    assert.ok(tag.includes('/_ipx/f_webp'))
-    const srcset = matchRequired(tag, /srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
-    for (const candidate of srcset.split(', ')) {
-      const [url, width] = candidate.split(' ')
-      assert.ok(parseInt(width) >= 96)
-      urls.add(url)
+test('AVIFとWebPの全候補を静的ファイルとして出力する', async () => {
+  for (const document of [html, englishHtml]) {
+    const pictures = [...document.matchAll(/<picture\b[^>]*>[\s\S]*?<\/picture>/g)].map(([tag]) => tag)
+    assert.equal(pictures.length, 1 + data.books.length + data.talks.length)
+    const urls = new Set<string>()
+    for (const picture of pictures) {
+      const sources = [...picture.matchAll(/<source\b[^>]*>/g)].map(([tag]) => tag)
+      assert.equal(sources.length, 1)
+      assert.ok(sources[0].includes('type="image/avif"'))
+      const fallback = matchRequired(picture, /<img\b[^>]*data-nuxt-pic[^>]*>/)[0]
+      assert.ok(fallback.includes('/_ipx/f_webp'))
+      assert.ok(fallback.includes('alt="'))
+      for (const tag of [sources[0], fallback]) {
+        const srcset = matchRequired(tag, /srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
+        for (const candidate of srcset.split(', ')) {
+          const [url, width] = candidate.split(' ')
+          assert.ok(parseInt(width) >= 96)
+          assert.ok(url.includes('q_100'))
+          urls.add(url)
+        }
+      }
     }
-  }
-  for (const url of urls) {
-    const bytes = await readFile(join(root, 'dist', decodeURIComponent(url)))
-    assert.equal(bytes.toString('ascii', 0, 4), 'RIFF')
-    assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
+    for (const url of urls) {
+      const bytes = await readFile(join(root, 'dist', decodeURIComponent(url)))
+      if (url.includes('/f_avif')) {
+        assert.equal(bytes.toString('ascii', 4, 8), 'ftyp')
+        assert.equal(bytes.toString('ascii', 8, 12), 'avif')
+      } else {
+        assert.equal(bytes.toString('ascii', 0, 4), 'RIFF')
+        assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
+      }
+    }
+    assert.ok(pictures[0].includes('fetchpriority="high"'))
+    assert.ok(pictures[0].includes('loading="eager"'))
   }
 })
 

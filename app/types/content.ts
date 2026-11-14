@@ -27,8 +27,6 @@ export interface Skill {
 
 /** 作品の分類。ライブラリとCLIは独立した種類として扱う。 */
 export type WorkCategory = 'web' | 'extension' | 'library' | 'cli'
-/** 絞り込みの選択値。allは分類によらない全件表示。 */
-export type WorkFilter = 'all' | WorkCategory
 
 /** 作品の公開先・ソースコード・分類と、公開／開発の終了状態。 */
 export interface Work {
@@ -44,7 +42,7 @@ export interface Work {
   url: string
   /** ソースコードを公開するGitHubリポジトリのURL。 */
   github: string
-  /** 分類表示と絞り込みに使う作品の種類。 */
+  /** 分類表示に使う作品の種類。 */
   category: WorkCategory
   /** public配下のローカル画像パス。未指定時は分類アイコンを使う。 */
   image?: string

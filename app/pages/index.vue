@@ -13,7 +13,7 @@
  * トップページのセクション構成と、言語別のSEO・構造化データを定義する。
  */
 import { computed } from 'vue'
-import { useHead, useRuntimeConfig } from '#app'
+import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
 import linksData from '~~/modules/links.json'
 
 // ページは各セクションの配置とメタ情報を担当する。各一覧の読み込み・操作はセクション内で管理する。
@@ -32,27 +32,27 @@ const pageTitle = computed(() => t('site.title'))
 // 共有元のページの言語に合わせ、クローラーが読む静的HTMLにも画像URLを出力する。
 /** 共有元ページの言語に対応するOGP画像の絶対URL。 */
 const shareImage = computed(() => new URL(isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH, config.BASE_URL).href)
+// 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
+useSeoMeta({
+  title: () => pageTitle.value,
+  description: () => t('description'),
+  author: () => displayName.value,
+  ogTitle: () => pageTitle.value,
+  ogSiteName: () => pageTitle.value,
+  ogDescription: () => t('description'),
+  ogImage: () => shareImage.value,
+  ogImageAlt: () => t('ui.ogImageAlt'),
+  twitterTitle: () => pageTitle.value,
+  twitterDescription: () => t('description'),
+  twitterImage: () => shareImage.value,
+  twitterImageAlt: () => t('ui.ogImageAlt')
+})
 useHead(() => ({
   ...localeHead.value,
-  title: pageTitle.value,
   htmlAttrs: { ...localeHead.value.htmlAttrs, lang: locale.value },
   link: (localeHead.value.link || []).map(link => 'hreflang' in link && link.hreflang === 'x-default'
     ? { ...link, href: config.BASE_URL }
     : link),
-  meta: [
-    ...(localeHead.value.meta || []),
-    { name: 'description', content: t('description') },
-    { name: 'author', content: displayName.value },
-    { property: 'og:title', content: pageTitle.value },
-    { property: 'og:site_name', content: pageTitle.value },
-    { property: 'og:description', content: t('description') },
-    { property: 'og:image', content: shareImage.value },
-    { property: 'og:image:alt', content: t('ui.ogImageAlt') },
-    { name: 'twitter:title', content: pageTitle.value },
-    { name: 'twitter:description', content: t('description') },
-    { name: 'twitter:image', content: shareImage.value },
-    { name: 'twitter:image:alt', content: t('ui.ogImageAlt') }
-  ],
   // 画面に掲載したプロフィールと公開アカウントを、検索エンジンにも伝える。
   script: [{
     // 共通設定のWebSiteを同じキーで上書きし、表示言語のサイト名を主にする。

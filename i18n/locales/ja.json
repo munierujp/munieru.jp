@@ -15,14 +15,11 @@
       "support": "活動を支援する"
     },
     "categories": {
-      "all": "すべて",
       "web": "ウェブアプリ",
       "extension": "Chrome拡張機能",
       "library": "ライブラリ",
       "cli": "CLI"
     },
-    "workTypes": "作品の種類",
-    "workCount": "全{total}件中{count}件表示",
     "publicationEnded": "公開終了",
     "sourceCode": "{title}のソースコード（GitHub）",
     "cover": "{title}の表紙",
@@ -38,7 +35,9 @@
       "light": "ライト",
       "dark": "ダーク"
     },
-    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp"
+    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp",
+    "xAccount": "{name}のXアカウント",
+    "siteSourceCode": "このサイトのソースコード（GitHub）"
   },
   "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。",
   "profile": {
