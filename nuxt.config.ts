@@ -28,7 +28,10 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
   telemetry: false,
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
+  // フォントと配色は既存の仕組みを使い、メニュー用のアイコンはローカルに含める。
+  ui: { fonts: false, colorMode: false },
+  icon: { serverBundle: { collections: ['lucide'] } },
   site: {
     url: new URL(config.BASE_URL).origin,
     name: site.title,

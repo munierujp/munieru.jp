@@ -7,20 +7,21 @@
     <!-- JSが動かない場合は全作品を表示し、操作できない絞り込みUIは隠す。 -->
     <div class="work-toolbar" data-work-toolbar :hidden="!ready">
       <div class="filters" role="group" :aria-label="t('ui.workTypes')">
-        <button
+        <AppUiButton
           v-for="filter in filters"
           :key="filter.value"
           :data-work-filter="filter.value"
           type="button"
+          :selected="activeFilter === filter.value"
           :aria-pressed="activeFilter === filter.value ? 'true' : 'false'"
           @click="activeFilter = filter.value"
         >
           {{ filter.label }}
-        </button>
+        </AppUiButton>
       </div>
-      <span class="work-count" role="status"
-        >{{ t('ui.workCount', { total: works.length, count: filteredWorks.length }) }}</span
-      >
+      <span class="work-count" role="status">{{
+        t('ui.workCount', { total: works.length, count: filteredWorks.length })
+      }}</span>
     </div>
     <ul class="work-list" role="list">
       <li v-for="work in filteredWorks" :key="work.key">
@@ -44,20 +45,41 @@ const ready = ref(false)
 /** 選択中の作品分類。初期表示とJavaScript無効時は全作品を表示する。 */
 const activeFilter = ref<WorkFilter>('all')
 /** 絞り込み項目の表示順。作品分類の型と一致させる。 */
-const filterValues = ['all', 'web', 'extension', 'library', 'cli'] as const satisfies readonly WorkFilter[]
-const filters = computed(() => filterValues.map(value => ({ value, label: t(`ui.categories.${value}`) })))
+const filterValues = [
+  'all',
+  'web',
+  'extension',
+  'library',
+  'cli',
+] as const satisfies readonly WorkFilter[]
+const filters = computed(() =>
+  filterValues.map((value) => ({ value, label: t(`ui.categories.${value}`) }))
+)
 // JSONの文字列を分類の型へ絞り込む。不正な分類は黙って表示しない。
-const works = computed<Work[]>(() => workData.map(work => {
-  const category = work.category
-  if (category !== 'web' && category !== 'extension' && category !== 'library' && category !== 'cli') {
-    throw new Error(`Unknown work category: ${category}`)
-  }
-  return localize('works', { ...work, category })
-}).sort((a, b) => b.date.localeCompare(a.date)))
+const works = computed<Work[]>(() =>
+  workData
+    .map((work) => {
+      const category = work.category
+      if (
+        category !== 'web' &&
+        category !== 'extension' &&
+        category !== 'library' &&
+        category !== 'cli'
+      ) {
+        throw new Error(`Unknown work category: ${category}`)
+      }
+      return localize('works', { ...work, category })
+    })
+    .sort((a, b) => b.date.localeCompare(a.date))
+)
 /** 選択した分類に一致する作品。全件表示では整列済みの一覧をそのまま返す。 */
-const filteredWorks = computed(() => activeFilter.value === 'all'
-  ? works.value
-  : works.value.filter(work => work.category === activeFilter.value))
+const filteredWorks = computed(() =>
+  activeFilter.value === 'all'
+    ? works.value
+    : works.value.filter((work) => work.category === activeFilter.value)
+)
 // JSが使えない場合も全作品を読めるよう、操作できる状態になってから絞り込みを表示する。
-onMounted(() => { ready.value = true })
+onMounted(() => {
+  ready.value = true
+})
 </script>

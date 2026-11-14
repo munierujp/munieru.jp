@@ -1,9 +1,13 @@
 /**
- * CSSの標準ルールを適用する。独自のルール上書きは行わない。
+ * CSSの標準ルールと、Nuxt UIのパッケージCSSの読込形式を設定する。
  */
 import type { Config } from 'stylelint'
 
 export default {
-  // CSSの基本ルールは標準設定に任せ、独自の上書きは設けない。
-  extends: ['stylelint-config-standard']
+  // CSSの基本ルールは標準設定に任せる。
+  extends: ['stylelint-config-standard'],
+  rules: {
+    // Nuxt UI/TailwindのVite処理がパッケージ名を解決できるよう、公式例の文字列importを維持する。
+    'import-notation': 'string'
+  }
 } satisfies Config
