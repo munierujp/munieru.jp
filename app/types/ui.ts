@@ -8,7 +8,7 @@ export type IconName =
   | 'i-lucide-chevron-down'
   | 'i-lucide-sun'
   | 'i-lucide-moon'
-  | 'i-lucide-github'
+  | 'i-simple-icons-github'
   | 'i-lucide-globe'
   | 'i-lucide-code'
   | 'i-lucide-puzzle'

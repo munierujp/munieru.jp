@@ -46,7 +46,7 @@ v-if="work.image && !imageFailed"
         class="source-link relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
         :href="work.github"
         :label="t('ui.sourceCode', { title: work.title })"
-        icon="i-lucide-github"
+        icon="i-simple-icons-github"
       />
     </template>
   </AppCard>

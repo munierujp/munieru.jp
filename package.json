@@ -39,6 +39,7 @@
   "type": "module",
   "devDependencies": {
     "@iconify-json/lucide": "1.2.151",
+    "@iconify-json/simple-icons": "1.2.101",
     "@markuplint/ml-config": "5.4.0",
     "@markuplint/vue-parser": "5.4.0",
     "@markuplint/vue-spec": "5.4.0",
