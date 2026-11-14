@@ -28,10 +28,10 @@ export default defineNuxtConfig({
     storageKey: 'app-theme'
   },
   icon: {
-    // 静的生成時はローカルのLucideとSimple Iconsを使い、ブラウザでは同梱済みのアイコンだけを使う。
+    // 静的生成時はローカルのTablerを使い、ブラウザでは同梱済みのアイコンだけを使う。
     provider: { server: 'server', client: 'none' },
     fallbackToApi: false,
-    serverBundle: { collections: ['lucide', 'simple-icons'] },
+    serverBundle: { collections: ['tabler'] },
     // テーマ・作品分類の動的な名前も取りこぼさないよう、TSのリテラルも走査する。
     clientBundle: { scan: { globInclude: ['app/**/*.{vue,ts}'] } }
   },

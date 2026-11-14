@@ -46,7 +46,7 @@ v-if="work.image && !imageFailed"
         class="source-link relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
         :href="work.github"
         :label="t('ui.sourceCode', { title: work.title })"
-        icon="i-simple-icons-github"
+        icon="i-tabler-brand-github-filled"
       />
     </template>
   </AppCard>
@@ -75,10 +75,10 @@ const { t, titleLanguage, formatDate } = useSiteLocale()
 const imageFailed = ref(false)
 const asset = usePublicAsset()
 const icons = {
-  web: 'i-lucide-globe',
-  extension: 'i-lucide-puzzle',
-  library: 'i-lucide-code',
-  cli: 'i-lucide-terminal',
+  web: 'i-tabler-world',
+  extension: 'i-tabler-puzzle',
+  library: 'i-tabler-code',
+  cli: 'i-tabler-terminal-2',
 } satisfies Record<Work['category'], IconName>
 /** 作品分類に対応する、翻訳済みの表示名と代替アイコン。 */
 const category = computed(() => ({
