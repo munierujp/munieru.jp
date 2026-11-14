@@ -20,25 +20,20 @@
       <p>{{ t('profile.activities') }}</p>
     </template>
     <div class="hero-art grid place-items-center max-[560px]:col-start-2 max-[560px]:row-start-1">
-      <!-- 内側の角丸を外側の半径から枠の厚みを引いた値にし、輪郭を揃える。 -->
-      <figure class="profile-print w-[260px] rounded-[28px] bg-black p-3 dark:bg-white max-[560px]:w-28 max-[560px]:rounded-[20px] max-[560px]:p-1.5">
-        <div class="photo-frame aspect-square overflow-hidden rounded-2xl max-[560px]:rounded-[14px]">
-          <!-- 表示幅と画面密度に合わせたAVIF・WebPをビルド時に生成する。 -->
-          <NuxtPicture
-            class="block size-full object-cover"
-            src="/profile.png"
-            format="avif"
-            legacy-format="webp"
-            :img-attrs="{ class: 'block size-full object-cover', fetchpriority: 'high' }"
-            sizes="186px tablet:196px desktop:236px"
-            densities="1x 2x"
-            :alt="t('ui.profileImage')"
-            width="512"
-            height="512"
-            loading="eager"
-          />
-        </div>
-      </figure>
+      <!-- 背景や枠を設けず、表示幅に合わせたAVIF・WebPの画像自体を角丸で表示する。 -->
+      <NuxtPicture
+        class="profile-image block aspect-square w-[260px] overflow-hidden rounded-[28px] max-[560px]:w-28 max-[560px]:rounded-[20px]"
+        src="/profile.png"
+        format="avif"
+        legacy-format="webp"
+        :img-attrs="{ class: 'block size-full object-cover', fetchpriority: 'high' }"
+        sizes="112px tablet:260px"
+        densities="1x 2x"
+        :alt="t('ui.profileImage')"
+        width="512"
+        height="512"
+        loading="eager"
+      />
     </div>
   </UPageHero>
 </template>
