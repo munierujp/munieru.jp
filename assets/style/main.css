@@ -1,9 +1,472 @@
-/* 適用順を維持しながら、用途ごとのファイルへ分割する。 */
-@import url('./base.css');
-@import url('./profile.css');
-@import url('./links-skills.css');
-@import url('./works.css');
-@import url('./content.css');
-@import url('./responsive.css');
-@import url('./theme.css');
-@import url('./ui.css');
+@import url('vuetify/styles');
+
+/* 比較用の共通レイアウト。部品の装飾と操作は各UIライブラリに任せる。 */
+:root {
+  --comparison-bg: #fafafa;
+  --comparison-ink: #202124;
+  --comparison-muted: #62666b;
+  --comparison-accent: #2563eb;
+
+  color-scheme: light;
+}
+
+:root.dark {
+  --comparison-bg: #18181b;
+  --comparison-ink: #f4f4f5;
+  --comparison-muted: #b3b5bc;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--comparison-bg);
+  color: var(--comparison-ink);
+  font-family: 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  line-height: 1.8;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: anywhere;
+}
+
+img {
+  max-width: 100%;
+}
+
+.wrap {
+  width: min(1120px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.site-header,
+.header-actions,
+.social-links,
+.support-links,
+.skills,
+.filters,
+.work-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-header {
+  justify-content: space-between;
+  padding-block: 24px;
+}
+
+.wordmark {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.header-actions {
+  margin-inline-start: auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding-block: 48px;
+}
+
+.hero-name {
+  font-size: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.hero-secondary {
+  display: block;
+  font-size: 0.5em;
+  font-weight: 500;
+  color: var(--comparison-muted);
+  margin-top: 0.25em;
+}
+
+.hero-description {
+  margin-top: 24px;
+  color: var(--comparison-muted);
+  font-size: 0.95rem;
+}
+
+.card-content p,
+.title-translation {
+  color: var(--comparison-muted);
+  font-size: 0.85rem;
+}
+
+.hero-description p + p {
+  margin-top: 12px;
+}
+
+.hero-art {
+  display: grid;
+  place-items: center;
+}
+
+.profile-print {
+  width: 260px;
+  padding: 12px;
+  background: white;
+  border-radius: 24px;
+}
+
+.photo-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.links-section,
+.about-section,
+.works-section,
+.books-section,
+.talks-section,
+.support-section {
+  padding-block: 48px;
+}
+
+.section-top,
+.section-label {
+  margin-bottom: 24px;
+}
+
+.section-top h2,
+.section-label h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-weight: 650;
+  border-inline-start: 4px solid var(--comparison-accent);
+  padding-inline-start: 12px;
+  line-height: 1.4;
+}
+
+.social-links li {
+  max-width: 100%;
+}
+
+.social-name,
+.social-icon,
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-icon {
+  flex-shrink: 0;
+}
+
+.social-icon img,
+.skills img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.social-icon img {
+  background: white;
+  border-radius: 6px;
+}
+
+.support-button {
+  white-space: nowrap;
+}
+
+.ui-button {
+  min-height: 44px;
+  gap: 8px;
+}
+
+/* アイコンのみの操作領域を44px四方に揃え、円形が楕円にならないようにする。 */
+:root .ui-button.is-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+.app-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.icon-link img {
+  width: 24px;
+  height: 24px;
+}
+
+.work-toolbar {
+  margin-bottom: 16px;
+}
+
+.work-count,
+.work-category {
+  color: var(--comparison-muted);
+  font-size: 0.75rem;
+}
+
+.work-category time {
+  white-space: nowrap;
+}
+
+.work-list,
+.book-list,
+.talk-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+  gap: 12px;
+}
+
+.work-list > li,
+.book-list > li,
+.talk-list > li {
+  min-width: 0;
+}
+
+.app-card,
+.native-card {
+  height: 100%;
+  position: relative;
+}
+
+.card-layout {
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr) 44px;
+  gap: 16px;
+  align-items: start;
+}
+
+.card-content {
+  min-width: 0;
+}
+
+.card-content h3 {
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.5;
+  margin-block: 4px 8px;
+}
+
+.card-primary-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.card-primary-link:focus-visible::after {
+  outline: 3px solid var(--comparison-accent);
+  outline-offset: 3px;
+}
+
+.app-card a:not(.card-primary-link) {
+  position: relative;
+  z-index: 1;
+}
+
+.work-symbol {
+  width: 66px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+}
+
+.work-symbol img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.book-link .card-layout {
+  grid-template-columns: 128px minmax(0, 1fr);
+}
+
+.book-cover,
+.talk-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+.talk-card .card-layout {
+  grid-template-columns: minmax(0, 1fr) 44px;
+}
+
+.talk-cover {
+  grid-column: 1 / -1;
+}
+
+.talk-card .card-content {
+  grid-column: 1;
+}
+
+.talk-list > li {
+  container-type: inline-size;
+}
+
+.event-translation,
+.chapter-translation {
+  display: block;
+  margin-top: 4px;
+}
+
+.source-link,
+.talk-slides-link {
+  justify-self: end;
+}
+
+.site-footer {
+  padding-block: 32px;
+  text-align: center;
+  color: var(--comparison-muted);
+}
+
+.site-footer small {
+  font-size: 0.75rem;
+}
+
+@container (width >= 44rem) {
+  .talk-card .card-layout {
+    grid-template-columns: 192px minmax(0, 1fr) 44px;
+  }
+
+  .talk-cover {
+    grid-column: 1;
+  }
+
+  .talk-card .card-content {
+    grid-column: 2;
+  }
+}
+
+@media (width <= 560px) {
+  .wrap {
+    width: calc(100% - 40px);
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    grid-template-areas: 'name image' 'description description';
+    gap: 24px 16px;
+    padding-block: 24px 32px;
+  }
+
+  .hero-copy {
+    display: contents;
+  }
+
+  .hero-name {
+    grid-area: name;
+    font-size: clamp(2rem, 1rem + 5vw, 2.8rem);
+  }
+
+  .hero-art {
+    grid-area: image;
+  }
+
+  .hero-description {
+    grid-area: description;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  .profile-print {
+    width: 112px;
+    padding: 6px;
+  }
+
+  .wordmark {
+    font-size: 1.2rem;
+  }
+
+  .work-row .card-layout {
+    grid-template-columns: minmax(0, 1fr) 44px;
+  }
+
+  .work-row .card-content {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .work-symbol {
+    width: 48px;
+  }
+
+  .source-link {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .book-link .card-layout {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+}
+
+/* ヘッダーのテーマ操作は現行版と同じ44pxの円形アイコンボタンにする。 */
+.header-actions .theme-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+}

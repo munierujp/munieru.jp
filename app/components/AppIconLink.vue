@@ -1,10 +1,18 @@
 <template>
   <!-- アイコンだけのリンクには、読み上げ名とツールチップを共通で付ける。 -->
-  <a class="icon-link" :href="href" target="_blank" rel="noopener" :aria-label="label" :title="label">
+  <AppUiButton
+    icon-only
+    class="icon-link"
+    :href="href"
+    target="_blank"
+    rel="noopener"
+    :aria-label="label"
+    :title="label"
+  >
     <slot>
       <AppIcon v-if="icon" :name="icon" />
     </slot>
-  </a>
+  </AppUiButton>
 </template>
 
 <script setup lang="ts">
@@ -16,9 +24,9 @@ import type { IconName } from '~/types/ui'
 // スロットに画像を渡す場合、リンクのlabelと重複しないようaltは空にする。
 defineProps<{
   /** リンク先の公開URL。 */
-  href: string;
+  href: string
   /** 操作内容を伝える表示・読み上げ用の名前。 */
-  label: string;
+  label: string
   /** 表示するSVGアイコン名。省略時はスロットの内容を使う。 */
   icon?: IconName
 }>()

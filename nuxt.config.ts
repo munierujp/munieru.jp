@@ -26,6 +26,8 @@ const browserScript = (path: string): string => transpileModule(readFileSync(roo
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
+  // Vuetifyの部品をSSRでもVite側で処理する。
+  vite: { ssr: { noExternal: ['vuetify'] } },
   devtools: { enabled: false },
   telemetry: false,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint'],
