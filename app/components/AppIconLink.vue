@@ -11,7 +11,7 @@
     :title="label"
   >
     <slot>
-      <AppIcon v-if="icon" :name="icon" />
+      <UIcon v-if="icon" class="app-icon block size-6 shrink-0" aria-hidden="true" :name="icon" />
     </slot>
   </UButton>
 </template>
@@ -21,7 +21,7 @@
  * アイコンだけの外部リンクに、読み上げ名とツールチップを付ける。
  */
 import type { IconName } from '~/types/ui'
-// SVGはiconで指定し、画像などはデフォルトスロットへ渡す。
+// Lucideはiconで指定し、画像などはデフォルトスロットへ渡す。
 // スロットに画像を渡す場合、リンクのlabelと重複しないようaltは空にする。
 defineProps<{
   /** リンク先の公開URL。 */

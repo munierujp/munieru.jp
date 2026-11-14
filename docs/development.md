@@ -106,9 +106,9 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
 - 登壇カード: `app/components/AppTalkCard.vue`
-- SVGアイコンの表示: `app/components/AppIcon.vue`
-- アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、SVGの`icon`または画像のスロットを指定）
-- SVGアイコンのパス・座標系・塗り・線: `public/icons.svg`（名前付きのsymbolをAppIconからuseで参照）
+- 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucideを参照します（例: `i-lucide-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
+- アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、Lucide名の`icon`または画像のスロットを指定）
+- 動的に選ぶアイコン名の型: `app/types/ui.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。自作のSVGスプライトは使いません。
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
 - 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードごとの配置は`AppWorkCard.vue`・`AppBookCard.vue`・`AppTalkCard.vue`の`cardUi`から、汎用`AppCard`の`ui`へ渡します。

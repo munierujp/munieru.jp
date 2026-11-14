@@ -25,7 +25,7 @@ v-if="work.image && !imageFailed"
           decoding="async"
           @error="imageFailed = true"
         >
-        <AppIcon v-else :name="category.icon" />
+        <UIcon v-else class="app-icon block size-6 shrink-0" aria-hidden="true" :name="category.icon" />
       </div>
     </template>
     <template #metadata>
@@ -46,7 +46,7 @@ v-if="work.image && !imageFailed"
         class="source-link relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
         :href="work.github"
         :label="t('ui.sourceCode', { title: work.title })"
-        icon="github"
+        icon="i-lucide-github"
       />
     </template>
   </AppCard>
@@ -75,10 +75,10 @@ const { t, titleLanguage, formatDate } = useSiteLocale()
 const imageFailed = ref(false)
 const asset = usePublicAsset()
 const icons = {
-  web: 'globe',
-  extension: 'puzzle',
-  library: 'code',
-  cli: 'terminal',
+  web: 'i-lucide-globe',
+  extension: 'i-lucide-puzzle',
+  library: 'i-lucide-code',
+  cli: 'i-lucide-terminal',
 } satisfies Record<Work['category'], IconName>
 /** 作品分類に対応する、翻訳済みの表示名と代替アイコン。 */
 const category = computed(() => ({

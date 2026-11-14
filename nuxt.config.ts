@@ -27,8 +27,14 @@ export default defineNuxtConfig({
     // 既存の選択値を引き継ぐため、以前と同じ保存キーを使う。
     storageKey: 'app-theme'
   },
-  // Nuxt UIのチェック印等をローカルから供給し、外部のIconify APIへ依存させない。
-  icon: { serverBundle: { collections: ['lucide'] } },
+  icon: {
+    // 静的生成時はローカルのLucideを使い、ブラウザでは同梱済みのアイコンだけを使う。
+    provider: { server: 'server', client: 'none' },
+    fallbackToApi: false,
+    serverBundle: { collections: ['lucide'] },
+    // テーマ・作品分類の動的な名前も取りこぼさないよう、TSのリテラルも走査する。
+    clientBundle: { scan: { globInclude: ['app/**/*.{vue,ts}'] } }
+  },
   site: {
     url: new URL(config.BASE_URL).origin,
     name: site.title,
