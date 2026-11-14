@@ -41,7 +41,7 @@ export function useSiteLocale (): SiteLocale {
    */
   const localize = <K extends keyof LocalizedContent>(group: K, entry: LocalizedContent[K]): LocalizedContent[K] => {
     if (!isEnglish.value) return entry
-    const key = 'key' in entry ? entry.key : 'title' in entry ? entry.title : entry.name
+    const key = 'key' in entry ? entry.key : entry.name
     // tmはコンパイル済みメッセージを返す。各グループは項目キー→表示文の辞書として管理する。
     type Message = Parameters<typeof rt>[0]
     const translated = (tm(group) as Record<string, Record<string, Message>>)[key]

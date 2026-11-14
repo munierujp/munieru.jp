@@ -38,29 +38,6 @@
     "siteSourceCode": "Source code for this website (GitHub)"
   },
   "description": "Munieru's personal website: profile, social links, skills, works, books, and talks.",
-  "links": {
-    "はてなブログ": {
-      "title": "Hatena Blog"
-    },
-    "はてなブックマーク": {
-      "title": "Hatena Bookmark"
-    },
-    "ブクログ": {
-      "title": "Booklog"
-    },
-    "映画.com": {
-      "title": "Eiga.com"
-    },
-    "シネファボ": {
-      "title": "Cinefav"
-    },
-    "食べログ": {
-      "title": "Tabelog"
-    },
-    "ボドゲーマ": {
-      "title": "Bodogema"
-    }
-  },
   "skills": {
     "Chrome拡張機能": {
       "name": "Chrome Extensions"

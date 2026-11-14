@@ -17,7 +17,7 @@
                   @error="hideFailedImage"
                 >
               </span>
-              <span>{{ link.title }}</span>
+              <span :lang="titleLanguage(link.title)">{{ link.title }}</span>
             </span>
           </UButton>
         </li>
@@ -31,12 +31,11 @@
  * 公開アカウントへのリンクを、ローカルのサービスアイコンとともに表示する。
  */
 import type { ServiceLink } from '~/types/content'
-import { computed } from 'vue'
 import linksData from '~~/modules/links.json'
 
-// リンク一覧の表示文を現在の言語に合わせる。URLと画像は日英で共有する。
-const { t, localize } = useSiteLocale()
-/** 元データの順序を保ち、現在の言語のサービス名を表示する一覧。 */
-const links = computed<ServiceLink[]>(() => linksData.map((link) => localize('links', link)))
+// サービス名・URL・画像・並び順は日英で共有し、原表記を維持する。
+const { t, titleLanguage } = useSiteLocale()
+/** 表示言語にかかわらず、元データのサービス名を表示する一覧。 */
+const links: ServiceLink[] = linksData
 const asset = usePublicAsset()
 </script>

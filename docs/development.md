@@ -73,7 +73,7 @@ Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組�
 - フッターの著作権表記: `app/components/AppFooter.vue` の `<template>`
 - サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
-- SNS・各サービス: `modules/links.json`
+- SNS・各サービス: `modules/links.json`。サービス名は英語版でも翻訳せず、原表記を共有します
 - 活動への支援先: `modules/support.json`（URLの初期値・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。既存4サービスのURLは環境変数でも上書き可能
 - スキル: `modules/skills.json`
 - 作品: `modules/works.json`

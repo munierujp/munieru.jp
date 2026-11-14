@@ -1,7 +1,7 @@
 /**
  * JSONの元データと、翻訳後の表示データで共有するコンテンツの型を定義する。
  */
-/** 公開アカウントへのリンク。サービス名だけを言語別に変更できる。 */
+/** サービス名・公開URL・ローカルのアイコンをまとめたリンク情報。 */
 export interface ServiceLink {
   /** カードや一覧に表示する名称。 */
   title: string
@@ -106,8 +106,6 @@ export interface Talk {
 export interface LocalizedContent {
   /** 活動への支援先と、その言語別の表示名。 */
   support: SupportLink
-  /** 公開サービスへのリンク情報。 */
-  links: ServiceLink
   /** スキル名とアイコンの情報。 */
   skills: Skill
   /** 作品と公開状態の情報。 */
