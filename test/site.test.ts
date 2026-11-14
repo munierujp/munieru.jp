@@ -229,7 +229,7 @@ test('公開終了した作品のリンクを外し、GitHubは全件に残す',
 
 test('登壇カードのイベントリンク・資料リンクと表紙を維持する', () => {
   for (const talk of data.talks) {
-    assert.ok(html.includes(`class="card-primary-link" href="${talk.eventUrl}"`))
+    assert.ok([...html.matchAll(/<a\b[^>]*>/g)].some(([tag]) => /class="[^"]*\bcard-primary-link\b/.test(tag) && tag.includes(`href="${talk.eventUrl}"`)))
     assert.ok([...html.matchAll(/<a\b[^>]*>/g)].some(([tag]) => tag.includes('talk-slides-link') && tag.includes(`href="${talk.slidesUrl}"`)))
     assert.ok([...html.matchAll(/<img\b[^>]*>/g)].some(([tag]) => tag.includes(talk.image)))
   }
