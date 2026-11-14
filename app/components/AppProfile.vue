@@ -1,6 +1,6 @@
 <template>
   <!-- プロフィール本文は翻訳辞書、画像は public/profile.png で管理する。 -->
-  <section class="hero grid grid-cols-[1.2fr_1fr] items-center gap-12 py-12 max-[560px]:grid-cols-[minmax(0,1fr)_112px] max-[560px]:gap-x-4 max-[560px]:gap-y-6 max-[560px]:pt-6 max-[560px]:pb-8 wrap">
+  <UContainer as="section" class="hero grid grid-cols-[1.2fr_1fr] items-center gap-12 py-12 max-[560px]:grid-cols-[minmax(0,1fr)_112px] max-[560px]:gap-x-4 max-[560px]:gap-y-6 max-[560px]:pt-6 max-[560px]:pb-8">
     <div class="hero-copy max-[560px]:contents">
       <p v-if="isEnglish" class="hero-name text-[clamp(2.5rem,2rem+3vw,4.5rem)] font-[750] leading-[1.25] max-[560px]:text-[clamp(2rem,1rem+5vw,2.8rem)]" lang="en">{{ t('site.name') }}<span class="hero-secondary mt-[0.25em] block text-[0.5em] font-medium text-muted" lang="ja">{{ t('site.alternateName') }}</span></p>
       <p v-else class="hero-name text-[clamp(2.5rem,2rem+3vw,4.5rem)] font-[750] leading-[1.25] max-[560px]:text-[clamp(2rem,1rem+5vw,2.8rem)]" lang="ja">{{ t('site.name') }}<span class="hero-secondary mt-[0.25em] block text-[0.5em] font-medium text-muted" lang="en">{{ t('site.alternateName') }}</span></p>
@@ -28,7 +28,7 @@ class="block size-full object-cover"
         </div>
       </figure>
     </div>
-  </section>
+  </UContainer>
 </template>
 
 <script setup lang="ts">

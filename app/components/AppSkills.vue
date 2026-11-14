@@ -1,7 +1,7 @@
 <template>
   <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
   <section class="about-section py-12">
-    <div class="wrap section-stack">
+    <UContainer class="section-stack">
       <div class="section-label mb-6">
         <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.skills') }}</h2>
       </div>
@@ -24,7 +24,7 @@ class="size-6 object-contain"
           </li>
         </ul>
       </div>
-    </div>
+    </UContainer>
   </section>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <!-- 作品一覧と分類による絞り込み。各作品の表示はAppWorkCardが担当する。 -->
-  <section class="works-section py-12 wrap">
+  <UContainer as="section" class="works-section py-12">
     <div class="section-top mb-6">
       <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.works') }}</h2>
     </div>
     <!-- JSが動かない場合は全作品を表示し、操作できない絞り込みUIは隠す。 -->
-    <div class="work-toolbar mb-4 flex flex-wrap items-center gap-3" data-work-toolbar :hidden="!ready">
+    <div class="work-toolbar mb-4 flex [&[hidden]]:hidden flex-wrap items-center gap-3" data-work-toolbar :hidden="!ready">
       <div class="filters flex flex-wrap items-center gap-3" role="group" :aria-label="t('ui.workTypes')">
         <AppUiButton
           v-for="filter in filters"
@@ -28,7 +28,7 @@
         <AppWorkCard :work="work" />
       </li>
     </ul>
-  </section>
+  </UContainer>
 </template>
 
 <script setup lang="ts">

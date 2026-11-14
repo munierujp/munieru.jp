@@ -1,6 +1,6 @@
 <template>
   <!-- 登壇一覧。イベントを主リンクとし、発表資料へのリンクは各カードに配置する。 -->
-  <section class="talks-section py-12 wrap">
+  <UContainer as="section" class="talks-section py-12">
     <div class="section-top mb-6">
       <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.talks') }}</h2>
     </div>
@@ -9,7 +9,7 @@
         <AppTalkCard :talk="talk" />
       </li>
     </ul>
-  </section>
+  </UContainer>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header flex flex-wrap items-center justify-between gap-3 py-6 wrap">
+  <UContainer as="header" class="site-header flex flex-wrap items-center justify-between gap-3 py-6">
     <h1 class="wordmark text-2xl font-bold leading-[1.4] max-[560px]:text-[1.2rem]">{{ t('site.title') }}</h1>
     <div class="header-actions ms-auto flex flex-wrap items-center gap-3">
       <AppFrameworkMenu
@@ -25,7 +25,7 @@
         <AppIcon :name="themeIcon" />
       </AppFrameworkMenu>
     </div>
-  </header>
+  </UContainer>
 </template>
 <script setup lang="ts">
 /** 同じ言語・テーマ選択を、各ライブラリのメニューで操作する。 */

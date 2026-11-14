@@ -1,7 +1,7 @@
 <template>
   <!-- 書籍一覧。表紙・寄稿内容・販売ページへのリンクはAppBookCardが担当する。 -->
   <section class="books-section py-12">
-    <div class="wrap section-stack">
+    <UContainer class="section-stack">
       <div class="section-label mb-6">
         <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.books') }}</h2>
       </div>
@@ -10,7 +10,7 @@
           <AppBookCard :book="book" />
         </li>
       </ul>
-    </div>
+    </UContainer>
   </section>
 </template>
 

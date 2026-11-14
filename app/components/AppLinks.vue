@@ -1,6 +1,6 @@
 <template>
   <!-- 各サービスへのリンク。名前とアイコンを含む領域全体をタップできる。 -->
-  <section class="links-section py-12 wrap">
+  <UContainer as="section" class="links-section py-12">
     <div class="section-top mb-6">
       <div>
         <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.links') }}</h2>
@@ -26,7 +26,7 @@ class="size-6 object-contain rounded-lg bg-white"
         </AppUiButton>
       </li>
     </ul>
-  </section>
+  </UContainer>
 </template>
 
 <script setup lang="ts">

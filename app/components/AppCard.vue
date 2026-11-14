@@ -8,7 +8,7 @@
           <h3 class="mt-1 mb-2 text-[1.05rem] font-[650] leading-normal">
             <a
               v-if="href"
-              class="card-primary-link"
+              class="card-primary-link after:absolute after:inset-0 after:rounded-[20px] after:content-[''] focus-visible:after:outline-3 focus-visible:after:outline-offset-3 focus-visible:after:outline-primary"
               :href="href"
               target="_blank"
               rel="noopener"

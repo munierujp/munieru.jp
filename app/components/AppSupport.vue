@@ -1,6 +1,6 @@
 <template>
   <!-- 支援先の一覧。設定されたURLがある場合だけ独立したセクションとして表示する。 -->
-  <section v-if="supportLinks.length" class="support-section py-12 wrap" :aria-labelledby="headingId">
+  <UContainer v-if="supportLinks.length" as="section" class="support-section py-12" :aria-labelledby="headingId">
     <div class="section-top mb-6">
       <h2 :id="headingId" class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.support') }}</h2>
     </div>
@@ -27,7 +27,7 @@ class="size-6 object-contain rounded-lg bg-white"
         <span>{{ link.title }}</span>
       </AppUiButton>
     </div>
-  </section>
+  </UContainer>
 </template>
 
 <script setup lang="ts">
