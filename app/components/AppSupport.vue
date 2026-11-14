@@ -5,7 +5,7 @@
       <h2 :id="headingId">{{ t('ui.headings.support') }}</h2>
     </div>
     <div class="support-links">
-      <a
+      <AppUiButton
         v-for="link in supportLinks"
         :key="link.key"
         :href="link.url"
@@ -24,7 +24,7 @@
           >
         </span>
         <span>{{ link.title }}</span>
-      </a>
+      </AppUiButton>
     </div>
   </section>
 </template>
@@ -51,11 +51,15 @@ const urlOverrides: Partial<Record<string, string>> = {
   /** ほしい物リストの公開URL。空文字なら非表示。 */
   'wish-list': config.WISH_LIST_URL,
   /** gifteeの公開URL。空文字なら非表示。 */
-  giftee: config.GIFTEE_URL
+  giftee: config.GIFTEE_URL,
 }
 // URLが空の支援先は表示しない。表示名・並び順・画像はJSONで管理する。
-const supportLinks = computed<SupportLink[]>(() => supportData.map(link => ({
-  ...localize('support', link),
-  url: urlOverrides[link.key] ?? link.url
-})).filter(link => link.url))
+const supportLinks = computed<SupportLink[]>(() =>
+  supportData
+    .map((link) => ({
+      ...localize('support', link),
+      url: urlOverrides[link.key] ?? link.url,
+    }))
+    .filter((link) => link.url)
+)
 </script>

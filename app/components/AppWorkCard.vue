@@ -8,7 +8,11 @@
     :href="work.publicationEnded ? '' : work.url"
   >
     <template #media>
-      <div class="work-symbol" :class="[work.category, { 'has-image': work.image && !imageFailed }]" aria-hidden="true">
+      <div
+        class="work-symbol"
+        :class="[work.category, { 'has-image': work.image && !imageFailed }]"
+        aria-hidden="true"
+      >
         <img
           v-if="work.image && !imageFailed"
           :src="asset(work.image)"
@@ -30,7 +34,9 @@
     </template>
     <!-- 公開終了でも、補助リンクのGitHubからソースコードを開ける。 -->
     <template #status>
-      <span v-if="work.publicationEnded" class="work-status">{{ t('ui.publicationEnded') }}</span>
+      <AppUiBadge v-if="work.publicationEnded" class="work-status">{{
+        t('ui.publicationEnded')
+      }}</AppUiBadge>
     </template>
     {{ work.description }}
     <template #action>
@@ -61,7 +67,15 @@ const { t, titleLanguage, formatDate } = useSiteLocale()
 // 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
 const imageFailed = ref(false)
 const asset = usePublicAsset()
-const icons = { web: 'globe', extension: 'puzzle', library: 'code', cli: 'terminal' } satisfies Record<Work['category'], IconName>
+const icons = {
+  web: 'globe',
+  extension: 'puzzle',
+  library: 'code',
+  cli: 'terminal',
+} satisfies Record<Work['category'], IconName>
 /** 作品分類に対応する、翻訳済みの表示名と代替アイコン。 */
-const category = computed(() => ({ label: t(`ui.categories.${props.work.category}`), icon: icons[props.work.category] }))
+const category = computed(() => ({
+  label: t(`ui.categories.${props.work.category}`),
+  icon: icons[props.work.category],
+}))
 </script>

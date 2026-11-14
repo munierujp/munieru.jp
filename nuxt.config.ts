@@ -26,6 +26,8 @@ const browserScript = (path: string): string => transpileModule(readFileSync(roo
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
+  // Onsenの要素はVueコンポーネントとして解決せず、マウント後に登録する。
+  vue: { compilerOptions: { isCustomElement: tag => tag.startsWith('ons-') } },
   devtools: { enabled: false },
   telemetry: false,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint'],
