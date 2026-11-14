@@ -110,7 +110,9 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、SVGの`icon`または画像のスロットを指定）
 - SVGアイコンのパス・座標系・塗り・線: `public/icons.svg`（名前付きのsymbolをAppIconからuseで参照）
 - ページとレイアウトの接続: `app/app.vue`
-- スタイルの入口: `assets/style/main.css`。Nuxt UIのスタイルと、配置・画面幅・サイト用の配色をまとめています。
+- 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
+- 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。共通カードの配置は`AppCard.vue`の`layout`（work・book・talk）で選びます。
+- スタイルの入口: `assets/style/main.css`。Nuxt UIの意味別カラートークン、本文フォント、共通のページ幅、カードの主リンクの操作領域に絞っています。HTMLのリセットはTailwindのPreflightを使います。
 - OGP・ファビコン・静的生成: `nuxt.config.ts`
 
 HTMLをJavaScript文字列として編集する必要はありません。
