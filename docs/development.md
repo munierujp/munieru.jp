@@ -156,7 +156,7 @@ npm run lint:eslint
 npm run lint:eslint:fix
 ```
 
-`lint:eslint:fix`はESLintの自動修正を行います。`npm run lint`は5種類のリンターを順に実行し、`npm run lint:fix`はESLint・Stylelintの自動修正後に全リンターで確認します。整形はneostandardに従い、個別のスタイルルールは追加していません。
+`lint:eslint:fix`はESLintの自動修正を行います。`npm run lint`はnpm-run-all2の`run-s`で5種類のリンターを順に実行し、`npm run lint:fix`はESLint・Stylelintの自動修正後に全リンターで確認します。整形はneostandardに従い、個別のスタイルルールは追加していません。
 トップページはページ遷移アニメーションを使わずFragmentで構成するため、`app/pages/index.vue`だけ単一ルートのルールを例外にしています。
 
 ## Secretlint
