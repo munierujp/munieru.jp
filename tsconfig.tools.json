@@ -1,13 +1,10 @@
 {
   // Nuxt外で実行するスクリプト・テスト・設定を検査する。
+  // Node 26向けのtarget・lib・module・Node型などは共有設定へ委譲する。
+  "extends": "@tsconfig/node26/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2023",
-    "module": "NodeNext",
-    "lib": ["ES2023", "DOM"],
-    "types": ["node"],
     "strict": true,
     "noEmit": true,
-    "skipLibCheck": true,
     "allowJs": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,

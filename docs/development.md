@@ -210,7 +210,7 @@ npm run lint:lockfile
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
-`app/types/content.ts`が一覧データとカードのprops、`app/types/ui.ts`がアイコン名・テーマ設定・ブラウザのテーマAPIの型を定義します。
+`app/types/content.ts`が一覧データとカードのprops、`app/types/ui.ts`がアイコン名・テーマ設定の型を定義します。
 元データは引き続き`modules/*.json`で編集できます。作品の分類はJSON読み込み時にも検証します。
 
 ```sh
@@ -219,7 +219,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`でスクリプト・テスト・リンター設定・テーマ処理も検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。Secretlint設定だけはTSに直接対応しないため、`@ts-check`付きの`.secretlintrc.js`を維持します。
+`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`でスクリプト・テスト・リンター設定も検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。Secretlint設定だけはTSに直接対応しないため、`@ts-check`付きの`.secretlintrc.js`を維持します。
 
 ## 日本語・英語の更新
 
@@ -343,3 +343,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 ### テストの実行単位
 
 `npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの14件は`test/integration/`へ分け、`npm run build`後に`npm run test:integration`で実行します。CIはこの順序で各検証を一度ずつ実行します。
+
+### Node用の型検査設定
+
+Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tools.json`だけ`@tsconfig/node26/tsconfig.json`を継承します。Node 26向けのtarget・lib・module・Node型・skipLibCheck等は共有設定へ任せ、厳格な検査と、Node標準のTS実行・JSON読込に必要な設定はこのリポジトリで指定します。バージョンは`.npmrc`の公開後7日以上の方針に従い、26.0.1を固定しています。
