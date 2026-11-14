@@ -52,8 +52,8 @@ export default defineNuxtConfig({
   image: {
     // Netlifyの画像サービスへ依存せず、静的生成時にローカルへ書き出す。
     provider: 'ipx',
-    // このサイトの画像で容量と細部を比較して選んだ、AVIF・WebP共通の品質値。
-    quality: 65,
+    // 圧縮による劣化を抑える方針で、AVIF・WebPとも品質値を最大にする。
+    quality: 100,
     screens: { mobile: 560, tablet: 561, desktop: 801 }
   },
   i18n: {

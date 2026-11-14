@@ -296,7 +296,7 @@ test('AVIFとWebPの全候補を静的ファイルとして出力する', async 
         for (const candidate of srcset.split(', ')) {
           const [url, width] = candidate.split(' ')
           assert.ok(parseInt(width) >= 96)
-          assert.ok(url.includes('q_65'))
+          assert.ok(url.includes('q_100'))
           urls.add(url)
         }
       }
