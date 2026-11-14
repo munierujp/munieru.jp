@@ -18,7 +18,7 @@
         ? 'dark'
         : 'light'
       : preference
-  // UIライブラリのdarkセレクターも初回描画前に揃える。
+  // Nuxt UI/Tailwindのdark:クラスが、保存値・OS設定と同じテーマで初回描画されるようにする。
   root.classList.toggle('dark', root.dataset.theme === 'dark')
   root.style.colorScheme = root.dataset.theme
   const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')

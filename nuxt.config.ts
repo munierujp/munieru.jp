@@ -29,8 +29,10 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   telemetry: false,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
-  // フォントと配色は既存の仕組みを使い、メニュー用のアイコンはローカルに含める。
+  // 端末フォントを使うためNuxt Fontsの自動登録を止める。
+  // テーマは既存の保存・OS追従処理で管理し、color-modeとの二重管理を避ける。
   ui: { fonts: false, colorMode: false },
+  // Nuxt UIのチェック印等をローカルから供給し、外部のIconify APIへ依存させない。
   icon: { serverBundle: { collections: ['lucide'] } },
   site: {
     url: new URL(config.BASE_URL).origin,

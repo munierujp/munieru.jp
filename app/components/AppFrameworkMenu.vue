@@ -6,14 +6,29 @@
 </template>
 <script setup lang="ts">
 defineOptions({ inheritAttrs: false })
-/** ライブラリに開閉・位置決め・キーボード操作を任せる比較用メニュー。 */
+/**
+ * 言語・テーマで共有する、現在の選択にチェックを付けるドロップダウン。
+ * @remarks 選択データをNuxt UIの項目へ変換し、開閉・位置決め・キー操作はUDropdownMenuへ任せる。
+ * @remarks aria-label等はルートのUDropdownMenuではなく、実際のトリガーボタンへ渡す。
+ */
 const props = defineProps<{
   /** テーマ切り替えなど、アイコンだけのトリガーを円形にする。 */
   iconOnly?: boolean
+  /** スロットを省略したときにトリガーへ表示する名前。 */
   label: string
-  items: { value: string; label: string; selected: boolean }[]
+  /** 値・表示名・現在の選択状態を持つ選択肢。 */
+  items: {
+    /** 選択時に親へ返す値。 */
+    value: string
+    /** メニューに表示する名前。 */
+    label: string
+    /** 現在の選択ならチェックを表示する。 */
+    selected: boolean
+  }[]
 }>()
+/** 選択値を親へ通知し、保存や言語遷移は呼び出し側へ任せる。 */
 const emit = defineEmits<{ select: [value: string] }>()
+/** サイト共通の選択肢を、Nuxt UIのチェック付きメニュー項目へ変換する。 */
 const model = computed(() =>
   props.items.map((item) => ({
     label: item.label,

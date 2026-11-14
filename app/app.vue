@@ -1,4 +1,5 @@
 <template>
+  <!-- Nuxt UIのlocale・Tooltip・Overlay等の共通コンテキストをページへ提供する。 -->
   <UApp
     ><NuxtLayout><NuxtPage /></NuxtLayout
   ></UApp>

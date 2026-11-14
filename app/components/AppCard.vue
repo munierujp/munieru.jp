@@ -23,16 +23,24 @@ class="native-card relative h-full"
           <slot name="subtitle" />
           <p v-if="$slots.default" class="text-[0.85rem] text-muted"><slot /></p>
         </div>
+        <!-- GitHub・資料などの補助リンクは、主リンクの入れ子にせず独立させる。 -->
         <slot name="action" /></div
     ></UCard>
   </article>
 </template>
 <script setup lang="ts">
-/** 同じ主リンク・補助リンク構造を、ライブラリのカード内へ配置する。 */
+/**
+ * カード全体を操作できる主リンクと、独立した補助リンクを持つ共通カード。
+ * @remarks 画像・分類・状態は名前付きスロットで受け取り、hrefが空なら主リンクを作らない。
+ */
 withDefaults(defineProps<{
+  /** カードや一覧に表示する名称。 */
   title: string
+  /** 外部の主リンク。省略時はカード全体をリンクにしない。 */
   href?: string
+  /** 見出しがページ本文と異なる言語の場合のlang属性。 */
   titleLang?: string
+  /** タイトルだけでは用途が伝わらない場合の読み上げ名。 */
   linkLabel?: string
   /** 内容の種類ごとに、画像・本文・補助リンクの配置を選ぶ。 */
   layout?: 'work' | 'book' | 'talk'
