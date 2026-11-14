@@ -1,5 +1,5 @@
 {
-  // Nuxt外で実行するスクリプト・テスト・設定と、通常のJSへ変換するテーマ処理も検査する。
+  // Nuxt外で実行するスクリプト・テスト・設定を検査する。
   "compilerOptions": {
     "target": "ES2023",
     "module": "NodeNext",
@@ -17,7 +17,6 @@
   "include": [
     "scripts/**/*.ts",
     "test/**/*.ts",
-    "assets/**/*.ts",
     "eslint.config.ts",
     "stylelint.config.ts",
     "markuplint.config.ts",

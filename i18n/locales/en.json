@@ -27,9 +27,7 @@
     "slidesInfo": "Slides for {title} (Speaker Deck)",
     "profileImage": "Profile image",
     "theme": "Appearance: {theme}",
-    "themeGroup": "Appearance",
     "language": "Language: {language}",
-    "languageGroup": "Language",
     "themes": {
       "system": "System",
       "light": "Light",

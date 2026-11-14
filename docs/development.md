@@ -106,15 +106,15 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
 - 登壇カード: `app/components/AppTalkCard.vue`
-- 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucideを参照します（例: `i-lucide-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
-- アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、Lucide名の`icon`または画像のスロットを指定）
+- 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucide・Simple Iconsを参照します（例: `i-lucide-globe`・`i-simple-icons-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
+- アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、Iconify名の`icon`または画像のスロットを指定）
 - 動的に選ぶアイコン名の型: `app/types/ui.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。自作のSVGスプライトは使いません。
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
 - 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードごとの配置は`AppWorkCard.vue`・`AppBookCard.vue`・`AppTalkCard.vue`の`cardUi`から、汎用`AppCard`の`ui`へ渡します。
 - 配色: `app/app.config.ts`の`ui.colors`でNuxt UI標準のcyan・zincを選びます。背景色・文字色の具体値は独自定義しません。
 - ページ幅・左右の余白: Nuxt UI標準の`UContainer`を使います。本文フォントと背景・文字色の適用は`app/app.vue`の`bodyAttrs`です。
-- スタイルの入口: `assets/style/main.css`はTailwind・Nuxt UIのimportだけです。リセットはPreflight、カード全体の主リンクは`AppCard.vue`の疑似要素クラス、hiddenの優先は`[&[hidden]]:hidden`を使います。
+- スタイルの入口: `assets/style/main.css`はTailwind・Nuxt UIのimportだけです。リセットはPreflight、カード全体の主リンクは`UPageCard`を使います。
 - OGP・ファビコン・静的生成: `nuxt.config.ts`
 
 HTMLをJavaScript文字列として編集する必要はありません。
@@ -240,7 +240,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 
 本文・見出しには端末に搭載されたフォントを使います。Macではヒラギノ、Windowsでは游ゴシック・メイリオを優先し、それらがない場合は`system-ui`・`sans-serif`へフォールバックします。ウェブフォントの取得や配信は行いません。
 
-書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文や各部の配置は`assets/style/main.css`、部品の外観はUIライブラリのテーマで調整します。
+書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文や各部の配置はコンポーネントのTailwindクラス、部品の外観は`app/app.config.ts`のテーマで調整します。
 
 ## 画像の最適化
 

@@ -27,9 +27,7 @@
     "slidesInfo": "{title}の発表資料（Speaker Deck）",
     "profileImage": "プロフィール画像",
     "theme": "表示モード：{theme}",
-    "themeGroup": "表示モード",
     "language": "言語：{language}",
-    "languageGroup": "言語",
     "themes": {
       "system": "システム",
       "light": "ライト",
