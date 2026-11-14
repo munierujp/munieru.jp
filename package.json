@@ -32,7 +32,8 @@
     "@nuxtjs/sitemap": "9.1.0",
     "nuxt": "4.6.4",
     "vue": "3.5.45",
-    "vue-router": "5.4.0"
+    "vue-router": "5.4.0",
+    "vuetify": "4.3.2"
   },
   "type": "module",
   "devDependencies": {
