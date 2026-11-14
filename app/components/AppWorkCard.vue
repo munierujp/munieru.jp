@@ -9,12 +9,13 @@
   >
     <template #media>
       <div
-        class="work-symbol"
+        class="work-symbol grid aspect-square w-[66px] place-items-center rounded-xl max-[560px]:w-12"
         :class="[work.category, { 'has-image': work.image && !imageFailed }]"
         aria-hidden="true"
       >
         <img
-          v-if="work.image && !imageFailed"
+v-if="work.image && !imageFailed"
+          class="size-full rounded-[inherit] object-contain"
           :src="asset(work.image)"
           alt=""
           width="66"
@@ -27,7 +28,7 @@
       </div>
     </template>
     <template #metadata>
-      <span class="work-category">
+      <span class="work-category text-xs text-muted">
         {{ category.label }} /
         <time :datetime="work.date">{{ formatDate(work.date) }}</time>
       </span>
@@ -41,7 +42,7 @@
     {{ work.description }}
     <template #action>
       <AppIconLink
-        class="source-link"
+        class="source-link relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
         :href="work.github"
         :label="t('ui.sourceCode', { title: work.title })"
         icon="github"

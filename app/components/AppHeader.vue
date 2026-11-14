@@ -1,7 +1,7 @@
 <template>
-  <header class="site-header wrap">
-    <h1 class="wordmark">{{ t('site.title') }}</h1>
-    <div class="header-actions">
+  <header class="site-header flex flex-wrap items-center justify-between gap-3 py-6 wrap">
+    <h1 class="wordmark text-2xl font-bold leading-[1.4] max-[560px]:text-[1.2rem]">{{ t('site.title') }}</h1>
+    <div class="header-actions ms-auto flex flex-wrap items-center gap-3">
       <AppFrameworkMenu
         class="language-trigger"
         :label="locale === 'ja' ? '日本語' : 'English'"
@@ -15,7 +15,7 @@
         <AppIcon name="chevron-down" />
       </AppFrameworkMenu>
       <AppFrameworkMenu
-        class="theme-trigger"
+        icon-only class="theme-trigger"
         :label="t(`ui.themes.${preference}`)"
         :aria-label="t('ui.theme', { theme: t(`ui.themes.${preference}`) })"
         :title="t('ui.theme', { theme: t(`ui.themes.${preference}`) })"

@@ -1,15 +1,16 @@
 <template>
   <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
-  <section class="about-section">
+  <section class="about-section py-12">
     <div class="wrap section-stack">
-      <div class="section-label">
-        <h2>{{ t('ui.headings.skills') }}</h2>
+      <div class="section-label mb-6">
+        <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.skills') }}</h2>
       </div>
       <div class="about-body">
-        <ul class="skills" role="list">
-          <li v-for="skill in skills" :key="skill.name">
+        <ul class="skills flex flex-wrap items-center gap-3" role="list">
+          <li v-for="skill in skills" :key="skill.name" class="min-w-0">
             <AppUiBadge
               ><img
+class="size-6 object-contain"
                 :src="asset(skill.image)"
                 alt=""
                 width="24"

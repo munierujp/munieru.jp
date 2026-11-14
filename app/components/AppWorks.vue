@@ -1,30 +1,30 @@
 <template>
   <!-- 作品一覧と分類による絞り込み。各作品の表示はAppWorkCardが担当する。 -->
-  <section class="works-section wrap">
-    <div class="section-top">
-      <h2>{{ t('ui.headings.works') }}</h2>
+  <section class="works-section py-12 wrap">
+    <div class="section-top mb-6">
+      <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.works') }}</h2>
     </div>
     <!-- JSが動かない場合は全作品を表示し、操作できない絞り込みUIは隠す。 -->
-    <div class="work-toolbar" data-work-toolbar :hidden="!ready">
-      <div class="filters" role="group" :aria-label="t('ui.workTypes')">
+    <div class="work-toolbar mb-4 flex flex-wrap items-center gap-3" data-work-toolbar :hidden="!ready">
+      <div class="filters flex flex-wrap items-center gap-3" role="group" :aria-label="t('ui.workTypes')">
         <AppUiButton
           v-for="filter in filters"
           :key="filter.value"
           :data-work-filter="filter.value"
           type="button"
-          :selected="activeFilter === filter.value"
+          pill :selected="activeFilter === filter.value"
           :aria-pressed="activeFilter === filter.value ? 'true' : 'false'"
           @click="activeFilter = filter.value"
         >
           {{ filter.label }}
         </AppUiButton>
       </div>
-      <span class="work-count" role="status">{{
+      <span class="work-count text-xs text-muted" role="status">{{
         t('ui.workCount', { total: works.length, count: filteredWorks.length })
       }}</span>
     </div>
-    <ul class="work-list" role="list">
-      <li v-for="work in filteredWorks" :key="work.key">
+    <ul class="work-list grid grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] gap-3" role="list">
+      <li v-for="work in filteredWorks" :key="work.key" class="min-w-0">
         <AppWorkCard :work="work" />
       </li>
     </ul>

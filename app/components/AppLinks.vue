@@ -1,17 +1,18 @@
 <template>
   <!-- 各サービスへのリンク。名前とアイコンを含む領域全体をタップできる。 -->
-  <section class="links-section wrap">
-    <div class="section-top">
+  <section class="links-section py-12 wrap">
+    <div class="section-top mb-6">
       <div>
-        <h2>{{ t('ui.headings.links') }}</h2>
+        <h2 class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.links') }}</h2>
       </div>
     </div>
-    <ul class="social-links" role="list">
-      <li v-for="link in links" :key="link.title">
+    <ul class="social-links flex flex-wrap items-center gap-3" role="list">
+      <li v-for="link in links" :key="link.title" class="min-w-0">
         <AppUiButton :href="link.url" target="_blank" rel="noopener">
-          <span class="social-name">
-            <span class="social-icon" aria-hidden="true">
+          <span class="social-name inline-flex items-center gap-2">
+            <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
               <img
+class="size-6 object-contain rounded-lg bg-white"
                 :src="asset(link.image)"
                 alt=""
                 width="20"
