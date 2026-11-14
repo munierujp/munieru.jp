@@ -2,7 +2,7 @@
   <UContainer as="header" class="site-header flex flex-wrap items-center justify-between gap-3 py-6">
     <h1 class="wordmark text-2xl font-bold leading-[1.4] max-[560px]:text-[1.2rem]">{{ t('site.title') }}</h1>
     <div class="header-actions ms-auto flex flex-wrap items-center gap-3">
-      <AppFrameworkMenu
+      <AppPreferenceMenu
         class="language-trigger"
         :label="locale === 'ja' ? '日本語' : 'English'"
         :aria-label="t('ui.language', { language: locale === 'ja' ? '日本語' : 'English' })"
@@ -13,8 +13,8 @@
         <AppIcon name="languages" />
         <span :lang="locale">{{ locale === 'ja' ? '日本語' : 'English' }}</span>
         <AppIcon name="chevron-down" />
-      </AppFrameworkMenu>
-      <AppFrameworkMenu
+      </AppPreferenceMenu>
+      <AppPreferenceMenu
         icon-only class="theme-trigger"
         :label="t(`ui.themes.${preference}`)"
         :aria-label="t('ui.theme', { theme: t(`ui.themes.${preference}`) })"
@@ -23,7 +23,7 @@
         @select="selectTheme"
       >
         <AppIcon :name="themeIcon" />
-      </AppFrameworkMenu>
+      </AppPreferenceMenu>
     </div>
   </UContainer>
 </template>

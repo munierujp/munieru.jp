@@ -101,7 +101,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`
-- テーマ選択メニュー: `app/components/AppHeader.vue`と`AppFrameworkMenu.vue`
+- テーマ選択メニュー: `app/components/AppHeader.vue`と`AppPreferenceMenu.vue`
 - 作品・書籍・登壇の共通カード: `app/components/AppCard.vue`（画像・分類・状態・補助リンクは名前付きスロット）
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
@@ -233,7 +233,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppHeader.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`description`を編集します。
 - Nuxt I18nの`prefix`構成を使います。言語別ページは静的HTML、入口はCSR用HTML（`200.html`）から生成します。言語判定・転送はモジュールに任せ、JavaScriptが無効な場合の専用処理は用意しません。
-- テーマ・言語メニューは`app/components/AppFrameworkMenu.vue`でNuxt UIの部品へ委譲します。
+- テーマ・言語メニューは`app/components/AppPreferenceMenu.vue`でNuxt UIの部品へ委譲します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。
 
 ## フォント
