@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "ムニエル OFFICIAL SITE",
+    "name": "ムニエル",
+    "alternateName": "Munieru",
+    "copyright": "© {name}"
+  },
+  "ui": {
+    "headings": {
+      "links": "リンク",
+      "skills": "スキル",
+      "works": "作品",
+      "books": "書籍",
+      "talks": "登壇",
+      "support": "活動を支援する"
+    },
+    "categories": {
+      "web": "ウェブアプリ",
+      "extension": "Chrome拡張機能",
+      "library": "ライブラリ",
+      "cli": "CLI"
+    },
+    "publicationEnded": "公開終了",
+    "sourceCode": "{title}のソースコード（GitHub）",
+    "cover": "{title}の表紙",
+    "eventInfo": "{title}のイベント情報（connpass）",
+    "slidesInfo": "{title}の発表資料（Speaker Deck）",
+    "profileImage": "プロフィール画像",
+    "theme": "表示モード：{theme}",
+    "language": "言語：{language}",
+    "themes": {
+      "system": "システム",
+      "light": "ライト",
+      "dark": "ダーク"
+    },
+    "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp",
+    "xAccount": "{name}のXアカウント",
+    "siteSourceCode": "このサイトのソースコード（GitHub）"
+  },
+  "description": "ムニエルのプロフィールと、SNS・各サービスへのリンク。スキルや作品、書籍、登壇も紹介しています。",
+  "profile": {
+    "summary": "東京都江戸川区在住のオタク兼ITエンジニア。埼玉県川口市出身。",
+    "activities": "休日はだいたい映画館で映画を見るか、ライブ、コンサート、フェス、舞台、ミュージカルなどのイベントに行っています。"
+  }
+}

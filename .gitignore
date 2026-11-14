@@ -47,6 +47,9 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+# TypeScriptのプロジェクト参照で生成する型チェックのキャッシュ
+*.tsbuildinfo
+
 # Optional REPL history
 .node_repl_history
 
@@ -65,11 +68,11 @@ typings/
 # next.js build output
 .next
 
-# nuxt.js build output
-.nuxt
-
-# Nuxt generate
+# Static site build output
 dist
+.nuxt/
+.output/
+.data/
 
 # vuepress build output
 .vuepress/dist
@@ -80,5 +83,6 @@ dist
 # IDE
 .idea
 
-# config file
-config.json
+# Lighthouse CIの計測結果（CIでは成果物として保存する）
+.lighthouseci/
+lighthouse-reports/

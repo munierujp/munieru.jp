@@ -1,0 +1,22 @@
+{
+  // Nuxt外で実行するスクリプト・テスト・設定を検査する。
+  // Node 26の実行環境と、strictを超えるチェックは共有設定へ委譲する。
+  "extends": ["@tsconfig/node26/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "erasableSyntaxOnly": true,
+    "paths": { "~~/*": ["./*"] }
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "test/**/*.ts",
+    "eslint.config.ts",
+    "stylelint.config.ts",
+    "markuplint.config.ts",
+    ".secretlintrc.js",
+    "lighthouserc.js"
+  ]
+}

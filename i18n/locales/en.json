@@ -1,0 +1,106 @@
+{
+  "site": {
+    "title": "Munieru OFFICIAL SITE",
+    "name": "Munieru",
+    "alternateName": "ムニエル",
+    "copyright": "© {name}"
+  },
+  "ui": {
+    "headings": {
+      "links": "Links",
+      "skills": "Skills",
+      "works": "Works",
+      "books": "Books",
+      "talks": "Talks",
+      "support": "Support my work"
+    },
+    "categories": {
+      "web": "Web apps",
+      "extension": "Chrome extensions",
+      "library": "Libraries",
+      "cli": "CLI tools"
+    },
+    "publicationEnded": "Discontinued",
+    "sourceCode": "Source code for {title} (GitHub)",
+    "cover": "Cover: {title}",
+    "eventInfo": "Event information for {title} (connpass)",
+    "slidesInfo": "Slides for {title} (Speaker Deck)",
+    "profileImage": "Profile image",
+    "theme": "Appearance: {theme}",
+    "language": "Language: {language}",
+    "themes": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "ogImageAlt": "Munieru OFFICIAL SITE / munieru.jp",
+    "xAccount": "{name} on X",
+    "siteSourceCode": "Source code for this website (GitHub)"
+  },
+  "description": "Munieru's personal website: profile, social links, skills, works, books, and talks.",
+  "skills": {
+    "Chrome拡張機能": {
+      "name": "Chrome Extensions"
+    }
+  },
+  "works": {
+    "direct_helper": {
+      "description": "A Chrome extension that adds useful features to the business chat tool direct."
+    },
+    "gasunit": {
+      "description": "A testing library for Google Apps Script."
+    },
+    "kaibunmaker": {
+      "description": "A service for creating and sharing palindromes."
+    },
+    "cyber-xeed-plus": {
+      "description": "A Chrome extension that adds useful features to the CYBER XEED attendance management system."
+    },
+    "qiita-team-plus": {
+      "description": "A Chrome extension that adds useful features to Qiita:Team."
+    },
+    "imgcalc": {
+      "description": "A tool for calculating image dimensions from an aspect ratio."
+    },
+    "kintai": {
+      "description": "An attendance management system."
+    },
+    "npm-update-package": {
+      "description": "A CLI tool for creating pull requests to update npm packages."
+    },
+    "chatgpt-web-app": {
+      "description": "A web application for ChatGPT."
+    },
+    "anohi-no-tweet": {
+      "description": "A web app that opens tweet search results, Twilog, and Twisave for specified search conditions."
+    },
+    "inochi-no-sunadokei": {
+      "description": "A web app that visualizes the time remaining in your life as an hourglass."
+    }
+  },
+  "books": {
+    "tech_do_book_vol_1": {
+      "format": "Technical zine (Japanese)",
+      "contributionLabel": "Contributed the chapter",
+      "englishChapterTitle": "Building a web page fetching tool with Go + Echo"
+    }
+  },
+  "talks": {
+    "nuxt-3-with-element-plus": {
+      "englishTitle": "Using Element Plus with Nuxt 3"
+    },
+    "air-conditioner-2018-08-29": {
+      "englishTitle": "Why air conditioner and remote temperature settings get out of sync: a simulation",
+      "englishEventTitle": "Is your summer homework done?! Qiita/Qiitadon Fan Meeting #4"
+    }
+  },
+  "profile": {
+    "summary": "I'm an otaku and IT engineer based in Edogawa, Tokyo, Japan. Originally from Kawaguchi, Saitama.",
+    "activities": "On my days off, you'll usually find me at the cinema or at live shows, concerts, festivals, plays, and musicals."
+  },
+  "support": {
+    "wish-list": {
+      "title": "Wish list"
+    }
+  }
+}

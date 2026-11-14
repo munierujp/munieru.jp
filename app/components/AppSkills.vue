@@ -1,0 +1,39 @@
+<template>
+  <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
+  <UPageSection class="about-section" :title="t('ui.headings.skills')">
+    <template #body>
+      <ul class="skills flex flex-wrap items-center gap-3" role="list">
+        <li v-for="skill in skills" :key="skill.name" class="min-w-0">
+          <UBadge class="ui-badge"
+            ><img
+              class="size-6 object-contain"
+              :src="asset(skill.image)"
+              alt=""
+              width="24"
+              height="24"
+              loading="lazy"
+              decoding="async"
+              @error="hideFailedImage"
+            >
+            <span>{{ skill.name }}</span></UBadge
+          >
+        </li>
+      </ul>
+    </template>
+  </UPageSection>
+</template>
+
+<script setup lang="ts">
+/**
+ * 技術名とローカルのアイコンを、リンクではない一覧として表示する。
+ */
+import type { Skill } from '~/types/content'
+import { computed } from 'vue'
+import skillsData from '~~/modules/skills.json'
+
+// スキル名と画像はmodules/skills.jsonで管理する。スキルはリンクではない。
+const { t, localize } = useSiteLocale()
+/** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
+const skills = computed<Skill[]>(() => skillsData.map((skill) => localize('skills', skill)))
+const asset = usePublicAsset()
+</script>
