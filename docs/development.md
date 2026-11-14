@@ -90,7 +90,7 @@ npm run lighthouse:summary
 - サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
 - SNS・各サービス: `modules/links.json`。サービス名は英語版でも翻訳せず、原表記を共有します
-- 活動への支援先: `modules/support.json`（URLの初期値・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。既存4サービスのURLは環境変数でも上書き可能
+- 活動への支援先: `modules/support.json`（URL・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。URLを空文字にすると非表示
 - スキル: `modules/skills.json`
 - 作品: `modules/works.json`
 - 書籍: `modules/books.json`
@@ -293,9 +293,8 @@ AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限�
 - `OG_IMAGE_PATH`: 日本語版・ルート入口のOGP画像のパス。公開パスからの相対指定か絶対URL
 - `OG_IMAGE_PATH_EN`: 英語版のOGP画像のパス。公開パスからの相対指定か絶対URL
 - `X_ID`: Xアカウント名
-- 各支援URL: 空文字を指定するとそのボタンを表示しません
 
-従来との互換性のため、GitHub Sponsorsの設定キーは既存の `GITHUB_SPONSOERS_URL` を引き続き使います。
+支援URLは`modules/support.json`だけで管理し、環境変数での上書きは行いません。
 公開用設定に秘密情報を追加しないでください。
 
 ## 表示・操作

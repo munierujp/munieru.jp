@@ -13,7 +13,7 @@ export interface ServiceLink {
 
 /** 表示名・支援URL・サービスアイコンをまとめた支援先。 */
 export interface SupportLink extends ServiceLink {
-  /** 翻訳とURL上書きに対応付ける安定した識別子。 */
+  /** 翻訳に対応付ける安定した識別子。 */
   key: string
 }
 
