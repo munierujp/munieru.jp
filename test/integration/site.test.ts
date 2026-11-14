@@ -42,6 +42,12 @@ function matchRequired (value: string, pattern: RegExp): RegExpMatchArray {
   assert.ok(match, `HTMLのパターンが見つかりません: ${pattern}`)
   return match
 }
+/** 必須のキャプチャを取り出し、配列要素を型アサーションで存在扱いにしない。 */
+function captureRequired (value: string, pattern: RegExp): string {
+  const capture = matchRequired(value, pattern)[1]
+  assert.ok(capture !== undefined, `必須のキャプチャがありません: ${pattern}`)
+  return capture
+}
 const escapeHtml = (value: string): string => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
 function metaTag (attribute: string, value: string, document = html): string {
@@ -55,9 +61,9 @@ test('Nuxtが本文とOGPを静的HTMLとして出力する', () => {
   assert.match(html, /<!DOCTYPE html>/i)
   assert.match(html, /lang="ja"/)
   assert.match(html, /\/_nuxt\//)
-  assert.equal(new URL(matchRequired(metaTag('property', 'og:url'), /content="([^"]+)"/)[1]).href, 'https://munieru.jp/ja/')
+  assert.equal(new URL(captureRequired(metaTag('property', 'og:url'), /content="([^"]+)"/)).href, 'https://munieru.jp/ja/')
   assert.ok(metaTag('property', 'og:image').includes('content="https://munieru.jp/ogp.png"'))
-  assert.ok([...html.matchAll(/<link\b[^>]*>/g)].some(([tag]) => tag.includes('rel="canonical"') && new URL(matchRequired(tag, /href="([^"]+)"/)[1]).href === 'https://munieru.jp/ja/'))
+  assert.ok([...html.matchAll(/<link\b[^>]*>/g)].some(([tag]) => tag.includes('rel="canonical"') && new URL(captureRequired(tag, /href="([^"]+)"/)).href === 'https://munieru.jp/ja/'))
   for (const entry of [...data.links, ...data.skills, ...data.works, ...data.books, ...data.talks]) {
     assert.ok(html.includes(escapeHtml('title' in entry ? entry.title : entry.name)))
   }
@@ -67,12 +73,14 @@ test('公式Color Modeの初期化スクリプトとcolor-schemeを静的HTMLへ
   const meta = metaTag('name', 'color-scheme')
   assert.ok(meta)
   const initialScript = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
-    .find(([, body]) => body.includes('__NUXT_COLOR_MODE__'))
+    .find(([, body]) => body?.includes('__NUXT_COLOR_MODE__'))
   assert.ok(initialScript, '初期描画前にテーマを適用する公式スクリプトがある')
   assert.ok(html.indexOf(meta) < html.indexOf(initialScript[0]))
   assert.ok(html.indexOf(initialScript[0]) < html.indexOf('</head>'))
-  assert.ok(initialScript[1].includes('app-theme'), '既存の保存キーを維持する')
-  assert.doesNotThrow(() => new Script(initialScript[1]))
+  const scriptBody = initialScript[1]
+  assert.ok(scriptBody, '初期化スクリプトの本文がある')
+  assert.ok(scriptBody.includes('app-theme'), '既存の保存キーを維持する')
+  assert.doesNotThrow(() => new Script(scriptBody))
   assert.ok(!html.includes('theme-bootstrap'))
   assert.ok(!html.includes('theme-controller'))
 })
@@ -86,18 +94,18 @@ test('日英の静的本文・言語指定・canonical・相互参照を出力�
   assert.ok(englishHtml.includes('Technical zine (Japanese)'))
   assert.ok(metaTag('property', 'og:url', englishHtml).includes('content="https://munieru.jp/en/"'))
   assert.ok(metaTag('name', 'description', englishHtml).includes(escapeHtml(english.description)))
-  for (const [document, url] of [[html, 'https://munieru.jp/ja/'], [englishHtml, 'https://munieru.jp/en/']]) {
+  for (const [document, url] of [[html, 'https://munieru.jp/ja/'], [englishHtml, 'https://munieru.jp/en/']] as const) {
     const tags = [...document.matchAll(/<link\b[^>]*>/g)].map(([tag]) => tag)
     assert.equal(tags.filter(tag => tag.includes('rel="canonical"')).length, 1)
-    assert.ok(tags.some(tag => tag.includes('rel="canonical"') && new URL(matchRequired(tag, /href="([^"]+)"/)[1]).href === url))
-    for (const [language, target] of [['ja', 'https://munieru.jp/ja/'], ['en', 'https://munieru.jp/en/'], ['x-default', 'https://munieru.jp/']]) {
-      assert.ok(tags.some(tag => tag.includes(`hreflang="${language}"`) && new URL(matchRequired(tag, /href="([^"]+)"/)[1]).href === target))
+    assert.ok(tags.some(tag => tag.includes('rel="canonical"') && new URL(captureRequired(tag, /href="([^"]+)"/)).href === url))
+    for (const [language, target] of [['ja', 'https://munieru.jp/ja/'], ['en', 'https://munieru.jp/en/'], ['x-default', 'https://munieru.jp/']] as const) {
+      assert.ok(tags.some(tag => tag.includes(`hreflang="${language}"`) && new URL(captureRequired(tag, /href="([^"]+)"/)).href === target))
     }
   }
 })
 
 test('言語別のタイトル・著者・共有画像の説明と構造化データを出力する', async () => {
-  for (const [document, language] of [[html, 'ja'], [englishHtml, 'en']]) {
+  for (const [document, language] of [[html, 'ja'], [englishHtml, 'en']] as const) {
     const title = language === 'ja' ? 'ムニエル OFFICIAL SITE' : 'Munieru OFFICIAL SITE'
     const name = language === 'ja' ? 'ムニエル' : 'Munieru'
     const alternateName = language === 'ja' ? 'Munieru' : 'ムニエル'
@@ -105,7 +113,7 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
     const image = `https://munieru.jp/${imagePath}`
     assert.ok((await stat(join(root, 'dist', imagePath))).isFile())
     assert.ok(document.includes(`<title>${title}</title>`))
-    assert.equal(matchRequired(document, /<h1\b[^>]*>([^<]+)<\/h1>/)[1], title)
+    assert.equal(captureRequired(document, /<h1\b[^>]*>([^<]+)<\/h1>/), title)
     const copyright = matchRequired(document, /<small\b[^>]*>([^<]+)<\/small>/)
     assert.ok(copyright[0].includes(`lang="${language}"`))
     assert.equal(copyright[1], `© ${name}`)
@@ -122,12 +130,15 @@ test('言語別のタイトル・著者・共有画像の説明と構造化デ�
       ['name', 'twitter:image', image],
       ['property', 'og:image:alt', `${title} / munieru.jp`],
       ['name', 'twitter:image:alt', `${title} / munieru.jp`]
-    ]) {
+    ] as const) {
       const tags = [...document.matchAll(/<meta\s[^>]*>/g)].map(([tag]) => tag).filter(tag => tag.includes(`${attribute}="${key}"`))
       assert.equal(tags.length, 1, key)
-      assert.ok(tags[0].includes(`content="${value}"`))
+      assert.ok(tags[0]?.includes(`content="${value}"`))
     }
-    const schemas = [...document.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(([, json]) => JSON.parse(json))
+    const schemas = [...document.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(([, json]) => {
+      assert.ok(json, '構造化データの本文がある')
+      return JSON.parse(json)
+    })
     const website = schemas.find(schema => schema['@type'] === 'WebSite')
     const profile = schemas.find(schema => schema['@type'] === 'ProfilePage')
     assert.equal(schemas.filter(schema => schema['@type'] === 'WebSite').length, 1)
@@ -151,10 +162,10 @@ test('日英のサイトマップとrobots.txtの公開URLが一致する', asyn
   const index = await readFile(join(root, 'dist/sitemap_index.xml'), 'utf8')
   const locations = [...index.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url)
   assert.deepEqual(locations.sort(), ['https://munieru.jp/__sitemap__/en-US.xml', 'https://munieru.jp/__sitemap__/ja-JP.xml'])
-  for (const [language, tag] of [['ja', 'ja-JP'], ['en', 'en-US']]) {
+  for (const [language, tag] of [['ja', 'ja-JP'], ['en', 'en-US']] as const) {
     const sitemap = await readFile(join(root, `dist/__sitemap__/${tag}.xml`), 'utf8')
     assert.deepEqual([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url), [`https://munieru.jp/${language}/`])
-    for (const [alternate, url] of [['ja-JP', 'https://munieru.jp/ja/'], ['en-US', 'https://munieru.jp/en/'], ['x-default', 'https://munieru.jp/']]) {
+    for (const [alternate, url] of [['ja-JP', 'https://munieru.jp/ja/'], ['en-US', 'https://munieru.jp/en/'], ['x-default', 'https://munieru.jp/']] as const) {
       assert.ok([...sitemap.matchAll(/<xhtml:link\b[^>]*>/g)].some(([link]) => link.includes(`hreflang="${alternate}"`) && link.includes(`href="${url}"`)))
     }
     assert.ok(!sitemap.includes('<lastmod>'))
@@ -169,6 +180,7 @@ test('英語版でも作品・書籍・登壇の内容とリンクを維持す�
     assert.deepEqual(Object.keys(english[group]).sort(), data[group].map(entry => entry.key).sort())
     for (const entry of data[group]) {
       const translated = english[group][entry.key]
+      assert.ok(translated, `翻訳がありません: ${group}/${entry.key}`)
       const text = translated.description || translated.englishTitle || translated.englishChapterTitle
       assert.ok(text)
       assert.ok(englishHtml.includes(escapeHtml(text)))
@@ -196,7 +208,7 @@ test('英語版でも作品・書籍・登壇の内容とリンクを維持す�
 test('言語別の切り替えトリガーとラベルを静的HTMLに解決する', () => {
   // 各ライブラリはメニュー項目を開いた時点で生成するため、SSRでは初期トリガーを確認する。
   // 言語別URL・相互参照は別のテストで、項目選択はブラウザ検証で確認する。
-  for (const [document, label] of [[html, '言語：日本語'], [englishHtml, 'Language: English']]) {
+  for (const [document, label] of [[html, '言語：日本語'], [englishHtml, 'Language: English']] as const) {
     const trigger = matchRequired(document, /<(?:button|ons-button)\b[^>]*class="[^"]*\blanguage-trigger\b[^"]*"[^>]*>/iu)[0]
     assert.ok(trigger.includes(`aria-label="${label}"`))
     assert.ok(trigger.includes('aria-haspopup="listbox"'))
@@ -211,11 +223,13 @@ function cardWithLink (document: string, url: string): string {
   const cards = [...document.matchAll(/<article\b[^>]*>[\s\S]*?<\/article>/g)].map(([card]) => card)
   const matches = cards.filter(card => card.includes(`href="${escapeHtml(url)}"`))
   assert.equal(matches.length, 1, `リンク先に対応するカードが一件ある: ${url}`)
-  return matches[0]
+  const card = matches[0]
+  assert.ok(card)
+  return card
 }
 
 test('公開終了した作品のリンクを外し、GitHubは全件に残す', () => {
-  for (const [document, endedLabel] of [[html, '公開終了'], [englishHtml, 'Discontinued']]) {
+  for (const [document, endedLabel] of [[html, '公開終了'], [englishHtml, 'Discontinued']] as const) {
     const positions = []
     for (const work of [...data.works].sort((a, b) => b.date.localeCompare(a.date))) {
       const card = cardWithLink(document, work.github)
@@ -274,14 +288,17 @@ test('AVIFとWebPの全候補を静的ファイルとして出力する', async 
     for (const picture of pictures) {
       const sources = [...picture.matchAll(/<source\b[^>]*>/g)].map(([tag]) => tag)
       assert.equal(sources.length, 1)
-      assert.ok(sources[0].includes('type="image/avif"'))
+      const source = sources[0]
+      assert.ok(source)
+      assert.ok(source.includes('type="image/avif"'))
       const fallback = matchRequired(picture, /<img\b[^>]*data-nuxt-pic[^>]*>/)[0]
       assert.ok(fallback.includes('/_ipx/f_webp'))
       assert.ok(fallback.includes('alt="'))
-      for (const tag of [sources[0], fallback]) {
-        const srcset = matchRequired(tag, /srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
+      for (const tag of [source, fallback]) {
+        const srcset = captureRequired(tag, /srcset="([^"]+)"/).replaceAll('&amp;', '&')
         for (const candidate of srcset.split(', ')) {
           const [url, width] = candidate.split(' ')
+          assert.ok(url && width, `画像候補のURLと幅が必要です: ${candidate}`)
           assert.ok(parseInt(width) >= 96)
           assert.ok(url.includes('q_100'))
           urls.add(url)
@@ -298,8 +315,8 @@ test('AVIFとWebPの全候補を静的ファイルとして出力する', async 
         assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
       }
     }
-    assert.ok(pictures[0].includes('fetchpriority="high"'))
-    assert.ok(pictures[0].includes('loading="eager"'))
+    assert.ok(pictures[0]?.includes('fetchpriority="high"'))
+    assert.ok(pictures[0]?.includes('loading="eager"'))
   }
 })
 
@@ -344,7 +361,7 @@ test('静的プレビューでGET/HEAD・存在しないURLの転送・不正パ
   assert.equal(image.status, 200)
   assert.match(image.headers.get('content-type') ?? '', /image\/png/)
   assert.equal(await image.text(), '')
-  for (const [path, target] of [['/missing-page', '/'], ['/ja/missing-page', '/ja/'], ['/en/missing-page', '/en/']]) {
+  for (const [path, target] of [['/missing-page', '/'], ['/ja/missing-page', '/ja/'], ['/en/missing-page', '/en/']] as const) {
     const response = await fetch(origin + path, { redirect: 'manual' })
     assert.equal(response.status, 302)
     assert.equal(response.headers.get('location'), target)

@@ -54,7 +54,9 @@ test('片方の言語の計測が不足した場合は失敗する', async () =>
 
 test('カテゴリのスコアがない計測結果を成功として扱わない', async () => {
   const reports = fixture()
-  reports[0].summary.performance = undefined
+  const first = reports[0]
+  assert.ok(first)
+  first.summary['performance'] = undefined
   const result = await runSummary(reports)
   assert.notEqual(result.status, 0)
   assert.match(result.stderr, /performanceの有効なスコアがありません/)

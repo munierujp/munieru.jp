@@ -31,7 +31,9 @@ for (const pathname of ['/ja/', '/en/']) {
       throw new Error(`${pathname}: ${category}の有効なスコアがありません`)
     }
     const sorted = (values as number[]).sort((a, b) => a - b)
-    return Math.round(sorted[1] * 100)
+    const median = sorted[1]
+    if (median === undefined) throw new Error(`${pathname}: ${category}の中央値を求められません`)
+    return Math.round(median * 100)
   })
   lines.push(`| ${pathname} | ${scores.join(' | ')} |`)
 }
@@ -39,4 +41,4 @@ lines.push('', '詳細は成果物 `lighthouse-reports` のHTMLレポートを�
   'CI上のシミュレーション値であり、実ユーザーの計測値ではありません。実行環境により変動します。', '')
 const summary = lines.join('\n')
 console.log(summary)
-if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, summary)
+if (process.env['GITHUB_STEP_SUMMARY']) await appendFile(process.env['GITHUB_STEP_SUMMARY'], summary)

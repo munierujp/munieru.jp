@@ -235,7 +235,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`でスクリプト・テスト・リンター設定も検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。Secretlint設定だけはTSに直接対応しないため、`@ts-check`付きの`.secretlintrc.js`を維持します。
+`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`と`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlint・Lighthouse CIの設定は、`@ts-check`付きのJSを使います。
 
 ## 日本語・英語の更新
 
