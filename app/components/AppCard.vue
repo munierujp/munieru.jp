@@ -9,7 +9,6 @@
       rel="noopener"
       :aria-label="href ? (linkLabel || title) : undefined"
       :ui="{ wrapper: 'items-stretch', body: 'w-full' }"
-      :class="href ? 'hover:bg-elevated hover:ring-primary/50 has-[:focus-visible]:bg-elevated has-[:focus-visible]:ring-primary/50' : undefined"
     >
       <template #body>
         <div class="card-layout grid items-start gap-4" :class="ui.layout">
