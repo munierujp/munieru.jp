@@ -1,6 +1,9 @@
 <template>
   <article class="app-card relative h-full">
-    <UCard class="native-card relative h-full"
+    <!-- 主リンクのあるカードだけ背景と枠を変え、補助リンクのみのカードと区別する。 -->
+    <UCard
+class="native-card relative h-full"
+      :class="href ? 'hover:bg-elevated hover:ring-primary/50 has-[:focus-visible]:bg-elevated has-[:focus-visible]:ring-primary/50' : undefined"
       ><div class="card-layout grid items-start gap-4" :class="layouts[layout]">
         <slot name="media" />
         <div class="card-content min-w-0" :class="layout === 'work' ? 'max-[560px]:col-span-full max-[560px]:row-start-2' : layout === 'talk' ? 'col-start-1 @min-[44rem]:col-start-2' : undefined">
