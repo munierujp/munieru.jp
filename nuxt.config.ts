@@ -1,28 +1,17 @@
 /**
  * ルーティング・多言語・画像・SEOと、静的ホスト向け成果物の生成を設定する。
  */
-import { readFileSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { loadConfig } from './scripts/config.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 import en from './i18n/locales/en.json' with { type: 'json' }
-import { ModuleKind, ScriptTarget, transpileModule } from 'typescript'
 
 const config = loadConfig()
 // ページとOGP画像の生成で、同じ翻訳辞書のサイト名を参照する。
 const site = ja.site
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
-/**
- * テーマ用TSを、型注釈やモジュール読込を必要としないブラウザ用JSへ変換する。
- * @param path - リポジトリルートからのソースパス。
- * @returns headへ埋め込む通常のスクリプト。型の検査はtypecheckで別途行う。
- */
-const browserScript = (path: string): string => transpileModule(readFileSync(rootPath(path), 'utf8'), {
-  compilerOptions: { target: ScriptTarget.ES2022, module: ModuleKind.None, removeComments: true }
-}).outputText
-
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
@@ -30,8 +19,14 @@ export default defineNuxtConfig({
   telemetry: false,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
   // 端末フォントを使うためNuxt Fontsの自動登録を止める。
-  // テーマは既存の保存・OS追従処理で管理し、color-modeとの二重管理を避ける。
-  ui: { fonts: false, colorMode: false },
+  // テーマはNuxt UIが自動登録するNuxt Color Modeへ委譲する。
+  ui: { fonts: false },
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    // 既存の選択値を引き継ぐため、以前と同じ保存キーを使う。
+    storageKey: 'app-theme'
+  },
   // Nuxt UIのチェック印等をローカルから供給し、外部のIconify APIへ依存させない。
   icon: { serverBundle: { collections: ['lucide'] } },
   site: {
@@ -118,9 +113,7 @@ export default defineNuxtConfig({
             alternateName: en.site.title,
             inLanguage: ['ja', 'en']
           }).replace(/</g, '\\u003c')
-        },
-        { id: 'theme-bootstrap', tagPriority: -14, innerHTML: browserScript('./assets/theme-bootstrap.ts') },
-        { id: 'theme-controller', tagPriority: -13, innerHTML: browserScript('./assets/theme-init.ts') }
+        }
       ]
     }
   },

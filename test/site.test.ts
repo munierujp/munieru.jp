@@ -74,15 +74,18 @@ test('Nuxtが本文とOGPを静的HTMLとして出力する', () => {
   }
 })
 
-test('初期テーマのスクリプトより先にcolor-schemeメタを出力する', () => {
+test('公式Color Modeの初期化スクリプトとcolor-schemeを静的HTMLへ出力する', () => {
   const meta = metaTag('name', 'color-scheme')
   assert.ok(meta)
-  assert.ok(html.indexOf(meta) < html.indexOf('<script id="theme-bootstrap"'))
-  for (const id of ['theme-bootstrap', 'theme-controller']) {
-    const script = matchRequired(html, new RegExp(`<script id="${id}"[^>]*>([\\s\\S]*?)<\\/script>`))[1]
-    assert.doesNotThrow(() => new Script(script), `${id}は通常のJSとして実行できる`)
-  }
-  assert.ok(!html.includes('src="/site.js"'))
+  const initialScript = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+    .find(([, body]) => body.includes('__NUXT_COLOR_MODE__'))
+  assert.ok(initialScript, '初期描画前にテーマを適用する公式スクリプトがある')
+  assert.ok(html.indexOf(meta) < html.indexOf(initialScript[0]))
+  assert.ok(html.indexOf(initialScript[0]) < html.indexOf('</head>'))
+  assert.ok(initialScript[1].includes('app-theme'), '既存の保存キーを維持する')
+  assert.doesNotThrow(() => new Script(initialScript[1]))
+  assert.ok(!html.includes('theme-bootstrap'))
+  assert.ok(!html.includes('theme-controller'))
 })
 
 test('日英の静的本文・言語指定・canonical・相互参照を出力する', () => {

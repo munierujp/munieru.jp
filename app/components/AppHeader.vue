@@ -31,7 +31,14 @@
 /** 同じ言語・テーマ選択を、各ライブラリのメニューで操作する。 */
 import type { IconName, ThemePreference } from '~/types/ui'
 const { locale, t, setLocale } = useI18n()
-const preference = ref<ThemePreference>('system')
+/** 保存・OS検出・初期描画はNuxt UI連携の公式モジュールに任せる。 */
+const colorMode = useColorMode()
+/** 静的HTMLでは保存値を取得できないため、判定完了までsystemの表示を保つ。 */
+const preference = computed<ThemePreference>(() =>
+  !colorMode.unknown && (colorMode.preference === 'light' || colorMode.preference === 'dark')
+    ? colorMode.preference
+    : 'system'
+)
 /** システム設定・ライト・ダークの選択状態を、現行版と同じアイコンで示す。 */
 const themeIcon = computed<IconName>(
   () => (({ system: 'monitor', light: 'sun', dark: 'moon' }) as const)[preference.value]
@@ -54,19 +61,19 @@ const themes = computed(() =>
 async function selectLanguage (value: string): Promise<void> {
   await setLocale(value as 'ja' | 'en')
 }
-/** 現行サイトと同じテーマの保存・システム追従を使用する。 */
+/** 選択値を公式モジュールへ渡し、配色の適用と保存を任せる。 */
 function selectTheme (value: string): void {
-  window.appTheme?.setPreference(value as 'system' | 'light' | 'dark')
-  preference.value = value as ThemePreference
+  if (value === 'system' || value === 'light' || value === 'dark') colorMode.preference = value
 }
-/** 別タブやシステムからの変更も選択状態へ反映する。 */
-function syncPreference (): void {
-  preference.value = (document.documentElement.dataset.themePreference ||
-    'system') as ThemePreference
+/**
+ * 公式モジュールが監視しない別タブでの保存値変更だけを補う。
+ * @param event - 同一オリジンのlocalStorage変更。
+ * @remarks 色の判定やDOM操作は行わず、公式モジュールのpreferenceを更新する。
+ */
+function syncStoredPreference (event: StorageEvent): void {
+  if (event.storageArea !== window.localStorage || (event.key !== 'app-theme' && event.key !== null)) return
+  selectTheme(event.newValue === 'light' || event.newValue === 'dark' ? event.newValue : 'system')
 }
-onMounted(() => {
-  syncPreference()
-  window.addEventListener('app-theme-change', syncPreference)
-})
-onBeforeUnmount(() => window.removeEventListener('app-theme-change', syncPreference))
+onMounted(() => window.addEventListener('storage', syncStoredPreference))
+onBeforeUnmount(() => window.removeEventListener('storage', syncStoredPreference))
 </script>
