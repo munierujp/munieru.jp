@@ -2,11 +2,11 @@
   <!-- 全作品を日付の新しい順で表示する。各作品の表示はAppWorkCardが担当する。 -->
   <UPageSection class="works-section" :title="t('ui.headings.works')">
     <template #body>
-      <ul class="work-list grid grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] gap-3" role="list">
+      <UPageGrid as="ul" class="work-list" role="list">
         <li v-for="work in works" :key="work.key" class="min-w-0">
           <AppWorkCard :work="work" />
         </li>
-      </ul>
+      </UPageGrid>
     </template>
   </UPageSection>
 </template>

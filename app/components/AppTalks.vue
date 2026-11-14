@@ -2,11 +2,11 @@
   <!-- 登壇一覧。イベントを主リンクとし、発表資料へのリンクは各カードに配置する。 -->
   <UPageSection class="talks-section" :title="t('ui.headings.talks')">
     <template #body>
-      <ul class="talk-list grid grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] gap-3" role="list">
+      <UPageGrid as="ul" class="talk-list" role="list">
         <li v-for="talk in talks" :key="talk.key" class="min-w-0 @container">
           <AppTalkCard :talk="talk" />
         </li>
-      </ul>
+      </UPageGrid>
     </template>
   </UPageSection>
 </template>

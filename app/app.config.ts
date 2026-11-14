@@ -20,6 +20,10 @@ export default defineAppConfig({
       // 標準の大きな本文余白を、このサイトの一覧に合う24pxへ揃える。
       compoundVariants: [{ orientation: 'vertical', title: true, class: { body: 'mt-6' } }]
     },
+    // カードの最小幅と間隔を一括管理し、標準のsm・lgの列数指定も同じ自動配置へ揃える。
+    pageGrid: {
+      base: 'grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] sm:grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] lg:grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] gap-3'
+    },
     pageCard: {
       slots: { root: 'rounded-[20px] transition-colors duration-150 motion-reduce:transition-none' },
       // 通常のボタンと同じ背景変化に揃え、リンクがないカードは反応させない。

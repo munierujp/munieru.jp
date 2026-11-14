@@ -2,11 +2,11 @@
   <!-- 書籍一覧。表紙・寄稿内容・販売ページへのリンクはAppBookCardが担当する。 -->
   <UPageSection class="books-section" :title="t('ui.headings.books')">
     <template #body>
-      <ul class="book-list grid grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] gap-3" role="list">
+      <UPageGrid as="ul" class="book-list" role="list">
         <li v-for="book in books" :key="book.key" class="min-w-0">
           <AppBookCard :book="book" />
         </li>
-      </ul>
+      </UPageGrid>
     </template>
   </UPageSection>
 </template>
