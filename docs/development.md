@@ -233,7 +233,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppHeader.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`description`を編集します。
 - Nuxt I18nの`prefix`構成を使います。言語別ページは静的HTML、入口はCSR用HTML（`200.html`）から生成します。言語判定・転送はモジュールに任せ、JavaScriptが無効な場合の専用処理は用意しません。
-- 言語選択は`ULocaleSelect`、テーマ選択は`UColorModeSelect`を直接使い、寸法・配色は`app/app.config.ts`の`selectMenu`で揃えます。
+- ヘッダーは`UHeader`を使い、言語選択は`USelectMenu`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は共通テーマと`AppHeader`の`iconSelectUi`で調整します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。
 
 ## フォント
@@ -329,3 +329,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 ### 一覧セクション
 
 リンク・スキル・作品・書籍・登壇・支援は`UPageSection`を使い、見出しを`title`、一覧や操作を`body`スロットへ渡します。幅・上下余白・h2の左ライン・文字サイズは`app/app.config.ts`の`ui.pageSection`で一括調整します。各コンポーネントはデータと本文を担当します。
+
+### ヘッダー
+
+`AppHeader`は`UHeader`の背景・下線・追従を使用します。ナビゲーションがないためメニューの開閉ボタンは表示しません。言語・テーマのトリガーには現在の状態を含む読み上げ名を付け、スマホでも44pxの操作領域を保ちます。
