@@ -279,23 +279,40 @@ test('更新用データの日付・分類と、ローカル画像の存在を�
   }
 })
 
-test('最適化した画像の全候補を静的ファイルとして出力する', async () => {
-  const optimized = [...html.matchAll(/<img\b[^>]*data-nuxt-img[^>]*>/g)].map(([tag]) => tag)
-  assert.equal(optimized.length, 1 + data.books.length + data.talks.length)
-  const urls = new Set<string>()
-  for (const tag of optimized) {
-    assert.ok(tag.includes('/_ipx/f_webp'))
-    const srcset = matchRequired(tag, /srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
-    for (const candidate of srcset.split(', ')) {
-      const [url, width] = candidate.split(' ')
-      assert.ok(parseInt(width) >= 96)
-      urls.add(url)
+test('AVIFとWebPの全候補を静的ファイルとして出力する', async () => {
+  for (const document of [html, englishHtml]) {
+    const pictures = [...document.matchAll(/<picture\b[^>]*>[\s\S]*?<\/picture>/g)].map(([tag]) => tag)
+    assert.equal(pictures.length, 1 + data.books.length + data.talks.length)
+    const urls = new Set<string>()
+    for (const picture of pictures) {
+      const sources = [...picture.matchAll(/<source\b[^>]*>/g)].map(([tag]) => tag)
+      assert.equal(sources.length, 1)
+      assert.ok(sources[0].includes('type="image/avif"'))
+      const fallback = matchRequired(picture, /<img\b[^>]*data-nuxt-pic[^>]*>/)[0]
+      assert.ok(fallback.includes('/_ipx/f_webp'))
+      assert.ok(fallback.includes('alt="'))
+      for (const tag of [sources[0], fallback]) {
+        const srcset = matchRequired(tag, /srcset="([^"]+)"/)[1].replaceAll('&amp;', '&')
+        for (const candidate of srcset.split(', ')) {
+          const [url, width] = candidate.split(' ')
+          assert.ok(parseInt(width) >= 96)
+          assert.ok(url.includes('q_65'))
+          urls.add(url)
+        }
+      }
     }
-  }
-  for (const url of urls) {
-    const bytes = await readFile(join(root, 'dist', decodeURIComponent(url)))
-    assert.equal(bytes.toString('ascii', 0, 4), 'RIFF')
-    assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
+    for (const url of urls) {
+      const bytes = await readFile(join(root, 'dist', decodeURIComponent(url)))
+      if (url.includes('/f_avif')) {
+        assert.equal(bytes.toString('ascii', 4, 8), 'ftyp')
+        assert.equal(bytes.toString('ascii', 8, 12), 'avif')
+      } else {
+        assert.equal(bytes.toString('ascii', 0, 4), 'RIFF')
+        assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
+      }
+    }
+    assert.ok(pictures[0].includes('fetchpriority="high"'))
+    assert.ok(pictures[0].includes('loading="eager"'))
   }
 })
 

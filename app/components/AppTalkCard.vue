@@ -8,10 +8,12 @@
     :link-label="t('ui.eventInfo', { title: talk.title })"
   >
     <template #media>
-      <NuxtImg
+      <NuxtPicture
         class="talk-cover col-span-full block h-auto w-full rounded-[10px] @min-[44rem]:col-span-1"
         :src="talk.image"
-        format="webp"
+        format="avif"
+        legacy-format="webp"
+        :img-attrs="{ class: 'block h-auto w-full rounded-[10px]' }"
         sizes="mobile:100vw 752px:192px 1068px:560px"
         densities="1x 2x"
         :alt="t('ui.cover', { title: talk.title })"

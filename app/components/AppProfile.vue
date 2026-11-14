@@ -12,18 +12,19 @@
     <div class="hero-art grid place-items-center max-[560px]:col-start-2 max-[560px]:row-start-1">
       <figure class="profile-print w-[260px] rounded-[28px] bg-white p-3 max-[560px]:w-28 max-[560px]:p-1.5">
         <div class="photo-frame aspect-square overflow-hidden rounded-2xl">
-          <!-- 表示幅と画面密度に合わせたWebPをビルド時に生成する。 -->
-          <NuxtImg
-class="block size-full object-cover"
+          <!-- 表示幅と画面密度に合わせたAVIF・WebPをビルド時に生成する。 -->
+          <NuxtPicture
+            class="block size-full object-cover"
             src="/profile.png"
-            format="webp"
+            format="avif"
+            legacy-format="webp"
+            :img-attrs="{ class: 'block size-full object-cover', fetchpriority: 'high' }"
             sizes="186px tablet:196px desktop:236px"
             densities="1x 2x"
             :alt="t('ui.profileImage')"
             width="512"
             height="512"
             loading="eager"
-            fetchpriority="high"
           />
         </div>
       </figure>

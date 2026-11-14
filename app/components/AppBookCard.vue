@@ -6,10 +6,12 @@
     :href="book.url"
   >
     <template #media>
-      <NuxtImg
+      <NuxtPicture
         class="book-cover block h-auto w-full rounded-[10px]"
         :src="book.image"
-        format="webp"
+        format="avif"
+        legacy-format="webp"
+        :img-attrs="{ class: 'block h-auto w-full rounded-[10px]' }"
         sizes="96px tablet:144px"
         densities="1x 2x"
         :alt="t('ui.cover', { title: book.title })"
