@@ -4,6 +4,7 @@
     <div class="header-actions ms-auto flex flex-wrap items-center gap-3">
       <ULocaleSelect
         class="language-trigger"
+        :ui="preferenceSelectUi"
         :model-value="locale"
         :locales="[ja, en]"
         :aria-label="t('ui.language', { language: locale === 'ja' ? '日本語' : 'English' })"
@@ -11,6 +12,7 @@
       />
       <UColorModeSelect
         class="theme-trigger"
+        :ui="preferenceSelectUi"
         :aria-label="t('ui.theme', { theme: t(`ui.themes.${preference}`) })"
       />
     </div>
@@ -20,6 +22,14 @@
 /** 言語とテーマの選択を、Nuxt UIの標準セレクトで提供する。 */
 import { ja, en } from '@nuxt/ui/locale'
 import type { ThemePreference } from '~/types/ui'
+/** 640px未満では表示文字と矢印を隠し、読み上げ名を持つ44pxの円形操作にする。 */
+const preferenceSelectUi = {
+  base: 'max-sm:size-11 max-sm:min-w-11 max-sm:justify-center max-sm:rounded-full max-sm:p-0',
+  leading: 'max-sm:static max-sm:p-0',
+  value: 'max-sm:hidden',
+  content: 'max-sm:min-w-40',
+  trailing: 'max-sm:hidden'
+}
 const { locale, t, setLocale } = useI18n()
 /** 保存・OS検出・初期描画はNuxt UI連携の公式モジュールに任せる。 */
 const colorMode = useColorMode()
