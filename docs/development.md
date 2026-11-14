@@ -101,7 +101,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`
-- テーマ選択メニュー: `app/components/AppThemeSwitcher.vue`
+- テーマ選択メニュー: `app/components/AppHeader.vue`と`AppFrameworkMenu.vue`
 - 作品・書籍・登壇の共通カード: `app/components/AppCard.vue`（画像・分類・状態・補助リンクは名前付きスロット）
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
@@ -110,7 +110,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、SVGの`icon`または画像のスロットを指定）
 - SVGアイコンのパス・座標系・塗り・線: `public/icons.svg`（名前付きのsymbolをAppIconからuseで参照）
 - ページとレイアウトの接続: `app/app.vue`
-- スタイルの入口: `assets/style/main.css`。共通要素・プロフィール・リンクとスキル・作品・書籍等・画面幅・テーマ・UIの8ファイルを順に読み込みます。
+- スタイルの入口: `assets/style/main.css`。Nuxt UIのスタイルと、配置・画面幅・サイト用の配色をまとめています。
 - OGP・ファビコン・静的生成: `nuxt.config.ts`
 
 HTMLをJavaScript文字列として編集する必要はありません。
@@ -226,17 +226,17 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
 - 寄稿した章名も原題を残します。`modules/books.json`の`chapterTitle`が原題、英語データの`englishChapterTitle`が参考英訳、`contributionLabel`が寄稿を示す説明です。
 - 言語・翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。既定は日本語です。初回の`/`アクセス時にブラウザ言語を判定し、英語なら`/en/`へ移動します。対応しない言語は`/ja/`へ移動します。選択言語は`i18n_redirected` Cookieへ保存し、ブラウザ言語より優先します。`/ja/`・`/en/`を直接開いた場合は、保存済みの設定やブラウザ言語にかかわらず指定した言語で表示します。静的サイトのため、自動転送はJavaScript実行後に行われます。
-- 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppLanguageSwitcher.vue`で`useSwitchLocalePath()`を使用します。
+- 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppHeader.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`description`を編集します。
 - Nuxt I18nの`prefix`構成を使います。言語別ページは静的HTML、入口はCSR用HTML（`200.html`）から生成します。言語判定・転送はモジュールに任せ、JavaScriptが無効な場合の専用処理は用意しません。
-- テーマ・言語メニューのキーボード操作と外側クリックの処理は`app/composables/useDropdownMenu.ts`で共有しています。
+- テーマ・言語メニューは`app/components/AppFrameworkMenu.vue`でNuxt UIの部品へ委譲します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。
 
 ## フォント
 
 本文・見出しには端末に搭載されたフォントを使います。Macではヒラギノ、Windowsでは游ゴシック・メイリオを優先し、それらがない場合は`system-ui`・`sans-serif`へフォールバックします。ウェブフォントの取得や配信は行いません。
 
-書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文の指定は`assets/style/base.css`の`body`、分類・日付などの等幅フォント指定は`profile.css`にあります。
+書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文や各部の配置は`assets/style/main.css`、部品の外観はUIライブラリのテーマで調整します。
 
 ## 画像の最適化
 
@@ -285,8 +285,8 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 保存できない環境ではそのページ内で切り替えます。OS設定の変更と別タブからの変更にも追従します。
 `assets/theme-bootstrap.ts`を通常のJavaScriptへ変換してheadへ埋め込み、保存済みのテーマを最初の描画前に適用します。
 `assets/theme-init.ts`もJavaScriptへ変換してheadへ埋め込み、設定の適用・保存とVueメニューへの通知を担当します。ブラウザはTSを直接読み込まず、従来の`public/theme-init.js`は不要です。
-独自メニューは矢印・Home・End・Esc・Tabキー、外側クリックに対応します。
-アクセント色はライトモードが濃い青緑（`#17677d`）、ダークモードが明るい青緑（`#8dcbdc`）です。`assets/style/base.css`と`theme.css`の`--accent`・`--accent-soft`で定義し、見出しのライン・ホバー時の背景と枠線・フォーカス・選択状態に共通で使います。ボタンやカードの文字・アイコンの色はホバーでは変更せず、選択中の項目だけ背景に合わせた文字色にします。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
+メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
+アクセント色はライトが濃い青緑（`#17677d`）、ダークが水色（`#8dcbdc`）です。`assets/style/main.css`の変数とライブラリのテーマ設定で調整します。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
 
 ## 存在しないURL
 
@@ -299,3 +299,12 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 直接の依存はNuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Sitemapで、バージョンを固定しています。
 `.npmrc` ではインストール時のスクリプト実行抑止、バージョン固定、対応npmでの公開後7日間の待機を設定しています。
 `min-release-age` が適用されるかは使用するnpmの対応状況によります。
+
+## Nuxt UI比較版の構成
+
+- `AppUiButton`・`AppUiBadge`はNuxt UIのボタンとラベルへの薄いラッパーです。
+- `AppCard`はカードのレイアウトと主リンク・補助リンクの構造を保ち、外枠をライブラリに置き換えています。
+- 言語はアイコン＋現在の言語、テーマは現在の状態を表す44pxの円形ボタンです。GitHub・資料へのアイコンリンクも円形です。
+- 比較用ダッシュボード、測定データ、スクロール同期はこのリポジトリへ含めていません。
+- 既存の静的HTMLテストは、ライブラリの追加クラスやHTMLタグの大文字小文字に依存せず、表示ラベルと初期トリガーを確認します。メニュー項目の実操作はブラウザでも検証します。
+- フォントとテーマ選択は既存の仕組みを使います。Nuxt UIの自動フォント・color-mode機能は無効にし、メニュー用のLucideアイコンはローカルにバンドルします。
