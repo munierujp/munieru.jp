@@ -36,9 +36,9 @@ v-if="work.image && !imageFailed"
     </template>
     <!-- 公開終了でも、補助リンクのGitHubからソースコードを開ける。 -->
     <template #status>
-      <AppUiBadge v-if="work.publicationEnded" class="work-status">{{
+      <UBadge v-if="work.publicationEnded" class="work-status ui-badge">{{
         t('ui.publicationEnded')
-      }}</AppUiBadge>
+      }}</UBadge>
     </template>
     {{ work.description }}
     <template #action>

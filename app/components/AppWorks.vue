@@ -7,17 +7,19 @@
     <!-- JSが動かない場合は全作品を表示し、操作できない絞り込みUIは隠す。 -->
     <div class="work-toolbar mb-4 flex [&[hidden]]:hidden flex-wrap items-center gap-3" data-work-toolbar :hidden="!ready">
       <div class="filters flex flex-wrap items-center gap-3" role="group" :aria-label="t('ui.workTypes')">
-        <AppUiButton
+        <UButton
           v-for="filter in filters"
           :key="filter.value"
+          class="ui-button rounded-full"
           :data-work-filter="filter.value"
           type="button"
-          pill :selected="activeFilter === filter.value"
+          :color="activeFilter === filter.value ? 'primary' : 'neutral'"
+          :variant="activeFilter === filter.value ? 'solid' : 'outline'"
           :aria-pressed="activeFilter === filter.value ? 'true' : 'false'"
           @click="activeFilter = filter.value"
         >
           {{ filter.label }}
-        </AppUiButton>
+        </UButton>
       </div>
       <span class="work-count text-xs text-muted" role="status">{{
         t('ui.workCount', { total: works.length, count: filteredWorks.length })

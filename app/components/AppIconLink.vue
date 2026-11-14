@@ -1,9 +1,10 @@
 <template>
   <!-- アイコンだけのリンクには、読み上げ名とツールチップを共通で付ける。 -->
-  <AppUiButton
-    icon-only
-    class="icon-link"
-    :href="href"
+  <UButton
+    square
+    class="icon-link ui-button is-icon-only"
+    :to="href"
+    external
     target="_blank"
     rel="noopener"
     :aria-label="label"
@@ -12,7 +13,7 @@
     <slot>
       <AppIcon v-if="icon" :name="icon" />
     </slot>
-  </AppUiButton>
+  </UButton>
 </template>
 
 <script setup lang="ts">

@@ -8,7 +8,7 @@
       <div class="about-body">
         <ul class="skills flex flex-wrap items-center gap-3" role="list">
           <li v-for="skill in skills" :key="skill.name" class="min-w-0">
-            <AppUiBadge
+            <UBadge class="ui-badge"
               ><img
 class="size-6 object-contain"
                 :src="asset(skill.image)"
@@ -19,7 +19,7 @@ class="size-6 object-contain"
                 decoding="async"
                 @error="hideFailedImage"
               >
-              <span>{{ skill.name }}</span></AppUiBadge
+              <span>{{ skill.name }}</span></UBadge
             >
           </li>
         </ul>

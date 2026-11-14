@@ -5,13 +5,14 @@
       <h2 :id="headingId" class="border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]">{{ t('ui.headings.support') }}</h2>
     </div>
     <div class="support-links flex flex-wrap items-center gap-3">
-      <AppUiButton
+      <UButton
         v-for="link in supportLinks"
         :key="link.key"
-        :href="link.url"
+        :to="link.url"
+        external
         target="_blank"
         rel="noopener"
-        class="support-button whitespace-nowrap"
+        class="ui-button support-button whitespace-nowrap"
       >
         <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
           <img
@@ -25,7 +26,7 @@ class="size-6 object-contain rounded-lg bg-white"
           >
         </span>
         <span>{{ link.title }}</span>
-      </AppUiButton>
+      </UButton>
     </div>
   </UContainer>
 </template>

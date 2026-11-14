@@ -8,7 +8,7 @@
     </div>
     <ul class="social-links flex flex-wrap items-center gap-3" role="list">
       <li v-for="link in links" :key="link.title" class="min-w-0">
-        <AppUiButton :href="link.url" target="_blank" rel="noopener">
+        <UButton class="ui-button" :to="link.url" external target="_blank" rel="noopener">
           <span class="social-name inline-flex items-center gap-2">
             <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
               <img
@@ -23,7 +23,7 @@ class="size-6 object-contain rounded-lg bg-white"
             </span>
             <span>{{ link.title }}</span>
           </span>
-        </AppUiButton>
+        </UButton>
       </li>
     </ul>
   </UContainer>
