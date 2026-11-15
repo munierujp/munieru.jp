@@ -82,8 +82,7 @@ export default defineNuxtConfig({
     baseURL: config.BASE_DIR,
     head: {
       title: siteName,
-      // テーマクラスの切り替えはColor Modeに任せ、ブラウザ標準部品の配色を追従させる。
-      htmlAttrs: { lang: 'ja', class: 'scheme-light dark:scheme-dark' },
+      htmlAttrs: { lang: 'ja' },
       // 全ページ共通の端末フォント。動的な値ではないため設定側へまとめる。
       bodyAttrs: {
         class: "font-['Hiragino_Sans','Yu_Gothic',system-ui,sans-serif]"
