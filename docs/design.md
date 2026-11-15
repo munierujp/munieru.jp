@@ -31,7 +31,7 @@
 - 書籍カード: `app/components/AppBookCard.vue`
 - 登壇カード: `app/components/AppTalkCard.vue`
 - 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucide・Simple Iconsを参照します（例: `i-lucide-globe`・`i-simple-icons-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
-- アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、Iconify名の`icon`または画像のスロットを指定）
+- アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`・Iconify名の`icon`を必須で指定）
 - 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。

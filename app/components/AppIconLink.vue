@@ -9,9 +9,7 @@
       rel="noopener"
       :aria-label="label"
     >
-      <slot>
-        <UIcon v-if="icon" class="block size-6 shrink-0" aria-hidden="true" :name="icon" />
-      </slot>
+      <UIcon class="block size-6 shrink-0" aria-hidden="true" :name="icon" />
     </UButton>
   </UTooltip>
 </template>
@@ -22,14 +20,12 @@
  * @remarks 説明はホバー・キーボードフォーカスで表示し、リンクの読み上げ名はaria-labelで保持する。
  */
 import type { IconName } from '~/types/IconName'
-// アイコン集の名前はiconで指定し、画像などはデフォルトスロットへ渡す。
-// スロットに画像を渡す場合、リンクのlabelと重複しないようaltは空にする。
 defineProps<{
   /** リンク先の公開URL。 */
   href: string
   /** 操作内容を伝える表示・読み上げ用の名前。 */
   label: string
-  /** 表示するSVGアイコン名。省略時はスロットの内容を使う。 */
-  icon?: IconName
+  /** ローカル同梱のアイコン集から表示するSVGアイコン名。 */
+  icon: IconName
 }>()
 </script>
