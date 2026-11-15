@@ -32,7 +32,7 @@
     "xAccount": "{name} on X",
     "siteSourceCode": "Source code for this website (GitHub)"
   },
-  "description": "Munieru's personal website: profile, social links, skills, works, books, and talks.",
+  "description": "Munieru's personal website: profile, blog, social links, skills, works, books, and talks.",
   "skills": {
     "Chrome拡張機能": {
       "name": "Chrome Extensions"
