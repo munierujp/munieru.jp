@@ -96,6 +96,6 @@ export const serviceLinks: ServiceLink[] = [
   {
     title: 'Wikipedia',
     url: 'https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru',
-    image: '/service-icons/wikipedia.png'
+    image: '/service-icons/wikipedia.svg'
   }
 ]

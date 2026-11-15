@@ -18,3 +18,7 @@ gifteeは公式ファビコンURLで取得できなかったため、サービ�
 ICOの13ファイルは、収録された最大解像度の画像をPNGとして保存し直しました。名称は拡張子だけを`.ico`から`.png`へ変更しています。元の図柄と透明部分を保ち、不要な複数サイズの同梱をなくしています。
 表示時は`AppIconImage`とNuxt Imageで24px・48pxのWebPを静的生成します。画質値は100です。SVGは元のベクターをそのまま配信します。
 新しくICOを取得する場合も最大サイズの画像をPNG化し、`app/data/serviceLinks.ts`または`supportLinks.ts`から参照してください。
+
+## Wikipedia
+
+`wikipedia.svg`は、既存の`@iconify-json/simple-icons` 1.2.101に収録されたWikipediaロゴ（Simple Icons、CC0）を使っています。白背景と黒い文字をSVG内で明示し、角丸で文字の端が欠けないよう余白を設けています。
