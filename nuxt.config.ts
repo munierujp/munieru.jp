@@ -21,8 +21,8 @@ export default defineNuxtConfig({
   telemetry: false,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
   // 端末フォントを使うためNuxt Fontsの自動登録を止める。
-  // テーマはNuxt UIが自動登録するNuxt Color Modeへ委譲する。
   ui: { fonts: false },
+  // テーマはNuxt UIが自動登録するNuxt Color Modeへ委譲する。
   colorMode: {
     preference: 'system',
     fallback: 'light',
