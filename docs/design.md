@@ -11,7 +11,6 @@
 - 日英共通のページ構成: `app/pages/index.vue` の `<template>`
 - ページのメタ情報・構造化データ: `app/composables/useSiteSeo.ts`（`index.vue`のsetupから呼び出す）
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
-- ブログ名のカード: `app/components/AppBlog.vue`（データは`app/data/blog.ts`、共通の`AppCard`を使用）
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
 - 装飾画像の最適化: `app/components/AppIconImage.vue`（SVGを維持し、ラスター画像の配信寸法・密度・形式を共通化）
@@ -68,17 +67,13 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 `AppProfile`は`UPageHero`のtitle・descriptionスロットと画像用の標準スロットを使います。名前は見出しにせず`p`とし、サイト名の`h1`と役割を分けています。余白を抑え、小さい画面では名前と画像を同じ行、自己紹介をその下に配置します。画像は背景や枠を付けず円形で表示し、AVIF・WebP生成は`NuxtPicture`へ任せます。
 
-### ブログ
-
-プロフィールの次に、他の一覧と同じ階層の「ブログ」セクションを置きます。カードには原表記の「ムニエルブログ」を表示し、URLや矢印は付けません。カード全体から別タブで開き、リンク一覧には重複掲載しません。
-
 ### 登壇カードのリンク
 
 スライドの表紙と発表タイトルを主に見せるため、カード全体のリンク先はSpeaker Deckの資料ページです。イベント名（英語の参考訳を含む）はイベントページへの独立したテキストリンクにします。補助リンクを全体リンクより手前に配置し、キーボードでも別々に操作できます。両方とも別タブで開きます。
 
 ### 一覧セクション
 
-ブログ・リンク・スキル・作品・書籍・登壇・支援は`UPageSection`を使い、見出しを`title`、一覧や操作を`body`スロットへ渡します。幅・上下余白・h2の左ライン・文字サイズは`app/app.config.ts`の`ui.pageSection`で一括調整します。各コンポーネントはデータと本文を担当します。
+リンク・スキル・作品・書籍・登壇・支援は`UPageSection`を使い、見出しを`title`、一覧や操作を`body`スロットへ渡します。幅・上下余白・h2の左ライン・文字サイズは`app/app.config.ts`の`ui.pageSection`で一括調整します。各コンポーネントはデータと本文を担当します。
 
 ### ヘッダー
 
@@ -86,11 +81,11 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ### カード一覧のグリッド
 
-ブログは`UPageGrid`、作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。`app/app.config.ts`の`ui.pageGrid.base`で、カード最小幅30rem・狭い画面で1列・十分な幅で2列となる配置と12pxの間隔を共通管理します。標準の画面幅別の列数指定も上書きし、コンテナー幅に応じて列数を決めます。
+作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。`app/app.config.ts`の`ui.pageGrid.base`で、カード最小幅30rem・狭い画面で1列・十分な幅で2列となる配置と12pxの間隔を共通管理します。標準の画面幅別の列数指定も上書きし、コンテナー幅に応じて列数を決めます。
 
 ## 表示・操作
 
-プロフィール・ブログ・リンク・全作品・書籍・登壇・OGPは、ビルド時のHTMLに含めます。
+プロフィール・リンク・全作品・書籍・登壇・OGPは、ビルド時のHTMLに含めます。
 JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて同じサイトから配信します。
 作品は公開日の新しい順に全件を常時表示します。分類による絞り込みの再検討は[Issue #447](https://github.com/munierujp/munieru.jp/issues/447)で扱います。
 リンク移動そのものにはJavaScriptを使いません。
@@ -117,7 +112,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限定します。圧縮による劣化を抑えるため、品質は両形式とも100です。可逆圧縮を保証する設定ではありません。不要なPNG・JPEGの追加生成を避け、ブラウザは対応する形式を一つ選びます。
 公開後の画像変換サーバーや外部画像サービスは使用しません。
 `NuxtPicture`のクラスは外側の`picture`へ付くため、内側の`img`の表示クラスや`fetchpriority`は`img-attrs`で指定します。
-ブログ・サービス・スキル・作品の装飾アイコンは`AppIconImage`で配信します。SVGは元の形式を維持し、ラスター画像は画質100のWebPを1倍・2倍で静的生成します。通常のアイコンは24px、ブログは40px、作品は画面幅に合わせ48px・66pxで表示します。対応するWebPの生成幅は通常24px・48px、ブログ40px・80px、作品48px・96px・66px・132pxで、縦横比を維持します。ICOは最大解像度の画像をPNG化して`public/`へ置きます。ファビコンは元の形式で配信します。
+サービス・スキル・作品の装飾アイコンは`AppIconImage`で配信します。SVGは元の形式を維持し、ラスター画像は画質100のWebPを1倍・2倍で静的生成します。通常のアイコンは24px、作品は画面幅に合わせ48px・66pxで表示します。対応するWebPの生成幅は通常24px・48px、作品48px・96px・66px・132pxで、縦横比を維持します。ICOは最大解像度の画像をPNG化して`public/`へ置きます。ファビコンは元の形式で配信します。
 品質・画面幅の設定は`nuxt.config.ts`の`image`、各画像の表示幅はコンポーネントの`sizes`に記述します。
 プロフィールは優先して読み込み、書籍・登壇の表紙は遅延読み込みを維持しています。
 
@@ -130,7 +125,7 @@ AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限�
 - 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。説明文は`i18n/locales/*.json`の`description`です。
 - 著者・OGP・Xカードのメタ情報と、共有画像の説明を出力します。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はmacOSのヒラギノ角ゴシックで描画しています。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、構造化データの`alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。
-- JSON-LDで`WebSite`と`ProfilePage`・`Person`を出力します。公開アカウントとの対応は`app/data/blog.ts`・`app/data/serviceLinks.ts`から取得します。
+- JSON-LDで`WebSite`と`ProfilePage`・`Person`を出力します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
 - `nuxt.config.ts`が共通設定、`app/composables/useSiteSeo.ts`が言語別メタ情報を担当します。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
 
 ## 存在しないURL
