@@ -40,14 +40,14 @@ const images = [
 ]
 const width = 1200
 const height = 630
-/** ベース画像を持たず、背景・文字・画像の間隔は生成時に組み立てる。 */
+/** ベース画像を持たず、背景色と、日英で共通の文字・画像位置を定義する。 */
 const design = {
   background: '#9CC9DA',
   foreground: '#242824',
   margin: 64,
   gap: 64,
   portraitSize: 448,
-  lineGaps: [40, 32]
+  lineTops: [176, 328, 414]
 } as const
 /** サイトのプロフィールと同じ元画像を使用し、キャラクターの差し替えを一箇所で済ませる。 */
 const portrait = await loadImage(fileURLToPath(new URL('public/profile.png', root)))
@@ -57,7 +57,6 @@ interface TextLine {
   text: string
   font: string
   spacing: number
-  width: number
   height: number
   ascent: number
 }
@@ -69,7 +68,7 @@ interface TextLine {
  * @param size - 初期フォントサイズ（px）。
  * @param weight - 登録したヒラギノの太さ。
  * @param spacing - 書記素間の字間（px）。
- * @returns 描画と中央揃えに使用する文字領域。
+ * @returns 固定位置での描画に使用する文字領域。
  */
 function measureLine (context: CanvasRenderingContext2D, text: string, size: number, weight: keyof typeof fontFamilies, spacing = 0): TextLine {
   const segments = [...segmenter.segment(text)]
@@ -84,7 +83,6 @@ function measureLine (context: CanvasRenderingContext2D, text: string, size: num
         text,
         font,
         spacing,
-        width: lineWidth,
         height: metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
         ascent: metrics.actualBoundingBoxAscent
       }
@@ -141,17 +139,14 @@ for (const { site, imagePath } of images) {
     measureLine(context, subtitle, 64, 6, -1),
     measureLine(context, displayUrl, 44, 3)
   ]
-  const textWidth = Math.max(...lines.map(line => line.width))
-  const textHeight = lines.reduce((total, line) => total + line.height, 0) + design.lineGaps.reduce((total, gap) => total + gap, 0)
-  if (textHeight > height - design.margin * 2) throw new Error('文字の高さが画像の余白に収まりません')
-  // 文字とプロフィール画像を一つのまとまりとして中央に置く。各行は左揃えを維持する。
-  const left = (width - textWidth - design.gap - design.portraitSize) / 2
-  let top = (height - textHeight) / 2
+  // 文字の開始位置と画像の位置は日英で固定し、名前の幅や書体の高さで動かさない。
   for (const [index, line] of lines.entries()) {
-    drawLine(context, line, left, top)
-    top += line.height + (design.lineGaps[index] ?? 0)
+    const top = design.lineTops[index]
+    const nextTop = design.lineTops[index + 1] ?? height - design.margin
+    if (top === undefined || top + line.height > nextTop) throw new Error(`文字が行の表示範囲に収まりません: ${line.text}`)
+    drawLine(context, line, design.margin, top)
   }
-  const portraitX = left + textWidth + design.gap
+  const portraitX = width - design.margin - design.portraitSize
   const portraitY = (height - design.portraitSize) / 2
   // サイトと同じ円形表示。元画像は加工せず、中央を正方形で切り出して描画する。
   context.save()
