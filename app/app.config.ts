@@ -56,10 +56,12 @@ const selectMenu: NonNullable<UiConfig['selectMenu']> = {
   }
 }
 
+/** 独自の色値を持たず、Nuxt UI標準パレットの意味別カラーを使う。 */
+const colors: NonNullable<UiConfig['colors']> = { primary: 'cyan', neutral: 'zinc' }
+
 /** 配色と各部品の設定を組み合わせた、サイト共通のUIテーマ。 */
 const ui: UiConfig = {
-  // 独自の色値を持たず、Nuxt UI標準パレットの意味別カラーを使う。
-  colors: { primary: 'cyan', neutral: 'zinc' },
+  colors,
   button,
   pageSection,
   pageGrid,

@@ -148,29 +148,40 @@ const nitro: NonNullable<NuxtConfig['nitro']> = {
   output: { publicDir: rootPath('./dist') }
 }
 
+/** 端末フォントを使い、Nuxt Fontsの自動登録を止める。 */
+const ui: NonNullable<NuxtConfig['ui']> = { fonts: false }
+
+/** 公開サイトの正規オリジン・サイト名・URL末尾の方針。 */
+const site: NonNullable<NuxtConfig['site']> = {
+  url: new URL(config.BASE_URL).origin,
+  name: siteName,
+  trailingSlash: true
+}
+
+/** ブラウザでも参照する、検証・正規化済みの公開設定。 */
+const runtimeConfig: NonNullable<NuxtConfig['runtimeConfig']> = {
+  public: config
+}
+
+/** 公開パスと全ページ共通のメタ情報。 */
+const app: NonNullable<NuxtConfig['app']> = {
+  baseURL: config.BASE_DIR,
+  head
+}
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
-  // 端末フォントを使うためNuxt Fontsの自動登録を止める。
-  ui: { fonts: false },
+  ui,
   colorMode,
   icon,
-  site: {
-    url: new URL(config.BASE_URL).origin,
-    name: siteName,
-    trailingSlash: true
-  },
+  site,
   sitemap,
   image,
   i18n,
   css: ['~~/assets/style/main.css'],
-  runtimeConfig: {
-    public: config
-  },
-  app: {
-    baseURL: config.BASE_DIR,
-    head
-  },
+  runtimeConfig,
+  app,
   nitro
 })

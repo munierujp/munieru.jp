@@ -200,7 +200,7 @@ npm run lint:lockfile-lint
 ## 設定
 
 公開設定の既定値は`config/site.ts`に定義し、同名の環境変数で上書きできます。公開先の設定は生成時に反映します。
-`nuxt.config.ts`ではテーマ・アイコン・サイトマップ・画像・多言語・メタ情報・静的生成を用途別の定数へ分け、`NuxtConfig`の各設定型と`AppHeadMetaObject`で検査してから組み合わせます。
+`nuxt.config.ts`ではテーマ・アイコン・サイトマップ・画像・多言語・メタ情報・静的生成を用途別の定数へ分け、`NuxtConfig`の各設定型と`AppHeadMetaObject`で検査してから組み合わせます。直下のオブジェクト設定は長さにかかわらず定数へ切り出し、内部はさらに細分化しません。
 
 - `ORIGIN`: 公開サイトのオリジン。既定は `https://munieru.jp/`
 - `BASE_DIR`: 公開パス。既定は `/`。サブディレクトリなら `/portfolio/` など
