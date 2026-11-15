@@ -26,5 +26,5 @@
  */
 const { locale, t } = useSiteLocale()
 /** Xアカウントとサイトのソースコードを案内する公開設定。 */
-const config = useRuntimeConfig().public.siteConfig
+const config = useRuntimeConfig().public
 </script>

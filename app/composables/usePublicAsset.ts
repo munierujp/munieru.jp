@@ -3,6 +3,6 @@
  * @returns 先頭のスラッシュを正規化し、BASE_DIRを付ける関数。
  */
 export function usePublicAsset (): (path: string) => string {
-  const config = useRuntimeConfig().public.siteConfig
+  const config = useRuntimeConfig().public
   return (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
 }

@@ -10,7 +10,7 @@ import { serviceLinks } from '~/data/serviceLinks'
  */
 export function useSiteSeo (): void {
   const { isEnglish, locale, t } = useSiteLocale()
-  const config = useRuntimeConfig().public.siteConfig
+  const config = useRuntimeConfig().public
   // 言語別のcanonical・hreflang・OGPロケールはNuxt I18nに任せる。
   const localeHead = useLocaleHead()
   /** 現在の言語ページの絶対URL。構造化データの識別子にも使う。 */

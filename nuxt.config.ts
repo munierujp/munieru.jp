@@ -76,7 +76,7 @@ export default defineNuxtConfig({
   },
   css: ['~~/assets/style/main.css'],
   runtimeConfig: {
-    public: { siteConfig: config }
+    public: config
   },
   app: {
     baseURL: config.BASE_DIR,
