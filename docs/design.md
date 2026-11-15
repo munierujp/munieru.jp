@@ -17,6 +17,7 @@
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
+- 装飾画像の最適化: `app/components/AppIconImage.vue`（SVGを維持し、ラスター画像の配信寸法・密度・形式を共通化）
 - スキル一覧: `app/components/AppSkills.vue`
 - 型付きのコンテンツ一覧: `app/data/*.ts`（`satisfies`で各型を検査）
 - 作品一覧・翻訳・日付順への整列: `app/components/AppWorks.vue`
@@ -113,7 +114,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限定します。圧縮による劣化を抑えるため、品質は両形式とも100です。可逆圧縮を保証する設定ではありません。不要なPNG・JPEGの追加生成を避け、ブラウザは対応する形式を一つ選びます。
 公開後の画像変換サーバーや外部画像サービスは使用しません。
 `NuxtPicture`のクラスは外側の`picture`へ付くため、内側の`img`の表示クラスや`fetchpriority`は`img-attrs`で指定します。
-ファビコン・サービスやスキルの小さなアイコンは元の形式で配信します。
+サービス・スキル・作品の装飾アイコンは`AppIconImage`で配信します。SVGは元の形式を維持し、ラスター画像は画質100のWebPを1倍・2倍で静的生成します。通常のアイコンは24px、作品は画面幅に合わせ48px・66pxを指定し、縦横比を維持します。ICOは最大解像度の画像をPNG化して`public/`へ置きます。ファビコンは元の形式で配信します。
 品質・画面幅の設定は`nuxt.config.ts`の`image`、各画像の表示幅はコンポーネントの`sizes`に記述します。
 プロフィールは優先して読み込み、書籍・登壇の表紙は遅延読み込みを維持しています。
 

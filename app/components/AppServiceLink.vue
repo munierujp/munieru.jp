@@ -2,15 +2,11 @@
   <!-- サービス名を読み上げ名とし、画像を含む領域全体から外部ページを開く。 -->
   <UButton :to="link.url" external target="_blank" rel="noopener" class="whitespace-nowrap">
     <span class="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
-      <img
+      <AppIconImage
         class="size-6 object-contain rounded-lg bg-white"
-        :src="asset(link.image)"
-        alt=""
-        width="24"
-        height="24"
-        loading="lazy"
+        :src="link.image"
         @error="hideFailedImage"
-      >
+      />
     </span>
     <span :lang="titleLanguage(link.title)">{{ link.title }}</span>
   </UButton>
@@ -26,5 +22,4 @@ defineProps<{
 }>()
 
 const { titleLanguage } = useSiteLocale()
-const asset = usePublicAsset()
 </script>

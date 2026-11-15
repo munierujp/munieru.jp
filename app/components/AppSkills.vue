@@ -5,16 +5,11 @@
       <ul class="flex flex-wrap items-center gap-3" role="list">
         <li v-for="skill in skills" :key="skill.name" class="min-w-0">
           <UBadge>
-            <img
+            <AppIconImage
               class="size-6 object-contain"
-              :src="asset(skill.image)"
-              alt=""
-              width="24"
-              height="24"
-              loading="lazy"
-              decoding="async"
+              :src="skill.image"
               @error="hideFailedImage"
-            >
+            />
             <span>{{ skill.name }}</span>
           </UBadge>
         </li>
@@ -34,5 +29,4 @@ import { skills as skillsData } from '~/data/skills'
 const { t, localize } = useSiteLocale()
 /** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
 const skills = computed<Skill[]>(() => skillsData.map((skill) => localize('skills', skill)))
-const asset = usePublicAsset()
 </script>

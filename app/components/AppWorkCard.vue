@@ -10,17 +10,14 @@
         class="grid aspect-square w-[66px] place-items-center rounded-xl max-[560px]:w-12"
         aria-hidden="true"
       >
-        <img
+        <AppIconImage
           v-if="work.image && !imageFailed"
           class="size-full rounded-[inherit] object-contain"
-          :src="asset(work.image)"
-          alt=""
-          width="66"
-          height="66"
-          loading="lazy"
-          decoding="async"
+          :src="work.image"
+          :size="66"
+          sizes="48px tablet:66px"
           @error="imageFailed = true"
-        >
+        />
         <UIcon v-else class="block size-6 shrink-0" aria-hidden="true" :name="category.icon" />
       </div>
     </template>
@@ -69,7 +66,6 @@ const cardUi = {
 const { t, titleLanguage, formatDate } = useSiteLocale()
 // 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
 const imageFailed = ref(false)
-const asset = usePublicAsset()
 const icons = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',
