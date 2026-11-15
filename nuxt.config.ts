@@ -4,6 +4,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { loadConfig } from './config/site.ts'
+import { OGP_WIDTH, OGP_HEIGHT } from './config/ogp.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 import en from './i18n/locales/en.json' with { type: 'json' }
 
@@ -97,8 +98,8 @@ export default defineNuxtConfig({
         { property: 'og:description', content: ja.description },
         { property: 'og:site_name', content: siteName },
         { property: 'og:image', content: new URL(config.OG_IMAGE_PATH, config.BASE_URL).href },
-        { property: 'og:image:width', content: '1200' },
-        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:width', content: String(OGP_WIDTH) },
+        { property: 'og:image:height', content: String(OGP_HEIGHT) },
         { property: 'og:image:alt', content: shareImageAlt },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@' + config.X_ID.replace(/^@/, '') },

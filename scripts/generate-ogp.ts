@@ -8,6 +8,7 @@ import type { CanvasRenderingContext2D, Image } from 'canvas'
 import ja from '../i18n/locales/ja.json' with { type: 'json' }
 import en from '../i18n/locales/en.json' with { type: 'json' }
 import { loadConfig } from '../config/site.ts'
+import { OGP_WIDTH as width, OGP_HEIGHT as height } from '../config/ogp.ts'
 
 /** OS間・描画エンジン間のウェイト解釈に依存せず、実際の書体を指定する。 */
 const fontFamilies = { 3: 'OGP Hiragino W3', 6: 'OGP Hiragino W6', 9: 'OGP Hiragino W9' } as const
@@ -24,8 +25,6 @@ const images = [
   { site: ja.site, imagePath: config.OG_IMAGE_PATH },
   { site: en.site, imagePath: config.OG_IMAGE_PATH_EN }
 ]
-const width = 1200
-const height = 630
 /** 背景色と、日英で共通の文字・画像位置を定義する。 */
 const design = {
   background: '#9CC9DA',

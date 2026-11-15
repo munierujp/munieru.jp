@@ -26,7 +26,7 @@ Automatticの[`canvas`](https://www.npmjs.com/package/canvas)（node-canvas）�
 
 ## 配置と共通定義
 
-- 出力は1200×630pxのPNG。背景色は`#9CC9DA`、文字色は`#242824`です。
+- 出力寸法は`../config/ogp.ts`の`OGP_WIDTH`・`OGP_HEIGHT`で定義し、画像生成とメタ情報で共有します。既定は1200×630pxのPNG。背景色は`#9CC9DA`、文字色は`#242824`です。
 - 名前・サイト名は`../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../config/site.ts`から読み込みます。URLはプロトコルと末尾のスラッシュを含めて表示します。
 - `OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`は`public`配下の相対パスです（例: `ogp.png`・`en/ogp.png`）。先頭の`/`や絶対URLは指定せず、階層移動やURLエンコードも使いません。詳しい制約は[開発・検証ガイド](development.md#設定)を参照してください。
 - サイト名は名前とその後ろの部分に分けます。`site.title`は`site.name`に半角スペースを続けて始める形式にします。
