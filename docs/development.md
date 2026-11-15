@@ -43,7 +43,7 @@ npm run lint
 npm run typecheck
 npm test
 npm run generate
-npm start
+npm run preview
 ```
 
 `npm run build`は`nuxt build`、`npm run generate`は`nuxt generate`を実行します。
@@ -51,21 +51,13 @@ Netlifyへの静的公開とローカルプレビューには、事前描画す�
 公開するファイルは `dist/` に出力します。Netlifyにも同じコマンド・出力先を `netlify.toml` で指定しています。
 本番用のNodeサーバーやAPIは不要です。
 
-`npm start` は生成済みの `dist/` を、Node.js標準の小さなプレビューサーバーで配信します。
-URLは `http://127.0.0.1:4173/` です。ポートは `PORT=4174 npm start` などで変更できます。
-既定では外部へ公開しません。
-
-### Netlify CLIでの確認
-
-`npm run preview` は、`netlify.toml` のビルド設定を使って静的サイトを生成し、
-`http://localhost:4175/` で配信します。別のポートでは `npm run preview -- --port 4181` を使います。
-`--offline` を指定しているため、Netlifyへのログインやデプロイは行いません。
-変更は自動反映されないため、更新後は再起動してください。CLIの状態とキャッシュは `.netlify/` に保存されます。
-
-検証したNetlify CLI 27.16.2では、生成した `_redirects` の転送がローカルで適用されず、
-未定義URLが404になりました。通常ページの確認には使用できますが、
-転送も確認する場合は従来の `npm start`、またはNetlifyのDeploy Previewを使用してください。
-この違いが解消されるまでは、既存のプレビューサーバーを残しています。
+`npm run preview`はNuxt標準の`nuxt preview`で生成済みのサイトを配信します。
+この静的構成では内部で`serve`を使うため、起動時の自動取得を避ける目的で開発用依存に固定しています。
+先に`npm run generate`を実行してください。変更後は再生成してプレビューを再起動します。
+開発サーバーと同時に使う場合は、`PORT=4175 npm run preview`などで別のポートを指定してください。
+起動時に表示されるURLを開きます。
+編集しながら確認する場合は、自動反映される`npm run dev`を使います。
+Netlify固有の`_redirects`による転送は、NetlifyのDeploy Previewで確認します。
 
 ## GitHub Actions
 

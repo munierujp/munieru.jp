@@ -163,6 +163,3 @@ vite.config.ts.timestamp-*
 
 # JetBrains IDEのローカル設定
 .idea/
-
-# Netlify CLIのローカル状態とキャッシュ
-.netlify/
