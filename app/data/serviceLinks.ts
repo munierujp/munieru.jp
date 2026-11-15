@@ -34,14 +34,14 @@ export const serviceLinks: ServiceLink[] = [
     image: '/service-icons/blog.png'
   },
   {
-    title: 'note',
-    url: 'https://note.com/munieru_jp/',
-    image: '/service-icons/note.png'
-  },
-  {
     title: 'はてなブックマーク',
     url: 'https://b.hatena.ne.jp/munieru_jp/',
     image: '/service-icons/hatena-bookmark.png'
+  },
+  {
+    title: 'note',
+    url: 'https://note.com/munieru_jp/',
+    image: '/service-icons/note.png'
   },
   {
     title: 'GitHub',
