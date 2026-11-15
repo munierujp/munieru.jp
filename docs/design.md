@@ -11,7 +11,7 @@
 - 日英共通のページ構成: `app/pages/index.vue` の `<template>`
 - ページのメタ情報・構造化データ: `app/composables/useSiteSeo.ts`（`index.vue`のsetupから呼び出す）
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
-- ブログ名・URLのカード: `app/components/AppBlog.vue`（データは`app/data/blog.ts`、共通の`AppCard`を使用）
+- ブログ名のカード: `app/components/AppBlog.vue`（データは`app/data/blog.ts`、共通の`AppCard`を使用）
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
 - 装飾画像の最適化: `app/components/AppIconImage.vue`（SVGを維持し、ラスター画像の配信寸法・密度・形式を共通化）
@@ -68,7 +68,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ### ブログ
 
-プロフィールの次に、他の一覧と同じ階層の「ブログ」セクションを置きます。カードには原表記の「ムニエルブログ」とURLのホスト名を表示し、矢印は付けません。カード全体から別タブで開き、リンク一覧には重複掲載しません。
+プロフィールの次に、他の一覧と同じ階層の「ブログ」セクションを置きます。カードには原表記の「ムニエルブログ」を表示し、URLや矢印は付けません。カード全体から別タブで開き、リンク一覧には重複掲載しません。
 
 ### 登壇カードのリンク
 

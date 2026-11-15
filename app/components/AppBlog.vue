@@ -16,9 +16,6 @@
               @error="hideFailedImage"
             />
           </template>
-          <template #subtitle>
-            <p class="text-sm text-muted">{{ blogHost }}</p>
-          </template>
         </AppCard>
       </UPageGrid>
     </template>
@@ -26,10 +23,8 @@
 </template>
 
 <script setup lang="ts">
-/** プロフィールに続けて、ブログ名とURLを持つ独立したセクションを表示する。 */
+/** プロフィールに続けて、ブログ名を持つ独立したセクションを表示する。 */
 import { blog } from '~/data/blog'
 
 const { t, titleLanguage } = useSiteLocale()
-/** 公開URLから、カードに短く表示するホスト名を取得する。 */
-const blogHost = new URL(blog.url).host
 </script>
