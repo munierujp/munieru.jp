@@ -6,8 +6,8 @@
         class="size-6 object-contain rounded-lg bg-white"
         :src="asset(link.image)"
         alt=""
-        width="20"
-        height="20"
+        width="24"
+        height="24"
         loading="lazy"
         @error="hideFailedImage"
       >
