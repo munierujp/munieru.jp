@@ -95,6 +95,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - ページのメタ情報・構造化データ: 同じファイルの `<script setup>`
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
+- サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
 - スキル一覧: `app/components/AppSkills.vue`
 - 作品一覧・日付順への整列: `app/components/AppWorks.vue`
 - 書籍一覧: `app/components/AppBooks.vue`
@@ -309,7 +310,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ## Nuxt UIの構成
 
-- ボタン・バッジは`UButton`・`UBadge`を直接使い、色・サイズ・形の共通設定は`app/app.config.ts`へ置きます。外部リンクの`to`・`external`・`target`・`rel`は使う場所で指定します。
+- ボタン・バッジの色・サイズ・形は`app/app.config.ts`へ置きます。サービス名・画像付きの外部リンクは`AppServiceLink`内で`UButton`を使い、画像URL・読み込み失敗時の処理・名前の言語属性・改行抑止・別タブ設定をまとめます。リンク一覧と支援先一覧は、データの取得・翻訳・表示条件・並び順・一覧の配置を担当します。その他のボタン・バッジには`UButton`・`UBadge`を使います。
 - `AppCard`は画像・本文・補助リンクを配置し、外枠とカード全体の主リンクに`UPageCard`を使います。
 - 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形セレクトです。トリガーの文字・下向き矢印は隠し、選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
 - 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。

@@ -4,22 +4,7 @@
     <template #body>
       <ul class="flex flex-wrap items-center gap-3" role="list">
         <li v-for="link in links" :key="link.title" class="min-w-0">
-          <UButton :to="link.url" external target="_blank" rel="noopener">
-            <span class="inline-flex items-center gap-2">
-              <span class="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
-                <img
-                  class="size-6 object-contain rounded-lg bg-white"
-                  :src="asset(link.image)"
-                  alt=""
-                  width="20"
-                  height="20"
-                  loading="lazy"
-                  @error="hideFailedImage"
-                >
-              </span>
-              <span :lang="titleLanguage(link.title)">{{ link.title }}</span>
-            </span>
-          </UButton>
+          <AppServiceLink :link="link" />
         </li>
       </ul>
     </template>
@@ -34,8 +19,7 @@ import type { ServiceLink } from '~/types/ServiceLink'
 import linksData from '~~/modules/links.json'
 
 // サービス名・URL・画像・並び順は日英で共有し、原表記を維持する。
-const { t, titleLanguage } = useSiteLocale()
+const { t } = useI18n()
 /** 表示言語にかかわらず、元データのサービス名を表示する一覧。 */
 const links: ServiceLink[] = linksData
-const asset = usePublicAsset()
 </script>
