@@ -101,7 +101,7 @@ Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tool
 - `@tsconfig/node-ts`: NodeでTSを直接実行する際の制約（`erasableSyntaxOnly`・`verbatimModuleSyntax`など）
 - `@tsconfig/strictest`: 配列要素の未存在や未使用変数など、`strict`より厳格なチェック
 
-このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。JS設定の検査・JSON読込・パス対応など、このリポジトリ固有の設定を定義します。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
+このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。`allowJs`で型付きJS設定も検査します。スクリプトとルートの`*.config.ts`を対象にし、`nuxt.config.ts`はルートの`tsconfig.json`が参照するNuxt生成設定へ任せるため除外します。他のTSConfigの対象を自動的に差し引く機能はないため、検査範囲はglobと除外パスで分けています。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
 
 ## ESLint
 

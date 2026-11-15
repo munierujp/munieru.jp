@@ -12,9 +12,9 @@
   },
   "include": [
     "scripts/**/*.ts",
-    "eslint.config.ts",
-    "stylelint.config.ts",
-    "markuplint.config.ts",
+    "*.config.ts",
     ".secretlintrc.js"
-  ]
+  ],
+  // nuxt.config.tsはルートtsconfigの参照先で、Nuxt固有の型とともに検査する。
+  "exclude": ["nuxt.config.ts"]
 }
