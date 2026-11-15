@@ -15,4 +15,4 @@ gifteeは公式ファビコンURLで取得できなかったため、サービ�
 
 ICOの13ファイルは、収録された最大解像度の画像をPNGとして保存し直しました。名称は拡張子だけを`.ico`から`.png`へ変更しています。元の図柄と透明部分を保ち、不要な複数サイズの同梱をなくしています。
 表示時は`AppIconImage`とNuxt Imageで24px・48pxのWebPを静的生成します。画質値は100です。SVGは元のベクターをそのまま配信します。
-新しくICOを取得する場合も最大サイズの画像をPNG化し、`app/data/links.ts`または`support.ts`から参照してください。
+新しくICOを取得する場合も最大サイズの画像をPNG化し、`app/data/serviceLinks.ts`または`supportLinks.ts`から参照してください。

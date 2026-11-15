@@ -15,8 +15,8 @@
 - 著作権表記の文面: `i18n/locales/ja.json`・`en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
 - サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
-- SNS・各サービス: `app/data/links.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
-- 活動への支援先: `app/data/support.ts`（URL・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。URLは必須とし、掲載をやめる場合は該当項目を削除
+- SNS・各サービス: `app/data/serviceLinks.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
+- 活動への支援先: `app/data/supportLinks.ts`（URL・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。URLは必須とし、掲載をやめる場合は該当項目を削除
 - スキル: `app/data/skills.ts`
 - 作品: `app/data/works.ts`
 - 書籍: `app/data/books.ts`（`imageWidth`・`imageHeight`に表紙の元画像の幅・高さをpx単位で指定）

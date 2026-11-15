@@ -1,7 +1,7 @@
 /** トップページの言語別メタ情報と構造化データを設定する。 */
 import { computed } from 'vue'
 import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import { links as linksData } from '~/data/links'
+import { serviceLinks } from '~/data/serviceLinks'
 
 /**
  * 現在の言語に対応するSEO情報とプロフィールの構造化データを登録する。
@@ -76,7 +76,7 @@ export function useSiteSeo (): void {
           alternateName: alternateName.value,
           url: config.BASE_URL,
           image: new URL('profile.png', config.BASE_URL).href,
-          sameAs: linksData.map(link => link.url)
+          sameAs: serviceLinks.map(link => link.url)
         }
       }).replace(/</g, '\\u003c')
     }]

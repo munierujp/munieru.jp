@@ -1,8 +1,8 @@
 /** サービスリンクの元データを、定義時に型検査する。 */
 import type { ServiceLink } from '~/types/ServiceLink'
 
-/** 日英で共有するサービスリンク一覧。表示文の翻訳は表示側で行う。 */
-export const links: ServiceLink[] = [
+/** 日英で共有するサービスリンク一覧。サービス名は原表記を維持する。 */
+export const serviceLinks: ServiceLink[] = [
   {
     title: 'X',
     url: 'https://x.com/munieru_jp',

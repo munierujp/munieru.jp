@@ -3,7 +3,7 @@
   <UPageSection :title="t('ui.headings.links')">
     <template #body>
       <ul class="flex flex-wrap items-center gap-3" role="list">
-        <li v-for="link in links" :key="link.title" class="min-w-0">
+        <li v-for="link in serviceLinks" :key="link.title" class="min-w-0">
           <AppServiceLink :link="link" />
         </li>
       </ul>
@@ -15,7 +15,7 @@
 /**
  * 公開アカウントへのリンクを、ローカルのサービスアイコンとともに表示する。
  */
-import { links } from '~/data/links'
+import { serviceLinks } from '~/data/serviceLinks'
 
 const { t } = useI18n()
 </script>

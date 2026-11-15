@@ -18,7 +18,7 @@
  */
 import { computed, useId } from 'vue'
 import type { SupportLink } from '~/types/SupportLink'
-import { supportLinks as supportData } from '~/data/support'
+import { supportLinks as supportData } from '~/data/supportLinks'
 
 // 同じコンポーネントを複数配置しても見出しIDが重複しないようにする。
 const headingId = useId()
