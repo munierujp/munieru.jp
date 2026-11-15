@@ -52,6 +52,7 @@
  * 登壇の原題・表紙・資料への主リンクと、独立したイベント名のリンクを表示する。
  */
 import type { Talk } from '~/types/content'
+import type { AppCardUi } from '~/types/ui'
 
 // 表紙・タイトルを含むカード全体から発表資料を開き、イベント名から開催情報を開く。
 defineProps<{
@@ -62,6 +63,6 @@ defineProps<{
 const cardUi = {
   layout: 'grid-cols-[minmax(0,1fr)] @min-[44rem]:grid-cols-[192px_minmax(0,1fr)]',
   content: 'col-start-1 @min-[44rem]:col-start-2'
-}
+} satisfies AppCardUi
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 </script>

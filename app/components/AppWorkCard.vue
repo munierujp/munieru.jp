@@ -57,7 +57,7 @@ v-if="work.image && !imageFailed"
  * 作品の分類・公開状態・専用アイコン・GitHubリンクを組み合わせる。
  */
 import type { Work } from '~/types/content'
-import type { IconName } from '~/types/ui'
+import type { AppCardUi, IconName } from '~/types/ui'
 import { computed, ref } from 'vue'
 
 // 作品固有の分類・公開終了表示・GitHubリンクを組み合わせる。
@@ -69,7 +69,7 @@ const props = defineProps<{
 const cardUi = {
   layout: 'grid-cols-[66px_minmax(0,1fr)_44px] max-[560px]:grid-cols-[minmax(0,1fr)_44px]',
   content: 'max-[560px]:col-span-full max-[560px]:row-start-2'
-}
+} satisfies AppCardUi
 const { t, titleLanguage, formatDate } = useSiteLocale()
 // 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
 const imageFailed = ref(false)

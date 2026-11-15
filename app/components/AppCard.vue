@@ -34,6 +34,8 @@
  * @remarks 全体リンクはUPageCardに任せ、画像・分類・状態・補助リンクは名前付きスロットで受け取る。
  * @remarks hrefが空の公開終了作品は主リンクを作らず、見出しのh3と言語属性は維持する。
  */
+import type { AppCardUi } from '~/types/ui'
+
 withDefaults(defineProps<{
   /** カードや一覧に表示する名称。 */
   title: string
@@ -44,11 +46,6 @@ withDefaults(defineProps<{
   /** タイトルだけでは用途が伝わらない場合の読み上げ名。 */
   linkLabel?: string
   /** 用途を決めず、呼び出し側が内容に応じて指定する配置クラス。 */
-  ui?: {
-    /** 画像・本文・補助リンクを並べるグリッドのクラス。 */
-    layout?: string
-    /** 本文の配置を補足するクラス。 */
-    content?: string
-  }
+  ui?: AppCardUi
 }>(), { href: '', titleLang: '', linkLabel: '', ui: () => ({}) })
 </script>

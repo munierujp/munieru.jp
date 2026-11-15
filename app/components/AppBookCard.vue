@@ -44,6 +44,7 @@
  * 書籍の表紙・寄稿内容・販売ページを一枚のカードにまとめる。
  */
 import type { Book } from '~/types/content'
+import type { AppCardUi } from '~/types/ui'
 // 書籍の表紙・寄稿内容と販売ページへのリンクを組み合わせる。
 defineProps<{
   /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
@@ -52,6 +53,6 @@ defineProps<{
 /** 書籍の縦長の表紙と本文を横に並べる。 */
 const cardUi = {
   layout: 'grid-cols-[128px_minmax(0,1fr)] max-[560px]:grid-cols-[96px_minmax(0,1fr)]'
-}
+} satisfies AppCardUi
 const { isEnglish, t, formatDate } = useSiteLocale()
 </script>
