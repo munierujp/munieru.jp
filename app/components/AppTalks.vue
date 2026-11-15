@@ -3,7 +3,7 @@
   <UPageSection :title="t('ui.headings.talks')">
     <template #body>
       <UPageGrid as="ul" role="list">
-        <li v-for="talk in talks" :key="talk.key" class="min-w-0 @container">
+        <li v-for="talk in talks" :key="talk.key" class="min-w-0">
           <AppTalkCard :talk="talk" />
         </li>
       </UPageGrid>

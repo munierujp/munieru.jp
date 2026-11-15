@@ -1,19 +1,21 @@
 <template>
-  <AppCard
-    :ui="cardUi"
+  <UPageCard
+    as="article"
+    class="h-full"
     :title="talk.title"
-    :title-lang="titleLanguage(talk.title)"
-    :href="talk.url"
-    :link-label="t('ui.slidesInfo', { title: talk.title })"
+    :to="talk.url"
+    target="_blank"
+    rel="noopener"
+    :aria-label="t('ui.slidesInfo', { title: talk.title })"
   >
-    <template #media>
+    <template #header>
       <NuxtPicture
-        class="col-span-full block h-auto w-full rounded-[10px] @min-[44rem]:col-span-1"
+        class="mx-auto block w-full max-w-xl"
         :src="talk.image"
         format="avif"
         legacy-format="webp"
-        :img-attrs="{ class: 'block h-auto w-full rounded-[10px]' }"
-        sizes="mobile:100vw 752px:192px 1068px:560px"
+        :img-attrs="{ class: 'block h-auto w-full rounded-lg' }"
+        sizes="100vw sm:576px"
         densities="1x 2x"
         :alt="t('ui.cover', { title: talk.title })"
         :width="talk.imageWidth"
@@ -21,37 +23,32 @@
         loading="lazy"
         decoding="async"
       />
+      <p class="mt-3 text-xs text-muted">
+        {{ talk.format }} / <time :datetime="talk.date">{{ formatDate(talk.date) }}</time>
+      </p>
     </template>
-    <template #metadata>
-      <span class="text-xs text-muted">
-        {{ talk.format }} /
-        <time :datetime="talk.date">{{ formatDate(talk.date) }}</time>
-      </span>
+    <template #title><h3 :lang="titleLanguage(talk.title)">{{ talk.title }}</h3></template>
+    <template v-if="isEnglish && talk.englishTitle" #description>
+      <p lang="en">{{ talk.englishTitle }}</p>
     </template>
-    <!-- 原題を資料と照合できるよう残し、参考英訳は見出しとは別に添える。 -->
-    <template v-if="isEnglish && talk.englishTitle" #subtitle>
-      <p class="text-[0.85rem] text-muted" lang="en">{{ talk.englishTitle }}</p>
+    <template #footer>
+      <ULink
+        class="relative z-1 inline-flex min-h-11 flex-col justify-center underline underline-offset-4"
+        :to="talk.eventUrl"
+        target="_blank"
+        rel="noopener"
+        :aria-label="t('ui.eventInfo', { title: talk.eventTitle })"
+      >
+        <span :lang="titleLanguage(talk.eventTitle)">{{ talk.eventTitle }}</span>
+        <span v-if="isEnglish && talk.englishEventTitle" class="mt-1 block" lang="en">{{ talk.englishEventTitle }}</span>
+      </ULink>
     </template>
-    <!-- イベント名は全体リンクとは別のリンクとして手前に置き、十分な操作高さを確保する。 -->
-    <a
-      class="relative z-1 inline-flex min-h-11 max-w-full flex-col justify-center rounded-sm underline underline-offset-4 hover:decoration-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-      :href="talk.eventUrl"
-      target="_blank"
-      rel="noopener"
-      :aria-label="t('ui.eventInfo', { title: talk.eventTitle })"
-    >
-      <span :lang="titleLanguage(talk.eventTitle)">{{ talk.eventTitle }}</span>
-      <span v-if="isEnglish && talk.englishEventTitle" class="mt-1 block" lang="en">{{ talk.englishEventTitle }}</span>
-    </a>
-  </AppCard>
+  </UPageCard>
 </template>
 
 <script setup lang="ts">
-/**
- * 登壇の原題・表紙・資料への主リンクと、独立したイベント名のリンクを表示する。
- */
+/** 標準カードの表紙・原題・補足・フッターを使い、資料とイベントのリンクを分ける。 */
 import type { Talk } from '~/types/Talk'
-import type { AppCardUi } from '~/types/AppCardUi'
 
 /** このコンポーネントが受け取る入力。 */
 interface Props {
@@ -60,10 +57,5 @@ interface Props {
 }
 
 defineProps<Props>()
-/** 登壇の横長表紙はカード幅が十分なときだけ本文の横に置く。 */
-const cardUi: AppCardUi = {
-  layout: 'grid-cols-[minmax(0,1fr)] @min-[44rem]:grid-cols-[192px_minmax(0,1fr)]',
-  content: 'col-start-1 @min-[44rem]:col-start-2'
-}
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 </script>

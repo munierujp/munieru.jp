@@ -1,56 +1,47 @@
 <template>
-  <AppCard
-    :ui="cardUi"
+  <UPageCard
+    as="article"
+    class="h-full"
     :title="work.title"
-    :title-lang="titleLanguage(work.title)"
-    :href="work.publicationEnded ? '' : work.url"
+    :description="work.description"
+    :ui="{ header: 'w-full' }"
+    :to="work.publicationEnded ? undefined : work.url"
+    target="_blank"
+    rel="noopener"
   >
-    <template #media>
-      <div
-        class="grid aspect-square w-[66px] place-items-center rounded-xl max-[560px]:w-12"
-        aria-hidden="true"
-      >
+    <template #header>
+      <div class="flex items-start justify-between gap-3">
         <AppIconImage
           v-if="work.image && !imageFailed"
-          class="size-full rounded-[inherit] object-contain"
+          class="size-[66px] rounded-xl object-contain max-[560px]:size-12"
           :src="work.image"
           :size="66"
           sizes="48px tablet:66px"
           @error="imageFailed = true"
         />
-        <UIcon v-else class="block size-6 shrink-0" aria-hidden="true" :name="category.icon" />
+        <UIcon v-else class="size-6" aria-hidden="true" :name="category.icon" />
+        <AppIconLink
+          class="relative z-1 shrink-0"
+          :href="work.github"
+          :label="t('ui.sourceCode', { title: work.title })"
+          icon="i-simple-icons-github"
+        />
       </div>
+      <p class="mt-3 text-xs text-muted">
+        {{ category.label }} / <time :datetime="work.date">{{ formatDate(work.date) }}</time>
+      </p>
     </template>
-    <template #metadata>
-      <span class="text-xs text-muted">
-        {{ category.label }} /
-        <time :datetime="work.date">{{ formatDate(work.date) }}</time>
-      </span>
+    <template #title>
+      <h3 :lang="titleLanguage(work.title)">
+        {{ work.title }} <UBadge v-if="work.publicationEnded">{{ t('ui.publicationEnded') }}</UBadge>
+      </h3>
     </template>
-    <!-- 公開終了でも、補助リンクのGitHubからソースコードを開ける。 -->
-    <template #status>
-      <UBadge v-if="work.publicationEnded">
-        {{ t('ui.publicationEnded') }}
-      </UBadge>
-    </template>
-    {{ work.description }}
-    <template #action>
-      <AppIconLink
-        class="relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
-        :href="work.github"
-        :label="t('ui.sourceCode', { title: work.title })"
-        icon="i-simple-icons-github"
-      />
-    </template>
-  </AppCard>
+  </UPageCard>
 </template>
 
 <script setup lang="ts">
-/**
- * 作品の分類・公開状態・専用アイコン・GitHubリンクを組み合わせる。
- */
+/** 標準のカードスロットで、作品の説明と独立したソースコードへのリンクを表示する。 */
 import type { Work } from '~/types/Work'
-import type { AppCardUi } from '~/types/AppCardUi'
 import type { IconName } from '~/types/IconName'
 import { computed, ref } from 'vue'
 
@@ -61,23 +52,18 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-/** 作品のアイコン・本文・GitHubリンクを、画面幅に応じて配置する。 */
-const cardUi: AppCardUi = {
-  layout: 'grid-cols-[66px_minmax(0,1fr)_44px] max-[560px]:grid-cols-[minmax(0,1fr)_44px]',
-  content: 'max-[560px]:col-span-full max-[560px]:row-start-2'
-}
 const { t, titleLanguage, formatDate } = useSiteLocale()
-// 専用アイコンがない作品と、画像を読み込めない場合は分類アイコンを表示する。
+/** 専用画像が読み込めない場合は分類アイコンへ切り替える。 */
 const imageFailed = ref(false)
 const icons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',
   library: 'i-lucide-code',
-  cli: 'i-lucide-terminal',
+  cli: 'i-lucide-terminal'
 }
 /** 作品分類に対応する、翻訳済みの表示名と代替アイコン。 */
 const category = computed(() => ({
   label: t(`ui.categories.${props.work.category}`),
-  icon: icons[props.work.category],
+  icon: icons[props.work.category]
 }))
 </script>

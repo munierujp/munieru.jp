@@ -23,7 +23,6 @@
 - 言語選択メニュー: `app/components/AppLanguageSelect.vue`の`USelectMenu`
 - テーマ選択メニュー: `app/components/AppThemeSelect.vue`の`UColorModeSelect`
 - 言語・テーマの円形表示: `app/utils/iconSelectUi.ts`
-- 作品・書籍・登壇の共通カード: `app/components/AppCard.vue`（画像・分類・状態・補助リンクは名前付きスロット）
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
 - 登壇カード: `app/components/AppTalkCard.vue`
@@ -32,14 +31,14 @@
 - 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
-- 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードごとの配置は`AppWorkCard.vue`・`AppBookCard.vue`・`AppTalkCard.vue`の`cardUi`から、汎用`AppCard`の`ui`へ渡します。
+- 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードは`UPageCard`の標準スロットとスタイルを使い、画像寸法や補助リンクの重なりだけを各コンポーネントで調整します。
 - 配色: `app/app.config.ts`の`ui.colors`でNuxt UI標準のcyan・zincを選びます。背景色・文字色の具体値は独自定義しません。
 - ページ幅・左右の余白: Nuxt UI標準の`UContainer`を使います。本文フォントは`nuxt.config.ts`の`app.head.bodyAttrs`で指定し、本文の行間はTailwind標準の1.5を使います。部品ごとの行間は各コンポーネントで調整し、背景・文字色はNuxt UIの標準スタイルへ任せます。
 - スタイルの入口: `assets/style/main.css`はTailwind・Nuxt UIのimportだけです。リセットはPreflight、カード全体の主リンクは`UPageCard`を使います。
 - OGP・ファビコン・静的生成: `nuxt.config.ts`
 
 HTMLをJavaScript文字列として編集する必要はありません。
-`AppCard`は汎用の構造とリンク動作を担当し、各カードはデータをpropsで受け取って用途ごとの表示を組み立てます。
+各カードはデータをpropsで受け取り、`UPageCard`のheader・leading・title・description・footerスロットで用途ごとの表示を組み立てます。見出しはtitleスロット内の`h3`とし、原題の言語属性を維持します。
 `app/pages/index.vue`はセクションの配置と`useSiteSeo()`の呼び出しを担当し、各セクションのコンポーネントがデータの読み込み・翻訳・並び順・操作を管理します。`@nuxtjs/i18n`がこの1ページから日本語・英語のルートを生成します。
 `AppProfile`の名前・プロフィール本文と`AppFooter`の著作権表記は、`i18n/locales/ja.json`・`en.json`で管理します。表示構造は各コンポーネントのテンプレートで編集します。
 `app/layouts/default.vue`がヘッダー・main・フッターを配置します。新しいページは`app/pages/`へ追加し、mainを重複させず本文だけを書きます。共通レイアウトは既定で適用されます。
@@ -50,7 +49,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 `app/app.config.ts`は配色・ボタン・セクション・グリッド・カード・バッジ・選択メニューの設定をそれぞれ定数へ分け、最後に`ui`へまとめます。型はNuxt UIが拡張する`AppConfigInput['ui']`から参照し、各設定を個別に検査します。
 
 - ボタン・バッジの色・サイズ・形は`app/app.config.ts`へ置きます。サービス名・画像付きの外部リンクは`AppServiceLink`内で`UButton`を使い、画像URL・読み込み失敗時の処理・名前の言語属性・改行抑止・別タブ設定をまとめます。リンク一覧と支援先一覧は、データの取得・翻訳・表示条件・並び順・一覧の配置を担当します。その他のボタン・バッジには`UButton`・`UBadge`を使います。
-- `AppCard`は画像・本文・補助リンクを配置し、外枠とカード全体の主リンクに`UPageCard`を使います。
+- 作品・書籍・登壇は`UPageCard as="article"`を直接使います。作品はheader内に作品アイコンと右上のGitHubリンクを配置し、その下に日付・題名・説明を表示します。書籍・登壇は表紙を上部に配置します。登壇の表紙は最大幅576pxに制限します。
 - 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形セレクトです。トリガーの文字・下向き矢印は隠し、選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
 - 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。
 - フォントは端末搭載の書体を使うため自動フォントだけを無効にします。テーマ選択はNuxt UIのColor Mode連携を使い、メニュー用のLucideアイコンはローカルにバンドルします。
