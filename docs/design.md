@@ -22,7 +22,7 @@
 - 作品一覧・翻訳・日付順への整列: `app/components/AppWorks.vue`
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
-- 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`
+- 支援先一覧: `app/components/AppSupport.vue`
 - 言語選択メニュー: `app/components/AppLanguageSelect.vue`の`USelectMenu`
 - テーマ選択メニュー: `app/components/AppThemeSelect.vue`の`UColorModeSelect`
 - 言語・テーマの円形表示: `app/utils/iconSelectUi.ts`
