@@ -20,7 +20,10 @@ import { iconSelectUi } from '~/utils/iconSelectUi'
 
 const { locale, t, setLocale } = useI18n()
 
-/** 選択言語のURLへ移動し、既存の言語Cookieに保存する。 */
+/**
+ * 選択言語のURLへ移動し、既存の言語Cookieに保存する。
+ * @param value - メニューで選択された言語コード。
+ */
 async function selectLanguage (value: string): Promise<void> {
   await setLocale(value as 'ja' | 'en')
 }

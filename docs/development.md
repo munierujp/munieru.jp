@@ -143,6 +143,24 @@ console.log(result)
 TSDocの本文でタグではない`@`を書く場合は、インラインコードで囲むかエスケープします。
 検査は既存の`npm run lint:eslint`と同じGitHub Actionsで実行します。
 
+### コメントの記載・整合性
+
+`eslint-plugin-jsdoc`はNuxtが使うバージョンと同じ63.3.3を直接の開発用依存として指定します。
+推奨設定全体は重ねず、TS・JS・Vueで次のルールだけを有効にします。
+
+- `require-jsdoc`: 公開する関数・クラスにコメントを要求します。空のコメントの自動生成は無効にします。
+- `check-param-names`: コメントの引数名と実際の関数の引数を照合します。
+- `require-param`・`require-param-description`: コメント付き関数の引数項目と説明を要求します。
+- `require-returns`・`require-returns-description`: 値を返す関数の戻り値の説明を要求します。voidの説明は要求しません。
+- `require-description`: 関数コメントに、タグ以外の目的の説明も要求します。
+
+`settings.jsdoc.mode`は`typescript`です。TSの型注釈をコメントへ二重に書くルールは追加しません。
+構文・タグの検査は既存の`tsdoc/syntax`が担当し、JSDoc側では対応するルールを有効にしません。
+JSの型付きJSDocは引き続き利用できます。
+コメントの新規必須化は公開APIを対象とし、内部の短いコールバックすべてへのコメントは要求しません。
+Vueのscript setup内の関数はESモジュールのexportではないため、公開API向けの記載必須化の対象にはなりませんが、書かれた関数コメントの引数・説明は検査します。
+検査は`npm run lint:eslint`と既存のESLintワークフローで実行します。
+
 ## Secretlint
 
 公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。
