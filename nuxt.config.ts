@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'system',
     fallback: 'light',
-    // 既存の選択値を引き継ぐため、以前と同じ保存キーを使う。
+    // 利用者のテーマ選択を保存するlocalStorageのキー。
     storageKey: 'app-theme'
   },
   icon: {

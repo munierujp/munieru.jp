@@ -61,7 +61,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 
 各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
-Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組みで行います。
+公開はNetlify、依存更新はRenovateで行います。
 
 ## 内容の更新
 
@@ -81,7 +81,6 @@ Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組�
 
 作品の `category` は `web`（ウェブアプリ）・`extension`（Chrome拡張機能）・`library`（ライブラリ）・`cli`（CLI）から指定します。
 公開終了した作品は `publicationEnded: true` にすると「公開終了」（英語では「Discontinued」）を表示し、作品ページへのリンクを外します。
-開発の終了状態を示す項目やラベルは設けていません。
 GitHubリンクはそのまま表示します。作品・書籍・登壇は日付の新しい順に表示します。
 
 作品の`image`に`/work-icons/ファイル名`を指定すると専用アイコンを表示します。
@@ -110,7 +109,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 登壇カード: `app/components/AppTalkCard.vue`
 - 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucide・Simple Iconsを参照します（例: `i-lucide-globe`・`i-simple-icons-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、Iconify名の`icon`または画像のスロットを指定）
-- 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。自作のSVGスプライトは使いません。
+- 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
 - 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードごとの配置は`AppWorkCard.vue`・`AppBookCard.vue`・`AppTalkCard.vue`の`cardUi`から、汎用`AppCard`の`ui`へ渡します。
@@ -124,7 +123,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 `app/pages/index.vue`はセクションの配置とページのメタ情報を担当し、各セクションのコンポーネントがデータの読み込み・翻訳・並び順・操作を管理します。`@nuxtjs/i18n`がこの1ページから日本語・英語のルートを生成します。
 `AppProfile`の名前・プロフィール本文と`AppFooter`の著作権表記は、`i18n/locales/ja.json`・`en.json`で管理します。表示構造は各コンポーネントのテンプレートで編集します。
 `app/layouts/default.vue`がヘッダー・main・フッターを配置します。新しいページは`app/pages/`へ追加し、mainを重複させず本文だけを書きます。共通レイアウトは既定で適用されます。
-作品・書籍・登壇カードは項目ごとに内容が異なるため、引き続きpropsでデータを受け取ります。
+作品・書籍・登壇カードは項目ごとに内容が異なるため、propsでデータを受け取ります。
 
 ## 設定ファイル・コメントの方針
 
@@ -191,7 +190,7 @@ Vue用の公式推奨設定`markuplint:recommended-vue`と`@markuplint/vue-parse
 npm run lint:markuplint
 ```
 
-警告も失敗として扱い、GitHub Actionsの`markuplint.yml`でも実行します。JavaScript・TypeScriptやVueコードのチェックは引き続きESLintが担当します。
+警告も失敗として扱い、GitHub Actionsの`markuplint.yml`でも実行します。JavaScript・TypeScriptやVueコードのチェックはESLintが担当します。
 カスタムコンポーネントを展開した最終HTMLの検証は行いません。
 
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
@@ -211,7 +210,7 @@ npm run lint:lockfile
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
 `app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`・`AppCardUi.ts`がUIの型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
-元データは引き続き`modules/*.json`で編集できます。作品の分類はJSON読み込み時にも検証します。
+元データは`modules/*.json`で編集できます。作品の分類はJSON読み込み時にも検証します。
 
 ```sh
 npm run typecheck
@@ -226,7 +225,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - 日本語版: `/ja/`、英語版: `/en/`。入口の`/`から保存した言語・ブラウザ言語に応じて移動します。ヘッダーの言語切り替えアイコンを押し、`USelectMenu`の選択肢（`日本語`・`English`）から切り替えます。国旗と検索欄は表示しません。
 - プロフィール: `i18n/locales/ja.json`・`en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
-- 作品・書籍・登壇など: 日本語は従来の`modules/*.json`、英語は`i18n/locales/en.json`の同じ`key`にある表示文を更新します。
+- 作品・書籍・登壇など: 日本語は`modules/*.json`、英語は`i18n/locales/en.json`の同じ`key`にある表示文を更新します。
 - URL・日付・画像・並び順は共有します。固有名詞は基本的に元の表記を使い、原題と、必要な参考英訳を表示します。
 - 日付はJSONと`datetime`属性では`YYYY-MM-DD`を使い、表示は日本語で「2026年11月3日」、英語で「Nov 3, 2026」にします。Vue I18nの書式は`i18n/i18n.config.ts`で管理し、日付が端末のタイムゾーンでずれないようUTCに固定しています。
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
@@ -247,7 +246,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 ## 画像の最適化
 
 プロフィール画像・書籍の表紙・登壇資料の表紙は`NuxtPicture`で表示します。
-元画像は`public/`へ置き、従来どおり画像のパスを指定してください。事前の変換は不要です。
+元画像は`public/`へ置き、画像のパスを指定してください。事前の変換は不要です。
 `@nuxt/image`のIPXプロバイダーが、ビルド時に表示幅・1倍/2倍の画面密度に応じたAVIF・WebP画像を`dist/_ipx/`へ生成します。
 AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限定します。圧縮による劣化を抑えるため、品質は両形式とも100です。可逆圧縮を保証する設定ではありません。不要なPNG・JPEGの追加生成を避け、ブラウザは対応する形式を一つ選びます。
 公開後の画像変換サーバーや外部画像サービスは使用しません。
@@ -290,8 +289,8 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。
 保存できない環境ではそのページ内で切り替えます。システム選択時はOS設定の変更にも追従します。別タブで選択されたテーマは再読み込み時に反映します。
-`UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。保存キーは従来と同じ`app-theme`です。自作のテーマスクリプト・DOM同期プラグイン・`window.appTheme`は使いません。
-静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名は日本語で「表示モードを選択」、英語で「Select appearance」に固定し、現在値の判定用の補助処理は設けません。別タブとの即時同期のための独自イベント処理は設けません。
+`UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。保存キーは`app-theme`です。
+静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名は日本語で「表示モードを選択」、英語で「Select appearance」に固定し、現在値の管理は公式コンポーネントへ任せます。
 言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。円形表示の設定は`app/utils/iconSelectUi.ts`で共有します。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
 アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
@@ -311,7 +310,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 ## Nuxt UIの構成
 
 - ボタン・バッジは`UButton`・`UBadge`を直接使い、色・サイズ・形の共通設定は`app/app.config.ts`へ置きます。外部リンクの`to`・`external`・`target`・`rel`は使う場所で指定します。
-- `AppCard`はカードのレイアウトと主リンク・補助リンクの構造を保ち、外枠をライブラリに置き換えています。
+- `AppCard`は画像・本文・補助リンクを配置し、外枠とカード全体の主リンクに`UPageCard`を使います。
 - 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形セレクトです。トリガーの文字・下向き矢印は隠し、選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
 - 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。
 - フォントは端末搭載の書体を使うため自動フォントだけを無効にします。テーマ選択はNuxt UIのColor Mode連携を使い、メニュー用のLucideアイコンはローカルにバンドルします。
@@ -330,7 +329,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### 登壇カードのリンク
 
-スライドの表紙と発表タイトルを主に見せるため、カード全体のリンク先はSpeaker Deckの資料ページです。イベント名（英語の参考訳を含む）はイベントページへの独立したテキストリンクにします。補助リンクを全体リンクより手前に配置し、キーボードでも別々に操作できます。資料へ重複して移動する右側のアイコンは設けません。両方とも別タブで開きます。
+スライドの表紙と発表タイトルを主に見せるため、カード全体のリンク先はSpeaker Deckの資料ページです。イベント名（英語の参考訳を含む）はイベントページへの独立したテキストリンクにします。補助リンクを全体リンクより手前に配置し、キーボードでも別々に操作できます。両方とも別タブで開きます。
 
 ### 一覧セクション
 
@@ -342,11 +341,11 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### カード一覧のグリッド
 
-作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。`app/app.config.ts`の`ui.pageGrid.base`で、カード最小幅30rem・狭い画面で1列・十分な幅で2列となる配置と12pxの間隔を共通管理します。標準の画面幅別の列数指定も上書きし、従来のコンテナー幅に応じた列数を維持します。
+作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。`app/app.config.ts`の`ui.pageGrid.base`で、カード最小幅30rem・狭い画面で1列・十分な幅で2列となる配置と12pxの間隔を共通管理します。標準の画面幅別の列数指定も上書きし、コンテナー幅に応じて列数を決めます。
 
 ### テストの実行単位
 
-`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは今回の対象から外し、[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
+`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ### Node用の型検査設定
 
@@ -356,4 +355,4 @@ Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tool
 - `@tsconfig/node-ts`: NodeでTSを直接実行する際の制約（`erasableSyntaxOnly`・`verbatimModuleSyntax`など）
 - `@tsconfig/strictest`: 配列要素の未存在や未使用変数など、`strict`より厳格なチェック
 
-このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。JS設定の検査・JSON読込・パス対応など、このリポジトリ固有の設定だけを手元に残します。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
+このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。JS設定の検査・JSON読込・パス対応など、このリポジトリ固有の設定を定義します。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。

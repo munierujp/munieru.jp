@@ -40,7 +40,7 @@ const images = [
 ]
 const width = 1200
 const height = 630
-/** ベース画像を持たず、背景色と、日英で共通の文字・画像位置を定義する。 */
+/** 背景色と、日英で共通の文字・画像位置を定義する。 */
 const design = {
   background: '#9CC9DA',
   foreground: '#242824',
