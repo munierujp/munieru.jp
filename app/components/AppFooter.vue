@@ -7,12 +7,12 @@
     <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
     <template #right>
       <AppIconLink
-        :href="xUrl"
+        :href="config.X_URL"
         :label="t('ui.xAccount', { name: t('site.name') })"
         icon="i-simple-icons-x"
       />
       <AppIconLink
-        href="https://github.com/munierujp/munieru.jp"
+        :href="config.REPOSITORY_URL"
         :label="t('ui.siteSourceCode')"
         icon="i-simple-icons-github"
       />
@@ -25,6 +25,6 @@
  * 現在の言語に合わせた著作権表記と、用途を説明するアイコンリンクを表示する。
  */
 const { locale, t } = useSiteLocale()
-/** 公開設定で生成したXアカウントのURL。 */
-const xUrl = useRuntimeConfig().public.siteConfig.X_URL
+/** Xアカウントとサイトのソースコードを案内する公開設定。 */
+const config = useRuntimeConfig().public.siteConfig
 </script>

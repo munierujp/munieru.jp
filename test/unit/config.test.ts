@@ -23,9 +23,11 @@ test('サブディレクトリ配信の設定を正規化する', () => {
 })
 
 test('既定の公開設定を環境変数で上書きする', () => {
-  const config = loadConfig({ ORIGIN: 'https://env.example/', X_ID: '@example' })
+  const config = loadConfig({ ORIGIN: 'https://env.example/', X_ID: '@example', REPOSITORY_URL: 'https://github.com/example/site' })
   assert.equal(config.BASE_URL, 'https://env.example/')
   assert.equal(config.X_ID, '@example')
+  assert.equal(config.REPOSITORY_URL, 'https://github.com/example/site')
+  assert.equal(loadConfig({}).REPOSITORY_URL, 'https://github.com/munierujp/munieru.jp')
   assert.equal(config.X_URL, 'https://x.com/example')
   assert.equal(loadConfig({ X_ID: 'example' }).X_URL, 'https://x.com/example')
   assert.equal(loadConfig({}).X_URL, 'https://x.com/munieru_jp')

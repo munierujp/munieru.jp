@@ -166,6 +166,7 @@ npm run lint:lockfile-lint
 - `BASE_DIR`: 公開パス。既定は `/`。サブディレクトリなら `/portfolio/` など
 - `OG_IMAGE_PATH`: 日本語版・ルート入口のOGP画像のパス。公開パスからの相対指定か絶対URL
 - `OG_IMAGE_PATH_EN`: 英語版のOGP画像のパス。公開パスからの相対指定か絶対URL
+- `REPOSITORY_URL`: フッターから案内するサイトのソースコードURL
 - `X_ID`: Xアカウント名。`loadConfig()`でフッター用の`X_URL`も生成します（先頭の`@`は除去）。`X_URL`自体は環境変数で上書きしません。
 
 支援URLは`modules/support.json`だけで管理し、環境変数での上書きは行いません。

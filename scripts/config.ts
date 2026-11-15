@@ -10,6 +10,8 @@ export const root = fileURLToPath(new URL('../', import.meta.url))
 const defaults = {
   /** 公開先のサブディレクトリ。ルート配信は /。 */
   BASE_DIR: '/',
+  /** フッターから案内する、このサイトのソースコードURL。 */
+  REPOSITORY_URL: 'https://github.com/munierujp/munieru.jp',
   /** 共有カードに設定するXアカウント名。先頭の@は省略可能。 */
   X_ID: 'munieru_jp',
   /** publicを基準とする日本語OGP画像のパス。 */
