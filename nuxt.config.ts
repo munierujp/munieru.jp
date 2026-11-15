@@ -91,7 +91,7 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: ja.description },
         { name: 'author', content: authorName },
-        { name: 'color-scheme', content: 'light dark', tagPriority: -15 },
+        { name: 'color-scheme', content: 'light dark' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: siteName },
         { property: 'og:description', content: ja.description },
