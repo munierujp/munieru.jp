@@ -21,7 +21,7 @@ export const links = [
   {
     title: 'mixi2',
     url: 'https://mixi.social/@munieru',
-    image: '/service-icons/mixi2.ico'
+    image: '/service-icons/mixi2.png'
   },
   {
     title: 'Twilog',
@@ -36,12 +36,12 @@ export const links = [
   {
     title: 'note',
     url: 'https://note.com/munieru_jp/',
-    image: '/service-icons/note.ico'
+    image: '/service-icons/note.png'
   },
   {
     title: 'はてなブックマーク',
     url: 'https://b.hatena.ne.jp/munieru_jp/',
-    image: '/service-icons/hatena-bookmark.ico'
+    image: '/service-icons/hatena-bookmark.png'
   },
   {
     title: 'GitHub',
@@ -51,7 +51,7 @@ export const links = [
   {
     title: 'Qiita',
     url: 'https://qiita.com/munieru_jp',
-    image: '/service-icons/qiita.ico'
+    image: '/service-icons/qiita.png'
   },
   {
     title: 'Zenn',
@@ -66,27 +66,27 @@ export const links = [
   {
     title: 'Speaker Deck',
     url: 'https://speakerdeck.com/munieru_jp',
-    image: '/service-icons/speaker-deck.ico'
+    image: '/service-icons/speaker-deck.png'
   },
   {
     title: 'ブクログ',
     url: 'https://booklog.jp/users/munierujp',
-    image: '/service-icons/booklog.ico'
+    image: '/service-icons/booklog.png'
   },
   {
     title: '映画.com',
     url: 'https://eiga.com/user/861618/',
-    image: '/service-icons/eiga.ico'
+    image: '/service-icons/eiga.png'
   },
   {
     title: 'シネファボ',
     url: 'https://cinefav.com/user_page/86',
-    image: '/service-icons/cinefav.ico'
+    image: '/service-icons/cinefav.png'
   },
   {
     title: '食べログ',
     url: 'https://tabelog.com/rvwr/munieru/',
-    image: '/service-icons/tabelog.ico'
+    image: '/service-icons/tabelog.png'
   },
   {
     title: 'ボドゲーマ',
@@ -96,11 +96,11 @@ export const links = [
   {
     title: 'pixiv',
     url: 'https://pixiv.me/munieru_jp',
-    image: '/service-icons/pixiv.ico'
+    image: '/service-icons/pixiv.png'
   },
   {
     title: 'Wikipedia',
     url: 'https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru',
-    image: '/service-icons/wikipedia.ico'
+    image: '/service-icons/wikipedia.png'
   }
 ] satisfies ServiceLink[]

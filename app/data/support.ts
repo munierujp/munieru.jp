@@ -13,13 +13,13 @@ export const supportLinks = [
     key: 'paypal',
     title: 'PayPal',
     url: 'https://www.paypal.me/munieru',
-    image: '/service-icons/paypal.ico'
+    image: '/service-icons/paypal.png'
   },
   {
     key: 'wish-list',
     title: 'ほしい物リスト',
     url: 'http://amzn.asia/9qD1BsF',
-    image: '/service-icons/amazon.ico'
+    image: '/service-icons/amazon.png'
   },
   {
     key: 'giftee',

@@ -21,7 +21,7 @@
 - 作品: `app/data/works.ts`
 - 書籍: `app/data/books.ts`（`imageWidth`・`imageHeight`に表紙の元画像の幅・高さをpx単位で指定）
 - 登壇: `app/data/talks.ts`（`url`が発表資料、`eventUrl`がイベントページ）
-- 画像など: `public/`
+- 画像など: `public/`。サービスアイコンのICOは最大解像度をPNG化して置きます（[画像の説明](../public/service-icons/README.md)）
 
 作品の `category` は `web`（ウェブアプリ）・`extension`（Chrome拡張機能）・`library`（ライブラリ）・`cli`（CLI）から指定します。
 公開終了した作品は `publicationEnded: true` にすると「公開終了」（英語では「Discontinued」）を表示し、作品ページへのリンクを外します。
