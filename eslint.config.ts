@@ -26,14 +26,9 @@ export default withNuxt(
     files: ['**/*.{js,mjs,cjs}']
   },
   {
-    ...jsdoc.configs['flat/recommended-typescript-error'],
-    name: 'app/jsdoc-typescript',
-    files: ['**/*.{ts,mts,cts,vue}'],
-    rules: {
-      ...jsdoc.configs['flat/recommended-typescript-error'].rules,
-      // TSDocの@throwsは例外の型注釈を要求しないため、説明だけの記法を許可する。
-      'jsdoc/require-throws-type': 'off'
-    }
+    ...jsdoc.configs['flat/recommended-tsdoc-error'],
+    name: 'app/jsdoc-tsdoc',
+    files: ['**/*.{ts,mts,cts,vue}']
   },
   {
     name: 'app/homepage-fragment',

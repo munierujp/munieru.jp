@@ -142,10 +142,10 @@ TSDocの本文でタグではない`@`を書く場合は、インラインコー
 ### コメントの記載・整合性
 
 `eslint-plugin-jsdoc`はNuxtが使うバージョンと同じ63.3.3を直接の開発用依存として指定します。
-JS（`.js`・`.mjs`・`.cjs`）には`flat/recommended-error`、TS（`.ts`・`.mts`・`.cts`）とVueには`flat/recommended-typescript-error`を適用します。
+JS（`.js`・`.mjs`・`.cjs`）には`flat/recommended-error`、TS（`.ts`・`.mts`・`.cts`）とVueには`flat/recommended-tsdoc-error`を適用します。
 コメントの引数名・説明・戻り値の整合性や、タグ・型の記法などを推奨設定に従って検査します。
 関数へのコメントの記載必須化も推奨設定に従い、関数宣言が対象になります。公開APIだけに限定する独自設定は設けません。
-TS・VueではTSDocの`@throws`に型注釈を要求しないため、`jsdoc/require-throws-type`のみ無効にします。
+TSDoc向けの推奨設定が、TSDocにない型注釈を要求する`require-throws-type`・`require-yields-type`・`require-next-type`を無効にします。個別のルール上書きは設けません。
 TSDoc固有の構文は引き続き`tsdoc/syntax`で検査し、JSでは型付きJSDocを利用できます。
 検査は`npm run lint:eslint`と既存のESLintワークフローで実行します。
 
