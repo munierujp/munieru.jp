@@ -42,9 +42,6 @@ export function useSiteSeo (): void {
   useHead(() => ({
     ...localeHead.value,
     htmlAttrs: { ...localeHead.value.htmlAttrs, lang: locale.value },
-    link: (localeHead.value.link || []).map(link => 'hreflang' in link && link.hreflang === 'x-default'
-      ? { ...link, href: config.BASE_URL }
-      : link),
     // 画面に掲載したプロフィールと公開アカウントを、検索エンジンにも伝える。
     script: [{
       // 共通設定のWebSiteを同じキーで上書きし、表示言語のサイト名を主にする。
