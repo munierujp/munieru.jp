@@ -10,6 +10,8 @@ import en from './i18n/locales/en.json' with { type: 'json' }
 const config = loadConfig()
 // ページとOGP画像の生成で、同じ翻訳辞書のサイト名を参照する。
 const site = ja.site
+/** 言語別ページの初期値となる、日本語OGP画像の代替テキスト。 */
+const shareImageAlt = `${site.title} / ${config.BASE_URL}`
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
 export default defineNuxtConfig({
@@ -100,11 +102,11 @@ export default defineNuxtConfig({
         { property: 'og:image', content: new URL(config.OG_IMAGE_PATH, config.BASE_URL).href },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: ja.ui.ogImageAlt },
+        { property: 'og:image:alt', content: shareImageAlt },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@' + config.X_ID.replace(/^@/, '') },
         { name: 'twitter:creator', content: '@' + config.X_ID.replace(/^@/, '') },
-        { name: 'twitter:image:alt', content: ja.ui.ogImageAlt }
+        { name: 'twitter:image:alt', content: shareImageAlt }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: asset('favicon.ico') },

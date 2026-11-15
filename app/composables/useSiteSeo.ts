@@ -22,6 +22,8 @@ export function useSiteSeo (): void {
   const pageTitle = computed(() => t('site.title'))
   /** 共有元ページの言語に対応するOGP画像の絶対URL。クローラー向けの静的HTMLにも出力する。 */
   const shareImage = computed(() => new URL(isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH, config.BASE_URL).href)
+  /** OGP画像内のサイト名とURL。翻訳・公開先の変更を代替テキストにも反映する。 */
+  const shareImageAlt = computed(() => `${pageTitle.value} / ${config.BASE_URL}`)
   // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
   useSeoMeta({
     title: () => pageTitle.value,
@@ -31,11 +33,11 @@ export function useSiteSeo (): void {
     ogSiteName: () => pageTitle.value,
     ogDescription: () => t('description'),
     ogImage: () => shareImage.value,
-    ogImageAlt: () => t('ui.ogImageAlt'),
+    ogImageAlt: () => shareImageAlt.value,
     twitterTitle: () => pageTitle.value,
     twitterDescription: () => t('description'),
     twitterImage: () => shareImage.value,
-    twitterImageAlt: () => t('ui.ogImageAlt')
+    twitterImageAlt: () => shareImageAlt.value
   })
   useHead(() => ({
     ...localeHead.value,
