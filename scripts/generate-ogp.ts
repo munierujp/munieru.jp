@@ -122,9 +122,9 @@ function drawLine (context: CanvasRenderingContext2D, line: TextLine, left: numb
 /**
  * サイト名・URL・プロフィール画像を描画し、OGP画像1枚をPNGで保存する。
  * @param site - 現在の言語の名前とサイト名。
- * @param imagePath - public配下への出力先パス。
+ * @param imagePath - loadConfigで検証済みの、public配下への相対出力パス。
  * @param portrait - 日英で共有する読み込み済みのプロフィール画像。
- * @throws サイト名・出力先・文字の配置範囲が不正な場合。
+ * @throws サイト名・文字の配置範囲が不正な場合。
  */
 async function generateOgp (site: Pick<typeof ja.site, 'name' | 'title'>, imagePath: string, portrait: Image): Promise<void> {
   // サイト名を主名義と残りの部分に分け、名前とOFFICIAL SITEの2行に分ける。
@@ -133,10 +133,7 @@ async function generateOgp (site: Pick<typeof ja.site, 'name' | 'title'>, imageP
     throw new Error(`OGPの2行表示には、主名義に続くサイト名が必要です: ${site.title}`)
   }
   const subtitle = site.title.slice(site.name.length).trim()
-  const output = new URL(imagePath.replace(/^\/+/, ''), new URL('public/', root))
-  if (!output.href.startsWith(new URL('public/', root).href)) {
-    throw new Error(`OGPの出力先はpublic内の相対パスを指定してください: ${imagePath}`)
-  }
+  const output = new URL(imagePath, new URL('public/', root))
   const canvas = createCanvas(width, height)
   const context = canvas.getContext('2d')
   context.imageSmoothingEnabled = true

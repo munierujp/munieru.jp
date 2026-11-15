@@ -176,10 +176,12 @@ npm run lint:lockfile-lint
 
 - `ORIGIN`: 公開サイトのオリジン。既定は `https://munieru.jp/`
 - `BASE_DIR`: 公開パス。既定は `/`。サブディレクトリなら `/portfolio/` など
-- `OG_IMAGE_PATH`: 日本語版・ルート入口のOGP画像のパス。公開パスからの相対指定か絶対URL
-- `OG_IMAGE_PATH_EN`: 英語版のOGP画像のパス。公開パスからの相対指定か絶対URL
+- `OG_IMAGE_PATH`: 日本語版・ルート入口のOGP画像。`public`配下の相対パス（既定: `ogp.png`）
+- `OG_IMAGE_PATH_EN`: 英語版のOGP画像。`public`配下の相対パス（既定: `en/ogp.png`）
 - `REPOSITORY_URL`: フッターから案内するサイトのソースコードURL
 - `X_ID`: Xアカウント名。`loadConfig()`でフッター用の`X_URL`も生成します（先頭の`@`は除去）。`X_URL`自体は環境変数で上書きしません。
+
+OGP画像パスには先頭の`/`・絶対URL・`.`や`..`の階層指定・空の階層・クエリ・フラグメント・バックスラッシュ・`%`や`:`を含めません。ファイル名はURLエンコードせずに指定します。サイトの画像URLとOGP生成先で同じ値を使い、不正な値は`loadConfig()`で拒否します。
 
 支援URLは`app/data/support.ts`だけで管理し、環境変数での上書きは行いません。
 公開用設定に秘密情報を追加しないでください。

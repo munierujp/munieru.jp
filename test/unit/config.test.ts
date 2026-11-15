@@ -20,6 +20,7 @@ test('サブディレクトリ配信の設定を正規化する', () => {
   const config = loadConfig({ BASE_DIR: '/portfolio', ORIGIN: 'https://example.com/' })
   assert.equal(config.BASE_DIR, '/portfolio/')
   assert.equal(config.BASE_URL, 'https://example.com/portfolio/')
+  assert.equal(new URL(config.OG_IMAGE_PATH_EN, config.BASE_URL).href, 'https://example.com/portfolio/en/ogp.png')
 })
 
 test('既定の公開設定を環境変数で上書きする', () => {
@@ -36,4 +37,11 @@ test('既定の公開設定を環境変数で上書きする', () => {
 test('不正な公開設定を黙って無視せず失敗させる', () => {
   assert.throws(() => loadConfig({ ORIGIN: 'javascript:alert(1)' }), /ORIGIN/)
   assert.throws(() => loadConfig({ BASE_DIR: 'https://example.com/' }), /BASE_DIR/)
+  for (const key of ['OG_IMAGE_PATH', 'OG_IMAGE_PATH_EN'] as const) {
+    const valid = loadConfig({ [key]: 'images/ogp.png' })
+    assert.equal(valid[key], 'images/ogp.png')
+    for (const path of ['', '/ogp.png', '//example.com/ogp.png', 'https://example.com/ogp.png', '../ogp.png', 'en/../ogp.png', './ogp.png', 'en//ogp.png', 'en/', 'ogp.png?v=1', 'ogp.png#image', 'en\\ogp.png', '%2e%2e/ogp.png', ' ogp.png']) {
+      assert.throws(() => loadConfig({ [key]: path }), new RegExp(key))
+    }
+  }
 })
