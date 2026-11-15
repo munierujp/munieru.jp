@@ -59,27 +59,11 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 - `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
 - `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
-- `.github/workflows/lighthouse.yml`: 静的ビルドの日英トップをモバイル条件で各3回計測し、スコアと詳細レポートを保存
 - `.github/workflows/test.yml`: ビルド不要の単体テスト→Nuxtの準備・静的ビルド→成果物の結合テスト
 
 各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
 Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組みで行います。
-
-
-### Lighthouseの計測
-
-`lighthouse.yml`はスコアの下限を設けず、Performance・Accessibility・Best Practices・SEOを記録します。Actionsのサマリーには各3回のカテゴリ別中央値を表示し、全6回のHTML・JSONレポートは`lighthouse-reports`という成果物に14日間保存します。外部公開ストレージへのアップロードやPRコメントの投稿は行いません。低スコアでは失敗しませんが、ビルド・計測・集計のエラーは失敗します。
-
-```sh
-npm run build
-npm run lighthouse
-npm run lighthouse:summary
-```
-
-ローカルではGoogle Chromeが必要です。自動検出できない場合は`CHROME_PATH`に実行ファイルのパスを指定してください。`lighthouserc.js`で計測URL・回数・条件を定義します。専用ローダーはTSに対応しないため、Node 26の`require(ESM)`で読み込めるJSの名前付きエクスポートを使い、`@ts-check`とLighthouseの型で計測条件を検査します。`scripts/lighthouse-summary.ts`が集計を担当します。
-
-結果はCI環境でのシミュレーション値であり、実ユーザーの表示速度やNetlifyのネットワーク性能を測るものではありません。環境・実行ごとに変動するため、同じ条件で傾向を比較します。
 
 ## 内容の更新
 
@@ -235,7 +219,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlint・Lighthouse CIの設定は、`@ts-check`付きのJSを使います。
+`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
 
 ## 日本語・英語の更新
 
@@ -362,7 +346,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### テストの実行単位
 
-`npm test`（`npm run test:unit`）は`test/unit/`の7件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合と、Lighthouseの集計を検証します。生成HTML・画像・配信サーバーの14件は`test/integration/`へ分け、`npm run build`後に`npm run test:integration`で実行します。CIはこの順序で各検証を一度ずつ実行します。
+`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの14件は`test/integration/`へ分け、`npm run build`後に`npm run test:integration`で実行します。CIはこの順序で各検証を一度ずつ実行します。
 
 ### Node用の型検査設定
 

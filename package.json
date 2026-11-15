@@ -20,11 +20,7 @@
     "lint:eslint": "eslint . --max-warnings=0",
     "lint:lockfile": "lockfile-lint",
     "test:unit": "node --test test/unit/*.test.ts",
-    "test:integration": "node --test test/integration/*.test.ts",
-    "lighthouse": "run-s lighthouse:collect lighthouse:upload",
-    "lighthouse:collect": "lhci collect",
-    "lighthouse:upload": "lhci upload",
-    "lighthouse:summary": "node scripts/lighthouse-summary.ts"
+    "test:integration": "node --test test/integration/*.test.ts"
   },
   "engines": {
     "node": "26.6.0"
@@ -43,7 +39,6 @@
   "devDependencies": {
     "@iconify-json/lucide": "1.2.151",
     "@iconify-json/simple-icons": "1.2.101",
-    "@lhci/cli": "0.16.0",
     "@markuplint/ml-config": "5.4.0",
     "@markuplint/vue-parser": "5.4.0",
     "@markuplint/vue-spec": "5.4.0",

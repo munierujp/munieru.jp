@@ -18,7 +18,6 @@
     "eslint.config.ts",
     "stylelint.config.ts",
     "markuplint.config.ts",
-    ".secretlintrc.js",
-    "lighthouserc.js"
+    ".secretlintrc.js"
   ]
 }

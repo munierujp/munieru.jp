@@ -82,7 +82,3 @@ dist
 
 # IDE
 .idea
-
-# Lighthouse CIの計測結果（CIでは成果物として保存する）
-.lighthouseci/
-lighthouse-reports/
