@@ -15,7 +15,7 @@
 /**
  * 寄稿書籍を読み込み、翻訳して日付の新しい順に表示する。
  */
-import type { Book } from '~/types/content'
+import type { Book } from '~/types/Book'
 import { computed } from 'vue'
 import booksData from '~~/modules/books.json'
 

@@ -38,7 +38,7 @@
  * JSONにURLのある支援先だけを、独立したセクションに表示する。
  */
 import { computed, useId } from 'vue'
-import type { SupportLink } from '~/types/content'
+import type { SupportLink } from '~/types/SupportLink'
 import supportData from '~~/modules/support.json'
 
 // 同じコンポーネントを複数配置しても見出しIDが重複しないようにする。

@@ -15,7 +15,7 @@
 /**
  * 登壇情報を読み込み、翻訳して日付の新しい順に表示する。
  */
-import type { Talk } from '~/types/content'
+import type { Talk } from '~/types/Talk'
 import { computed } from 'vue'
 import talkData from '~~/modules/talks.json'
 

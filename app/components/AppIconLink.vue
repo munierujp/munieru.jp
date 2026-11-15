@@ -22,7 +22,7 @@
  * アイコンだけの外部リンクに、読み上げ名とNuxt UIのツールチップを付ける。
  * @remarks 説明はホバー・キーボードフォーカスで表示し、リンクの読み上げ名はaria-labelで保持する。
  */
-import type { IconName } from '~/types/ui'
+import type { IconName } from '~/types/IconName'
 // アイコン集の名前はiconで指定し、画像などはデフォルトスロットへ渡す。
 // スロットに画像を渡す場合、リンクのlabelと重複しないようaltは空にする。
 defineProps<{

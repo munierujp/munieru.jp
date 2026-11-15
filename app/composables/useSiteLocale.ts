@@ -3,7 +3,7 @@
  */
 import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
-import type { LocalizedContent } from '~/types/content'
+import type { LocalizedContent } from '~/types/LocalizedContent'
 
 /** Nuxt I18nが提供する翻訳関数・言語状態の型。 */
 type SiteI18n = ReturnType<typeof useI18n>

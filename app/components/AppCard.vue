@@ -34,7 +34,7 @@
  * @remarks 全体リンクはUPageCardに任せ、画像・分類・状態・補助リンクは名前付きスロットで受け取る。
  * @remarks hrefが空の公開終了作品は主リンクを作らず、見出しのh3と言語属性は維持する。
  */
-import type { AppCardUi } from '~/types/ui'
+import type { AppCardUi } from '~/types/AppCardUi'
 
 withDefaults(defineProps<{
   /** カードや一覧に表示する名称。 */

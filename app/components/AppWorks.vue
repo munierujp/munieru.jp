@@ -17,7 +17,7 @@
  */
 import { computed } from 'vue'
 import workData from '~~/modules/works.json'
-import type { Work } from '~/types/content'
+import type { Work } from '~/types/Work'
 
 // 作品の翻訳・日付順への整列をこのセクションで管理する。
 const { t, localize } = useSiteLocale()

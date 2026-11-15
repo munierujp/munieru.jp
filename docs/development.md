@@ -110,7 +110,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 登壇カード: `app/components/AppTalkCard.vue`
 - 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucide・Simple Iconsを参照します（例: `i-lucide-globe`・`i-simple-icons-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`と、Iconify名の`icon`または画像のスロットを指定）
-- 動的に選ぶアイコン名の型: `app/types/ui.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。自作のSVGスプライトは使いません。
+- 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。自作のSVGスプライトは使いません。
 - ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
 - 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードごとの配置は`AppWorkCard.vue`・`AppBookCard.vue`・`AppTalkCard.vue`の`cardUi`から、汎用`AppCard`の`ui`へ渡します。
@@ -210,7 +210,7 @@ npm run lint:lockfile
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
-`app/types/content.ts`が一覧データとカードへ渡すデータの型、`app/types/ui.ts`がアイコン名・カード配置設定の型を定義します。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
+`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`・`AppCardUi.ts`がUIの型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
 元データは引き続き`modules/*.json`で編集できます。作品の分類はJSON読み込み時にも検証します。
 
 ```sh

@@ -27,7 +27,7 @@
 /**
  * 技術名とローカルのアイコンを、リンクではない一覧として表示する。
  */
-import type { Skill } from '~/types/content'
+import type { Skill } from '~/types/Skill'
 import { computed } from 'vue'
 import skillsData from '~~/modules/skills.json'
 

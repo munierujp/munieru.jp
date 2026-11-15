@@ -30,7 +30,7 @@
 /**
  * 公開アカウントへのリンクを、ローカルのサービスアイコンとともに表示する。
  */
-import type { ServiceLink } from '~/types/content'
+import type { ServiceLink } from '~/types/ServiceLink'
 import linksData from '~~/modules/links.json'
 
 // サービス名・URL・画像・並び順は日英で共有し、原表記を維持する。

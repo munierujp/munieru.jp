@@ -56,8 +56,9 @@ v-if="work.image && !imageFailed"
 /**
  * 作品の分類・公開状態・専用アイコン・GitHubリンクを組み合わせる。
  */
-import type { Work } from '~/types/content'
-import type { AppCardUi, IconName } from '~/types/ui'
+import type { Work } from '~/types/Work'
+import type { AppCardUi } from '~/types/AppCardUi'
+import type { IconName } from '~/types/IconName'
 import { computed, ref } from 'vue'
 
 // 作品固有の分類・公開終了表示・GitHubリンクを組み合わせる。

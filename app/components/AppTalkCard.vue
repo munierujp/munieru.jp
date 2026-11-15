@@ -51,8 +51,8 @@
 /**
  * 登壇の原題・表紙・資料への主リンクと、独立したイベント名のリンクを表示する。
  */
-import type { Talk } from '~/types/content'
-import type { AppCardUi } from '~/types/ui'
+import type { Talk } from '~/types/Talk'
+import type { AppCardUi } from '~/types/AppCardUi'
 
 // 表紙・タイトルを含むカード全体から発表資料を開き、イベント名から開催情報を開く。
 defineProps<{
