@@ -30,7 +30,7 @@ export const works = [
     description: '回文を作って共有できるサービス',
     date: '2018-12-21',
     url: 'http://kaibunmaker.com',
-    github: 'https://github.com/munierujp/kaibunmaker',
+    github: 'https://github.com/kaibunmaker/kaibunmaker',
     category: 'web',
     image: '/work-icons/kaibunmaker.png'
   },
