@@ -9,6 +9,11 @@ export const serviceLinks: ServiceLink[] = [
     image: '/service-icons/x.png'
   },
   {
+    title: 'Twilog',
+    url: 'https://twilog.togetter.com/munieru_jp',
+    image: '/service-icons/twilog.jpg'
+  },
+  {
     title: 'Mastodon',
     url: 'https://mstdn.jp/@munieru_jp',
     image: '/service-icons/mastodon.png'
@@ -22,11 +27,6 @@ export const serviceLinks: ServiceLink[] = [
     title: 'mixi2',
     url: 'https://mixi.social/@munieru',
     image: '/service-icons/mixi2.png'
-  },
-  {
-    title: 'Twilog',
-    url: 'https://twilog.togetter.com/munieru_jp',
-    image: '/service-icons/twilog.jpg'
   },
   {
     title: 'はてなブログ',
