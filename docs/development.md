@@ -42,11 +42,12 @@ Vue・CSS・データを保存すると、開発画面に反映されます。
 npm run lint
 npm run typecheck
 npm test
-npm run build
+npm run generate
 npm start
 ```
 
-`npm run build`は`nuxt generate`で静的サイトを生成します。
+`npm run build`は`nuxt build`、`npm run generate`は`nuxt generate`を実行します。
+Netlifyへの静的公開とローカルプレビューには、事前描画する`npm run generate`を使います。
 公開するファイルは `dist/` に出力します。Netlifyにも同じコマンド・出力先を `netlify.toml` で指定しています。
 本番用のNodeサーバーやAPIは不要です。
 

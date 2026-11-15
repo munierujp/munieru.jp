@@ -5,7 +5,8 @@
   "author": "Munieru",
   "private": true,
   "scripts": {
-    "build": "nuxt generate",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
     "generate:ogp": "node scripts/generate-ogp.ts",
     "dev": "nuxt dev",
     "start": "node scripts/preview.ts",

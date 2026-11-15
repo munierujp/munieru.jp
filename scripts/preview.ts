@@ -10,7 +10,7 @@ import { loadConfig, root } from './config.ts'
 
 const config = loadConfig()
 const output = join(root, 'dist')
-if (!existsSync(join(output, 'index.html'))) throw new Error('先に npm run build を実行してください。')
+if (!existsSync(join(output, 'index.html'))) throw new Error('先に npm run generate を実行してください。')
 /** 静的ファイルの拡張子に対応するContent-Type。不明な種類はバイナリとして扱う。 */
 const types: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
