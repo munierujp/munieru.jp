@@ -55,6 +55,18 @@ Netlifyへの静的公開とローカルプレビューには、事前描画す�
 URLは `http://127.0.0.1:4173/` です。ポートは `PORT=4174 npm start` などで変更できます。
 既定では外部へ公開しません。
 
+### Netlify CLIでの確認
+
+`npm run preview` は、`netlify.toml` のビルド設定を使って静的サイトを生成し、
+`http://localhost:4175/` で配信します。別のポートでは `npm run preview -- --port 4181` を使います。
+`--offline` を指定しているため、Netlifyへのログインやデプロイは行いません。
+変更は自動反映されないため、更新後は再起動してください。CLIの状態とキャッシュは `.netlify/` に保存されます。
+
+検証したNetlify CLI 27.16.2では、生成した `_redirects` の転送がローカルで適用されず、
+未定義URLが404になりました。通常ページの確認には使用できますが、
+転送も確認する場合は従来の `npm start`、またはNetlifyのDeploy Previewを使用してください。
+この違いが解消されるまでは、既存のプレビューサーバーを残しています。
+
 ## GitHub Actions
 
 PR・既定ブランチ（master）へのpush・手動実行で、以下のチェックをそれぞれ実行します。

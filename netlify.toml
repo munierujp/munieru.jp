@@ -1,3 +1,7 @@
 [build]
 command = "npm run generate"
 publish = "dist"
+
+# ローカルプレビューの起動時にブラウザを自動で開かない。
+[dev]
+autoLaunch = false
