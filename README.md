@@ -37,3 +37,5 @@ npm run dev
 - [開発・検証ガイド](docs/development.md): 環境構築、ビルド、テスト、リンター、GitHub Actions、公開設定
 - [UI・設計ガイド](docs/design.md): ページ・コンポーネントの構成、表示・操作、フォント、画像、メタ情報
 - [OGP画像の生成](docs/ogp.md): 素材、フォント、再生成手順
+
+画像の取得元は、[サービスアイコン](docs/service-icons.md)、[スキルアイコン](docs/skill-icons.md)、[作品アイコン](docs/work-icons.md)、[書籍の表紙](docs/book-covers.md)、[登壇資料の表紙](docs/talk-covers.md)に記録しています。

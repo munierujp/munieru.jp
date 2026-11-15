@@ -1,5 +1,7 @@
 # 作品アイコン
 
+画像の配置先は`public/work-icons/`です。以下のファイル名は、このディレクトリ内のものです。
+
 各作品の公式リポジトリにある既存画像を、2026-11-12に取得しました。画像の内容は変更していません。
 
 | 作品 | ファイル | 取得元 | 元ファイルのGit blob SHA |
@@ -16,4 +18,4 @@
 | 命の砂時計 | `inochi-no-sunadokei.png` | [元画像](https://github.com/munierujp/inochi-no-sunadokei/blob/main/dist/assets/icon-192.png) | `14f9719d6db4aaab77803d2a8c12402dc72d3a0c` |
 | npm-update-package | `npm-update-package.png` | [元画像](https://github.com/npm-update-package/icon/blob/main/icon.png) | `e9283610d002b3f2f00e79b130701e2b39c52e5a` |
 
-npm-update-packageのアイコンはMIT Licenseです。著作権・許諾表示は`LICENSE.npm-update-package.txt`に保存しています。
+npm-update-packageのアイコンはMIT Licenseです。著作権・許諾表示は[LICENSE.npm-update-package.txt](../public/work-icons/LICENSE.npm-update-package.txt)に保存しています。

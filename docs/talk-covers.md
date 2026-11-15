@@ -1,5 +1,7 @@
 # 登壇資料の表紙
 
+画像の配置先は`public/talk-covers/`です。以下のファイル名は、このディレクトリ内のものです。
+
 本人のSpeaker Deck資料の表紙画像を保存しています。
 
 - `nuxt-3-with-element-plus.jpg`

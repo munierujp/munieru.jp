@@ -1,8 +1,10 @@
 # Skill icons
 
+画像の配置先は`public/skill-icons/`です。以下のファイル名は、このディレクトリ内のものです。
+
 Devicon icons: https://github.com/devicons/devicon
 Revision: `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6`
-License: MIT; see `LICENSE.devicon.txt`.
+License: MIT; see [LICENSE.devicon.txt](../public/skill-icons/LICENSE.devicon.txt).
 Google Apps Script icon: Google product image.
 
 - Chrome拡張機能: https://raw.githubusercontent.com/devicons/devicon/32fe1d3b3f36ad11f90ab94f7db59738139c2bf6/icons/chrome/chrome-original.svg
