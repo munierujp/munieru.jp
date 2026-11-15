@@ -28,7 +28,7 @@ npm run prepare
 npm run dev
 ```
 
-`http://127.0.0.1:3000/` で確認できます。
+`http://localhost:3000/` で確認できます。
 Vue・CSS・データを保存すると、開発画面に反映されます。
 別のポートを使う場合は `npm run dev -- --port 3001` などで指定します。
 

@@ -28,7 +28,7 @@ npm run prepare
 npm run dev
 ```
 
-開発サーバーは [http://127.0.0.1:3000/](http://127.0.0.1:3000/) です。
+開発サーバーは [http://localhost:3000/](http://localhost:3000/) です。
 
 ## ドキュメント
 
