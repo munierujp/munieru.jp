@@ -29,11 +29,6 @@ export const serviceLinks: ServiceLink[] = [
     image: '/service-icons/mixi2.png'
   },
   {
-    title: 'はてなブログ',
-    url: 'https://blog.munieru.jp/',
-    image: '/service-icons/blog.png'
-  },
-  {
     title: 'はてなブックマーク',
     url: 'https://b.hatena.ne.jp/munieru_jp/',
     image: '/service-icons/hatena-bookmark.png'

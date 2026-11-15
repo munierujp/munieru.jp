@@ -1,5 +1,6 @@
 <template>
   <AppProfile />
+  <AppBlog />
   <AppLinks />
   <AppSkills />
   <AppWorks />

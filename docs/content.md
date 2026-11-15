@@ -1,6 +1,6 @@
 # 内容の更新ガイド
 
-プロフィール、リンク、スキル、作品、書籍、登壇と、日本語・英語の更新先をまとめます。
+プロフィール、ブログ、リンク、スキル、作品、書籍、登壇と、日本語・英語の更新先をまとめます。
 記載するソースパスとコマンドの実行場所は、リポジトリのルートを基準とします。
 
 ## 内容の更新
@@ -11,6 +11,7 @@
 - 著作権表記の文面: `i18n/locales/ja.json`・`en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
 - サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
+- ブログ名・URL・アイコン: `app/data/blog.ts`。独立したブログセクションに表示し、英語版でも原表記のブログ名を使います
 - SNS・各サービス: `app/data/serviceLinks.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
 - 活動への支援先: `app/data/supportLinks.ts`（URL・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。URLは必須とし、掲載をやめる場合は該当項目を削除
 - スキル: `app/data/skills.ts`
