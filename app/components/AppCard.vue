@@ -38,7 +38,8 @@
  */
 import type { AppCardUi } from '~/types/AppCardUi'
 
-withDefaults(defineProps<{
+/** 共通カードの主リンク・見出し・配置に必要な入力。 */
+interface Props {
   /** カードや一覧に表示する名称。 */
   title: string
   /** 外部の主リンク。省略時はカード全体をリンクにしない。 */
@@ -49,5 +50,7 @@ withDefaults(defineProps<{
   linkLabel?: string
   /** 用途を決めず、呼び出し側が内容に応じて指定する配置クラス。 */
   ui?: AppCardUi
-}>(), { href: '', titleLang: '', linkLabel: '', ui: () => ({}) })
+}
+
+withDefaults(defineProps<Props>(), { href: '', titleLang: '', linkLabel: '', ui: () => ({}) })
 </script>
