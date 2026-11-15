@@ -146,19 +146,11 @@ TSDocの本文でタグではない`@`を書く場合は、インラインコー
 ### コメントの記載・整合性
 
 `eslint-plugin-jsdoc`はNuxtが使うバージョンと同じ63.3.3を直接の開発用依存として指定します。
-推奨設定全体は重ねず、TS・JS・Vueで次のルールだけを有効にします。
-
-- `require-jsdoc`: 公開する関数・クラスにコメントを要求します。空のコメントの自動生成は無効にします。
-- `check-param-names`: コメントの引数名と実際の関数の引数を照合します。
-- `require-param`・`require-param-description`: コメント付き関数の引数項目と説明を要求します。
-- `require-returns`・`require-returns-description`: 値を返す関数の戻り値の説明を要求します。voidの説明は要求しません。
-- `require-description`: 関数コメントに、タグ以外の目的の説明も要求します。
-
-`settings.jsdoc.mode`は`typescript`です。TSの型注釈をコメントへ二重に書くルールは追加しません。
-構文・タグの検査は既存の`tsdoc/syntax`が担当し、JSDoc側では対応するルールを有効にしません。
-JSの型付きJSDocは引き続き利用できます。
-コメントの新規必須化は公開APIを対象とし、内部の短いコールバックすべてへのコメントは要求しません。
-Vueのscript setup内の関数はESモジュールのexportではないため、公開API向けの記載必須化の対象にはなりませんが、書かれた関数コメントの引数・説明は検査します。
+JS（`.js`・`.mjs`・`.cjs`）には`flat/recommended-error`、TS（`.ts`・`.mts`・`.cts`）とVueには`flat/recommended-typescript-error`を適用します。
+コメントの引数名・説明・戻り値の整合性や、タグ・型の記法などを推奨設定に従って検査します。
+関数へのコメントの記載必須化も推奨設定に従い、関数宣言が対象になります。公開APIだけに限定する独自設定は設けません。
+TS・VueではTSDocの`@throws`に型注釈を要求しないため、`jsdoc/require-throws-type`のみ無効にします。
+TSDoc固有の構文は引き続き`tsdoc/syntax`で検査し、JSでは型付きJSDocを利用できます。
 検査は`npm run lint:eslint`と既存のESLintワークフローで実行します。
 
 ## Secretlint

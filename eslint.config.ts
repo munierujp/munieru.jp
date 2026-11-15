@@ -21,38 +21,18 @@ export default withNuxt(
     }
   },
   {
-    name: 'app/jsdoc',
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,vue}'],
-    plugins: { jsdoc },
-    // JSの型付きコメントにも対応する。TSDoc固有の構文・タグ検査はtsdoc/syntaxに任せる。
-    settings: { jsdoc: { mode: 'typescript' } },
+    ...jsdoc.configs['flat/recommended-error'],
+    name: 'app/jsdoc-javascript',
+    files: ['**/*.{js,mjs,cjs}']
+  },
+  {
+    ...jsdoc.configs['flat/recommended-typescript-error'],
+    name: 'app/jsdoc-typescript',
+    files: ['**/*.{ts,mts,cts,vue}'],
     rules: {
-      // 公開する関数・クラスの説明漏れを検出し、空のコメントは自動生成しない。
-      'jsdoc/require-jsdoc': ['error', {
-        publicOnly: true,
-        enableFixer: false,
-        require: {
-          FunctionDeclaration: true,
-          ClassDeclaration: true,
-          ArrowFunctionExpression: true,
-          FunctionExpression: true,
-          MethodDefinition: true
-        }
-      }],
-      // 引数名を変更した際に、説明側の更新漏れを検出する。
-      'jsdoc/check-param-names': 'error',
-      // コメントを書く関数では、各引数の説明項目を省略しない。
-      'jsdoc/require-param': 'error',
-      // 引数名だけを書いた、説明のない@paramを防ぐ。
-      'jsdoc/require-param-description': 'error',
-      // 値を返す関数では、戻り値の役割も説明する。voidの説明は要求しない。
-      'jsdoc/require-returns': 'error',
-      // 戻り値のタグだけを書いた、説明のない@returnsを防ぐ。
-      'jsdoc/require-returns-description': 'error',
-      // 関数コメントはタグの羅列だけでなく、処理の目的を説明する。
-      'jsdoc/require-description': ['error', {
-        contexts: ['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression', 'MethodDefinition']
-      }]
+      ...jsdoc.configs['flat/recommended-typescript-error'].rules,
+      // TSDocの@throwsは例外の型注釈を要求しないため、説明だけの記法を許可する。
+      'jsdoc/require-throws-type': 'off'
     }
   },
   {
