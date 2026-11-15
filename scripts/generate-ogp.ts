@@ -8,7 +8,7 @@ import type { CanvasRenderingContext2D, Image } from 'canvas'
 import ja from '../i18n/locales/ja.json' with { type: 'json' }
 import en from '../i18n/locales/en.json' with { type: 'json' }
 import { loadConfig } from '../config/site.ts'
-import { OGP_WIDTH as width, OGP_HEIGHT as height } from '../config/ogp.ts'
+import { OGP_WIDTH, OGP_HEIGHT } from '../config/ogp.ts'
 
 /** OS間・描画エンジン間のウェイト解釈に依存せず、実際の書体を指定する。 */
 const fontFamilies = { 3: 'OGP Hiragino W3', 6: 'OGP Hiragino W6', 9: 'OGP Hiragino W9' } as const
@@ -76,7 +76,7 @@ async function prepareFonts (): Promise<void> {
  */
 function measureLine (context: CanvasRenderingContext2D, text: string, size: number, weight: keyof typeof fontFamilies, spacing = 0): TextLine {
   const segments = [...segmenter.segment(text)]
-  const available = width - design.margin * 2 - design.gap - design.portraitSize
+  const available = OGP_WIDTH - design.margin * 2 - design.gap - design.portraitSize
   while (size >= 24) {
     const font = `${size}px "${fontFamilies[weight]}"`
     context.font = font
@@ -133,13 +133,13 @@ async function generateOgp (site: Pick<typeof ja.site, 'name' | 'title'>, imageP
   }
   const subtitle = site.title.slice(site.name.length).trim()
   const output = new URL(imagePath, new URL('public/', root))
-  const canvas = createCanvas(width, height)
+  const canvas = createCanvas(OGP_WIDTH, OGP_HEIGHT)
   const context = canvas.getContext('2d')
   context.imageSmoothingEnabled = true
   context.quality = 'best'
   context.patternQuality = 'best'
   context.fillStyle = design.background
-  context.fillRect(0, 0, width, height)
+  context.fillRect(0, 0, OGP_WIDTH, OGP_HEIGHT)
   context.fillStyle = design.foreground
   context.textBaseline = 'alphabetic'
   const lines = [
@@ -150,16 +150,16 @@ async function generateOgp (site: Pick<typeof ja.site, 'name' | 'title'>, imageP
   // 文字の開始位置と画像の位置は日英で固定し、名前の幅や書体の高さで動かさない。
   for (const [index, line] of lines.entries()) {
     const top = design.lineTops[index]
-    const nextTop = design.lineTops[index + 1] ?? height - design.margin
+    const nextTop = design.lineTops[index + 1] ?? OGP_HEIGHT - design.margin
     if (top === undefined || top + line.height > nextTop) throw new Error(`文字が行の表示範囲に収まりません: ${line.text}`)
     drawLine(context, line, design.margin, top)
   }
-  const portraitX = width - design.margin - design.portraitSize
-  const portraitY = (height - design.portraitSize) / 2
+  const portraitX = OGP_WIDTH - design.margin - design.portraitSize
+  const portraitY = (OGP_HEIGHT - design.portraitSize) / 2
   // サイトと同じ円形表示。元画像は加工せず、中央を正方形で切り出して描画する。
   context.save()
   context.beginPath()
-  context.arc(portraitX + design.portraitSize / 2, height / 2, design.portraitSize / 2, 0, Math.PI * 2)
+  context.arc(portraitX + design.portraitSize / 2, OGP_HEIGHT / 2, design.portraitSize / 2, 0, Math.PI * 2)
   context.clip()
   const sourceSize = Math.min(portrait.width, portrait.height)
   context.drawImage(portrait, (portrait.width - sourceSize) / 2, (portrait.height - sourceSize) / 2, sourceSize, sourceSize,
@@ -168,7 +168,7 @@ async function generateOgp (site: Pick<typeof ja.site, 'name' | 'title'>, imageP
   await mkdir(new URL('./', output), { recursive: true })
   const png = canvas.toBuffer('image/png')
   await writeFile(output, png)
-  console.log(`${fileURLToPath(output)}: ${width}×${height}, Hiragino Sans, ${png.length} bytes`)
+  console.log(`${fileURLToPath(output)}: ${OGP_WIDTH}×${OGP_HEIGHT}, Hiragino Sans, ${png.length} bytes`)
 }
 
 await prepareFonts()
