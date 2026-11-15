@@ -101,7 +101,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 ## フォント
 
-本文・見出しには端末に搭載されたフォントを使います。`app/app.vue`で`Hiragino Sans`・`Yu Gothic`・`system-ui`・`sans-serif`の順に指定しています。ウェブフォントの取得や配信は行いません。
+本文・見出しには端末に搭載されたフォントを使います。`nuxt.config.ts`の`app.head.bodyAttrs`で`Hiragino Sans`・`Yu Gothic`・`system-ui`・`sans-serif`の順に指定しています。ウェブフォントの取得や配信は行いません。
 
 書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文や各部の配置はコンポーネントのTailwindクラス、部品の外観は`app/app.config.ts`のテーマで調整します。
 
