@@ -4,27 +4,13 @@
 import { access, mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { createCanvas, loadImage, registerFont } from 'canvas'
-import type { CanvasRenderingContext2D } from 'canvas'
+import type { CanvasRenderingContext2D, Image } from 'canvas'
 import ja from '../i18n/locales/ja.json' with { type: 'json' }
 import en from '../i18n/locales/en.json' with { type: 'json' }
 import { loadConfig } from './config.ts'
 
-// macOSのヒラギノを使い、フォントファイル自体は配布しない。
-// 代替フォントで意図しない画像を作らないよう、描画前に環境を確認する。
-if (process.platform !== 'darwin') {
-  throw new Error('OGPの再生成には、ヒラギノ角ゴシックがあるmacOSが必要です')
-}
 /** OS間・描画エンジン間のウェイト解釈に依存せず、実際の書体を指定する。 */
 const fontFamilies = { 3: 'OGP Hiragino W3', 6: 'OGP Hiragino W6', 9: 'OGP Hiragino W9' } as const
-for (const weight of [3, 6, 9] as const) {
-  const path = `/System/Library/Fonts/ヒラギノ角ゴシック W${weight}.ttc`
-  try {
-    await access(path)
-  } catch {
-    throw new Error(`OGPの再生成に必要なフォントがありません: ${path}`)
-  }
-  registerFont(path, { family: fontFamilies[weight], weight: 'normal', style: 'normal' })
-}
 
 /** サロゲートペアや結合文字の途中で分割せずに字間を加える。 */
 const segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' })
@@ -49,8 +35,6 @@ const design = {
   portraitSize: 448,
   lineTops: [176, 328, 414]
 } as const
-/** サイトのプロフィールと同じ元画像を使用し、キャラクターの差し替えを一箇所で済ませる。 */
-const portrait = await loadImage(fileURLToPath(new URL('public/profile.png', root)))
 
 /** 計測済みの一行。文字領域の実寸を、配置と描画で共有する。 */
 interface TextLine {
@@ -59,6 +43,27 @@ interface TextLine {
   spacing: number
   height: number
   ascent: number
+}
+
+/**
+ * macOSと必要な書体を確認し、描画に使用するフォントを登録する。
+ * @throws macOS以外、または指定したヒラギノのフォントファイルがない場合。
+ */
+async function prepareFonts (): Promise<void> {
+  // macOSのヒラギノを使い、フォントファイル自体は配布しない。
+  // 代替フォントで意図しない画像を作らないよう、描画前に環境を確認する。
+  if (process.platform !== 'darwin') {
+    throw new Error('OGPの再生成には、ヒラギノ角ゴシックがあるmacOSが必要です')
+  }
+  for (const weight of [3, 6, 9] as const) {
+    const path = `/System/Library/Fonts/ヒラギノ角ゴシック W${weight}.ttc`
+    try {
+      await access(path)
+    } catch {
+      throw new Error(`OGPの再生成に必要なフォントがありません: ${path}`)
+    }
+    registerFont(path, { family: fontFamilies[weight], weight: 'normal', style: 'normal' })
+  }
 }
 
 /**
@@ -114,7 +119,14 @@ function drawLine (context: CanvasRenderingContext2D, line: TextLine, left: numb
   }
 }
 
-for (const { site, imagePath } of images) {
+/**
+ * サイト名・URL・プロフィール画像を描画し、OGP画像1枚をPNGで保存する。
+ * @param site - 現在の言語の名前とサイト名。
+ * @param imagePath - public配下への出力先パス。
+ * @param portrait - 日英で共有する読み込み済みのプロフィール画像。
+ * @throws サイト名・出力先・文字の配置範囲が不正な場合。
+ */
+async function generateOgp (site: Pick<typeof ja.site, 'name' | 'title'>, imagePath: string, portrait: Image): Promise<void> {
   // サイト名を主名義と残りの部分に分け、名前とOFFICIAL SITEの2行に分ける。
   // 定義が変わっても、画像用の名前やサイト名を別途編集する必要はない。
   if (!site.title.startsWith(site.name + ' ')) {
@@ -161,4 +173,11 @@ for (const { site, imagePath } of images) {
   const png = canvas.toBuffer('image/png')
   await writeFile(output, png)
   console.log(`${fileURLToPath(output)}: ${width}×${height}, Hiragino Sans, ${png.length} bytes`)
+}
+
+await prepareFonts()
+/** サイトと共通のプロフィール画像を一度だけ読み込み、日英の生成で共有する。 */
+const portrait = await loadImage(fileURLToPath(new URL('public/profile.png', root)))
+for (const { site, imagePath } of images) {
+  await generateOgp(site, imagePath, portrait)
 }

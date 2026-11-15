@@ -20,6 +20,10 @@ npm run generate:ogp
 
 Automatticの[`canvas`](https://www.npmjs.com/package/canvas)（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録します。macOS以外や必要な書体がない環境では、代替フォントを使わず停止します。フォントファイル自体は配布しません。
 
+## 処理の構成
+
+`prepareFonts()`で実行環境と書体を確認してフォントを登録し、プロフィール画像を一度だけ読み込みます。日英それぞれの名前と出力先を`generateOgp()`へ渡し、画像1枚の描画・PNG保存を行います。文字の計測は`measureLine()`、各行の描画は`drawLine()`が担当します。
+
 ## 配置と共通定義
 
 - 出力は1200×630pxのPNG。背景色は`#9CC9DA`、文字色は`#242824`です。
