@@ -10,6 +10,10 @@ export interface Book {
   url: string
   /** public配下のローカル画像パス。外部画像を表示時に取得しない。 */
   image: string
+  /** 表紙の元画像の幅。高さとともにレイアウトの変化を抑える。 */
+  imageWidth: number
+  /** 表紙の元画像の高さ。幅とともに縦横比を維持する。 */
+  imageHeight: number
   /** 書籍・発表の形式を示す表示名。 */
   format: string
   /** 寄稿した章の原題。 */

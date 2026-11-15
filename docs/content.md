@@ -19,7 +19,7 @@
 - 活動への支援先: `app/data/support.ts`（URL・名称・並び順・アイコン）。英語の表示名は`i18n/locales/en.json`の`support`。URLは必須とし、掲載をやめる場合は該当項目を削除
 - スキル: `app/data/skills.ts`
 - 作品: `app/data/works.ts`
-- 書籍: `app/data/books.ts`
+- 書籍: `app/data/books.ts`（`imageWidth`・`imageHeight`に表紙の元画像の幅・高さをpx単位で指定）
 - 登壇: `app/data/talks.ts`（`url`が発表資料、`eventUrl`がイベントページ）
 - 画像など: `public/`
 

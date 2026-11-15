@@ -9,6 +9,8 @@ export const books = [
     date: '2019-04-14',
     url: 'https://booth.pm/ja/items/1318348',
     image: '/book-covers/tech-do-book-vol-1.jpg',
+    imageWidth: 742,
+    imageHeight: 1024,
     format: '技術同人誌',
     chapterTitle: 'Go + Echoでウェブページをフェッチするツールを作る'
   }

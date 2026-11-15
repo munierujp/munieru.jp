@@ -14,8 +14,8 @@
         sizes="96px tablet:144px"
         densities="1x 2x"
         :alt="t('ui.cover', { title: book.title })"
-        width="742"
-        height="1024"
+        :width="book.imageWidth"
+        :height="book.imageHeight"
         loading="lazy"
         decoding="async"
       />
