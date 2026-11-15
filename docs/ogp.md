@@ -2,10 +2,10 @@
 
 単色の背景に、サイトと共通のプロフィール画像と実際のフォントによる文字を配置し、PNGへ書き出します。
 
-- プロフィール画像: `../../public/profile.png`（サイトと共通。生成時に円形で配置）
-- 背景色・配置: `../../scripts/generate-ogp.ts`の`design`
-- 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / https://munieru.jp/）
-- 英語版: `../../public/en/ogp.png`（Munieru OFFICIAL SITE / https://munieru.jp/）
+- プロフィール画像: `../public/profile.png`（サイトと共通。生成時に円形で配置）
+- 背景色・配置: `../scripts/generate-ogp.ts`の`design`
+- 日本語版: `../public/ogp.png`（ムニエル OFFICIAL SITE / https://munieru.jp/）
+- 英語版: `../public/en/ogp.png`（Munieru OFFICIAL SITE / https://munieru.jp/）
 
 ## 再生成
 
@@ -27,8 +27,8 @@ Automatticの[`canvas`](https://www.npmjs.com/package/canvas)（node-canvas）�
 ## 配置と共通定義
 
 - 出力は1200×630pxのPNG。背景色は`#9CC9DA`、文字色は`#242824`です。
-- 名前・サイト名は`../../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../../scripts/config.ts`から読み込みます。URLはプロトコルと末尾のスラッシュを含めて表示します。
-- `OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`は`public`配下の相対パスです（例: `ogp.png`・`en/ogp.png`）。先頭の`/`や絶対URLは指定せず、階層移動やURLエンコードも使いません。詳しい制約は[開発・検証ガイド](../../docs/development.md#設定)を参照してください。
+- 名前・サイト名は`../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../scripts/config.ts`から読み込みます。URLはプロトコルと末尾のスラッシュを含めて表示します。
+- `OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`は`public`配下の相対パスです（例: `ogp.png`・`en/ogp.png`）。先頭の`/`や絶対URLは指定せず、階層移動やURLエンコードも使いません。詳しい制約は[開発・検証ガイド](development.md#設定)を参照してください。
 - サイト名は名前とその後ろの部分に分けます。`site.title`は`site.name`に半角スペースを続けて始める形式にします。
 - 文字の幅・高さを実フォントで測り、各行の文字領域の左端を64px、上端を名前176px・OFFICIAL SITE 328px・URL 414pxに固定します。448pxのプロフィール画像は左688px・上91pxに固定し、日英で位置を揃えます。
 - 長い名前は、画像との間隔64pxと外周64pxの余白を確保できる幅に収まるまで縮小します。文字幅や高さによって文字・画像の開始位置は動かしません。行同士が重なったり下端の余白を超えたりする場合は生成を停止します。

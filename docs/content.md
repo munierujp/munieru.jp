@@ -5,7 +5,7 @@
 
 - [開発・検証ガイド](development.md)
 - [UI・設計ガイド](design.md)
-- [OGP画像の生成](../design/ogp/README.md)
+- [OGP画像の生成](ogp.md)
 
 ## 内容の更新
 

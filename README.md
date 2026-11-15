@@ -38,4 +38,4 @@ npm run dev
 - [内容の更新ガイド](docs/content.md): プロフィール、リンク、作品、書籍、登壇、翻訳の更新
 - [開発・検証ガイド](docs/development.md): 環境構築、ビルド、テスト、リンター、GitHub Actions、公開設定
 - [UI・設計ガイド](docs/design.md): ページ・コンポーネントの構成、表示・操作、フォント、画像、メタ情報
-- [OGP画像の生成](design/ogp/README.md): 素材、フォント、再生成手順
+- [OGP画像の生成](docs/ogp.md): 素材、フォント、再生成手順
