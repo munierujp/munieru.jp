@@ -10,14 +10,14 @@ export interface Talk {
   format: string
   /** 登壇したイベントの正式名称。 */
   eventTitle: string
+  /** イベント名のテキストリンクから開く開催情報ページ。 */
+  eventUrl: string
   /** public配下のローカル画像パス。外部画像を表示時に取得しない。 */
   image: string
   /** 表紙の元画像の幅。高さとともにレイアウトの変化を抑える。 */
   imageWidth: number
   /** 表紙の元画像の高さ。幅とともに縦横比を維持する。 */
   imageHeight: number
-  /** イベント名のテキストリンクから開く開催情報ページ。 */
-  eventUrl: string
   /** カード全体の主リンクとして開く発表資料。 */
   slidesUrl: string
   /** 原題を残したうえで添える、発表タイトルの参考英訳。 */
