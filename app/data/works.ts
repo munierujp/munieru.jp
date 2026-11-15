@@ -1,17 +1,121 @@
-/** 作品JSONを読み込み、分類を検証して表示側へ渡す。 */
-import workData from '~~/modules/works.json'
+/** 作品の元データを、定義時に型検査する。 */
 import type { Work } from '~/types/Work'
 
-/** 読み込み時に分類を検証した作品一覧。翻訳・並べ替えは表示側で行う。 */
-export const works: Work[] = workData.map((work): Work => {
-  const category = work.category
-  if (
-    category !== 'web' &&
-    category !== 'extension' &&
-    category !== 'library' &&
-    category !== 'cli'
-  ) {
-    throw new Error(`Unknown work category: ${category}`)
+/** 日英で共有する作品一覧。表示文の翻訳は表示側で行う。 */
+export const works = [
+  {
+    key: 'direct_helper',
+    publicationEnded: true,
+    title: 'direct helper',
+    description: 'ビジネスチャットツールdirectに便利な機能を追加するChrome拡張機能',
+    date: '2018-04-07',
+    url: 'https://chrome.google.com/webstore/detail/direct-helper/fhbllgfoempopcijliicheinpdbohdic',
+    github: 'https://github.com/munierujp/direct_helper',
+    category: 'extension',
+    image: '/work-icons/direct_helper.png'
+  },
+  {
+    key: 'gasunit',
+    title: 'GASUnit',
+    description: 'Google Apps Script用のテストライブラリ',
+    date: '2018-08-23',
+    url: 'https://github.com/gasunit/GASUnit',
+    github: 'https://github.com/gasunit/GASUnit',
+    category: 'library',
+    image: '/work-icons/gasunit.png'
+  },
+  {
+    key: 'kaibunmaker',
+    title: '回文メーカー',
+    description: '回文を作って共有できるサービス',
+    date: '2018-12-21',
+    url: 'http://kaibunmaker.com',
+    github: 'https://github.com/munierujp/kaibunmaker',
+    category: 'web',
+    image: '/work-icons/kaibunmaker.png'
+  },
+  {
+    key: 'cyber-xeed-plus',
+    publicationEnded: true,
+    title: 'CYBER XEED PLUS',
+    description: '勤怠管理システムCYBER XEEDに便利な機能を追加するChrome拡張機能',
+    date: '2019-03-11',
+    url: 'https://chrome.google.com/webstore/detail/cyber-xeed-plus/fjcippambnmompkjifmbabafjemcccda',
+    github: 'https://github.com/munierujp/cyber-xeed-plus',
+    category: 'extension',
+    image: '/work-icons/cyber-xeed-plus.png'
+  },
+  {
+    key: 'qiita-team-plus',
+    publicationEnded: true,
+    title: 'Qiita Team Plus',
+    description: 'Qiita:Teamに便利な機能を追加するChrome拡張機能',
+    date: '2019-05-13',
+    url: 'https://chrome.google.com/webstore/detail/qiitateam-plus/hcfgcklmbbanbcgkdfohjmakcpmghnbj',
+    github: 'https://github.com/munierujp/qiita-team-plus',
+    category: 'extension',
+    image: '/work-icons/qiita-team-plus.png'
+  },
+  {
+    key: 'imgcalc',
+    title: 'imgcalc',
+    description: 'アスペクト比から画像サイズを計算するツール',
+    date: '2019-07-16',
+    url: 'https://imgcalc.munieru.app/',
+    github: 'https://github.com/munierujp/imgcalc',
+    category: 'web',
+    image: '/work-icons/imgcalc.png'
+  },
+  {
+    key: 'kintai',
+    publicationEnded: true,
+    title: 'kintai',
+    description: '勤怠管理システム',
+    date: '2019-12-25',
+    url: 'https://kintai.munieru.app/',
+    github: 'https://github.com/munierujp/kintai',
+    category: 'web',
+    image: '/work-icons/kintai.png'
+  },
+  {
+    key: 'npm-update-package',
+    title: 'npm-update-package',
+    description: 'npmパッケージを更新するためのプルリクエストを作成するためのCLIツール',
+    date: '2021-11-24',
+    url: 'https://github.com/npm-update-package/npm-update-package',
+    github: 'https://github.com/npm-update-package/npm-update-package',
+    category: 'cli',
+    image: '/work-icons/npm-update-package.png'
+  },
+  {
+    key: 'chatgpt-web-app',
+    publicationEnded: true,
+    title: 'ChatGPT Web App',
+    description: 'ChatGPTのためのウェブアプリ',
+    date: '2023-03-05',
+    url: 'https://chatgpt.munieru.app/',
+    github: 'https://github.com/munierujp/chatgpt-web-app',
+    category: 'web',
+    image: '/work-icons/chatgpt-web-app.png'
+  },
+  {
+    key: 'anohi-no-tweet',
+    title: '#あの日のツイートを表示するやつ',
+    description: '指定した条件にマッチするツイートの検索結果、Twilog、ツイセーブなどを開くためのウェブアプリ',
+    date: '2023-04-06',
+    url: 'http://anohi-no-tweet.munieru.app/',
+    github: 'https://github.com/munierujp/anohi-no-tweet',
+    category: 'web',
+    image: '/work-icons/anohi-no-tweet.png'
+  },
+  {
+    key: 'inochi-no-sunadokei',
+    title: '命の砂時計',
+    description: '人生の残り時間を砂時計で表示するウェブアプリ',
+    date: '2026-11-03',
+    url: 'https://inochi-no-sunadokei.munieru.app/',
+    github: 'https://github.com/munierujp/inochi-no-sunadokei',
+    category: 'web',
+    image: '/work-icons/inochi-no-sunadokei.png'
   }
-  return { ...work, category }
-})
+] satisfies Work[]

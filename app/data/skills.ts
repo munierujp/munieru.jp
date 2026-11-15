@@ -1,0 +1,62 @@
+/** スキルの元データを、定義時に型検査する。 */
+import type { Skill } from '~/types/Skill'
+
+/** 日英で共有するスキル一覧。表示文の翻訳は表示側で行う。 */
+export const skills = [
+  {
+    name: 'Chrome拡張機能',
+    image: '/skill-icons/chrome.svg'
+  },
+  {
+    name: 'CSS',
+    image: '/skill-icons/css.svg'
+  },
+  {
+    name: 'Go',
+    image: '/skill-icons/go.svg'
+  },
+  {
+    name: 'Google Apps Script',
+    image: '/skill-icons/google-apps-script.png'
+  },
+  {
+    name: 'HTML',
+    image: '/skill-icons/html.svg'
+  },
+  {
+    name: 'Java',
+    image: '/skill-icons/java.svg'
+  },
+  {
+    name: 'JavaScript',
+    image: '/skill-icons/javascript.svg'
+  },
+  {
+    name: 'Node.js',
+    image: '/skill-icons/nodejs.svg'
+  },
+  {
+    name: 'Nuxt',
+    image: '/skill-icons/nuxt.svg'
+  },
+  {
+    name: 'Python',
+    image: '/skill-icons/python.svg'
+  },
+  {
+    name: 'React',
+    image: '/skill-icons/react.svg'
+  },
+  {
+    name: 'Sass',
+    image: '/skill-icons/sass.svg'
+  },
+  {
+    name: 'TypeScript',
+    image: '/skill-icons/typescript.svg'
+  },
+  {
+    name: 'Vue.js',
+    image: '/skill-icons/vue.svg'
+  }
+] satisfies Skill[]

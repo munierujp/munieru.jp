@@ -29,9 +29,9 @@
  */
 import type { Skill } from '~/types/Skill'
 import { computed } from 'vue'
-import skillsData from '~~/modules/skills.json'
+import { skills as skillsData } from '~/data/skills'
 
-// スキル名と画像はmodules/skills.jsonで管理する。スキルはリンクではない。
+// スキル名と画像はapp/data/skills.tsで管理する。スキルはリンクではない。
 const { t, localize } = useSiteLocale()
 /** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
 const skills = computed<Skill[]>(() => skillsData.map((skill) => localize('skills', skill)))

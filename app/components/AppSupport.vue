@@ -14,16 +14,16 @@
 
 <script setup lang="ts">
 /**
- * JSONに定義した支援先を、独立したセクションに表示する。
+ * TSに定義した支援先を、独立したセクションに表示する。
  */
 import { computed, useId } from 'vue'
 import type { SupportLink } from '~/types/SupportLink'
-import supportData from '~~/modules/support.json'
+import { supportLinks as supportData } from '~/data/support'
 
 // 同じコンポーネントを複数配置しても見出しIDが重複しないようにする。
 const headingId = useId()
 const { t, localize } = useSiteLocale()
-// 表示名・並び順・画像はJSONで管理し、表示名を現在の言語へ翻訳する。
+// 表示名・並び順・画像はTSで管理し、表示名を現在の言語へ翻訳する。
 const supportLinks = computed<SupportLink[]>(() =>
   supportData
     .map(link => localize('support', link))

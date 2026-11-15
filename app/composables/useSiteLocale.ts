@@ -36,7 +36,7 @@ export function useSiteLocale (): SiteLocale {
   /**
    * 一覧の項目を、安定したキーに対応する英語の表示文で補う。
    * @param group - 翻訳対象の一覧名。
-   * @param entry - JSONから読み込んだ元の項目。
+   * @param entry - 型付きデータに定義した元の項目。
    * @returns 日本語表示または翻訳がない場合は元の項目。それ以外は翻訳を重ねた項目。
    */
   const localize = <K extends keyof LocalizedContent>(group: K, entry: LocalizedContent[K]): LocalizedContent[K] => {

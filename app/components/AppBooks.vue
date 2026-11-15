@@ -17,7 +17,7 @@
  */
 import type { Book } from '~/types/Book'
 import { computed } from 'vue'
-import booksData from '~~/modules/books.json'
+import { books as booksData } from '~/data/books'
 
 // 寄稿した書籍を読み込み、言語別の表示文と日付順への整列を担当する。
 const { t, localize } = useSiteLocale()

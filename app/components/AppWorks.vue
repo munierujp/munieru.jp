@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 /**
- * 検証済みの作品データを翻訳し、日付順への整列を管理する。
+ * 型検査された作品データを翻訳し、日付順への整列を管理する。
  */
 import { computed } from 'vue'
 import { works as workData } from '~/data/works'
@@ -21,7 +21,7 @@ import type { Work } from '~/types/Work'
 
 // 作品の翻訳・日付順への整列をこのセクションで管理する。
 const { t, localize } = useSiteLocale()
-/** 検証済みの作品を翻訳し、公開日の新しい順に並べる。 */
+/** 型検査された作品を翻訳し、公開日の新しい順に並べる。 */
 const works = computed<Work[]>(() =>
   workData
     .map(work => localize('works', work))

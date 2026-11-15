@@ -76,7 +76,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
 `app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`・`AppCardUi.ts`がUIの型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
-元データは`modules/*.json`で編集できます。作品の分類は`app/data/works.ts`でJSON読み込み時に検証します。
+一覧の元データは`app/data/*.ts`で編集できます。各配列は`satisfies`で対応する型を検査し、必須項目の不足や作品分類の誤記を`npm run typecheck`で検出します。
 
 ```sh
 npm run typecheck
@@ -169,7 +169,7 @@ npm run lint:lockfile-lint
 - `REPOSITORY_URL`: フッターから案内するサイトのソースコードURL
 - `X_ID`: Xアカウント名。`loadConfig()`でフッター用の`X_URL`も生成します（先頭の`@`は除去）。`X_URL`自体は環境変数で上書きしません。
 
-支援URLは`modules/support.json`だけで管理し、環境変数での上書きは行いません。
+支援URLは`app/data/support.ts`だけで管理し、環境変数での上書きは行いません。
 公開用設定に秘密情報を追加しないでください。
 
 ## npm設定
@@ -189,7 +189,7 @@ npm run lint:lockfile-lint
 5. JSONC・JSON5の拡張子は非対応でもコメントを読み飛ばせる場合は、`.json`にコメントを記載。
 6. いずれも使えない場合は、コメントなしのJSON。
 
-GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用の形式が必要な設定はその形式を維持します。コンテンツ・翻訳・アイコンのデータJSONと、自動生成するロックファイルは形式変更の対象外です。
+GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用の形式が必要な設定はその形式を維持します。翻訳・アイコンのデータJSONと、自動生成するロックファイルは設定ファイルの形式変更方針の対象外です。コンテンツ一覧は型検査のため`app/data/*.ts`で定義します。
 
 ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。lockfile-lintはTS設定と公式の型定義に対応しないため、ES Modules形式の`lockfile-lint.config.js`を使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
 

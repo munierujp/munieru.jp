@@ -1,7 +1,7 @@
 /** トップページの言語別メタ情報と構造化データを設定する。 */
 import { computed } from 'vue'
 import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import linksData from '~~/modules/links.json'
+import { links as linksData } from '~/data/links'
 
 /**
  * 現在の言語に対応するSEO情報とプロフィールの構造化データを登録する。
