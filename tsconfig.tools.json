@@ -14,7 +14,6 @@
   },
   "include": [
     "scripts/**/*.ts",
-    "test/**/*.ts",
     "eslint.config.ts",
     "stylelint.config.ts",
     "markuplint.config.ts",

@@ -3,7 +3,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { loadConfig, root } from '../../scripts/config.ts'
+import { loadConfig, root } from './config.ts'
 
 test('Nodeと型定義のメジャー・マイナーバージョンを揃える', async () => {
   const version = (await readFile(join(root, '.nvmrc'), 'utf8')).trim()
