@@ -1,13 +1,15 @@
 {
   // Nuxt外で実行するスクリプト・テスト・設定を検査する。
-  // Node 26の実行環境と、strictを超えるチェックは共有設定へ委譲する。
-  "extends": ["@tsconfig/node26/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
+  // Node 26の実行環境・TS直接実行の制約・厳格なチェックは共有設定へ委譲する。
+  "extends": [
+    "@tsconfig/node26/tsconfig.json",
+    "@tsconfig/node-ts/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
+  ],
   "compilerOptions": {
     "noEmit": true,
     "allowJs": true,
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "erasableSyntaxOnly": true,
     "paths": { "~~/*": ["./*"] }
   },
   "include": [

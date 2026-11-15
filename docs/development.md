@@ -235,7 +235,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`と`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlint・Lighthouse CIの設定は、`@ts-check`付きのJSを使います。
+`scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlint・Lighthouse CIの設定は、`@ts-check`付きのJSを使います。
 
 ## 日本語・英語の更新
 
@@ -366,4 +366,10 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### Node用の型検査設定
 
-Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tools.json`だけ`@tsconfig/node26/tsconfig.json`を継承します。Node 26向けのtarget・lib・module・Node型・skipLibCheck等は共有設定へ任せ、厳格な検査と、Node標準のTS実行・JSON読込に必要な設定はこのリポジトリで指定します。バージョンは`.npmrc`の公開後7日以上の方針に従い、26.0.1を固定しています。
+Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tools.json`で次の3つを継承します。
+
+- `@tsconfig/node26`: Node 26向けのtarget・lib・module・Node型など
+- `@tsconfig/node-ts`: NodeでTSを直接実行する際の制約（`erasableSyntaxOnly`・`verbatimModuleSyntax`など）
+- `@tsconfig/strictest`: 配列要素の未存在や未使用変数など、`strict`より厳格なチェック
+
+このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。JS設定の検査・JSON読込・パス対応など、このリポジトリ固有の設定だけを手元に残します。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
