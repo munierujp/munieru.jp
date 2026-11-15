@@ -1,6 +1,6 @@
 <template>
   <!-- 支援先の一覧。JSONにURLがある場合だけ独立したセクションとして表示する。 -->
-  <UPageSection v-if="supportLinks.length" :title="t('ui.headings.support')" :aria-labelledby="headingId">
+  <UPageSection v-if="supportLinks.length" :aria-labelledby="headingId">
     <template #title>
       <span :id="headingId">{{ t('ui.headings.support') }}</span>
     </template>
