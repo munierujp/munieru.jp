@@ -28,7 +28,7 @@ export interface Skill {
 /** 作品の分類。ライブラリとCLIは独立した種類として扱う。 */
 export type WorkCategory = 'web' | 'extension' | 'library' | 'cli'
 
-/** 作品の公開先・ソースコード・分類と、公開／開発の終了状態。 */
+/** 作品の公開先・ソースコード・分類と、公開終了の状態。 */
 export interface Work {
   /** 翻訳辞書と対応付ける安定した識別子。表示タイトルを変更しても維持する。 */
   key: string

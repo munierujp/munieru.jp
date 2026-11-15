@@ -68,7 +68,7 @@ Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組�
 日常的な更新はJSONを編集します。既存の項目をコピーして追加できます。
 
 - 名前・プロフィール本文: `i18n/locales/ja.json`・`en.json`の`site`・`profile`
-- フッターの著作権表記: `app/components/AppFooter.vue` の `<template>`
+- 著作権表記の文面: `i18n/locales/ja.json`・`en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
 - サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
 - OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
 - SNS・各サービス: `modules/links.json`。サービス名は英語版でも翻訳せず、原表記を共有します
@@ -80,8 +80,8 @@ Netlifyによる公開とRenovateの依存更新は引き続き既存の仕組�
 - 画像など: `public/`
 
 作品の `category` は `web`（ウェブアプリ）・`extension`（Chrome拡張機能）・`library`（ライブラリ）・`cli`（CLI）から指定します。
-公開終了した作品は `publicationEnded: true` にすると「公開終了」を表示し、作品ページへのリンクを外します。
-開発を終了した作品は `developmentEnded: true` にすると「開発終了」（英語では「No longer maintained」）を表示します。この状態だけでは作品ページへのリンクは外しません。
+公開終了した作品は `publicationEnded: true` にすると「公開終了」（英語では「Discontinued」）を表示し、作品ページへのリンクを外します。
+開発の終了状態を示す項目やラベルは設けていません。
 GitHubリンクはそのまま表示します。作品・書籍・登壇は日付の新しい順に表示します。
 
 作品の`image`に`/work-icons/ファイル名`を指定すると専用アイコンを表示します。
@@ -101,7 +101,9 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`
-- テーマ選択メニュー: `app/components/AppHeader.vue`の`UColorModeSelect`
+- 言語選択メニュー: `app/components/AppLanguageSelect.vue`の`USelectMenu`
+- テーマ選択メニュー: `app/components/AppThemeSelect.vue`の`UColorModeSelect`
+- 言語・テーマの円形表示: `app/utils/iconSelectUi.ts`
 - 作品・書籍・登壇の共通カード: `app/components/AppCard.vue`（画像・分類・状態・補助リンクは名前付きスロット）
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
@@ -193,7 +195,7 @@ npm run lint:markuplint
 カスタムコンポーネントを展開した最終HTMLの検証は行いません。
 
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
-その他の指摘はテンプレート側で修正し、見出しとメニューのIDはVueの`useId()`で生成します。
+その他の指摘はテンプレート側で修正します。支援セクションの見出しIDはVueの`useId()`で生成し、メニュー内部のIDはNuxt UIへ任せます。
 
 ## lockfile-lint
 
@@ -208,7 +210,7 @@ npm run lint:lockfile
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
-`app/types/content.ts`が一覧データとカードのprops、`app/types/ui.ts`がアイコン名・テーマ設定の型を定義します。
+`app/types/content.ts`が一覧データとカードへ渡すデータの型、`app/types/ui.ts`がアイコン名・カード配置設定の型を定義します。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
 元データは引き続き`modules/*.json`で編集できます。作品の分類はJSON読み込み時にも検証します。
 
 ```sh
@@ -221,7 +223,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 
 ## 日本語・英語の更新
 
-- 日本語版: `/ja/`、英語版: `/en/`。入口の`/`から保存した言語・ブラウザ言語に応じて移動します。ヘッダーの`ULocaleSelect`に国旗・現在の言語名（`日本語`・`English`）・下向き矢印を表示し、選択肢から切り替えます。
+- 日本語版: `/ja/`、英語版: `/en/`。入口の`/`から保存した言語・ブラウザ言語に応じて移動します。ヘッダーの言語切り替えアイコンを押し、`USelectMenu`の選択肢（`日本語`・`English`）から切り替えます。国旗と検索欄は表示しません。
 - プロフィール: `i18n/locales/ja.json`・`en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
 - 作品・書籍・登壇など: 日本語は従来の`modules/*.json`、英語は`i18n/locales/en.json`の同じ`key`にある表示文を更新します。
@@ -230,15 +232,15 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
 - 寄稿した章名も原題を残します。`modules/books.json`の`chapterTitle`が原題、英語データの`englishChapterTitle`が参考英訳、`contributionLabel`が寄稿を示す説明です。
 - 言語・翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。既定は日本語です。初回の`/`アクセス時にブラウザ言語を判定し、英語なら`/en/`へ移動します。対応しない言語は`/ja/`へ移動します。選択言語は`i18n_redirected` Cookieへ保存し、ブラウザ言語より優先します。`/ja/`・`/en/`を直接開いた場合は、保存済みの設定やブラウザ言語にかかわらず指定した言語で表示します。静的サイトのため、自動転送はJavaScript実行後に行われます。
-- 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppHeader.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
+- 操作ラベルはVue I18nの`t()`、一覧の表示文は`app/composables/useSiteLocale.ts`の`localize()`を使います。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`description`を編集します。
 - Nuxt I18nの`prefix`構成を使います。言語別ページは静的HTML、入口はCSR用HTML（`200.html`）から生成します。言語判定・転送はモジュールに任せ、JavaScriptが無効な場合の専用処理は用意しません。
-- ヘッダーは`UHeader`を使い、言語選択は`USelectMenu`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は共通テーマと`AppHeader`の`iconSelectUi`で調整します。
+- ヘッダーは`UHeader`を使い、言語選択は`USelectMenu`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は`app/app.config.ts`の共通テーマと`app/utils/iconSelectUi.ts`で調整します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。
 
 ## フォント
 
-本文・見出しには端末に搭載されたフォントを使います。Macではヒラギノ、Windowsでは游ゴシック・メイリオを優先し、それらがない場合は`system-ui`・`sans-serif`へフォールバックします。ウェブフォントの取得や配信は行いません。
+本文・見出しには端末に搭載されたフォントを使います。`app/app.vue`で`Hiragino Sans`・`Yu Gothic`・`system-ui`・`sans-serif`の順に指定しています。ウェブフォントの取得や配信は行いません。
 
 書体・文字幅・改行位置は端末によって異なります。文字サイズと行間、折り返せるレイアウトで読みやすさを保ちます。本文や各部の配置はコンポーネントのTailwindクラス、部品の外観は`app/app.config.ts`のテーマで調整します。
 
@@ -288,8 +290,8 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。
 保存できない環境ではそのページ内で切り替えます。システム選択時はOS設定の変更にも追従します。別タブで選択されたテーマは再読み込み時に反映します。
-Nuxt UIが自動登録するNuxt Color Modeと`useColorMode()`で、初期描画前の適用・OS追従・保存を行います。保存キーは従来と同じ`app-theme`です。自作のテーマスクリプト・DOM同期プラグイン・`window.appTheme`は使いません。
-静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名もモジュールの`unknown`がfalseになるまでsystemに揃えます。別タブとの即時同期のための独自イベント処理は設けません。
+`UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。保存キーは従来と同じ`app-theme`です。自作のテーマスクリプト・DOM同期プラグイン・`window.appTheme`は使いません。
+静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名は日本語で「表示モードを選択」、英語で「Select appearance」に固定し、現在値の判定用の補助処理は設けません。別タブとの即時同期のための独自イベント処理は設けません。
 言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。円形表示の設定は`app/utils/iconSelectUi.ts`で共有します。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
 アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは、左に細いラインを付けています。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
@@ -310,7 +312,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 - ボタン・バッジは`UButton`・`UBadge`を直接使い、色・サイズ・形の共通設定は`app/app.config.ts`へ置きます。外部リンクの`to`・`external`・`target`・`rel`は使う場所で指定します。
 - `AppCard`はカードのレイアウトと主リンク・補助リンクの構造を保ち、外枠をライブラリに置き換えています。
-- 言語は国旗＋現在の言語、テーマは状態アイコン＋設定名を表示する高さ44pxのセレクトです。GitHub・資料へのアイコンリンクは円形です。
+- 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形セレクトです。トリガーの文字・下向き矢印は隠し、選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
 - 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。
 - フォントは端末搭載の書体を使うため自動フォントだけを無効にします。テーマ選択はNuxt UIのColor Mode連携を使い、メニュー用のLucideアイコンはローカルにバンドルします。
 
@@ -324,7 +326,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### プロフィールのレイアウト
 
-`AppProfile`は`UPageHero`のtitle・descriptionスロットと画像用の標準スロットを使います。名前は見出しにせず`p`とし、サイト名の`h1`と役割を分けています。余白を抑え、小さい画面では名前と画像を同じ行、自己紹介をその下に配置します。画像のAVIF・WebP生成は`NuxtPicture`で継続します。
+`AppProfile`は`UPageHero`のtitle・descriptionスロットと画像用の標準スロットを使います。名前は見出しにせず`p`とし、サイト名の`h1`と役割を分けています。余白を抑え、小さい画面では名前と画像を同じ行、自己紹介をその下に配置します。画像は背景や枠を付けず円形で表示し、AVIF・WebP生成は`NuxtPicture`へ任せます。
 
 ### 登壇カードのリンク
 
@@ -336,7 +338,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### ヘッダー
 
-`AppHeader`は`UHeader`の背景・下線・追従を使用します。1ページ構成のため、サイト名は`left`スロットの`h1`として表示し、リンクにしません。ナビゲーションがないためメニューの開閉ボタンは表示しません。言語・テーマのトリガーには現在の状態を含む読み上げ名を付け、スマホでも44pxの操作領域を保ちます。
+`AppHeader`は`UHeader`の背景・下線・追従を使用します。1ページ構成のため、サイト名は`left`スロットの`h1`として表示し、リンクにしません。ナビゲーションがないためメニューの開閉ボタンは表示しません。言語のトリガーには現在の言語を含む読み上げ名、テーマのトリガーには用途を示す固定の読み上げ名を付け、スマホでも44pxの操作領域を保ちます。
 
 ### カード一覧のグリッド
 

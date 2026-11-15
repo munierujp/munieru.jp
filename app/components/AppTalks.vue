@@ -1,5 +1,5 @@
 <template>
-  <!-- 登壇一覧。イベントを主リンクとし、発表資料へのリンクは各カードに配置する。 -->
+  <!-- 登壇一覧。カード全体から発表資料を開き、イベント名には独立したリンクを付ける。 -->
   <UPageSection class="talks-section" :title="t('ui.headings.talks')">
     <template #body>
       <UPageGrid as="ul" class="talk-list" role="list">
