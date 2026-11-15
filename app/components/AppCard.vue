@@ -19,7 +19,9 @@
               <span :lang="titleLang || undefined">{{ title }}</span> <slot name="status" />
             </h3>
             <slot name="subtitle" />
-            <p v-if="$slots.default" class="text-[0.85rem] text-muted"><slot /></p>
+            <p v-if="$slots.default" class="text-[0.85rem] text-muted">
+              <slot />
+            </p>
           </div>
           <!-- 補助リンクは主リンクの兄弟として配置し、重なったリンクより手前で操作できるようにする。 -->
           <slot name="action" />

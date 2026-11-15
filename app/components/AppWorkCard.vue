@@ -12,7 +12,7 @@
         aria-hidden="true"
       >
         <img
-v-if="work.image && !imageFailed"
+          v-if="work.image && !imageFailed"
           class="size-full rounded-[inherit] object-contain"
           :src="asset(work.image)"
           alt=""
@@ -33,9 +33,9 @@ v-if="work.image && !imageFailed"
     </template>
     <!-- 公開終了でも、補助リンクのGitHubからソースコードを開ける。 -->
     <template #status>
-      <UBadge v-if="work.publicationEnded">{{
-        t('ui.publicationEnded')
-      }}</UBadge>
+      <UBadge v-if="work.publicationEnded">
+        {{ t('ui.publicationEnded') }}
+      </UBadge>
     </template>
     {{ work.description }}
     <template #action>

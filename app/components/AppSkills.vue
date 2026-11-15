@@ -4,8 +4,8 @@
     <template #body>
       <ul class="flex flex-wrap items-center gap-3" role="list">
         <li v-for="skill in skills" :key="skill.name" class="min-w-0">
-          <UBadge
-            ><img
+          <UBadge>
+            <img
               class="size-6 object-contain"
               :src="asset(skill.image)"
               alt=""
@@ -15,8 +15,8 @@
               decoding="async"
               @error="hideFailedImage"
             >
-            <span>{{ skill.name }}</span></UBadge
-          >
+            <span>{{ skill.name }}</span>
+          </UBadge>
         </li>
       </ul>
     </template>
