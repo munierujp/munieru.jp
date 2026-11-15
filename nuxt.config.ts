@@ -9,9 +9,9 @@ import en from './i18n/locales/en.json' with { type: 'json' }
 
 const config = loadConfig()
 // ページとOGP画像で共有する日本語のサイト名・著者名を、用途の分かる名前で参照する。
-const { title: siteTitle, name: authorName } = ja.site
+const { title: siteName, name: authorName } = ja.site
 /** 言語別ページの初期値となる、日本語OGP画像の代替テキスト。 */
-const shareImageAlt = `${siteTitle} / ${config.BASE_URL}`
+const shareImageAlt = `${siteName} / ${config.BASE_URL}`
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
 export default defineNuxtConfig({
@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
   site: {
     url: new URL(config.BASE_URL).origin,
-    name: siteTitle,
+    name: siteName,
     trailingSlash: true
   },
   sitemap: {
@@ -81,7 +81,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: config.BASE_DIR,
     head: {
-      title: siteTitle,
+      title: siteName,
       // テーマクラスの切り替えはColor Modeに任せ、ブラウザ標準部品の配色を追従させる。
       htmlAttrs: { lang: 'ja', class: 'scheme-light dark:scheme-dark' },
       // 全ページ共通の端末フォントと行間。動的な値ではないため設定側へまとめる。
@@ -94,9 +94,9 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'color-scheme', content: 'light dark', tagPriority: -15 },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: siteTitle },
+        { property: 'og:title', content: siteName },
         { property: 'og:description', content: ja.description },
-        { property: 'og:site_name', content: siteTitle },
+        { property: 'og:site_name', content: siteName },
         { property: 'og:image', content: new URL(config.OG_IMAGE_PATH, config.BASE_URL).href },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
@@ -121,7 +121,7 @@ export default defineNuxtConfig({
             '@type': 'WebSite',
             '@id': config.BASE_URL + '#website',
             url: config.BASE_URL,
-            name: siteTitle,
+            name: siteName,
             alternateName: en.site.title,
             inLanguage: ['ja', 'en']
           }).replace(/</g, '\\u003c')
