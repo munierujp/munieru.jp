@@ -3,7 +3,7 @@
     :ui="cardUi"
     :title="talk.title"
     :title-lang="titleLanguage(talk.title)"
-    :href="talk.slidesUrl"
+    :href="talk.url"
     :link-label="t('ui.slidesInfo', { title: talk.title })"
   >
     <template #media>

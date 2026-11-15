@@ -19,7 +19,7 @@ export interface Talk {
   /** 表紙の元画像の高さ。幅とともに縦横比を維持する。 */
   imageHeight: number
   /** カード全体の主リンクとして開く発表資料。 */
-  slidesUrl: string
+  url: string
   /** 原題を残したうえで添える、発表タイトルの参考英訳。 */
   englishTitle?: string
   /** 原名の下へ補足するイベント名の参考英訳。 */

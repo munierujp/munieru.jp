@@ -20,7 +20,7 @@
 - スキル: `modules/skills.json`
 - 作品: `modules/works.json`
 - 書籍: `modules/books.json`
-- 登壇: `modules/talks.json`
+- 登壇: `modules/talks.json`（`url`が発表資料、`eventUrl`がイベントページ）
 - 画像など: `public/`
 
 作品の `category` は `web`（ウェブアプリ）・`extension`（Chrome拡張機能）・`library`（ライブラリ）・`cli`（CLI）から指定します。
