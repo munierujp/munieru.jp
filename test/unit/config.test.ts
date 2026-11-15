@@ -26,6 +26,9 @@ test('既定の公開設定を環境変数で上書きする', () => {
   const config = loadConfig({ ORIGIN: 'https://env.example/', X_ID: '@example' })
   assert.equal(config.BASE_URL, 'https://env.example/')
   assert.equal(config.X_ID, '@example')
+  assert.equal(config.X_URL, 'https://x.com/example')
+  assert.equal(loadConfig({ X_ID: 'example' }).X_URL, 'https://x.com/example')
+  assert.equal(loadConfig({}).X_URL, 'https://x.com/munieru_jp')
 })
 
 test('不正な公開設定を黙って無視せず失敗させる', () => {

@@ -25,6 +25,6 @@
  * 現在の言語に合わせた著作権表記と、用途を説明するアイコンリンクを表示する。
  */
 const { locale, t } = useSiteLocale()
-/** メタ情報と同じ公開設定から、XアカウントへのURLを作る。 */
-const xUrl = `https://x.com/${useRuntimeConfig().public.siteConfig.X_ID.replace(/^@/, '')}`
+/** 公開設定で生成したXアカウントのURL。 */
+const xUrl = useRuntimeConfig().public.siteConfig.X_URL
 </script>

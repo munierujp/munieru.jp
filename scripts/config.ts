@@ -23,14 +23,16 @@ const defaults = {
 /**
  * 環境変数を公開設定へ重ね、配信元と公開パスを検証・正規化する。
  * @param environment - 上書き値。省略時はprocess.env。
- * @returns 正規化済みのBASE_DIRと、絶対URLのBASE_URLを含む公開設定。
+ * @returns 正規化済みのBASE_DIRと、絶対URLのBASE_URL・X_URLを含む公開設定。
  * @throws ORIGINがhttp(s)以外、またはBASE_DIRが公開パスとして不正な場合。
  */
 export function loadConfig (environment: Record<string, string | undefined> = process.env): typeof defaults & {
   /** 公開パスを含むサイトの絶対URL。 */
   BASE_URL: string
+  /** X_IDから生成する、Xアカウントの公開URL。 */
+  X_URL: string
 } {
-  const config = { ...defaults, BASE_URL: '' }
+  const config = { ...defaults, BASE_URL: '', X_URL: '' }
   for (const key of Object.keys(defaults) as (keyof typeof defaults)[]) {
     config[key] = environment[key] ?? defaults[key]
   }
@@ -41,5 +43,6 @@ export function loadConfig (environment: Record<string, string | undefined> = pr
   }
   config.BASE_DIR = `${config.BASE_DIR.replace(/\/+$/, '')}/`
   config.BASE_URL = new URL(config.BASE_DIR, origin).href
+  config.X_URL = `https://x.com/${config.X_ID.replace(/^@/, '')}`
   return config
 }
