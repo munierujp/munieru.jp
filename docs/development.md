@@ -42,7 +42,7 @@ npm run build
 npm start
 ```
 
-`npm run build` と `npm run generate` は、どちらも `nuxt generate` で静的サイトを生成します。
+`npm run build`は`nuxt generate`で静的サイトを生成します。
 公開するファイルは `dist/` に出力します。Netlifyにも同じコマンド・出力先を `netlify.toml` で指定しています。
 本番用のNodeサーバーやAPIは不要です。
 
@@ -345,7 +345,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### テストの実行単位
 
-`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
+`npm test`は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ### Node用の型検査設定
 

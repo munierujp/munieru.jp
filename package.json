@@ -6,20 +6,18 @@
   "private": true,
   "scripts": {
     "build": "nuxt generate",
-    "generate": "nuxt generate",
     "generate:ogp": "node scripts/generate-ogp.ts",
     "dev": "nuxt dev",
     "start": "node scripts/preview.ts",
     "prepare": "nuxt prepare",
-    "test": "npm run test:unit",
+    "test": "node --test test/unit/*.test.ts",
     "typecheck": "nuxt typecheck",
     "lint": "run-s lint:eslint lint:secretlint lint:stylelint lint:markuplint lint:lockfile",
     "lint:secretlint": "secretlint \"**/*\"",
     "lint:stylelint": "stylelint \"assets/**/*.css\" --max-warnings=0",
     "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0",
     "lint:eslint": "eslint . --max-warnings=0",
-    "lint:lockfile": "lockfile-lint",
-    "test:unit": "node --test test/unit/*.test.ts"
+    "lint:lockfile": "lockfile-lint"
   },
   "engines": {
     "node": "26.6.0"
