@@ -18,7 +18,7 @@ npm rebuild canvas --ignore-scripts=false
 npm run generate:ogp
 ```
 
-Automatticの`canvas`（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録します。macOS以外や必要な書体がない環境では、代替フォントを使わず停止します。フォントファイル自体は配布しません。
+Automatticの[`canvas`](https://www.npmjs.com/package/canvas)（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録します。macOS以外や必要な書体がない環境では、代替フォントを使わず停止します。フォントファイル自体は配布しません。
 
 ## 配置と共通定義
 
