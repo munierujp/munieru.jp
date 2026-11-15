@@ -1,7 +1,6 @@
 <template>
   <AppCard
     :ui="cardUi"
-    :data-work-category="work.category"
     :title="work.title"
     :title-lang="titleLanguage(work.title)"
     :href="work.publicationEnded ? '' : work.url"
