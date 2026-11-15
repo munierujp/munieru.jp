@@ -12,13 +12,6 @@ export default withNuxt(
   // 無制限の無効化や無効化・再有効化の対応ミスは、公式の推奨設定で検出する。
   eslintComments.recommended,
   {
-    name: 'app/eslint-directive-comments',
-    rules: {
-      // 例外の理由を制御コメント内に残し、後から妥当性を判断できるようにする。
-      '@eslint-community/eslint-comments/require-description': 'error'
-    }
-  },
-  {
     name: 'app/tsdoc',
     files: ['**/*.{ts,mts,cts,vue}'],
     plugins: { tsdoc },

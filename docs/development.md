@@ -123,9 +123,9 @@ npm run lint:eslint -- --fix
 
 ### ESLint制御コメント
 
-`@eslint-community/eslint-plugin-eslint-comments`のFlat Config用`recommended`と、
-`@eslint-community/eslint-comments/require-description`を使います。
-ルール名のない一括無効化、重複した無効化、無効化・再有効化の対応ミスを検出し、制御コメントには`-- 理由`を要求します。
+`@eslint-community/eslint-plugin-eslint-comments`のFlat Config用`recommended`を使います。
+ルール名のない一括無効化、重複した無効化、無効化・再有効化の対応ミスを検出します。
+制御コメントへの理由の記載は、自動検査では要求しません。
 不要な無効化の検出は既存のESLint本体の`reportUnusedDisableDirectives`に任せ、プラグインの同等ルールは追加しません。
 
 ```ts
