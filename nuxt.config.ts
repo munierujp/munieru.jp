@@ -17,8 +17,6 @@ const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
-  devtools: { enabled: false },
-  telemetry: false,
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/sitemap', '@nuxt/eslint', '@nuxt/ui'],
   // 端末フォントを使うためNuxt Fontsの自動登録を止める。
   ui: { fonts: false },
