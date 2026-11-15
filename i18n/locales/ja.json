@@ -26,13 +26,8 @@
     "eventInfo": "{title}のイベント情報（connpass）",
     "slidesInfo": "{title}の発表資料（Speaker Deck）",
     "profileImage": "プロフィール画像",
-    "theme": "表示モード：{theme}",
+    "theme": "表示モードを選択",
     "language": "言語：{language}",
-    "themes": {
-      "system": "システム",
-      "light": "ライト",
-      "dark": "ダーク"
-    },
     "ogImageAlt": "ムニエル OFFICIAL SITE / munieru.jp",
     "xAccount": "{name}のXアカウント",
     "siteSourceCode": "このサイトのソースコード（GitHub）"

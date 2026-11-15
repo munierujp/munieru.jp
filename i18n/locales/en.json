@@ -26,13 +26,8 @@
     "eventInfo": "Event information for {title} (connpass)",
     "slidesInfo": "Slides for {title} (Speaker Deck)",
     "profileImage": "Profile image",
-    "theme": "Appearance: {theme}",
+    "theme": "Select appearance",
     "language": "Language: {language}",
-    "themes": {
-      "system": "System",
-      "light": "Light",
-      "dark": "Dark"
-    },
     "ogImageAlt": "Munieru OFFICIAL SITE / munieru.jp",
     "xAccount": "{name} on X",
     "siteSourceCode": "Source code for this website (GitHub)"
