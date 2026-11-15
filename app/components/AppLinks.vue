@@ -15,10 +15,7 @@
 /**
  * 公開アカウントへのリンクを、ローカルのサービスアイコンとともに表示する。
  */
-import type { ServiceLink } from '~/types/ServiceLink'
-import { links as linksData } from '~/data/links'
+import { links } from '~/data/links'
 
 const { t } = useI18n()
-/** 名前・URL・画像・並び順を日英で共有し、サービス名は原表記を維持する。 */
-const links: ServiceLink[] = linksData
 </script>
