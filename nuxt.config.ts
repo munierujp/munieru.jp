@@ -91,7 +91,6 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: ja.description },
         { name: 'author', content: authorName },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'color-scheme', content: 'light dark', tagPriority: -15 },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: siteName },
