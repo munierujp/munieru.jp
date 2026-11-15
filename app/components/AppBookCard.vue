@@ -44,7 +44,6 @@
  */
 import type { Book } from '~/types/Book'
 import type { AppCardUi } from '~/types/AppCardUi'
-// 書籍の表紙・寄稿内容と販売ページへのリンクを組み合わせる。
 defineProps<{
   /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
   book: Book

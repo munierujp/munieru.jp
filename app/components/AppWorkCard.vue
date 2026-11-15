@@ -57,7 +57,6 @@ import type { AppCardUi } from '~/types/AppCardUi'
 import type { IconName } from '~/types/IconName'
 import { computed, ref } from 'vue'
 
-// 作品固有の分類・公開終了表示・GitHubリンクを組み合わせる。
 const props = defineProps<{
   /** 分類・公開状態・ソースコードを含む作品の情報。 */
   work: Work

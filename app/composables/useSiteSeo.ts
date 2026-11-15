@@ -20,8 +20,7 @@ export function useSiteSeo (): void {
   const alternateName = computed(() => t('site.alternateName'))
   /** ヘッダーと揃えた言語別のサイト名。 */
   const pageTitle = computed(() => t('site.title'))
-  // 共有元のページの言語に合わせ、クローラーが読む静的HTMLにも画像URLを出力する。
-  /** 共有元ページの言語に対応するOGP画像の絶対URL。 */
+  /** 共有元ページの言語に対応するOGP画像の絶対URL。クローラー向けの静的HTMLにも出力する。 */
   const shareImage = computed(() => new URL(isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH, config.BASE_URL).href)
   // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
   useSeoMeta({

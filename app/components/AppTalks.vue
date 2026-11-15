@@ -19,7 +19,6 @@ import type { Talk } from '~/types/Talk'
 import { computed } from 'vue'
 import { talks as talkData } from '~/data/talks'
 
-// 登壇情報を言語に合わせ、日付の新しい順に並べる。原題と参考英訳の表示はAppTalkCardが担当する。
 const { t, localize } = useSiteLocale()
 /** 翻訳済みの登壇。原題を保持したままISO日付の降順に並べる。 */
 const talks = computed<Talk[]>(() => talkData.map(talk => localize('talks', talk)).sort((a, b) => b.date.localeCompare(a.date)))

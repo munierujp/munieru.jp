@@ -53,7 +53,6 @@
 import type { Talk } from '~/types/Talk'
 import type { AppCardUi } from '~/types/AppCardUi'
 
-// 表紙・タイトルを含むカード全体から発表資料を開き、イベント名から開催情報を開く。
 defineProps<{
   /** イベント・表紙・発表資料を含む登壇の情報。 */
   talk: Talk

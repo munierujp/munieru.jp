@@ -19,7 +19,6 @@ import type { Book } from '~/types/Book'
 import { computed } from 'vue'
 import { books as booksData } from '~/data/books'
 
-// 寄稿した書籍を読み込み、言語別の表示文と日付順への整列を担当する。
 const { t, localize } = useSiteLocale()
 /** 翻訳済みの書籍。ISO日付の降順で新しい寄稿を先に表示する。 */
 const books = computed<Book[]>(() => booksData.map(book => localize('books', book)).sort((a, b) => b.date.localeCompare(a.date)))
