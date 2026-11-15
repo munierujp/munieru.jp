@@ -242,12 +242,22 @@ test('公開終了した作品のリンクを外し、GitHubは全件に残す',
   }
 })
 
-test('登壇カードのイベントリンク・資料リンクと表紙を維持する', () => {
+test('登壇カード全体は資料を開き、イベント名を独立したリンクとして表示する', () => {
   for (const document of [html, englishHtml]) {
     for (const talk of data.talks) {
-      const card = cardWithLink(document, talk.eventUrl)
+      const card = cardWithLink(document, talk.slidesUrl)
       assert.ok(card.includes(escapeHtml(talk.title)))
-      assert.ok(card.includes(`href="${escapeHtml(talk.slidesUrl)}"`))
+      const links = [...card.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/g)].map(([link]) => link)
+      assert.equal(links.length, 2)
+      const eventLink = links.find(link => link.includes(`href="${escapeHtml(talk.eventUrl)}"`))
+      const slidesLink = links.find(link => link.includes(`href="${escapeHtml(talk.slidesUrl)}"`))
+      assert.ok(eventLink?.includes(escapeHtml(talk.eventTitle)))
+      assert.ok(slidesLink?.includes('aria-hidden="true"'), '資料のリンクはカード全体の操作領域を持つ')
+      for (const link of links) {
+        assert.ok(link.includes('target="_blank"'))
+        assert.ok(link.includes('rel="noopener"'))
+      }
+      assert.ok(!card.includes('talk-slides-link'))
       assert.ok([...card.matchAll(/<img\b[^>]*>/g)].some(([tag]) => tag.includes(talk.image)))
     }
   }

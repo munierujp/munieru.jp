@@ -74,7 +74,7 @@ export interface Book {
   englishChapterTitle?: string
 }
 
-/** 登壇イベントと発表資料を別々のリンクとして扱う表示データ。 */
+/** 発表資料を主リンク、登壇イベントを補助リンクとして扱う表示データ。 */
 export interface Talk {
   /** 翻訳辞書と対応付ける安定した識別子。表示タイトルを変更しても維持する。 */
   key: string
@@ -92,9 +92,9 @@ export interface Talk {
   imageWidth: number
   /** 表紙の元画像の高さ。幅とともに縦横比を維持する。 */
   imageHeight: number
-  /** カード全体の主リンクとなるイベントページ。 */
+  /** イベント名のテキストリンクから開く開催情報ページ。 */
   eventUrl: string
-  /** 独立したアイコンリンクとして開く発表資料。 */
+  /** カード全体の主リンクとして開く発表資料。 */
   slidesUrl: string
   /** 原題を残したうえで添える、発表タイトルの参考英訳。 */
   englishTitle?: string
