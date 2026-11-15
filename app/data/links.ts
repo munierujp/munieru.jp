@@ -49,11 +49,6 @@ export const links = [
     image: '/service-icons/github.svg'
   },
   {
-    title: 'Dev',
-    url: 'https://dev.to/munieru_jp',
-    image: '/service-icons/dev.png'
-  },
-  {
     title: 'Qiita',
     url: 'https://qiita.com/munieru_jp',
     image: '/service-icons/qiita.ico'
@@ -62,6 +57,11 @@ export const links = [
     title: 'Zenn',
     url: 'https://zenn.dev/munieru_jp',
     image: '/service-icons/zenn.png'
+  },
+  {
+    title: 'Dev',
+    url: 'https://dev.to/munieru_jp',
+    image: '/service-icons/dev.png'
   },
   {
     title: 'Speaker Deck',
