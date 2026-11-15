@@ -1,8 +1,6 @@
 <template>
   <AppCard
     :ui="cardUi"
-    class="work-row"
-    :class="{ 'is-ended': work.publicationEnded }"
     :data-work-category="work.category"
     :title="work.title"
     :title-lang="titleLanguage(work.title)"
@@ -10,8 +8,7 @@
   >
     <template #media>
       <div
-        class="work-symbol grid aspect-square w-[66px] place-items-center rounded-xl max-[560px]:w-12"
-        :class="[work.category, { 'has-image': work.image && !imageFailed }]"
+        class="grid aspect-square w-[66px] place-items-center rounded-xl max-[560px]:w-12"
         aria-hidden="true"
       >
         <img
@@ -25,25 +22,25 @@ v-if="work.image && !imageFailed"
           decoding="async"
           @error="imageFailed = true"
         >
-        <UIcon v-else class="app-icon block size-6 shrink-0" aria-hidden="true" :name="category.icon" />
+        <UIcon v-else class="block size-6 shrink-0" aria-hidden="true" :name="category.icon" />
       </div>
     </template>
     <template #metadata>
-      <span class="work-category text-xs text-muted">
+      <span class="text-xs text-muted">
         {{ category.label }} /
         <time :datetime="work.date">{{ formatDate(work.date) }}</time>
       </span>
     </template>
     <!-- 公開終了でも、補助リンクのGitHubからソースコードを開ける。 -->
     <template #status>
-      <UBadge v-if="work.publicationEnded" class="work-status ui-badge">{{
+      <UBadge v-if="work.publicationEnded">{{
         t('ui.publicationEnded')
       }}</UBadge>
     </template>
     {{ work.description }}
     <template #action>
       <AppIconLink
-        class="source-link relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
+        class="relative z-1 justify-self-end max-[560px]:col-start-2 max-[560px]:row-start-1"
         :href="work.github"
         :label="t('ui.sourceCode', { title: work.title })"
         icon="i-simple-icons-github"

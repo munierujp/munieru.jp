@@ -1,12 +1,12 @@
 <template>
   <!-- 各サービスへのリンク。名前とアイコンを含む領域全体をタップできる。 -->
-  <UPageSection class="links-section" :title="t('ui.headings.links')">
+  <UPageSection :title="t('ui.headings.links')">
     <template #body>
-      <ul class="social-links flex flex-wrap items-center gap-3" role="list">
+      <ul class="flex flex-wrap items-center gap-3" role="list">
         <li v-for="link in links" :key="link.title" class="min-w-0">
-          <UButton class="ui-button" :to="link.url" external target="_blank" rel="noopener">
-            <span class="social-name inline-flex items-center gap-2">
-              <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
+          <UButton :to="link.url" external target="_blank" rel="noopener">
+            <span class="inline-flex items-center gap-2">
+              <span class="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
                 <img
                   class="size-6 object-contain rounded-lg bg-white"
                   :src="asset(link.image)"

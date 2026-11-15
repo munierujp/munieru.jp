@@ -1,7 +1,6 @@
 <template>
   <!-- 言語名・選択状態・キー操作は標準メニューで提供し、トリガーは円形アイコンにする。 -->
   <USelectMenu
-    class="language-trigger"
     :ui="iconSelectUi"
     :model-value="locale"
     :items="[ja, en]"

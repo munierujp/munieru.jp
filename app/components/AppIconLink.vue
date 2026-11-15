@@ -3,7 +3,6 @@
   <UTooltip :text="label">
     <UButton
       square
-      class="icon-link ui-button is-icon-only"
       :to="href"
       external
       target="_blank"
@@ -11,7 +10,7 @@
       :aria-label="label"
     >
       <slot>
-        <UIcon v-if="icon" class="app-icon block size-6 shrink-0" aria-hidden="true" :name="icon" />
+        <UIcon v-if="icon" class="block size-6 shrink-0" aria-hidden="true" :name="icon" />
       </slot>
     </UButton>
   </UTooltip>

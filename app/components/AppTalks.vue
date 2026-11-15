@@ -1,8 +1,8 @@
 <template>
   <!-- 登壇一覧。カード全体から発表資料を開き、イベント名には独立したリンクを付ける。 -->
-  <UPageSection class="talks-section" :title="t('ui.headings.talks')">
+  <UPageSection :title="t('ui.headings.talks')">
     <template #body>
-      <UPageGrid as="ul" class="talk-list" role="list">
+      <UPageGrid as="ul" role="list">
         <li v-for="talk in talks" :key="talk.key" class="min-w-0 @container">
           <AppTalkCard :talk="talk" />
         </li>

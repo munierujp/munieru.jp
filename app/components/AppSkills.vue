@@ -1,10 +1,10 @@
 <template>
   <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
-  <UPageSection class="about-section" :title="t('ui.headings.skills')">
+  <UPageSection :title="t('ui.headings.skills')">
     <template #body>
-      <ul class="skills flex flex-wrap items-center gap-3" role="list">
+      <ul class="flex flex-wrap items-center gap-3" role="list">
         <li v-for="skill in skills" :key="skill.name" class="min-w-0">
-          <UBadge class="ui-badge"
+          <UBadge
             ><img
               class="size-6 object-contain"
               :src="asset(skill.image)"

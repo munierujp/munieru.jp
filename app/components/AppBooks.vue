@@ -1,8 +1,8 @@
 <template>
   <!-- 書籍一覧。表紙・寄稿内容・販売ページへのリンクはAppBookCardが担当する。 -->
-  <UPageSection class="books-section" :title="t('ui.headings.books')">
+  <UPageSection :title="t('ui.headings.books')">
     <template #body>
-      <UPageGrid as="ul" class="book-list" role="list">
+      <UPageGrid as="ul" role="list">
         <li v-for="book in books" :key="book.key" class="min-w-0">
           <AppBookCard :book="book" />
         </li>

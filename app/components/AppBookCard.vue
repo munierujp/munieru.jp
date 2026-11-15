@@ -1,13 +1,12 @@
 <template>
   <AppCard
     :ui="cardUi"
-    class="book-link"
     :title="book.title"
     :href="book.url"
   >
     <template #media>
       <NuxtPicture
-        class="book-cover block h-auto w-full rounded-[10px]"
+        class="block h-auto w-full rounded-[10px]"
         :src="book.image"
         format="avif"
         legacy-format="webp"
@@ -22,7 +21,7 @@
       />
     </template>
     <template #metadata>
-      <span class="work-category text-xs text-muted">
+      <span class="text-xs text-muted">
         {{ book.format }} /
         <time :datetime="book.date">{{ formatDate(book.date) }}</time>
       </span>
@@ -31,7 +30,7 @@
     <template v-if="book.chapterTitle">
       <template v-if="isEnglish">
         {{ book.contributionLabel }} <span lang="ja">「{{ book.chapterTitle }}」</span>.
-        <span v-if="book.englishChapterTitle" class="chapter-translation mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
+        <span v-if="book.englishChapterTitle" class="mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
       </template>
       <template v-else>「{{ book.chapterTitle }}」の章を寄稿</template>
     </template>

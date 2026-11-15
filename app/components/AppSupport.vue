@@ -1,11 +1,11 @@
 <template>
   <!-- 支援先の一覧。JSONにURLがある場合だけ独立したセクションとして表示する。 -->
-  <UPageSection v-if="supportLinks.length" class="support-section" :title="t('ui.headings.support')" :aria-labelledby="headingId">
+  <UPageSection v-if="supportLinks.length" :title="t('ui.headings.support')" :aria-labelledby="headingId">
     <template #title>
       <span :id="headingId">{{ t('ui.headings.support') }}</span>
     </template>
     <template #body>
-      <div class="support-links flex flex-wrap items-center gap-3">
+      <div class="flex flex-wrap items-center gap-3">
         <UButton
           v-for="link in supportLinks"
           :key="link.key"
@@ -13,9 +13,9 @@
           external
           target="_blank"
           rel="noopener"
-          class="ui-button support-button whitespace-nowrap"
+          class="whitespace-nowrap"
         >
-          <span class="social-icon inline-flex shrink-0 items-center gap-2" aria-hidden="true">
+          <span class="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
             <img
               class="size-6 object-contain rounded-lg bg-white"
               :src="asset(link.image)"

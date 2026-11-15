@@ -1,7 +1,6 @@
 <template>
   <!-- 保存・OS検出・初期描画・メニュー操作は公式コンポーネントへ任せる。 -->
   <UColorModeSelect
-    class="theme-trigger"
     :ui="iconSelectUi"
     :aria-label="t('ui.theme')"
   />

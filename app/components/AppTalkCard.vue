@@ -1,7 +1,6 @@
 <template>
   <AppCard
     :ui="cardUi"
-    class="talk-card"
     :title="talk.title"
     :title-lang="titleLanguage(talk.title)"
     :href="talk.slidesUrl"
@@ -9,7 +8,7 @@
   >
     <template #media>
       <NuxtPicture
-        class="talk-cover col-span-full block h-auto w-full rounded-[10px] @min-[44rem]:col-span-1"
+        class="col-span-full block h-auto w-full rounded-[10px] @min-[44rem]:col-span-1"
         :src="talk.image"
         format="avif"
         legacy-format="webp"
@@ -24,25 +23,25 @@
       />
     </template>
     <template #metadata>
-      <span class="work-category text-xs text-muted">
+      <span class="text-xs text-muted">
         {{ talk.format }} /
         <time :datetime="talk.date">{{ formatDate(talk.date) }}</time>
       </span>
     </template>
     <!-- 原題を資料と照合できるよう残し、参考英訳は見出しとは別に添える。 -->
     <template v-if="isEnglish && talk.englishTitle" #subtitle>
-      <p class="title-translation text-[0.85rem] text-muted" lang="en">{{ talk.englishTitle }}</p>
+      <p class="text-[0.85rem] text-muted" lang="en">{{ talk.englishTitle }}</p>
     </template>
     <!-- イベント名は全体リンクとは別のリンクとして手前に置き、十分な操作高さを確保する。 -->
     <a
-      class="talk-event-link relative z-1 inline-flex min-h-11 max-w-full flex-col justify-center rounded-sm underline underline-offset-4 hover:decoration-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      class="relative z-1 inline-flex min-h-11 max-w-full flex-col justify-center rounded-sm underline underline-offset-4 hover:decoration-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       :href="talk.eventUrl"
       target="_blank"
       rel="noopener"
       :aria-label="t('ui.eventInfo', { title: talk.eventTitle })"
     >
       <span :lang="titleLanguage(talk.eventTitle)">{{ talk.eventTitle }}</span>
-      <span v-if="isEnglish && talk.englishEventTitle" class="event-translation mt-1 block" lang="en">{{ talk.englishEventTitle }}</span>
+      <span v-if="isEnglish && talk.englishEventTitle" class="mt-1 block" lang="en">{{ talk.englishEventTitle }}</span>
     </a>
   </AppCard>
 </template>

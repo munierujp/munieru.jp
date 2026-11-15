@@ -1,8 +1,8 @@
 <template>
-  <article class="app-card relative h-full">
+  <article class="relative h-full">
     <!-- カード全体の主リンクとフォーカス表示はNuxt UIへ任せる。 -->
     <UPageCard
-      class="native-card h-full"
+      class="h-full"
       :title="title"
       :to="href || undefined"
       target="_blank"
@@ -11,9 +11,9 @@
       :ui="{ wrapper: 'items-stretch', body: 'w-full' }"
     >
       <template #body>
-        <div class="card-layout grid items-start gap-4" :class="ui.layout">
+        <div class="grid items-start gap-4" :class="ui.layout">
           <slot name="media" />
-          <div class="card-content min-w-0" :class="ui.content">
+          <div class="min-w-0" :class="ui.content">
             <slot name="metadata" />
             <h3 class="mt-1 mb-2 text-[1.05rem] font-[650] leading-normal">
               <span :lang="titleLang || undefined">{{ title }}</span> <slot name="status" />
