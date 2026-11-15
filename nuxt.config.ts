@@ -56,7 +56,7 @@ export default defineNuxtConfig({
     provider: 'ipx',
     // 圧縮による劣化を抑える方針で、AVIF・WebPとも品質値を最大にする。
     quality: 100,
-    screens: { mobile: 560, tablet: 561, desktop: 801 }
+    screens: { mobile: 560, tablet: 561 }
   },
   i18n: {
     defaultLocale: 'ja',
