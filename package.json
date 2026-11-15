@@ -11,7 +11,7 @@
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "prepare": "nuxt prepare",
-    "test": "node --test scripts/*.test.ts",
+    "test": "node --test config/*.test.ts",
     "typecheck": "nuxt typecheck",
     "lint": "run-s lint:eslint lint:secretlint lint:stylelint lint:markuplint lint:lockfile-lint",
     "lint:secretlint": "secretlint \"**/*\"",

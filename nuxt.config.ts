@@ -3,7 +3,7 @@
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import { loadConfig } from './scripts/config.ts'
+import { loadConfig } from './config/site.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 import en from './i18n/locales/en.json' with { type: 'json' }
 

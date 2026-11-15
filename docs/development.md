@@ -70,7 +70,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 
 ## テストの実行単位
 
-`npm test`は`scripts/config.test.ts`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
+`npm test`は`config/site.test.ts`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ## TypeScriptと型チェック
 
@@ -84,7 +84,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`（同じディレクトリの`*.test.ts`を含む）はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
+`scripts/*.ts`・`config/*.ts`（設定と同じディレクトリの`*.test.ts`を含む）はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
 
 ### 型注釈とsatisfiesの使い分け
 
@@ -101,7 +101,7 @@ Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tool
 - `@tsconfig/node-ts`: NodeでTSを直接実行する際の制約（`erasableSyntaxOnly`・`verbatimModuleSyntax`など）
 - `@tsconfig/strictest`: 配列要素の未存在や未使用変数など、`strict`より厳格なチェック
 
-このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。`allowJs`で型付きJS設定も検査します。スクリプトとルートの`*.config.ts`を対象にし、`nuxt.config.ts`はルートの`tsconfig.json`が参照するNuxt生成設定へ任せるため除外します。他のTSConfigの対象を自動的に差し引く機能はないため、検査範囲はglobと除外パスで分けています。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
+このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。`allowJs`で型付きJS設定も検査します。`config/`・`scripts/`のTSとルートの`*.config.ts`を対象にし、`nuxt.config.ts`はルートの`tsconfig.json`が参照するNuxt生成設定へ任せるため除外します。他のTSConfigの対象を自動的に差し引く機能はないため、検査範囲はglobと除外パスで分けています。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
 
 ## ESLint
 
@@ -199,7 +199,7 @@ npm run lint:lockfile-lint
 
 ## 設定
 
-公開設定の既定値は`scripts/config.ts`に定義し、同名の環境変数で上書きできます。公開先の設定は生成時に反映します。
+公開設定の既定値は`config/site.ts`に定義し、同名の環境変数で上書きできます。公開先の設定は生成時に反映します。
 
 - `ORIGIN`: 公開サイトのオリジン。既定は `https://munieru.jp/`
 - `BASE_DIR`: 公開パス。既定は `/`。サブディレクトリなら `/portfolio/` など
