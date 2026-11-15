@@ -1,5 +1,5 @@
 /**
- * macOSのヒラギノで日英のOGP画像を生成する。ビルド時には実行しない。
+ * 単色背景・共通プロフィール画像・macOSのヒラギノで日英のOGPを生成する。ビルド時には実行しない。
  */
 import { access, mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -40,45 +40,84 @@ const images = [
 ]
 const width = 1200
 const height = 630
-const background = await loadImage(fileURLToPath(new URL('design/ogp/background.png', root)))
+/** ベース画像を持たず、背景・文字・画像の間隔は生成時に組み立てる。 */
+const design = {
+  background: '#9CC9DA',
+  foreground: '#242824',
+  margin: 64,
+  gap: 64,
+  portraitSize: 448,
+  lineGaps: [40, 32]
+} as const
+/** サイトのプロフィールと同じ元画像を使用し、キャラクターの差し替えを一箇所で済ませる。 */
+const portrait = await loadImage(fileURLToPath(new URL('public/profile.png', root)))
+
+/** 計測済みの一行。文字領域の実寸を、配置と描画で共有する。 */
+interface TextLine {
+  text: string
+  font: string
+  spacing: number
+  width: number
+  height: number
+  ascent: number
+}
 
 /**
- * 指定位置へ一行の文字を描き、左側の領域に収まるまでサイズを調整する。
- * @param context - 背景を描画済みの2Dコンテキスト。
- * @param text - 描画する文字列。
- * @param top - 画像上端からの位置（px）。
+ * 指定した太さの実フォントで計測し、画像と余白を除いた幅に収まるまで文字サイズを調整する。
+ * @param context - 生成画像の2Dコンテキスト。
+ * @param text - 一行で表示する文字列。
  * @param size - 初期フォントサイズ（px）。
- * @param weight - 登録したヒラギノの太さ（W3・W6・W9）。
- * @param spacing - 字間（px）。省略時は0。
- * @throws 24pxまで縮小しても幅570pxに収まらない場合。
+ * @param weight - 登録したヒラギノの太さ。
+ * @param spacing - 書記素間の字間（px）。
+ * @returns 描画と中央揃えに使用する文字領域。
  */
-function drawText (context: CanvasRenderingContext2D, text: string, top: number, size: number, weight: keyof typeof fontFamilies, spacing = 0): void {
+function measureLine (context: CanvasRenderingContext2D, text: string, size: number, weight: keyof typeof fontFamilies, spacing = 0): TextLine {
   const segments = [...segmenter.segment(text)]
-  /** node-canvasにはletterSpacingがないため、書体の送り幅に字間を加える。 */
-  const measureWidth = (): number => context.measureText(text).width + Math.max(0, segments.length - 1) * spacing
-  // 長い名前も左側の領域に収まるまで縮める。横方向への変形はしない。
-  do {
-    context.font = `${size}px "${fontFamilies[weight]}"`
-    if (measureWidth() <= 570) break
+  const available = width - design.margin * 2 - design.gap - design.portraitSize
+  while (size >= 24) {
+    const font = `${size}px "${fontFamilies[weight]}"`
+    context.font = font
+    const metrics = context.measureText(text)
+    const lineWidth = metrics.width + Math.max(0, segments.length - 1) * spacing
+    if (lineWidth <= available) {
+      return {
+        text,
+        font,
+        spacing,
+        width: lineWidth,
+        height: metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
+        ascent: metrics.actualBoundingBoxAscent
+      }
+    }
     size -= 1
-  } while (size >= 24)
-  if (measureWidth() > 570) {
-    throw new Error(`文字が左側の領域に収まりません: ${text}`)
   }
-  if (spacing === 0) {
-    context.fillText(text, 64, top)
+  throw new Error(`文字が画像と並べられる幅に収まりません: ${text}`)
+}
+
+/**
+ * 計測した文字領域の上端に合わせて一行を描画する。
+ * @param context - 描画先。
+ * @param line - 使用する書体と計測結果。
+ * @param left - 行の左位置（px）。
+ * @param top - 文字領域の上位置（px）。
+ */
+function drawLine (context: CanvasRenderingContext2D, line: TextLine, left: number, top: number): void {
+  context.font = line.font
+  const baseline = top + line.ascent
+  if (line.spacing === 0) {
+    context.fillText(line.text, left, baseline)
     return
   }
-  for (const [position, { segment, index }] of segments.entries()) {
-    // 直前までの文字列も測定し、単純な1文字幅の加算で失われるカーニングを反映する。
-    const end = context.measureText(text.slice(0, index + segment.length)).width
-    const x = 64 + end - context.measureText(segment).width + position * spacing
-    context.fillText(segment, x, top)
+  for (const [position, { segment, index }] of [...segmenter.segment(line.text)].entries()) {
+    // 直前までの文字列も測定し、書記素とカーニングを保って字間を加える。
+    const end = context.measureText(line.text.slice(0, index + segment.length)).width
+    const x = left + end - context.measureText(segment).width + position * line.spacing
+    context.fillText(segment, x, baseline)
   }
 }
 
 for (const { site, imagePath } of images) {
-  // サイト名を主名義と残りの部分に分け、既存の2行の組版を維持する。
+  // サイト名を主名義と残りの部分に分け、名前とOFFICIAL SITEの2行に分ける。
   // 定義が変わっても、画像用の名前やサイト名を別途編集する必要はない。
   if (!site.title.startsWith(site.name + ' ')) {
     throw new Error(`OGPの2行表示には、主名義に続くサイト名が必要です: ${site.title}`)
@@ -93,12 +132,36 @@ for (const { site, imagePath } of images) {
   context.imageSmoothingEnabled = true
   context.quality = 'best'
   context.patternQuality = 'best'
-  context.drawImage(background, 0, 0, width, height)
-  context.fillStyle = '#242824'
-  context.textBaseline = 'top'
-  drawText(context, site.name, 160, 128, 9, -2)
-  drawText(context, subtitle, 340, 64, 6, -1)
-  drawText(context, displayUrl, 455, 44, 3)
+  context.fillStyle = design.background
+  context.fillRect(0, 0, width, height)
+  context.fillStyle = design.foreground
+  context.textBaseline = 'alphabetic'
+  const lines = [
+    measureLine(context, site.name, 128, 9, -2),
+    measureLine(context, subtitle, 64, 6, -1),
+    measureLine(context, displayUrl, 44, 3)
+  ]
+  const textWidth = Math.max(...lines.map(line => line.width))
+  const textHeight = lines.reduce((total, line) => total + line.height, 0) + design.lineGaps.reduce((total, gap) => total + gap, 0)
+  if (textHeight > height - design.margin * 2) throw new Error('文字の高さが画像の余白に収まりません')
+  // 文字とプロフィール画像を一つのまとまりとして中央に置く。各行は左揃えを維持する。
+  const left = (width - textWidth - design.gap - design.portraitSize) / 2
+  let top = (height - textHeight) / 2
+  for (const [index, line] of lines.entries()) {
+    drawLine(context, line, left, top)
+    top += line.height + (design.lineGaps[index] ?? 0)
+  }
+  const portraitX = left + textWidth + design.gap
+  const portraitY = (height - design.portraitSize) / 2
+  // サイトと同じ円形表示。元画像は加工せず、中央を正方形で切り出して描画する。
+  context.save()
+  context.beginPath()
+  context.arc(portraitX + design.portraitSize / 2, height / 2, design.portraitSize / 2, 0, Math.PI * 2)
+  context.clip()
+  const sourceSize = Math.min(portrait.width, portrait.height)
+  context.drawImage(portrait, (portrait.width - sourceSize) / 2, (portrait.height - sourceSize) / 2, sourceSize, sourceSize,
+    portraitX, portraitY, design.portraitSize, design.portraitSize)
+  context.restore()
   await mkdir(new URL('./', output), { recursive: true })
   const png = canvas.toBuffer('image/png')
   await writeFile(output, png)

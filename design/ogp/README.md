@@ -1,15 +1,15 @@
 # OGP画像の生成
 
-背景・キャラクターと文字を分離し、実際のフォントで組版してPNGへ書き出します。
+単色の背景に、サイトと共通のプロフィール画像と実際のフォントによる文字を配置し、PNGへ書き出します。プロフィール画像を描き込んだベース画像は使いません。
 
-- 文字なし背景: `background.png`（image_genで従来のOGPから文字を除去した素材）
-- 書き出しスクリプト: `../../scripts/generate-ogp.ts`
+- プロフィール画像: `../../public/profile.png`（サイトと共通。生成時に円形で配置）
+- 背景色・配置: `../../scripts/generate-ogp.ts`の`design`
 - 日本語版: `../../public/ogp.png`（ムニエル OFFICIAL SITE / https://munieru.jp/）
 - 英語版: `../../public/en/ogp.png`（Munieru OFFICIAL SITE / https://munieru.jp/）
 
 ## 再生成
 
-macOSのヒラギノ角ゴシックと、このリポジトリで指定したNode.jsが必要です。依存パッケージをインストールした後、リポジトリのルートで実行します。配布済みのネイティブバイナリを利用する場合、SwiftやXcode Command Line Toolsは不要です。
+macOSのヒラギノ角ゴシックと、このリポジトリで指定したNode.jsが必要です。依存パッケージをインストールした後、リポジトリのルートで実行します。SwiftやXcode Command Line Toolsは不要です。
 
 `.npmrc`でインストールスクリプトを無効にしているため、初回と`npm ci`で依存関係を入れ直した後は、OGPを生成する前に`canvas`のバイナリを明示的に準備してください。バイナリの取得にはネットワーク接続が必要です。
 
@@ -18,15 +18,25 @@ npm rebuild canvas --ignore-scripts=false
 npm run generate:ogp
 ```
 
-Automatticの`canvas`（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録し、描画エンジンによるCSSウェイトの解釈の違いを避けます。文字色は`#242824`、出力は1200×630pxのPNGです。macOS以外や必要な書体が見つからない環境では、代替フォントを使わず停止します。フォントファイル自体はリポジトリへ含めません。
+Automatticの`canvas`（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録します。macOS以外や必要な書体がない環境では、代替フォントを使わず停止します。フォントファイル自体は配布しません。
 
-`canvas`には`letterSpacing`がないため、文字列を書記素単位に分け、送り幅とカーニングを測定して字間を加えます。結合文字やサロゲートペアの途中では分割しません。
+## 配置と共通定義
 
-名前・サイト名は`../../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`を、表示URLと出力先は`../../scripts/config.ts`の公開設定を参照します。サイト名を主名義とその後ろの文字列へ分け、既存の2行の組版を維持します。`site.title`は`site.name`に半角スペースを続けて始める形式にします。URLはプロトコルと末尾のスラッシュを含め、`https://munieru.jp/`の形式で表示します。
+- 出力は1200×630pxのPNG。背景色は`#9CC9DA`、文字色は`#242824`です。
+- 名前・サイト名は`../../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../../scripts/config.ts`から読み込みます。URLはプロトコルと末尾のスラッシュを含めて表示します。
+- サイト名は名前とその後ろの部分に分けます。`site.title`は`site.name`に半角スペースを続けて始める形式にします。
+- 文字の幅・高さを実フォントで測り、名前・OFFICIAL SITE・URLを左揃えで縦に並べます。文字群と448pxのプロフィール画像を64px空け、まとまり全体を中央に配置します。文字群と画像は、それぞれ縦方向にも中央揃えします。
+- 長い名前は、画像と外周64pxの余白を確保できる幅に収まるまで縮小します。画像の水平位置も文字幅に応じて変わるため、日本語・英語を別々に手作業で調整する必要はありません。
+- `canvas`には`letterSpacing`がないため、文字列を書記素単位で扱い、送り幅とカーニングを測定して字間を加えます。結合文字やサロゲートペアの途中では分割しません。
+- プロフィール画像は元ファイルを加工せず、中央の正方形を円形にクリップして描画します。背景画像やキャラクターの別素材は不要です。
 
-文字を変更する場合は共通の定義を編集してから再生成してください。配置・太さはスクリプトで編集します。文字の変更にAIでの画像生成は不要です。背景を変更する場合だけ素材を更新します。ビルドやCIは生成済みPNGを配信するため、macOSやフォントのインストールは不要です。
+文字・プロフィール画像はサイトと共通の定義を更新して再生成します。色・寸法・余白はスクリプトで変更します。ビルドとCIは生成済みPNGを配信するため、macOSやフォントは不要です。
 
-従来の文字入り生成画像`blue-charcoal.png`・`blue-charcoal-en.png`は、文字なし背景とスクリプトに置き換えました。
+従来のキャラクター合成済み背景`background.png`は不要になったため削除しました。
+
+## 過去の生成方式の比較記録
+
+以下は、キャラクターを描き込んだ背景画像を使っていた当時の記録です。現在の単色背景・プロフィール画像を配置する方式の比較値ではありません。
 
 ## node-canvasへの移行時の比較
 
@@ -55,9 +65,3 @@ Automatticの`canvas`（node-canvas）を使います。名前はヒラギノ角
 | RGB各成分の二乗平均平方根誤差（0〜255） | 3.8510 | 5.1311 |
 
 文字領域は左半分の各行でRGBが`R < 65, G < 70, B < 65`のピクセルを囲む矩形として比較しています。画像全体の誤差は、PNGをRGBへデコードして比較した値です。ファイルの圧縮方式の違いは、この値に影響しません。
-
-## 背景作成時の指示
-
-```text
-Edit this existing OGP banner to produce a reusable TEXT-FREE BACKGROUND PLATE. Remove ALL lettering on the left: the Japanese name ムニエル, OFFICIAL SITE, and munieru.jp. Fill only the removed letter areas seamlessly with the same sky-blue softly textured background. Keep the entire fish character with lemon on the right, including every outline, color, texture, size, placement, wave, expression, feet, lemon, and ground shadow exactly as in the supplied image. Keep the same wide landscape composition and full-bleed background. Do not move or redesign the character. Do not add ANY text, glyphs, logo, decoration or watermark. The left half must be clean empty blue background suitable for later deterministic typesetting. Preserve the image's 1200:630 aspect ratio.
-```
