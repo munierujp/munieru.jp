@@ -39,8 +39,6 @@ npm run lint
 npm run typecheck
 npm test
 npm run build
-# ビルド成果物の検証
-npm run test:integration
 npm start
 ```
 
@@ -59,7 +57,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 - `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
 - `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
-- `.github/workflows/test.yml`: ビルド不要の単体テスト→Nuxtの準備・静的ビルド→成果物の結合テスト
+- `.github/workflows/test.yml`: ビルド不要の単体テスト
 
 各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
@@ -313,7 +311,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 - ボタン・バッジは`UButton`・`UBadge`を直接使い、色・サイズ・形の共通設定は`app/app.config.ts`へ置きます。外部リンクの`to`・`external`・`target`・`rel`は使う場所で指定します。
 - `AppCard`はカードのレイアウトと主リンク・補助リンクの構造を保ち、外枠をライブラリに置き換えています。
 - 言語は国旗＋現在の言語、テーマは状態アイコン＋設定名を表示する高さ44pxのセレクトです。GitHub・資料へのアイコンリンクは円形です。
-- 既存の静的HTMLテストは、ライブラリの追加クラスやHTMLタグの大文字小文字に依存せず、表示ラベルと初期トリガーを確認します。メニュー項目の実操作はブラウザでも検証します。
+- 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。
 - フォントは端末搭載の書体を使うため自動フォントだけを無効にします。テーマ選択はNuxt UIのColor Mode連携を使い、メニュー用のLucideアイコンはローカルにバンドルします。
 
 ### ページ遷移の通知
@@ -346,7 +344,7 @@ Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し�
 
 ### テストの実行単位
 
-`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの14件は`test/integration/`へ分け、`npm run build`後に`npm run test:integration`で実行します。CIはこの順序で各検証を一度ずつ実行します。
+`npm test`（`npm run test:unit`）は`test/unit/`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは今回の対象から外し、[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ### Node用の型検査設定
 
