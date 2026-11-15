@@ -12,12 +12,12 @@
     "prepare": "nuxt prepare",
     "test": "node --test test/unit/*.test.ts",
     "typecheck": "nuxt typecheck",
-    "lint": "run-s lint:eslint lint:secretlint lint:stylelint lint:markuplint lint:lockfile",
+    "lint": "run-s lint:eslint lint:secretlint lint:stylelint lint:markuplint lint:lockfile-lint",
     "lint:secretlint": "secretlint \"**/*\"",
     "lint:stylelint": "stylelint \"assets/**/*.css\" --max-warnings=0",
     "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0",
     "lint:eslint": "eslint . --max-warnings=0",
-    "lint:lockfile": "lockfile-lint"
+    "lint:lockfile-lint": "lockfile-lint"
   },
   "engines": {
     "node": "26.6.0"

@@ -31,4 +31,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: lockfile-lint
-        run: npm run lint:lockfile
+        run: npm run lint:lockfile-lint
