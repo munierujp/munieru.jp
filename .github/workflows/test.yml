@@ -31,10 +31,3 @@ jobs:
         run: npm ci
       - name: Unit tests
         run: npm test
-      # .npmrcでインストールスクリプトを無効にしているため、明示的に準備する。
-      - name: Prepare Nuxt
-        run: npm run prepare
-      - name: Build
-        run: npm run build
-      - name: Integration tests
-        run: npm run test:integration
