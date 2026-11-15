@@ -54,10 +54,13 @@ import type { AppCardUi } from '~/types/AppCardUi'
 import type { IconName } from '~/types/IconName'
 import { computed, ref } from 'vue'
 
-const props = defineProps<{
+/** このコンポーネントが受け取る入力。 */
+interface Props {
   /** 分類・公開状態・ソースコードを含む作品の情報。 */
   work: Work
-}>()
+}
+
+const props = defineProps<Props>()
 /** 作品のアイコン・本文・GitHubリンクを、画面幅に応じて配置する。 */
 const cardUi: AppCardUi = {
   layout: 'grid-cols-[66px_minmax(0,1fr)_44px] max-[560px]:grid-cols-[minmax(0,1fr)_44px]',

@@ -53,10 +53,13 @@
 import type { Talk } from '~/types/Talk'
 import type { AppCardUi } from '~/types/AppCardUi'
 
-defineProps<{
+/** このコンポーネントが受け取る入力。 */
+interface Props {
   /** イベント・表紙・発表資料を含む登壇の情報。 */
   talk: Talk
-}>()
+}
+
+defineProps<Props>()
 /** 登壇の横長表紙はカード幅が十分なときだけ本文の横に置く。 */
 const cardUi: AppCardUi = {
   layout: 'grid-cols-[minmax(0,1fr)] @min-[44rem]:grid-cols-[192px_minmax(0,1fr)]',

@@ -44,10 +44,13 @@
  */
 import type { Book } from '~/types/Book'
 import type { AppCardUi } from '~/types/AppCardUi'
-defineProps<{
+/** このコンポーネントが受け取る入力。 */
+interface Props {
   /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
   book: Book
-}>()
+}
+
+defineProps<Props>()
 /** 書籍の縦長の表紙と本文を横に並べる。 */
 const cardUi: AppCardUi = {
   layout: 'grid-cols-[128px_minmax(0,1fr)] max-[560px]:grid-cols-[96px_minmax(0,1fr)]'

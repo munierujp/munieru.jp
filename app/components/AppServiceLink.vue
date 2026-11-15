@@ -16,10 +16,13 @@
 /** サービスの装飾画像・原表記の名前・別タブで開くリンクを共通化する。 */
 import type { ServiceLink } from '~/types/ServiceLink'
 
-defineProps<{
+/** このコンポーネントが受け取る入力。 */
+interface Props {
   /** 表示名・公開URL・ローカル画像を持つサービス情報。 */
   link: ServiceLink
-}>()
+}
+
+defineProps<Props>()
 
 const { titleLanguage } = useSiteLocale()
 </script>
