@@ -18,7 +18,8 @@
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
 - スキル一覧: `app/components/AppSkills.vue`
-- 作品一覧・日付順への整列: `app/components/AppWorks.vue`
+- 作品JSONの読み込み・分類の検証: `app/data/works.ts`
+- 作品一覧・翻訳・日付順への整列: `app/components/AppWorks.vue`
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧・URL未設定時の非表示: `app/components/AppSupport.vue`

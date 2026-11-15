@@ -75,7 +75,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
 `app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`・`AppCardUi.ts`がUIの型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
-元データは`modules/*.json`で編集できます。作品の分類はJSON読み込み時にも検証します。
+元データは`modules/*.json`で編集できます。作品の分類は`app/data/works.ts`でJSON読み込み時に検証します。
 
 ```sh
 npm run typecheck

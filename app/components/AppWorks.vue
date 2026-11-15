@@ -13,29 +13,18 @@
 
 <script setup lang="ts">
 /**
- * 作品データの分類を検証し、翻訳・日付順への整列を管理する。
+ * 検証済みの作品データを翻訳し、日付順への整列を管理する。
  */
 import { computed } from 'vue'
-import workData from '~~/modules/works.json'
+import { works as workData } from '~/data/works'
 import type { Work } from '~/types/Work'
 
 // 作品の翻訳・日付順への整列をこのセクションで管理する。
 const { t, localize } = useSiteLocale()
-// JSONの文字列を分類の型へ絞り込む。不正な分類は黙って表示しない。
+/** 検証済みの作品を翻訳し、公開日の新しい順に並べる。 */
 const works = computed<Work[]>(() =>
   workData
-    .map((work) => {
-      const category = work.category
-      if (
-        category !== 'web' &&
-        category !== 'extension' &&
-        category !== 'library' &&
-        category !== 'cli'
-      ) {
-        throw new Error(`Unknown work category: ${category}`)
-      }
-      return localize('works', { ...work, category })
-    })
+    .map(work => localize('works', work))
     .sort((a, b) => b.date.localeCompare(a.date))
 )
 </script>
