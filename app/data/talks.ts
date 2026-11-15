@@ -2,7 +2,7 @@
 import type { Talk } from '~/types/Talk'
 
 /** 日英で共有する登壇一覧。表示文の翻訳は表示側で行う。 */
-export const talks = [
+export const talks: Talk[] = [
   {
     key: 'nuxt-3-with-element-plus',
     title: 'Nuxt 3でElement Plusを使ってみた',
@@ -27,4 +27,4 @@ export const talks = [
     eventUrl: 'https://increments.connpass.com/event/98534/',
     url: 'https://speakerdeck.com/munieru_jp/2018-08-29'
   }
-] satisfies Talk[]
+]

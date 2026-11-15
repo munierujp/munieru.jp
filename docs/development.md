@@ -79,8 +79,8 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
-`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`・`AppCardUi.ts`がUIの型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`に対して`satisfies`で検査します。
-一覧の元データは`app/data/*.ts`で編集できます。各配列は`satisfies`で対応する型を検査し、必須項目の不足や作品分類の誤記を`npm run typecheck`で検出します。
+`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`・`AppCardUi.ts`がUIの型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`、各カードの配置設定は`AppCardUi`の型注釈で検査します。
+一覧の元データは`app/data/*.ts`で編集できます。各配列は`Skill[]`・`Work[]`などの型注釈で対応する型を検査し、必須項目の不足や作品分類の誤記を`npm run typecheck`で検出します。
 
 ```sh
 npm run typecheck
@@ -89,6 +89,13 @@ npm run typecheck
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定・サーバープラグインをチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
 `scripts/*.ts`と`test/**/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
+
+### 型注釈とsatisfiesの使い分け
+
+変数を共通の型として扱う場合は、`const skills: Skill[] = [...]`のように型注釈を使います。
+コンテンツ配列・カードの配置・セレクトの設定・リンター設定はこの方針です。
+`satisfies`は適合性を検査しながら、オブジェクト固有のキーなど、より具体的な推論型を後続処理で必要とする場合に使います。
+型検査を行うためだけに`satisfies`を選ぶ必要はありません。`as`による型アサーションを、検査の代わりには使いません。
 
 ## Node用の型検査設定
 

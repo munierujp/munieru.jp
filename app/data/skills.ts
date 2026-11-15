@@ -2,7 +2,7 @@
 import type { Skill } from '~/types/Skill'
 
 /** 日英で共有するスキル一覧。表示文の翻訳は表示側で行う。 */
-export const skills = [
+export const skills: Skill[] = [
   {
     name: 'Chrome拡張機能',
     image: '/skill-icons/chrome.svg'
@@ -59,4 +59,4 @@ export const skills = [
     name: 'Vue.js',
     image: '/skill-icons/vue.svg'
   }
-] satisfies Skill[]
+]

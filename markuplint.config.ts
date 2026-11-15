@@ -3,7 +3,8 @@
  */
 import type { Config } from '@markuplint/ml-config'
 
-export default {
+/** リンターへ渡す設定。専用のConfig型で構造を検査する。 */
+const config: Config = {
   // Vueのテンプレート構文に対応した推奨ルールを共通の基準にする。
   extends: ['markuplint:recommended-vue'],
   parser: {
@@ -22,4 +23,6 @@ export default {
       }
     }
   ]
-} satisfies Config
+}
+
+export default config

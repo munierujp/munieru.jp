@@ -2,7 +2,7 @@
 import type { Work } from '~/types/Work'
 
 /** 日英で共有する作品一覧。表示文の翻訳は表示側で行う。 */
-export const works = [
+export const works: Work[] = [
   {
     key: 'direct_helper',
     publicationEnded: true,
@@ -118,4 +118,4 @@ export const works = [
     category: 'web',
     image: '/work-icons/inochi-no-sunadokei.png'
   }
-] satisfies Work[]
+]

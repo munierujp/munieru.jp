@@ -58,9 +58,9 @@ defineProps<{
   talk: Talk
 }>()
 /** 登壇の横長表紙はカード幅が十分なときだけ本文の横に置く。 */
-const cardUi = {
+const cardUi: AppCardUi = {
   layout: 'grid-cols-[minmax(0,1fr)] @min-[44rem]:grid-cols-[192px_minmax(0,1fr)]',
   content: 'col-start-1 @min-[44rem]:col-start-2'
-} satisfies AppCardUi
+}
 const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
 </script>

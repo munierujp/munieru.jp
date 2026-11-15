@@ -2,7 +2,7 @@
 import type { ServiceLink } from '~/types/ServiceLink'
 
 /** 日英で共有するサービスリンク一覧。表示文の翻訳は表示側で行う。 */
-export const links = [
+export const links: ServiceLink[] = [
   {
     title: 'X',
     url: 'https://x.com/munieru_jp',
@@ -103,4 +103,4 @@ export const links = [
     url: 'https://ja.wikipedia.org/wiki/%E5%88%A9%E7%94%A8%E8%80%85:Munieru',
     image: '/service-icons/wikipedia.png'
   }
-] satisfies ServiceLink[]
+]

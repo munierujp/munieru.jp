@@ -49,8 +49,8 @@ defineProps<{
   book: Book
 }>()
 /** 書籍の縦長の表紙と本文を横に並べる。 */
-const cardUi = {
+const cardUi: AppCardUi = {
   layout: 'grid-cols-[128px_minmax(0,1fr)] max-[560px]:grid-cols-[96px_minmax(0,1fr)]'
-} satisfies AppCardUi
+}
 const { isEnglish, t, formatDate } = useSiteLocale()
 </script>

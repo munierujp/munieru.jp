@@ -2,7 +2,7 @@
 import type { Book } from '~/types/Book'
 
 /** 日英で共有する書籍一覧。表示文の翻訳は表示側で行う。 */
-export const books = [
+export const books: Book[] = [
   {
     key: 'tech_do_book_vol_1',
     title: 'Tech Do Book Vol.1',
@@ -14,4 +14,4 @@ export const books = [
     format: '技術同人誌',
     chapterTitle: 'Go + Echoでウェブページをフェッチするツールを作る'
   }
-] satisfies Book[]
+]

@@ -19,7 +19,7 @@
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
 - 装飾画像の最適化: `app/components/AppIconImage.vue`（SVGを維持し、ラスター画像の配信寸法・密度・形式を共通化）
 - スキル一覧: `app/components/AppSkills.vue`
-- 型付きのコンテンツ一覧: `app/data/*.ts`（`satisfies`で各型を検査）
+- 型付きのコンテンツ一覧: `app/data/*.ts`（型注釈で各型を検査）
 - 作品一覧・翻訳・日付順への整列: `app/components/AppWorks.vue`
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
