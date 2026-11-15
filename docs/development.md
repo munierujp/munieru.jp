@@ -136,6 +136,13 @@ console.log(result)
 このプラグインが検査するのはソース内のESLint制御コメントです。
 設定ファイルの`rules`に理由コメントがあるかどうかは検査しないため、レビューで確認します。
 
+### TSDocコメント
+
+`eslint-plugin-tsdoc`の`tsdoc/syntax`をエラーとして適用し、TSファイル（`.ts`・`.mts`・`.cts`）とVueのscript内に書かれたTSDocの構文を検査します。
+タグや`@param name - 説明`などの書式を検査しますが、コメントの記載漏れ、説明内容の正しさ、実際の引数との一致までは検査しません。
+TSDocの本文でタグではない`@`を書く場合は、インラインコードで囲むかエスケープします。
+検査は既存の`npm run lint:eslint`と同じGitHub Actionsで実行します。
+
 ## Secretlint
 
 公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。

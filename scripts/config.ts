@@ -12,7 +12,7 @@ const defaults = {
   BASE_DIR: '/',
   /** フッターから案内する、このサイトのソースコードURL。 */
   REPOSITORY_URL: 'https://github.com/munierujp/munieru.jp',
-  /** 共有カードに設定するXアカウント名。先頭の@は省略可能。 */
+  /** 共有カードに設定するXアカウント名。先頭の`@`は省略可能。 */
   X_ID: 'munieru_jp',
   /** public配下の日本語OGP画像の相対パス。先頭の/やURL表記は付けない。 */
   OG_IMAGE_PATH: 'ogp.png',

@@ -1,9 +1,10 @@
 /**
- * neostandard・Nuxtの規約と、ESLint制御コメントのチェックを組み合わせる。
+ * neostandard・Nuxtの規約と、ESLint制御コメント・TSDocのチェックを組み合わせる。
  */
 import withNuxt from './.nuxt/eslint.config.mjs'
 import { neostandard } from 'neostandard'
 import eslintComments from '@eslint-community/eslint-plugin-eslint-comments/configs'
+import tsdoc from 'eslint-plugin-tsdoc'
 
 // Nuxtが生成するVue・TypeScript・JavaScriptの推奨設定を使う。
 export default withNuxt(
@@ -14,6 +15,15 @@ export default withNuxt(
     rules: {
       // 例外の理由を制御コメント内に残し、後から妥当性を判断できるようにする。
       '@eslint-community/eslint-comments/require-description': 'error'
+    }
+  },
+  {
+    name: 'app/tsdoc',
+    files: ['**/*.{ts,mts,cts,vue}'],
+    plugins: { tsdoc },
+    rules: {
+      // 積極的に記載するTSDocのタグや記法を、TSとVueのscript内で検査する。
+      'tsdoc/syntax': 'error'
     }
   },
   {
