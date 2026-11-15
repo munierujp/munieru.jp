@@ -1,4 +1,11 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/df9f63fe-2cb3-4024-a774-9c4bb1affcfc/deploy-status)](https://app.netlify.com/sites/munieru/deploys)
+[![test](https://github.com/munierujp/munieru.jp/actions/workflows/test.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/test.yml)
+[![typecheck](https://github.com/munierujp/munieru.jp/actions/workflows/typecheck.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/typecheck.yml)
+[![eslint](https://github.com/munierujp/munieru.jp/actions/workflows/eslint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/eslint.yml)
+[![secretlint](https://github.com/munierujp/munieru.jp/actions/workflows/secretlint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/secretlint.yml)
+[![stylelint](https://github.com/munierujp/munieru.jp/actions/workflows/stylelint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/stylelint.yml)
+[![markuplint](https://github.com/munierujp/munieru.jp/actions/workflows/markuplint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/markuplint.yml)
+[![lockfile-lint](https://github.com/munierujp/munieru.jp/actions/workflows/lockfile-lint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/lockfile-lint.yml)
 [![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-7fffff?style=flat&labelColor=ff80ff)](https://github.com/neostandard/neostandard)
 
