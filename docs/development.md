@@ -121,6 +121,21 @@ npm run lint:eslint -- --fix
 自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で5種類のリンターを順に実行します。整形はneostandardに従い、個別のスタイルルールは追加していません。
 トップページはページ遷移アニメーションを使わずFragmentで構成するため、`app/pages/index.vue`だけ単一ルートのルールを例外にしています。
 
+### ESLint制御コメント
+
+`@eslint-community/eslint-plugin-eslint-comments`のFlat Config用`recommended`と、
+`@eslint-community/eslint-comments/require-description`を使います。
+ルール名のない一括無効化、重複した無効化、無効化・再有効化の対応ミスを検出し、制御コメントには`-- 理由`を要求します。
+不要な無効化の検出は既存のESLint本体の`reportUnusedDisableDirectives`に任せ、プラグインの同等ルールは追加しません。
+
+```ts
+// eslint-disable-next-line no-console -- CLIの実行結果を利用者へ表示するため。
+console.log(result)
+```
+
+このプラグインが検査するのはソース内のESLint制御コメントです。
+設定ファイルの`rules`に理由コメントがあるかどうかは検査しないため、レビューで確認します。
+
 ## Secretlint
 
 公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。
