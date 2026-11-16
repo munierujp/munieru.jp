@@ -132,5 +132,5 @@ AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限�
 ## 存在しないURL
 
 存在しないURLは専用の404画面を表示せず、トップページへ自動移動します。
-Netlifyの転送ルールは`public/_redirects`へ直接記載し、Nuxtがビルド時に`dist/_redirects`へコピーします。旧`/ja`・`/ja/`は日本語トップ`/`へ301転送します。見つからない`/en/*`は英語トップ、それ以外は日本語トップへ302転送します。既存ファイルは転送せず通常配信します。
+Netlifyの転送ルールは`public/_redirects`へ直接記載し、Nuxtがビルド時に`dist/_redirects`へコピーします。見つからない`/en/*`は英語トップ、それ以外は日本語トップへ302転送します。既存ファイルは転送せず通常配信します。
 ローカルの`nuxt preview`ではNetlify固有の転送ルールは再現せず、Deploy Previewで確認します。転送専用のVueページは用意せず、公開時はNetlifyの転送機能を使います。

@@ -1,11 +1,6 @@
 # Redirect default Netlify subdomain to primary domain
 http://munieru.netlify.com/* http://munieru.jp/:splat 301!
 
-
-# Redirect the former Japanese homepage to its canonical URL
-/ja / 301
-/ja/ / 301
-
 # Redirect missing pages to the homepage (existing files take precedence)
 /en/* /en/ 302
 /* / 302
