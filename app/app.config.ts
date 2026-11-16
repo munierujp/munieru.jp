@@ -24,11 +24,6 @@ const pageSection: NonNullable<UiConfig['pageSection']> = {
   compoundVariants: [{ orientation: 'vertical', title: true, class: { body: 'mt-6' } }]
 }
 
-/** カードの最小幅と、コンテナー幅に応じた列数・間隔。 */
-const pageGrid: NonNullable<UiConfig['pageGrid']> = {
-  base: 'grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] sm:grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] lg:grid-cols-[repeat(auto-fill,minmax(min(100%,30rem),1fr))] gap-3'
-}
-
 /** カードの角丸と、リンクがある場合の操作時の外観。 */
 const pageCard: NonNullable<UiConfig['pageCard']> = {
   slots: { root: 'rounded-[20px] transition-colors duration-150 motion-reduce:transition-none' },
@@ -64,7 +59,6 @@ const ui: UiConfig = {
   colors,
   button,
   pageSection,
-  pageGrid,
   pageCard,
   badge,
   selectMenu
