@@ -10,12 +10,31 @@
     "noEmit": true,
     "allowJs": true
   },
-  "include": [
-    "config/**/*.ts",
-    "scripts/**/*.ts",
-    "*.config.ts",
-    ".secretlintrc.js"
-  ],
-  // nuxt.config.tsはルートtsconfigの参照先で、Nuxt固有の型とともに検査する。
-  "exclude": ["nuxt.config.ts"]
+  // 新規ディレクトリ・ドットファイルも探索し、個別のファイル名を登録しない。
+  "include": ["**/*", "**/.*", "**/.*/**/*"],
+  // Nuxtが検査するソース領域と、依存関係・生成物・Git管理データを除く。
+  "exclude": [
+    "**/node_modules",
+    ".git",
+    ".nuxt",
+    ".output",
+    ".cache",
+    ".data",
+    "dist",
+    "coverage",
+    "app",
+    "server",
+    "shared",
+    "i18n",
+    "test/nuxt",
+    "tests/nuxt",
+    "modules/*/runtime",
+    "modules/*/shared",
+    "layers/*/app",
+    "layers/*/server",
+    "layers/*/shared",
+    "layers/*/modules/*/runtime",
+    "layers/*/modules/*/shared",
+    "nuxt.config.ts"
+  ]
 }
