@@ -1,9 +1,8 @@
 # OGP画像の生成
 
-[Nuxt OG Image](https://nuxtseo.com/docs/og-image/getting-started/introduction)のTakumiレンダラーで、単色背景にプロフィール画像と文字を配置してPNGへ書き出します。
+[Takumi](https://takumi.kane.tw/docs/reference/)の公式Node APIで、単色背景にプロフィール画像と文字を配置してPNGへ書き出します。
 
-- テンプレート・色・配置: `../ogp/app/components/OgImage/SiteCard.takumi.vue`
-- 表示文・文字サイズ: `../ogp/app/pages/[[locale]].vue`
+- 描画処理・色・配置・文字サイズ: `../scripts/generate-ogp.ts`
 - プロフィール画像: `../public/profile.png`（サイトと共通。円形で配置）
 - 日本語版: `../public/ogp.png`（ムニエル OFFICIAL SITE / https://munieru.jp/）
 - 英語版: `../public/en/ogp.png`（Munieru OFFICIAL SITE / https://munieru.jp/）
@@ -18,7 +17,7 @@ npm run generate:ogp
 
 名前はW9、OFFICIAL SITEはW6、URLはW3を使います。TakumiがTTC内の書体と実ウェイトを直接読み込むため、OTFへの変換は不要です。macOS以外や必要なフォントがない場合は、代替フォントを使わず停止します。
 
-`scripts/generate-ogp.ts`がフォントとプロフィール画像を`.cache/ogp/`へ一時配置し、`ogp/`の生成専用Nuxtを実行します。生成HTMLに出力された画像URLからPNGを取得し、日英の公開パスへコピーします。成功・失敗にかかわらず一時ファイルを削除し、フォントファイル自体は配布しません。
+`scripts/generate-ogp.ts`がフォントを一度だけ登録し、サイトと共通のプロフィール画像をメモリー上で読み込みます。型付きのノードツリーに文字・画像とCSSの配置を定義し、`Renderer.render()`の結果を日英の公開パスへ直接書き出します。Nuxtのビルドや一時ファイルの作成は行わず、フォントファイル自体は配布しません。
 
 ## 配置と共通定義
 
@@ -28,4 +27,4 @@ npm run generate:ogp
 - 文字の行ボックスの左端は64px、上端は名前176px・OFFICIAL SITE 328px・URL 414pxです。名前は日本語128px・英語113px、OFFICIAL SITEは64px、URLは44pxです。448pxのプロフィール画像は左688px・上91pxに配置します。
 - 文字の字間・円形クリップ・画像の描画はCSSとTakumiへ任せます。現在の表示文に合わせた固定サイズのため、名前やURLを長い文字列へ変える場合は収まりを確認し、必要なら文字サイズを調整します。
 
-通常のサイトビルド・CI・Netlifyは生成済みPNGを配信し、OGP生成用Nuxtは実行しません。PNGを更新した場合は、テンプレートや表示文と一緒に変更内容を確認してください。
+通常のサイトビルド・CI・Netlifyは生成済みPNGを配信し、OGP画像は再生成しません。PNGを更新した場合は、描画定義や表示文と一緒に変更内容を確認してください。

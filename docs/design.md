@@ -36,7 +36,7 @@
 - ページ幅・左右の余白: Nuxt UI標準の`UContainer`を使います。本文フォントは`nuxt.config.ts`の`app.head.bodyAttrs`で指定し、本文の行間はTailwind標準の1.5を使います。部品ごとの行間は各コンポーネントで調整し、背景・文字色はNuxt UIの標準スタイルへ任せます。
 - スタイルの入口: `assets/style/main.css`はTailwind・Nuxt UIのimportだけです。リセットはPreflight、カード全体の主リンクは`UPageCard`を使います。
 - ファビコン・サイトの静的生成: `nuxt.config.ts`
-- OGP画像の描画: `ogp/`（Nuxt OG Image・Takumi。通常のサイトビルドから分離）
+- OGP画像の描画: `scripts/generate-ogp.ts`（Takumiの公式Node APIでPNGへ直接出力。通常のサイトビルドから分離）
 
 HTMLをJavaScript文字列として編集する必要はありません。
 各カードはデータをpropsで受け取り、`UPageCard`のheader・leading・title・description・footerスロットで用途ごとの表示を組み立てます。見出しはtitleスロット内の`h3`とし、原題の言語属性を維持します。

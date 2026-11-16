@@ -30,7 +30,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 
 名前・サイト名（`site.name`・`site.title`）、公開オリジン（`ORIGIN`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
 ビルドやCIでは自動生成しないため、生成したPNGも変更に含めます。出力先は`public/ogp.png`・`public/en/ogp.png`に固定しています。
-実行にはmacOSのヒラギノ角ゴシックが必要です。Nuxt OG ImageのTakumiレンダラーで生成します。[OGP画像の生成手順](ogp.md#再生成)を参照してください。
+実行にはmacOSのヒラギノ角ゴシックが必要です。Takumiの公式Node APIで生成します。[OGP画像の生成手順](ogp.md#再生成)を参照してください。
 
 ## 日本語・英語の更新
 
