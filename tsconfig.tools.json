@@ -21,20 +21,8 @@
     ".cache",
     ".data",
     "dist",
-    "coverage",
     "app",
-    "server",
-    "shared",
     "i18n",
-    "test/nuxt",
-    "tests/nuxt",
-    "modules/*/runtime",
-    "modules/*/shared",
-    "layers/*/app",
-    "layers/*/server",
-    "layers/*/shared",
-    "layers/*/modules/*/runtime",
-    "layers/*/modules/*/shared",
     "nuxt.config.ts"
   ]
 }
