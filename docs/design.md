@@ -30,7 +30,7 @@
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`・Iconify名の`icon`を必須で指定）
 - 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。
 - ページとレイアウトの接続: `app/app.vue`
-- 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定でボタン・カード・バッジ・メニューの角丸と操作領域を指定します。
+- 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定で中立色のボタン・操作領域・円形ボタンを指定し、通常のボタン・カード・メニューの角丸や操作時の装飾は標準テーマを使います。
 - 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードは`UPageCard`の標準スロットとスタイルを使い、画像寸法や補助リンクの重なりだけを各コンポーネントで調整します。
 - 配色: `app/app.config.ts`の`ui.colors`でNuxt UI標準のcyan・zincを選びます。背景色・文字色の具体値は独自定義しません。
 - ページ幅・左右の余白: Nuxt UI標準の`UContainer`を使います。本文フォントは`nuxt.config.ts`の`app.head.bodyAttrs`で指定し、本文の行間はTailwind標準の1.5を使います。部品ごとの行間は各コンポーネントで調整し、背景・文字色はNuxt UIの標準スタイルへ任せます。
