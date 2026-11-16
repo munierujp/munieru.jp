@@ -13,10 +13,10 @@
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
-- 装飾画像の最適化: `app/components/AppIconImage.vue`（SVGを維持し、ラスター画像の配信寸法・密度・形式を共通化）
+- 装飾画像の最適化・代替表示: `app/components/AppIconImage.vue`（SVGを維持し、ラスター画像の配信寸法・密度・形式を共通化）
 - スキル一覧: `app/components/AppSkills.vue`
 - 型付きのコンテンツ一覧: `app/data/*.ts`（型注釈で各型を検査）
-- 作品一覧・翻訳・日付順への整列: `app/components/AppWorks.vue`
+- 作品一覧・日付順への整列: `app/components/AppWorks.vue`
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧: `app/components/AppSupport.vue`
@@ -35,11 +35,12 @@
 - 配色: `app/app.config.ts`の`ui.colors`でNuxt UI標準のcyan・zincを選びます。背景色・文字色の具体値は独自定義しません。
 - ページ幅・左右の余白: Nuxt UI標準の`UContainer`を使います。本文フォントは`nuxt.config.ts`の`app.head.bodyAttrs`で指定し、本文の行間はTailwind標準の1.5を使います。部品ごとの行間は各コンポーネントで調整し、背景・文字色はNuxt UIの標準スタイルへ任せます。
 - スタイルの入口: `assets/style/main.css`はTailwind・Nuxt UIのimportだけです。リセットはPreflight、カード全体の主リンクは`UPageCard`を使います。
-- OGP・ファビコン・静的生成: `nuxt.config.ts`
+- ファビコン・サイトの静的生成: `nuxt.config.ts`
+- OGP画像の描画: `ogp/`（Nuxt OG Image・Takumi。通常のサイトビルドから分離）
 
 HTMLをJavaScript文字列として編集する必要はありません。
 各カードはデータをpropsで受け取り、`UPageCard`のheader・leading・title・description・footerスロットで用途ごとの表示を組み立てます。見出しはtitleスロット内の`h3`とし、原題の言語属性を維持します。
-`app/pages/index.vue`はセクションの配置と`useSiteSeo()`の呼び出しを担当し、各セクションのコンポーネントがデータの読み込み・翻訳・並び順・操作を管理します。`@nuxtjs/i18n`がこの1ページから日本語・英語のルートを生成します。
+`app/pages/index.vue`はセクションの配置と`useSiteSeo()`の呼び出しを担当し、各セクションのコンポーネントがデータの読み込み・並び順・操作を管理します。コンテンツの言語別の表示文はTSの各項目へまとめ、表示側で`locale`に対応する値を取得します。見出し・操作ラベル・プロフィールは翻訳辞書と`t()`を使います。`@nuxtjs/i18n`がこの1ページから日本語・英語のルートを生成します。
 `AppProfile`の名前・プロフィール本文と`AppFooter`の著作権表記は、`i18n/locales/ja.json`・`en.json`で管理します。表示構造は各コンポーネントのテンプレートで編集します。
 `app/layouts/default.vue`がヘッダー・main・フッターを配置します。新しいページは`app/pages/`へ追加し、mainを重複させず本文だけを書きます。共通レイアウトは既定で適用されます。
 作品・書籍・登壇カードは項目ごとに内容が異なるため、propsでデータを受け取ります。
@@ -48,7 +49,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 `app/app.config.ts`は配色・ボタン・セクション・グリッド・カード・バッジ・選択メニューの設定をそれぞれ定数へ分け、最後に`ui`へまとめます。型はNuxt UIが拡張する`AppConfigInput['ui']`から参照し、各設定を個別に検査します。
 
-- ボタン・バッジの色・サイズ・形は`app/app.config.ts`へ置きます。サービス名・画像付きの外部リンクは`AppServiceLink`内で`UButton`を使い、画像URL・読み込み失敗時の処理・名前の言語属性・改行抑止・別タブ設定をまとめます。リンク一覧と支援先一覧は、データの取得・翻訳・表示条件・並び順・一覧の配置を担当します。その他のボタン・バッジには`UButton`・`UBadge`を使います。
+- ボタン・バッジの色・サイズ・形は`app/app.config.ts`へ置きます。サービス名・画像付きの外部リンクは`AppServiceLink`内で`UButton`を使い、画像URL・名前の言語属性・改行抑止・別タブ設定をまとめます。リンク一覧と支援先一覧は、データの取得・翻訳・表示条件・並び順・一覧の配置を担当します。その他のボタン・バッジには`UButton`・`UBadge`を使います。
 - 作品・書籍・登壇は`UPageCard as="article"`を直接使います。作品はheader内に作品アイコンと右上のGitHubリンクを配置し、その下に日付・題名・説明を表示します。書籍・登壇は表紙を上部に配置します。登壇の表紙は最大幅576pxに制限します。
 - 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形セレクトです。トリガーの文字・下向き矢印は隠し、選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
 - 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。
@@ -60,11 +61,11 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ### フッター
 
-`AppFooter`内の`UFooter`で著作権表記をフッター全体の中央へ、XアカウントとサイトのGitHubリポジトリへの円形アイコンリンクを右側へ配置します。スマホでも同じ行に並べ、左右の領域を同じ幅にして中央位置を保ちます。リンクには日英の読み上げ名・ツールチップを付け、別タブで開きます。XのURLは公開設定の`X_URL`を参照します。`config/site.ts`がメタ情報にも使う`X_ID`から生成します。
+`AppFooter`内の`UFooter`は標準の配置を使います。`lg`以上では著作権表記を中央、XアカウントとサイトのGitHubリポジトリへの円形アイコンリンクを右側へ配置します。狭い画面ではリンクを上段、著作権表記を下段にして、どちらも中央へ配置します。リンクには日英の読み上げ名・ツールチップを付け、別タブで開きます。XのURLは公開設定の`X_URL`を参照します。`config/site.ts`がメタ情報にも使う`X_ID`から生成します。
 
 ### プロフィールのレイアウト
 
-`AppProfile`は`UPageHero`のtitle・descriptionスロットと画像用の標準スロットを使います。名前は見出しにせず`p`とし、サイト名の`h1`と役割を分けています。余白を抑え、小さい画面では名前と画像を同じ行、自己紹介をその下に配置します。画像は背景や枠を付けず円形で表示し、AVIF・WebP生成は`NuxtPicture`へ任せます。
+`AppProfile`は`UPageHero`のtitle・descriptionスロットと画像用の標準スロットを使います。名前は見出しにせず`p`とし、サイト名の`h1`と役割を分けています。画面幅にかかわらず、画像・名前・自己紹介の順で縦に並べます。`UPageHero`の標準の文字サイズ・中央揃えを使い、画像を`order-first`で先頭へ移動します。上下の余白だけは各ブレークポイントで`py-12`に抑えます。画像は背景や枠を付けず円形で表示し、AVIF・WebP生成は`NuxtPicture`へ任せます。
 
 ### 登壇カードのリンク
 
@@ -80,7 +81,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ### カード一覧のグリッド
 
-作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。`app/app.config.ts`の`ui.pageGrid.base`で、カード最小幅30rem・狭い画面で1列・十分な幅で2列となる配置と12pxの間隔を共通管理します。標準の画面幅別の列数指定も上書きし、コンテナー幅に応じて列数を決めます。
+作品・書籍・登壇は`UPageGrid as="ul"`と`li`で一覧を構成します。列数とカード間隔はNuxt UIの標準設定を使い、独自の上書きはしません。標準では1列・`sm`以上で2列・`lg`以上で3列となり、間隔は`gap-8`です。
 
 ## 表示・操作
 
@@ -111,24 +112,25 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限定します。圧縮による劣化を抑えるため、品質は両形式とも100です。可逆圧縮を保証する設定ではありません。不要なPNG・JPEGの追加生成を避け、ブラウザは対応する形式を一つ選びます。
 公開後の画像変換サーバーや外部画像サービスは使用しません。
 `NuxtPicture`のクラスは外側の`picture`へ付くため、内側の`img`の表示クラスや`fetchpriority`は`img-attrs`で指定します。
-サービス・スキル・作品の装飾アイコンは`AppIconImage`で配信します。SVGは元の形式を維持し、ラスター画像は画質100のWebPを1倍・2倍で静的生成します。通常のアイコンは24px、作品は画面幅に合わせ48px・66pxで表示します。対応するWebPの生成幅は通常24px・48px、作品48px・96px・66px・132pxで、縦横比を維持します。ICOは最大解像度の画像をPNG化して`public/`へ置きます。ファビコンは元の形式で配信します。
+サービス・スキル・作品の装飾アイコンは`AppIconImage`で配信し、内部の`UAvatar`が画像の読み込み失敗を処理します。作品は分類アイコン、サービス・スキルは白背景・角丸の空の領域へ切り替え、画像の表示領域を保ちます。SVGは元の形式を維持し、ラスター画像は画質100のWebPを1倍・2倍で静的生成します。通常のアイコンは24px、作品は画面幅に合わせ48px・66pxで表示します。対応するWebPの生成幅は通常24px・48px、作品48px・96px・66px・132pxで、縦横比を維持します。ICOは最大解像度の画像をPNG化して`public/`へ置きます。ファビコンは元の形式で配信します。
 品質・画面幅の設定は`nuxt.config.ts`の`image`、各画像の表示幅はコンポーネントの`sizes`に記述します。
 プロフィールは優先して読み込み、書籍・登壇の表紙は遅延読み込みを維持しています。
 
 ## 検索・共有用のメタ情報
 
-- `@nuxtjs/sitemap`がトップページをNuxt I18nの言語設定に従って展開し、サイトマップを生成します。独立したページを増やす場合は、`nuxt.config.ts`の`sitemap.urls`にも追加します。
+- `@nuxtjs/sitemap`がページを自動検出し、Nuxt I18nの言語設定に従ってサイトマップを生成します。`app/pages/`へ静的なページを追加する場合は、サイトマップへの手動登録は不要です。
 - `/sitemap_index.xml`が入口で、`/__sitemap__/ja-JP.xml`・`en-US.xml`に各言語の正規URLと相互参照を出力します。
-- `robots.txt`もビルド時に生成し、公開先のサイトマップURLを記載します。
-- HTMLのcanonical・hreflangとサイトマップはモジュールの標準機能で生成します。`x-default`は既定言語の日本語ページ（`/ja/`）を指し、入口URLへの独自の上書きは行いません。
+- `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。404 HTMLへの`noindex`指定もモジュールへ任せます。
+- HTMLの言語属性・canonical・hreflangとサイトマップはモジュールの標準機能で生成します。HTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
 - 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。説明文は`i18n/locales/*.json`の`description`です。
-- 著者・OGP・Xカードのメタ情報と、共有画像の説明を出力します。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はmacOSのヒラギノ角ゴシックで描画しています。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
+- 著者・OGP・Xカードの言語別メタ情報・共有画像の説明・構造化データは`useSiteSeo()`で登録し、共通設定の初期値との二重定義はしません。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、構造化データの`alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。
-- JSON-LDで`WebSite`と`ProfilePage`・`Person`を出力します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
+- `nuxt-schema-org`の型付きAPIで、言語別の`WebSite`・`ProfilePage`と共通の`Person`を定義します。JSON-LDの生成と翻訳関係の設定はモジュールへ任せ、言語別サイトのURL・IDと人物への参照は明示します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
+- 構造化データはモジュールの標準設定を使い、本番では各URLの初期HTMLへ出力します。画面内で言語を切り替えてもJSON-LDは更新せず、対応するURLを直接取得した際にその言語のデータを返します。
 - `nuxt.config.ts`が共通設定、`app/composables/useSiteSeo.ts`が言語別メタ情報を担当します。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
 
 ## 存在しないURL
 
 存在しないURLは専用の404画面を表示せず、トップページへ自動移動します。
-Netlifyではビルド時に`dist/_redirects`へ302転送ルールを生成し、`/ja/*`は日本語トップ、`/en/*`は英語トップ、それ以外は言語判定の入口へ転送します。既存ファイルは転送せず通常配信します。
+Netlifyではビルド時に`dist/_redirects`へ転送ルールを生成し、旧`/ja`・`/ja/`は日本語トップ`/`へ301転送します。見つからない`/en/*`は英語トップ、それ以外は日本語トップへ302転送します。既存ファイルは転送せず通常配信します。
 ローカルの`nuxt preview`ではNetlify固有の転送ルールは再現せず、Deploy Previewで確認します。転送専用のVueページは用意せず、公開時はNetlifyの転送機能を使います。

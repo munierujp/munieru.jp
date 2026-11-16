@@ -1,38 +1,31 @@
 # OGP画像の生成
 
-単色の背景に、サイトと共通のプロフィール画像と実際のフォントによる文字を配置し、PNGへ書き出します。
+[Nuxt OG Image](https://nuxtseo.com/docs/og-image/getting-started/introduction)のTakumiレンダラーで、単色背景にプロフィール画像と文字を配置してPNGへ書き出します。
 
-- プロフィール画像: `../public/profile.png`（サイトと共通。生成時に円形で配置）
-- 背景色・配置: `../scripts/generate-ogp.ts`の`design`
+- テンプレート・色・配置: `../ogp/app/components/OgImage/SiteCard.takumi.vue`
+- 表示文・文字サイズ: `../ogp/app/pages/[[locale]].vue`
+- プロフィール画像: `../public/profile.png`（サイトと共通。円形で配置）
 - 日本語版: `../public/ogp.png`（ムニエル OFFICIAL SITE / https://munieru.jp/）
 - 英語版: `../public/en/ogp.png`（Munieru OFFICIAL SITE / https://munieru.jp/）
 
 ## 再生成
 
-macOSのヒラギノ角ゴシックと、このリポジトリで指定したNode.jsが必要です。依存パッケージをインストールした後、リポジトリのルートで実行します。
-
-`.npmrc`でインストールスクリプトを無効にしているため、初回と`npm ci`で依存関係を入れ直した後は、OGPを生成する前に`canvas`のバイナリを明示的に準備してください。バイナリの取得にはネットワーク接続が必要です。
+macOSのヒラギノ角ゴシックと、このリポジトリで指定したNode.jsが必要です。依存パッケージをインストールした後、ルートで実行します。
 
 ```sh
-npm rebuild canvas --ignore-scripts=false
 npm run generate:ogp
 ```
 
-Automatticの[`canvas`](https://www.npmjs.com/package/canvas)（node-canvas）を使います。名前はヒラギノ角ゴシックW9、OFFICIAL SITEはW6、URLはW3のフォントファイルを直接登録します。macOS以外や必要な書体がない環境では、代替フォントを使わず停止します。フォントファイル自体は配布しません。
+名前はW9、OFFICIAL SITEはW6、URLはW3を使います。TakumiがTTC内の書体と実ウェイトを直接読み込むため、OTFへの変換は不要です。macOS以外や必要なフォントがない場合は、代替フォントを使わず停止します。
 
-## 処理の構成
-
-`prepareFonts()`で実行環境と書体を確認してフォントを登録し、プロフィール画像を一度だけ読み込みます。日英それぞれの名前と出力先を`generateOgp()`へ渡し、画像1枚の描画・PNG保存を行います。文字の計測は`measureLine()`、各行の描画は`drawLine()`が担当します。
+`scripts/generate-ogp.ts`がフォントとプロフィール画像を`.cache/ogp/`へ一時配置し、`ogp/`の生成専用Nuxtを実行します。生成HTMLに出力された画像URLからPNGを取得し、日英の公開パスへコピーします。成功・失敗にかかわらず一時ファイルを削除し、フォントファイル自体は配布しません。
 
 ## 配置と共通定義
 
-- 出力寸法は`../config/ogp.ts`の`OGP_WIDTH`・`OGP_HEIGHT`で定義し、画像生成とメタ情報で共有します。既定は1200×630pxのPNG。背景色は`#9CC9DA`、文字色は`#242824`です。
-- 名前・サイト名は`../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../config/site.ts`から読み込みます。URLはプロトコルと末尾のスラッシュを含めて表示します。
-- `OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`は`public`配下の相対パスです（例: `ogp.png`・`en/ogp.png`）。先頭の`/`や絶対URLは指定せず、階層移動やURLエンコードも使いません。詳しい制約は[開発・検証ガイド](development.md#設定)を参照してください。
-- サイト名は名前とその後ろの部分に分けます。`site.title`は`site.name`に半角スペースを続けて始める形式にします。
-- 文字の幅・高さを実フォントで測り、各行の文字領域の左端を64px、上端を名前176px・OFFICIAL SITE 328px・URL 414pxに固定します。448pxのプロフィール画像は左688px・上91pxに固定し、日英で位置を揃えます。
-- 長い名前は、画像との間隔64pxと外周64pxの余白を確保できる幅に収まるまで縮小します。文字幅や高さによって文字・画像の開始位置は動かしません。行同士が重なったり下端の余白を超えたりする場合は生成を停止します。
-- `canvas`には`letterSpacing`がないため、文字列を書記素単位で扱い、送り幅とカーニングを測定して字間を加えます。結合文字やサロゲートペアの途中では分割しません。
-- プロフィール画像は元ファイルを加工せず、中央の正方形を円形にクリップして描画します。
+- 出力寸法は`../config/ogp.ts`の`OGP_WIDTH`・`OGP_HEIGHT`で共有します。1200×630pxのPNG、背景色は`#9CC9DA`、文字色は`#242824`です。
+- 名前・サイト名は`../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../config/site.ts`から取得します。URLはプロトコルと末尾のスラッシュを含めます。
+- `OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`は`public`配下の相対パスです。先頭の`/`や絶対URL、階層移動やURLエンコードは使いません。詳しい制約は[開発・検証ガイド](development.md#設定)を参照してください。
+- 文字の行ボックスの左端は64px、上端は名前176px・OFFICIAL SITE 328px・URL 414pxです。名前は日本語128px・英語113px、OFFICIAL SITEは64px、URLは44pxです。448pxのプロフィール画像は左688px・上91pxに配置します。
+- 文字の字間・円形クリップ・画像の描画はCSSとTakumiへ任せます。現在の表示文に合わせた固定サイズのため、名前やURLを長い文字列へ変える場合は収まりを確認し、必要なら文字サイズを調整します。
 
-文字・プロフィール画像はサイトと共通の定義を更新して再生成します。色・寸法・余白はスクリプトで変更します。ビルドとCIは生成済みPNGを配信するため、macOSやフォントは不要です。
+通常のサイトビルド・CI・Netlifyは生成済みPNGを配信し、OGP生成用Nuxtは実行しません。PNGを更新した場合は、テンプレートや表示文と一緒に変更内容を確認してください。

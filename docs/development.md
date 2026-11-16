@@ -75,7 +75,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
-`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedContent.ts`が翻訳対象の対応表、`IconName.ts`がUIのアイコン名の型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`で検査し、各カードは`UPageCard`の標準スロットを直接使います。
+`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedText.ts`が日英の表示文の型、`IconName.ts`がUIのアイコン名の型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`で検査し、各カードは`UPageCard`の標準スロットを直接使います。
 一覧の元データは`app/data/*.ts`で編集できます。各配列は`Skill[]`・`Work[]`などの型注釈で対応する型を検査し、必須項目の不足や作品分類の誤記を`npm run typecheck`で検出します。
 
 ```sh
@@ -185,7 +185,7 @@ npm run lint:markuplint
 カスタムコンポーネントを展開した最終HTMLの検証は行いません。
 
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
-その他の指摘はテンプレート側で修正します。支援セクションの見出しIDはVueの`useId()`で生成し、メニュー内部のIDはNuxt UIへ任せます。
+その他の指摘はテンプレート側で修正します。メニュー内部のIDはNuxt UIへ任せます。
 
 ## lockfile-lint
 
