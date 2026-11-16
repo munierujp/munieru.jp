@@ -9,7 +9,7 @@
     label-key="name"
     icon="i-lucide-languages"
     :aria-label="t('ui.language', { language: locale === 'ja' ? '日本語' : 'English' })"
-    @update:model-value="selectLanguage"
+    @update:model-value="setLocale($event as 'ja' | 'en')"
   />
 </template>
 
@@ -19,12 +19,4 @@ import { ja, en } from '@nuxt/ui/locale'
 import { iconSelectUi } from '~/utils/iconSelectUi'
 
 const { locale, t, setLocale } = useI18n()
-
-/**
- * 選択言語のURLへ移動し、既存の言語Cookieに保存する。
- * @param value - メニューで選択された言語コード。
- */
-async function selectLanguage (value: string): Promise<void> {
-  await setLocale(value as 'ja' | 'en')
-}
 </script>
