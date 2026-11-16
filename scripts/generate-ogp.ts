@@ -24,7 +24,8 @@ for (const weight of [3, 6, 9]) {
 const images = [{ src: '/profile.png', data: await readFile(new URL('public/profile.png', root)) }]
 // 英語名も画像との余白を確保する、比較済みの文字サイズを使う。
 for (const [messages, nameSize, outputPath] of [[ja, 128, config.OG_IMAGE_PATH], [en, 113, config.OG_IMAGE_PATH_EN]] as const) {
-  const { name, title } = messages.site
+  const { name } = messages.site
+  const title = messages.nuxtSiteConfig.name
   /** 位置・字間・円形クリップはCSSで宣言し、計測と描画はTakumiへ任せる。 */
   const node: Node = {
     type: 'container',

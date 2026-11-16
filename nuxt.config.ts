@@ -9,7 +9,7 @@ import ja from './i18n/locales/ja.json' with { type: 'json' }
 
 const config = loadConfig()
 // サイト共通の設定で使う日本語のサイト名。
-const { title: siteName } = ja.site
+const { name: siteName } = ja.nuxtSiteConfig
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 
 /** テーマの初期選択・判定できない場合の配色・保存先。 */

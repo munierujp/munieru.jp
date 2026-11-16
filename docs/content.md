@@ -9,8 +9,8 @@
 
 - 名前・プロフィール本文: `i18n/locales/ja.json`・`en.json`の`site`・`profile`
 - 著作権表記の文面: `i18n/locales/ja.json`・`en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
-- サイト名（`site.title`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
-- OGPの説明: `i18n/locales/ja.json`・`en.json`の`description`
+- サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
+- OGPの説明: `i18n/locales/ja.json`・`en.json`の`nuxtSiteConfig.description`
 - SNS・各サービス: `app/data/serviceLinks.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
 - 活動への支援先: `app/data/supportLinks.ts`（URL・名称・並び順・アイコン）。言語別の表示名は同じ項目の`title: { ja, en }`で管理します。URLは必須とし、掲載をやめる場合は該当項目を削除
 - スキル: `app/data/skills.ts`
@@ -28,7 +28,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 
 ## OGP画像の更新
 
-名前・サイト名（`site.name`・`site.title`）、公開オリジン（`ORIGIN`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
+名前・サイト名（`site.name`・`nuxtSiteConfig.name`）、公開オリジン（`ORIGIN`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
 ビルドやCIでは自動生成しないため、生成したPNGも変更に含めます。出力先は`public/ogp.png`・`public/en/ogp.png`に固定しています。
 実行にはmacOSのヒラギノ角ゴシックが必要です。Takumiの公式Node APIで生成します。[OGP画像の生成手順](ogp.md#再生成)を参照してください。
 
@@ -44,7 +44,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 寄稿した章名も原題を残します。`app/data/books.ts`の`chapterTitle`が原題、同じ項目の`englishChapterTitle`が参考英訳、`contributionLabel`が寄稿を示す説明です。
 - 言語・UI翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。`/`は日本語、`/en/`は英語を常に表示し、利用者が言語を切り替えると対応するURLへ移動します。
 - 見出し・操作ラベルはVue I18nの`t()`、一覧の言語別の表示文は`description[locale]`などで取得します。`LocalizedText`型で日英の定義漏れを検査し、一覧の翻訳を結合する独自処理は使いません。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
-- 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`description`を編集します。
+- 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`nuxtSiteConfig.description`を編集します。
 - Nuxt I18nの`prefix_except_default`構成を使い、日本語・英語とも静的HTMLを生成します。入口専用のCSR用HTMLのコピー処理はありません。
 - ヘッダーは`UHeader`を使い、言語選択は`USelectMenu`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は`app/app.config.ts`の共通テーマと`app/utils/iconSelectUi.ts`で調整します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。

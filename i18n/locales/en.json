@@ -1,6 +1,9 @@
 {
+  "nuxtSiteConfig": {
+    "name": "Munieru OFFICIAL SITE",
+    "description": "Munieru's personal website: profile, blog, social links, skills, works, books, and talks."
+  },
   "site": {
-    "title": "Munieru OFFICIAL SITE",
     "name": "Munieru",
     "alternateName": "ムニエル",
     "copyright": "© {name}"
@@ -31,7 +34,6 @@
     "xAccount": "{name} on X",
     "siteSourceCode": "Source code for this website (GitHub)"
   },
-  "description": "Munieru's personal website: profile, blog, social links, skills, works, books, and talks.",
   "profile": {
     "summary": "I'm an otaku and IT engineer based in Edogawa, Tokyo, Japan. Originally from Kawaguchi, Saitama.",
     "activities": "On my days off, you'll usually find me at the cinema or at live shows, concerts, festivals, plays, and musicals."

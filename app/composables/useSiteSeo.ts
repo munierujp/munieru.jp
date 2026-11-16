@@ -1,7 +1,7 @@
 /** トップページの言語別メタ情報と構造化データを設定する。 */
 import { computed } from 'vue'
 import { useSchemaOrg, defineWebSite, defineWebPage, definePerson } from '#schema-org/app'
-import { useHead, useRuntimeConfig, useSeoMeta, withSiteUrl } from '#imports'
+import { useHead, useRuntimeConfig, useSeoMeta, useSiteConfig, withSiteUrl } from '#imports'
 import { serviceLinks } from '~/data/serviceLinks'
 
 /**
@@ -11,6 +11,7 @@ import { serviceLinks } from '~/data/serviceLinks'
 export function useSiteSeo (): void {
   const { isEnglish, t } = useSiteLocale()
   const config = useRuntimeConfig().public
+  const site = useSiteConfig()
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。
   const localeHead = useLocaleHead()
   const localePath = useLocalePath()
@@ -20,24 +21,22 @@ export function useSiteSeo (): void {
   const displayName = computed(() => t('site.name'))
   /** 主名義と異なる文字表記。構造化データのalternateNameへ残す。 */
   const alternateName = computed(() => t('site.alternateName'))
-  /** ヘッダーと揃えた言語別のサイト名。 */
-  const pageTitle = computed(() => t('site.title'))
   /** 共有元ページの言語に対応するOGP画像の絶対URL。クローラー向けの静的HTMLにも出力する。 */
   const shareImage = withSiteUrl(computed(() => isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH))
   /** OGP画像内のサイト名とURL。翻訳・公開先の変更を代替テキストにも反映する。 */
-  const shareImageAlt = computed(() => `${pageTitle.value} / ${config.BASE_URL}`)
+  const shareImageAlt = computed(() => `${site.name} / ${config.BASE_URL}`)
   // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
   useSeoMeta({
-    title: () => pageTitle.value,
-    description: () => t('description'),
+    title: () => site.name,
+    description: () => site.description,
     author: () => displayName.value,
-    ogTitle: () => pageTitle.value,
-    ogSiteName: () => pageTitle.value,
-    ogDescription: () => t('description'),
+    ogTitle: () => site.name,
+    ogSiteName: () => site.name,
+    ogDescription: () => site.description,
     ogImage: () => shareImage.value,
     ogImageAlt: () => shareImageAlt.value,
-    twitterTitle: () => pageTitle.value,
-    twitterDescription: () => t('description'),
+    twitterTitle: () => site.name,
+    twitterDescription: () => site.description,
     twitterImage: () => shareImage.value,
     twitterImageAlt: () => shareImageAlt.value
   })
@@ -47,7 +46,6 @@ export function useSiteSeo (): void {
     defineWebSite({
       '@id': () => pageUrl.value + '#website',
       url: () => pageUrl.value,
-      name: () => pageTitle.value,
       alternateName: () => `${alternateName.value} OFFICIAL SITE`
     }),
     defineWebPage({

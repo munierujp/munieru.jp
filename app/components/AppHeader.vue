@@ -6,7 +6,7 @@
   >
     <!-- 1ページ構成のため、サイト名はリンクにせず見出しとして表示する。 -->
     <template #left>
-      <h1 class="font-bold text-[clamp(0.875rem,4vw,1.25rem)]">{{ t('site.title') }}</h1>
+      <h1 class="font-bold text-[clamp(0.875rem,4vw,1.25rem)]">{{ site.name }}</h1>
     </template>
     <template #right>
       <AppLanguageSelect />
@@ -16,5 +16,5 @@
 </template>
 <script setup lang="ts">
 /** ヘッダーはサイト名と選択部品の配置だけを担当する。 */
-const { t } = useI18n()
+const site = useSiteConfig()
 </script>
