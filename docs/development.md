@@ -70,7 +70,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 
 ## テストの実行単位
 
-`npm test`は`config/site.test.ts`の4件を実行し、Nuxtの準備や`dist`を必要としません。公開設定の正規化・不正値・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
+`npm test`はNode標準の探索で`*.test.ts`などをディレクトリに限定せず実行し、Nuxtの準備や`dist`を必要としません。現在は`config/site.test.ts`の3件で、公開設定の上書き・不正なオリジン・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ## TypeScriptと型チェック
 
