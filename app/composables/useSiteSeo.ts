@@ -1,7 +1,8 @@
 /** トップページの言語別メタ情報と構造化データを設定する。 */
 import { computed } from 'vue'
+import { InferSeoMetaPlugin } from 'unhead/plugins'
 import { useSchemaOrg, defineWebSite, defineWebPage, definePerson } from '#schema-org/app'
-import { useHead, useRuntimeConfig, useSeoMeta, withSiteUrl } from '#imports'
+import { injectHead, useHead, useRuntimeConfig, useSeoMeta, withSiteUrl } from '#imports'
 import { serviceLinks } from '~/data/serviceLinks'
 
 /**
@@ -9,6 +10,8 @@ import { serviceLinks } from '~/data/serviceLinks'
  * @remarks ページのsetupから同期的に呼び出す。メタ情報は言語切り替えに追従し、本番の構造化データは初期HTMLに出力する。
  */
 export function useSiteSeo (): void {
+  // OGタイトル・説明はページのtitle・descriptionから標準プラグインで補完する。
+  injectHead().use(InferSeoMetaPlugin())
   const { isEnglish, t } = useSiteLocale()
   const config = useRuntimeConfig().public
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。
@@ -31,9 +34,7 @@ export function useSiteSeo (): void {
     title: () => pageTitle.value,
     description: () => t('description'),
     author: () => displayName.value,
-    ogTitle: () => pageTitle.value,
     ogSiteName: () => pageTitle.value,
-    ogDescription: () => t('description'),
     ogImage: () => shareImage.value,
     ogImageAlt: () => shareImageAlt.value,
     twitterTitle: () => pageTitle.value,
