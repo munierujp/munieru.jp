@@ -1,9 +1,6 @@
 <template>
   <!-- 全ページ共通の著作権表記と、公開アカウント・サイトのソースコードへのリンク。 -->
-  <UFooter
-    class="text-muted"
-    :ui="{ container: 'grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 lg:grid', left: 'hidden', center: 'col-start-2 row-start-1 mt-0', right: 'col-start-3 row-start-1 justify-end' }"
-  >
+  <UFooter class="text-muted">
     <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
     <template #right>
       <AppIconLink
