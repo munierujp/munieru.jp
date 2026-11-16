@@ -1,7 +1,6 @@
 /**
  * ルーティング・多言語・画像・SEOと、静的ホスト向け成果物の生成を設定する。
  */
-import { writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import type { AppHeadMetaObject, NuxtConfig } from 'nuxt/schema'
 import { loadConfig } from './config/site.ts'
@@ -85,18 +84,10 @@ const head: AppHeadMetaObject = {
   ]
 }
 
-/** 静的成果物の出力先と、転送ルールの生成処理。 */
+/** 静的成果物の出力先と事前描画するページ。 */
 const nitro: NonNullable<NuxtConfig['nitro']> = {
   preset: 'static',
   prerender: { routes: ['/', '/en/'] },
-  hooks: {
-    async 'prerender:done' (): Promise<void> {
-      // Netlifyでは既存ファイルを優先し、見つからないURLだけを言語別トップへ302転送する。
-      await writeFile(rootPath('./dist/_redirects'),
-        '# Redirect default Netlify subdomain to primary domain\nhttp://munieru.netlify.com/* http://munieru.jp/:splat 301!\n' +
-        '\n\n# Redirect the former Japanese homepage to its canonical URL\n/ja / 301\n/ja/ / 301\n\n# Redirect missing pages to the homepage (existing files take precedence)\n/en/* /en/ 302\n/* / 302\n')
-    }
-  },
   output: { publicDir: rootPath('./dist') }
 }
 

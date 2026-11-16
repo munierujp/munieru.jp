@@ -53,7 +53,7 @@ Netlifyへの静的公開とローカルプレビューには、事前描画す�
 開発サーバーと同時に使う場合は、`PORT=4175 npm run preview`などで別のポートを指定してください。
 起動時に表示されるURLを開きます。
 編集しながら確認する場合は、自動反映される`npm run dev`を使います。
-Netlify固有の`_redirects`による転送は、NetlifyのDeploy Previewで確認します。
+Netlify固有の転送ルールは`public/_redirects`で管理し、NetlifyのDeploy Previewで確認します。
 
 ## GitHub Actions
 
