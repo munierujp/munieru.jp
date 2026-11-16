@@ -1,46 +1,40 @@
 <template>
-  <!-- SVGは元のベクターを配信し、ラスター画像だけ表示寸法と画面密度に合わせて生成する。 -->
-  <img
-    v-if="isSvg"
-    :src="asset(src)"
+  <!-- 代替表示はUAvatarへ任せる。空の代替文字は隠し、画像と空枠のベースラインを揃える。 -->
+  <UAvatar
+    :as="{ img: isSvg ? 'img' : undefined }"
+    :src="isSvg && src ? asset(src) : src"
+    :icon="icon"
     :width="size"
     :height="size"
+    v-bind="isSvg ? {} : { format: 'webp', sizes, densities: '1x 2x', fit: 'inside' }"
+    :ui="{ image: 'object-contain', icon: 'size-6', fallback: 'hidden' }"
+    class="size-6 rounded-none bg-transparent"
     alt=""
-    loading="lazy"
-    decoding="async"
-  >
-  <NuxtImg
-    v-else
-    :src="src"
-    format="webp"
-    :width="size"
-    :height="size"
-    :sizes="sizes"
-    densities="1x 2x"
-    fit="inside"
-    alt=""
+    aria-hidden="true"
     loading="lazy"
     decoding="async"
   />
 </template>
 
 <script setup lang="ts">
-/** サービス・スキル・作品の装飾アイコンを、静的生成する配信用画像へ揃える。 */
+/** SVGを維持し、画像最適化と標準の代替表示を使う装飾アイコン。 */
 import { computed } from 'vue'
+import type { IconName } from '~/types/IconName'
 
 /** このコンポーネントが受け取る入力。 */
 interface Props {
-  /** public配下のSVG・PNG・JPEGなどの画像パス。ICOは事前にPNGへ変換する。 */
-  src: string
-  /** 通常表示する正方形の一辺（CSS px）。 */
+  /** public配下の画像パス。未指定・読み込み失敗時は標準の代替表示を使う。 */
+  src?: string
+  /** 画像がない場合に表示する分類アイコン。未指定時は空の領域を保つ。 */
+  icon?: IconName
+  /** 配信用画像の一辺（CSS px）。 */
   size?: number
-  /** 表示寸法が画面幅で変わる場合のNuxt Imageのsizes指定。 */
+  /** 表示幅が変わる場合のNuxt Imageのsizes指定。 */
   sizes?: string
 }
 
-const props = withDefaults(defineProps<Props>(), { size: 24, sizes: undefined })
-
-/** ベクター画像をラスター化せず、公開サブディレクトリにも対応する。 */
-const isSvg = computed(() => props.src.endsWith('.svg'))
+const props = withDefaults(defineProps<Props>(), { size: 24, sizes: undefined, src: undefined, icon: undefined })
+/** SVGは元画像を直接配信し、ラスター画像はNuxt Imageへ渡す。 */
+const isSvg = computed(() => props.src?.endsWith('.svg') ?? false)
 const asset = usePublicAsset()
 </script>

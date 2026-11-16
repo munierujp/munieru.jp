@@ -5,7 +5,6 @@
       <AppIconImage
         class="size-6 object-contain rounded-lg bg-white"
         :src="link.image"
-        @error="hideFailedImage"
       />
     </span>
     <span :lang="titleLanguage(link.title)">{{ link.title }}</span>

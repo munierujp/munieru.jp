@@ -6,9 +6,8 @@
         <li v-for="skill in skills" :key="skill.name" class="min-w-0">
           <UBadge>
             <AppIconImage
-              class="size-6 object-contain"
+              class="size-6 object-contain rounded-lg bg-white"
               :src="skill.image"
-              @error="hideFailedImage"
             />
             <span>{{ skill.name }}</span>
           </UBadge>

@@ -12,14 +12,12 @@
     <template #header>
       <div class="flex items-start justify-between gap-3">
         <AppIconImage
-          v-if="work.image && !imageFailed"
           class="size-[66px] rounded-xl object-contain max-[560px]:size-12"
           :src="work.image"
           :size="66"
           sizes="48px tablet:66px"
-          @error="imageFailed = true"
+          :icon="category.icon"
         />
-        <UIcon v-else class="size-6" aria-hidden="true" :name="category.icon" />
         <AppIconLink
           class="relative z-1 shrink-0"
           :href="work.github"
@@ -43,7 +41,7 @@
 /** 標準のカードスロットで、作品の説明と独立したソースコードへのリンクを表示する。 */
 import type { Work } from '~/types/Work'
 import type { IconName } from '~/types/IconName'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
 /** このコンポーネントが受け取る入力。 */
 interface Props {
@@ -53,8 +51,6 @@ interface Props {
 
 const props = defineProps<Props>()
 const { t, titleLanguage, formatDate } = useSiteLocale()
-/** 専用画像が読み込めない場合は分類アイコンへ切り替える。 */
-const imageFailed = ref(false)
 const icons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',
