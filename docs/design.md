@@ -41,7 +41,7 @@
 HTMLをJavaScript文字列として編集する必要はありません。
 各カードはデータをpropsで受け取り、`UPageCard`のheader・leading・title・description・footerスロットで用途ごとの表示を組み立てます。見出しはtitleスロット内の`h3`とし、原題の言語属性を維持します。
 `app/pages/index.vue`はセクションの配置と`useSiteSeo()`の呼び出しを担当し、各セクションのコンポーネントがデータの読み込み・並び順・操作を管理します。コンテンツの言語別の表示文はTSの各項目へまとめ、表示側で`locale`に対応する値を取得します。見出し・操作ラベル・プロフィールは翻訳辞書と`t()`を使います。`@nuxtjs/i18n`がこの1ページから日本語・英語のルートを生成します。
-`AppProfile`の名前・プロフィール本文と`AppFooter`の著作権表記は、`i18n/locales/ja.json`・`en.json`で管理します。表示構造は各コンポーネントのテンプレートで編集します。
+`AppProfile`の名前・プロフィール本文と`AppFooter`の著作権表記は、`i18n/locales/ja.json`・`i18n/locales/en.json`で管理します。表示構造は各コンポーネントのテンプレートで編集します。
 `app/layouts/default.vue`がヘッダー・main・フッターを配置します。新しいページは`app/pages/`へ追加し、mainを重複させず本文だけを書きます。共通レイアウトは既定で適用されます。
 作品・書籍・登壇カードは項目ごとに内容が異なるため、propsでデータを受け取ります。
 

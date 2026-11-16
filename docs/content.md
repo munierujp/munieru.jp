@@ -7,10 +7,10 @@
 
 コンテンツ一覧と各項目の日英の表示文は`app/data/*.ts`、見出し・操作ラベル・プロフィールは`i18n/locales/*.json`を編集します。既存の項目をコピーして追加できます。
 
-- 名前・プロフィール本文: `i18n/locales/ja.json`・`en.json`の`site`・`profile`
-- 著作権表記の文面: `i18n/locales/ja.json`・`en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
-- サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`en.json`（ページ・共通設定・OGP画像の生成で共有）
-- OGPの説明: `i18n/locales/ja.json`・`en.json`の`nuxtSiteConfig.description`
+- 名前・プロフィール本文: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site`・`profile`
+- 著作権表記の文面: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
+- サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`i18n/locales/en.json`（ページ・共通設定・OGP画像の生成で共有）
+- OGPの説明: `i18n/locales/ja.json`・`i18n/locales/en.json`の`nuxtSiteConfig.description`
 - SNS・各サービス: `app/data/serviceLinks.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
 - 活動への支援先: `app/data/supportLinks.ts`（URL・名称・並び順・アイコン）。言語別の表示名は同じ項目の`title: { ja, en }`で管理します。URLは必須とし、掲載をやめる場合は該当項目を削除
 - スキル: `app/data/skills.ts`
@@ -35,7 +35,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 ## 日本語・英語の更新
 
 - 日本語版: `/`、英語版: `/en/`。ブラウザ言語・保存した言語による自動転送は行いません。ヘッダーの言語切り替えアイコンを押し、`USelectMenu`の選択肢（`日本語`・`English`）から切り替えます。国旗と検索欄は表示しません。
-- プロフィール: `i18n/locales/ja.json`・`en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
+- プロフィール: `i18n/locales/ja.json`・`i18n/locales/en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
 - 作品・書籍・登壇など: `app/data/*.ts`の各項目に日英の表示文をまとめます。作品の説明は`description: { ja, en }`、書籍の形式は`format: { ja, en }`です。スキル名・支援先名は共通なら文字列、言語別なら`{ ja, en }`にします。
 - URL・日付・画像・並び順は共有します。固有名詞は基本的に元の表記を使い、原題と、必要な参考英訳を表示します。
