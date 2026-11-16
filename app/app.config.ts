@@ -17,9 +17,9 @@ const button: NonNullable<UiConfig['button']> = {
 const pageSection: NonNullable<UiConfig['pageSection']> = {
   slots: {
     container: 'flex flex-col lg:flex gap-0 sm:gap-0 py-12 sm:py-12 lg:py-12',
-    title: 'border-s-4 border-primary ps-3 text-[clamp(1.5rem,1.2rem+1vw,2rem)] sm:text-[clamp(1.5rem,1.2rem+1vw,2rem)] lg:text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-[650] leading-[1.4]'
+    body: '[&>.flex-wrap]:justify-center',
+    title: 'relative w-fit mx-auto after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:h-1 after:rounded-full after:bg-primary after:content-[""] after:w-full'
   },
-  variants: { orientation: { vertical: { title: 'text-start' } } },
   // 標準の大きな本文余白を、このサイトの一覧に合う24pxへ揃える。
   compoundVariants: [{ orientation: 'vertical', title: true, class: { body: 'mt-6' } }]
 }
