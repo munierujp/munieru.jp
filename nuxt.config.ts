@@ -12,7 +12,6 @@ const config = loadConfig()
 // サイト共通の設定で使う日本語のサイト名。
 const { title: siteName } = ja.site
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
-const asset = (path: string): string => config.BASE_DIR + path.replace(/^\/+/, '')
 
 /** テーマの初期選択・判定できない場合の配色・保存先。 */
 const colorMode: NonNullable<NuxtConfig['colorMode']> = {
@@ -79,10 +78,10 @@ const head: AppHeadMetaObject = {
     { name: 'twitter:creator', content: '@' + config.X_ID.replace(/^@/, '') }
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: asset('favicon.ico') },
-    { rel: 'icon', type: 'image/png', href: asset('favicon-256x256.png'), sizes: '256x256' },
-    { rel: 'icon', type: 'image/png', href: asset('android-chrome-192x192.png'), sizes: '192x192' },
-    { rel: 'apple-touch-icon', href: asset('apple-touch-icon-180x180.png'), sizes: '180x180' }
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    { rel: 'icon', type: 'image/png', href: '/favicon-256x256.png', sizes: '256x256' },
+    { rel: 'icon', type: 'image/png', href: '/android-chrome-192x192.png', sizes: '192x192' },
+    { rel: 'apple-touch-icon', href: '/apple-touch-icon-180x180.png', sizes: '180x180' }
   ]
 }
 
@@ -95,7 +94,7 @@ const nitro: NonNullable<NuxtConfig['nitro']> = {
       // Netlifyでは既存ファイルを優先し、見つからないURLだけを言語別トップへ302転送する。
       await writeFile(rootPath('./dist/_redirects'),
         '# Redirect default Netlify subdomain to primary domain\nhttp://munieru.netlify.com/* http://munieru.jp/:splat 301!\n' +
-        `\n\n# Redirect the former Japanese homepage to its canonical URL\n${asset('ja')} ${config.BASE_DIR} 301\n${asset('ja/')} ${config.BASE_DIR} 301\n\n# Redirect missing pages to the homepage (existing files take precedence)\n${asset('en/*')} ${asset('en/')} 302\n${asset('*')} ${config.BASE_DIR} 302\n`)
+        '\n\n# Redirect the former Japanese homepage to its canonical URL\n/ja / 301\n/ja/ / 301\n\n# Redirect missing pages to the homepage (existing files take precedence)\n/en/* /en/ 302\n/* / 302\n')
     }
   },
   output: { publicDir: rootPath('./dist') }
@@ -116,9 +115,8 @@ const runtimeConfig: NonNullable<NuxtConfig['runtimeConfig']> = {
   public: config
 }
 
-/** 公開パスと全ページ共通のメタ情報。 */
+/** 全ページ共通のメタ情報。 */
 const app: NonNullable<NuxtConfig['app']> = {
-  baseURL: config.BASE_DIR,
   head
 }
 

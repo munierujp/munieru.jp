@@ -24,7 +24,7 @@ npm run generate:ogp
 
 - 出力寸法は`../config/ogp.ts`の`OGP_WIDTH`・`OGP_HEIGHT`で共有します。1200×630pxのPNG、背景色は`#9CC9DA`、文字色は`#242824`です。
 - 名前・サイト名は`../i18n/locales/ja.json`・`en.json`の`site.name`・`site.title`、表示URLと出力先は`../config/site.ts`から取得します。URLはプロトコルと末尾のスラッシュを含めます。
-- `OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`は`public`配下の相対パスです。先頭の`/`や絶対URL、階層移動やURLエンコードは使いません。詳しい制約は[開発・検証ガイド](development.md#設定)を参照してください。
+- 出力先は`public/ogp.png`・`public/en/ogp.png`に固定します。環境変数での保存先変更や、サブディレクトリ配信には対応しません。
 - 文字の行ボックスの左端は64px、上端は名前176px・OFFICIAL SITE 328px・URL 414pxです。名前は日本語128px・英語113px、OFFICIAL SITEは64px、URLは44pxです。448pxのプロフィール画像は左688px・上91pxに配置します。
 - 文字の字間・円形クリップ・画像の描画はCSSとTakumiへ任せます。現在の表示文に合わせた固定サイズのため、名前やURLを長い文字列へ変える場合は収まりを確認し、必要なら文字サイズを調整します。
 

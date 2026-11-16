@@ -2,7 +2,7 @@
   <!-- 代替表示はUAvatarへ任せる。空の代替文字は隠し、画像と空枠のベースラインを揃える。 -->
   <UAvatar
     :as="{ img: isSvg ? 'img' : undefined }"
-    :src="isSvg && src ? asset(src) : src"
+    :src="src"
     :icon="icon"
     :width="size"
     :height="size"
@@ -36,5 +36,4 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), { size: 24, sizes: undefined, src: undefined, icon: undefined })
 /** SVGは元画像を直接配信し、ラスター画像はNuxt Imageへ渡す。 */
 const isSvg = computed(() => props.src?.endsWith('.svg') ?? false)
-const asset = usePublicAsset()
 </script>
