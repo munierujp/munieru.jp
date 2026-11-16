@@ -16,7 +16,7 @@
         decoding="async"
       />
       <p class="mt-3 text-xs text-muted">
-        {{ book.format }} / <time :datetime="book.date">{{ formatDate(book.date) }}</time>
+        {{ book.format[locale] }} / <time :datetime="book.date">{{ formatDate(book.date) }}</time>
       </p>
     </template>
     <template #title><h3>{{ book.title }}</h3></template>
@@ -44,5 +44,5 @@ interface Props {
 }
 
 defineProps<Props>()
-const { isEnglish, t, formatDate } = useSiteLocale()
+const { isEnglish, locale, t, formatDate } = useSiteLocale()
 </script>

@@ -1,6 +1,8 @@
+import type { LocalizedText } from './LocalizedText'
+
 /** 寄稿書籍の販売先・表紙・原題と、英語ページ向けの補足情報。 */
 export interface Book {
-  /** 翻訳辞書と対応付ける安定した識別子。表示タイトルを変更しても維持する。 */
+  /** 項目を識別する安定したキー。表示タイトルを変更しても維持する。 */
   key: string
   /** カードや一覧に表示する名称。 */
   title: string
@@ -14,8 +16,8 @@ export interface Book {
   imageWidth: number
   /** 表紙の元画像の高さ。幅とともに縦横比を維持する。 */
   imageHeight: number
-  /** 書籍・発表の形式を示す表示名。 */
-  format: string
+  /** 言語別の書籍形式の表示名。 */
+  format: LocalizedText
   /** 寄稿した章の原題。 */
   chapterTitle?: string
   /** 表示言語に対応する説明文。 */

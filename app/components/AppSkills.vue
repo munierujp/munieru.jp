@@ -3,13 +3,13 @@
   <UPageSection :title="t('ui.headings.skills')">
     <template #body>
       <ul class="flex flex-wrap items-center gap-3" role="list">
-        <li v-for="skill in skills" :key="skill.name" class="min-w-0">
+        <li v-for="skill in skills" :key="skill.image" class="min-w-0">
           <UBadge>
             <AppIconImage
               class="size-6 object-contain rounded-lg bg-white"
               :src="skill.image"
             />
-            <span>{{ skill.name }}</span>
+            <span>{{ typeof skill.name === 'string' ? skill.name : skill.name[locale] }}</span>
           </UBadge>
         </li>
       </ul>
@@ -21,11 +21,7 @@
 /**
  * 技術名とローカルのアイコンを、リンクではない一覧として表示する。
  */
-import type { Skill } from '~/types/Skill'
-import { computed } from 'vue'
-import { skills as skillsData } from '~/data/skills'
+import { skills } from '~/data/skills'
 
-const { t, localize } = useSiteLocale()
-/** 現在の言語の技術名と、日英で共有するアイコンの一覧。 */
-const skills = computed<Skill[]>(() => skillsData.map((skill) => localize('skills', skill)))
+const { locale, t } = useSiteLocale()
 </script>

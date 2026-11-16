@@ -1,10 +1,13 @@
 /** スキルの元データを、定義時に型検査する。 */
 import type { Skill } from '~/types/Skill'
 
-/** 日英で共有するスキル一覧。表示文の翻訳は表示側で行う。 */
+/** 日英で共有するスキル一覧。言語別の表示文も各項目にまとめる。 */
 export const skills: Skill[] = [
   {
-    name: 'Chrome拡張機能',
+    name: {
+      ja: 'Chrome拡張機能',
+      en: 'Chrome Extensions'
+    },
     image: '/skill-icons/chrome.svg'
   },
   {

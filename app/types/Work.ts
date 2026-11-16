@@ -1,14 +1,16 @@
+import type { LocalizedText } from './LocalizedText'
+
 /** 作品の分類。ライブラリとCLIは独立した種類として扱う。 */
 export type WorkCategory = 'web' | 'extension' | 'library' | 'cli'
 
 /** 作品の公開先・ソースコード・分類と、公開終了の状態。 */
 export interface Work {
-  /** 翻訳辞書と対応付ける安定した識別子。表示タイトルを変更しても維持する。 */
+  /** 項目を識別する安定したキー。表示タイトルを変更しても維持する。 */
   key: string
   /** カードや一覧に表示する名称。 */
   title: string
   /** 表示言語に対応する説明文。 */
-  description: string
+  description: LocalizedText
   /** 日付をYYYY-MM-DDで保存する。表示の整形と並べ替えに共用する。 */
   date: string
   /** 項目の公開先ページのURL。 */

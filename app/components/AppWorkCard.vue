@@ -3,7 +3,7 @@
     as="article"
     class="h-full"
     :title="work.title"
-    :description="work.description"
+    :description="work.description[locale]"
     :ui="{ header: 'w-full' }"
     :to="work.publicationEnded ? undefined : work.url"
     target="_blank"
@@ -50,7 +50,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { t, titleLanguage, formatDate } = useSiteLocale()
+const { locale, t, titleLanguage, formatDate } = useSiteLocale()
 const icons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',

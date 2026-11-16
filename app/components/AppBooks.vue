@@ -13,13 +13,11 @@
 
 <script setup lang="ts">
 /**
- * 寄稿書籍を読み込み、翻訳して日付の新しい順に表示する。
+ * 寄稿書籍を読み込み、日付の新しい順に表示する。
  */
-import type { Book } from '~/types/Book'
-import { computed } from 'vue'
 import { books as booksData } from '~/data/books'
 
-const { t, localize } = useSiteLocale()
-/** 翻訳済みの書籍。ISO日付の降順で新しい寄稿を先に表示する。 */
-const books = computed<Book[]>(() => booksData.map(book => localize('books', book)).sort((a, b) => b.date.localeCompare(a.date)))
+const { t } = useSiteLocale()
+/** 元データを変更せず、公開日の新しい順に並べる。 */
+const books = booksData.toSorted((a, b) => b.date.localeCompare(a.date))
 </script>

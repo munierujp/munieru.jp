@@ -1,7 +1,7 @@
 /** 登壇の元データを、定義時に型検査する。 */
 import type { Talk } from '~/types/Talk'
 
-/** 日英で共有する登壇一覧。表示文の翻訳は表示側で行う。 */
+/** 日英で共有する登壇一覧。言語別の表示文も各項目にまとめる。 */
 export const talks: Talk[] = [
   {
     key: 'nuxt-3-with-element-plus',
@@ -13,7 +13,8 @@ export const talks: Talk[] = [
     imageWidth: 1500,
     imageHeight: 844,
     eventUrl: 'https://vuejs-meetup.connpass.com/event/279254/',
-    url: 'https://speakerdeck.com/munieru_jp/nuxt-3-with-element-plus'
+    url: 'https://speakerdeck.com/munieru_jp/nuxt-3-with-element-plus',
+    englishTitle: 'Using Element Plus with Nuxt 3'
   },
   {
     key: 'air-conditioner-2018-08-29',
@@ -25,6 +26,8 @@ export const talks: Talk[] = [
     imageWidth: 1024,
     imageHeight: 576,
     eventUrl: 'https://increments.connpass.com/event/98534/',
-    url: 'https://speakerdeck.com/munieru_jp/2018-08-29'
+    url: 'https://speakerdeck.com/munieru_jp/2018-08-29',
+    englishTitle: 'Why air conditioner and remote temperature settings get out of sync: a simulation',
+    englishEventTitle: 'Is your summer homework done?! Qiita/Qiitadon Fan Meeting #4'
   }
 ]

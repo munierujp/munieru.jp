@@ -13,17 +13,11 @@
 
 <script setup lang="ts">
 /**
- * 型検査された作品データを翻訳し、日付順への整列を管理する。
+ * 型検査された作品データの日付順への整列を管理する。
  */
-import { computed } from 'vue'
 import { works as workData } from '~/data/works'
-import type { Work } from '~/types/Work'
 
-const { t, localize } = useSiteLocale()
-/** 型検査された作品を翻訳し、公開日の新しい順に並べる。 */
-const works = computed<Work[]>(() =>
-  workData
-    .map(work => localize('works', work))
-    .sort((a, b) => b.date.localeCompare(a.date))
-)
+const { t } = useSiteLocale()
+/** 元データを変更せず、公開日の新しい順に並べる。 */
+const works = workData.toSorted((a, b) => b.date.localeCompare(a.date))
 </script>

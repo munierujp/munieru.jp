@@ -1,7 +1,7 @@
 /** 支援先の元データを、定義時に型検査する。 */
 import type { SupportLink } from '~/types/SupportLink'
 
-/** 日英で共有する支援先一覧。表示文の翻訳は表示側で行う。 */
+/** 日英で共有する支援先一覧。言語別の表示文も各項目にまとめる。 */
 export const supportLinks: SupportLink[] = [
   {
     key: 'github-sponsors',
@@ -17,7 +17,10 @@ export const supportLinks: SupportLink[] = [
   },
   {
     key: 'wish-list',
-    title: 'ほしい物リスト',
+    title: {
+      ja: 'ほしい物リスト',
+      en: 'Wish list'
+    },
     url: 'http://amzn.asia/9qD1BsF',
     image: '/service-icons/amazon.png'
   },

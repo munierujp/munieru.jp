@@ -1,7 +1,7 @@
 /** 書籍の元データを、定義時に型検査する。 */
 import type { Book } from '~/types/Book'
 
-/** 日英で共有する書籍一覧。表示文の翻訳は表示側で行う。 */
+/** 日英で共有する書籍一覧。言語別の表示文も各項目にまとめる。 */
 export const books: Book[] = [
   {
     key: 'tech_do_book_vol_1',
@@ -11,7 +11,12 @@ export const books: Book[] = [
     image: '/book-covers/tech-do-book-vol-1.jpg',
     imageWidth: 742,
     imageHeight: 1024,
-    format: '技術同人誌',
-    chapterTitle: 'Go + Echoでウェブページをフェッチするツールを作る'
+    format: {
+      ja: '技術同人誌',
+      en: 'Technical zine (Japanese)'
+    },
+    chapterTitle: 'Go + Echoでウェブページをフェッチするツールを作る',
+    contributionLabel: 'Contributed the chapter',
+    englishChapterTitle: 'Building a web page fetching tool with Go + Echo'
   }
 ]
