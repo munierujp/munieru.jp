@@ -127,7 +127,7 @@ AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限�
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、構造化データの`alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。
 - `nuxt-schema-org`の型付きAPIで、言語別の`WebSite`・`ProfilePage`と共通の`Person`を定義します。JSON-LDの生成と翻訳関係の設定はモジュールへ任せ、言語別サイトのURL・IDと人物への参照は明示します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
 - 構造化データはモジュールの標準設定を使い、本番では各URLの初期HTMLへ出力します。画面内で言語を切り替えてもJSON-LDは更新せず、対応するURLを直接取得した際にその言語のデータを返します。
-- `nuxt.config.ts`が共通設定、`app/composables/useSiteSeo.ts`が言語別メタ情報を担当します。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
+- `nuxt.config.ts`が共通設定、`app/composables/useSiteSeo.ts`が言語別メタ情報を担当します。SEO用のページ・画像の絶対URLはNuxt Site Configの`withSiteUrl()`で組み立て、正規サイトのURL設定を共有します。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
 
 ## 存在しないURL
 

@@ -1,7 +1,7 @@
 /** トップページの言語別メタ情報と構造化データを設定する。 */
 import { computed } from 'vue'
 import { useSchemaOrg, defineWebSite, defineWebPage, definePerson } from '#schema-org/app'
-import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
+import { useHead, useRuntimeConfig, useSeoMeta, withSiteUrl } from '#imports'
 import { serviceLinks } from '~/data/serviceLinks'
 
 /**
@@ -14,8 +14,8 @@ export function useSiteSeo (): void {
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。
   const localeHead = useLocaleHead()
   const localePath = useLocalePath()
-  /** 多言語のWebSiteノードを別々のIDで定義する。 */
-  const pageUrl = computed(() => new URL(localePath('/').replace(/^\//, ''), config.BASE_URL).href)
+  /** 正規サイトのURL設定から言語別の絶対URLを生成し、WebSiteのIDにも使う。 */
+  const pageUrl = withSiteUrl(computed(() => localePath('/')))
   /** ページの言語に合わせた主名義。メタ情報と構造化データで共有する。 */
   const displayName = computed(() => t('site.name'))
   /** 主名義と異なる文字表記。構造化データのalternateNameへ残す。 */
@@ -23,7 +23,7 @@ export function useSiteSeo (): void {
   /** ヘッダーと揃えた言語別のサイト名。 */
   const pageTitle = computed(() => t('site.title'))
   /** 共有元ページの言語に対応するOGP画像の絶対URL。クローラー向けの静的HTMLにも出力する。 */
-  const shareImage = computed(() => new URL(isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH, config.BASE_URL).href)
+  const shareImage = withSiteUrl(computed(() => isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH))
   /** OGP画像内のサイト名とURL。翻訳・公開先の変更を代替テキストにも反映する。 */
   const shareImageAlt = computed(() => `${pageTitle.value} / ${config.BASE_URL}`)
   // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
@@ -59,7 +59,7 @@ export function useSiteSeo (): void {
       name: () => displayName.value,
       alternateName: () => alternateName.value,
       url: config.BASE_URL,
-      image: new URL('profile.png', config.BASE_URL).href,
+      image: withSiteUrl('/profile.png'),
       sameAs: serviceLinks.map(link => link.url)
     })
   ])
