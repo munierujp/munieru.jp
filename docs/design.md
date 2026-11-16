@@ -123,7 +123,7 @@ AVIFを優先し、フォールバックは`legacy-format="webp"`でWebPに限�
 - `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。404 HTMLへの`noindex`指定もモジュールへ任せます。
 - HTMLの言語属性・canonical・hreflangとサイトマップはモジュールの標準機能で生成します。HTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
 - 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。説明文は`i18n/locales/*.json`の`description`です。
-- 著者・OGP・Xカードの言語別メタ情報・共有画像の説明・構造化データは`useSiteSeo()`で登録し、共通設定の初期値との二重定義はしません。OGタイトル・説明はUnheadの`InferSeoMetaPlugin`でページのタイトル・説明から補完します。X固有のタイトル・説明・画像は明示的に指定します。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
+- 著者・OGP・Xカードの言語別メタ情報・共有画像の説明・構造化データは`useSiteSeo()`で登録し、共通設定の初期値との二重定義はしません。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、構造化データの`alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。
 - `nuxt-schema-org`の型付きAPIで、言語別の`WebSite`・`ProfilePage`と共通の`Person`を定義します。JSON-LDの生成と翻訳関係の設定はモジュールへ任せ、言語別サイトのURL・IDと人物への参照は明示します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
 - 構造化データはモジュールの標準設定を使い、本番では各URLの初期HTMLへ出力します。画面内で言語を切り替えてもJSON-LDは更新せず、対応するURLを直接取得した際にその言語のデータを返します。
