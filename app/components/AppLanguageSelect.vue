@@ -3,19 +3,17 @@
   <USelectMenu
     :ui="iconSelectUi"
     :model-value="locale"
-    :items="[ja, en]"
+    :items="locales"
     :search-input="false"
     value-key="code"
     label-key="name"
     icon="i-lucide-languages"
-    :aria-label="t('ui.language', { language: locale === 'ja' ? '日本語' : 'English' })"
-    @update:model-value="setLocale($event as 'ja' | 'en')"
+    :aria-label="t('ui.language', { language: localeProperties.name ?? locale })"
+    @update:model-value="setLocale($event)"
   />
 </template>
 
 <script setup lang="ts">
 /** 言語選択の表示と、Nuxt I18nによるURL切り替え・Cookie保存をまとめる。 */
-import { ja, en } from '@nuxt/ui/locale'
-
-const { locale, t, setLocale } = useI18n()
+const { locale, locales, localeProperties, t, setLocale } = useI18n()
 </script>

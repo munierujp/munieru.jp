@@ -43,7 +43,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`app/data/talks.ts`の同じ項目の`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
 - 寄稿した章名も原題を残します。`app/data/books.ts`の`chapterTitle`が原題、同じ項目の`englishChapterTitle`が参考英訳です。寄稿を示す説明は`i18n/locales/ja.json`・`i18n/locales/en.json`の`ui.contributedChapter`で管理し、`i18n-t`で原題を差し込みます。
 - 言語・UI翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。`/`は日本語、`/en/`は英語を常に表示し、利用者が言語を切り替えると対応するURLへ移動します。
-- 見出し・操作ラベルはVue I18nの`t()`、一覧の言語別の表示文は`description[locale]`などで取得します。`LocalizedText`型で日英の定義漏れを検査し、一覧の翻訳を結合する独自処理は使いません。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用し、メニューの選択を受け取ります。
+- 見出し・操作ラベルはVue I18nの`t()`、一覧の言語別の表示文は`description[locale]`などで取得します。`LocalizedText`型で日英の定義漏れを検査し、一覧の翻訳を結合する独自処理は使いません。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用します。選択肢は`locales`、選択中の言語名は`localeProperties.name`から取得し、`nuxt.config.ts`の言語設定に追従させます。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`nuxtSiteConfig.description`を編集します。
 - Nuxt I18nの`prefix_except_default`構成を使い、日本語・英語とも静的HTMLを生成します。入口専用のCSR用HTMLのコピー処理はありません。
 - ヘッダーは`UHeader`を使い、言語選択は`USelectMenu`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は`app/app.config.ts`の共通テーマと`app/utils/iconSelectUi.ts`で調整します。
