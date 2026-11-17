@@ -12,8 +12,6 @@
       <NuxtPicture
         class="mx-auto block w-full max-w-xl"
         :src="talk.image"
-        format="avif"
-        legacy-format="webp"
         :img-attrs="{ class: 'block h-auto w-full rounded-lg' }"
         sizes="100vw sm:576px"
         densities="1x 2x"

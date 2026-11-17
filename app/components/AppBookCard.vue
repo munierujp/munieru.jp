@@ -4,8 +4,6 @@
       <NuxtPicture
         class="block w-24 max-w-full min-[561px]:w-32"
         :src="book.image"
-        format="avif"
-        legacy-format="webp"
         :img-attrs="{ class: 'block h-auto w-full rounded-lg' }"
         sizes="96px tablet:128px"
         densities="1x 2x"

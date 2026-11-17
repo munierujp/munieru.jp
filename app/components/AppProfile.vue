@@ -14,12 +14,10 @@
       <p class="mt-3">{{ t('profile.activities') }}</p>
     </template>
     <div class="grid place-items-center order-first">
-      <!-- 背景や枠を設けず、表示幅に合わせたAVIF・WebPの画像自体を円形で表示する。 -->
+      <!-- 背景や枠を設けず、表示幅に合わせて生成した画像自体を円形で表示する。 -->
       <NuxtPicture
         class="block aspect-square w-[260px] overflow-hidden rounded-full max-[560px]:w-28"
         src="/profile.png"
-        format="avif"
-        legacy-format="webp"
         :img-attrs="{ class: 'block size-full object-cover', fetchpriority: 'high' }"
         sizes="112px tablet:260px"
         densities="1x 2x"
