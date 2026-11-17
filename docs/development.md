@@ -1,6 +1,6 @@
 # 開発・検証ガイド
 
-環境構築、ビルド、テスト、リンター、公開設定の手順をまとめます。
+環境構築、ビルド、型チェック、リンター、公開設定の手順をまとめます。
 記載するソースパスとコマンドの実行場所は、リポジトリのルートを基準とします。
 
 ## 必要な環境
@@ -37,7 +37,6 @@ Vue・CSS・データを保存すると、開発画面に反映されます。
 ```sh
 npm run lint
 npm run typecheck
-npm test
 npm run generate
 npm run preview
 ```
@@ -62,15 +61,12 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 - `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
 - `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
-- `.github/workflows/test.yml`: ビルド不要の単体テスト
 
 各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
 公開はNetlify、依存更新はRenovateで行います。
 
-## テストの実行単位
-
-`npm test`はNode標準の探索で`*.test.ts`などをディレクトリに限定せず実行し、Nuxtの準備や`dist`を必要としません。現在は`test/node-version.test.ts`の1件で、Node・型定義・package.jsonのバージョン整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
+生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ## TypeScriptと型チェック
 
@@ -84,7 +80,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定をチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`・`constants/*.ts`・`test/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
+`scripts/*.ts`・`constants/*.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
 
 `shared/`はNuxtが生成する共有コンテキストの設定で検査します。
 

@@ -1,5 +1,4 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/df9f63fe-2cb3-4024-a774-9c4bb1affcfc/deploy-status)](https://app.netlify.com/sites/munieru/deploys)
-[![test](https://github.com/munierujp/munieru.jp/actions/workflows/test.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/test.yml)
 [![typecheck](https://github.com/munierujp/munieru.jp/actions/workflows/typecheck.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/typecheck.yml)
 [![eslint](https://github.com/munierujp/munieru.jp/actions/workflows/eslint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/eslint.yml)
 [![secretlint](https://github.com/munierujp/munieru.jp/actions/workflows/secretlint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/secretlint.yml)
@@ -34,7 +33,7 @@ npm run dev
 
 - [こだわりポイント](docs/features.md): 表示・操作・多言語・アクセシビリティ・配信の工夫
 - [内容の更新ガイド](docs/content.md): プロフィール、リンク、作品、書籍、登壇、翻訳の更新
-- [開発・検証ガイド](docs/development.md): 環境構築、ビルド、テスト、リンター、GitHub Actions、公開設定
+- [開発・検証ガイド](docs/development.md): 環境構築、ビルド、型チェック、リンター、GitHub Actions、公開設定
 - [UI・設計ガイド](docs/design.md): ページ・コンポーネントの構成、表示・操作、フォント、画像、メタ情報
 - [OGP画像の生成](docs/ogp.md): 素材、フォント、再生成手順
 
