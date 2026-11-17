@@ -1,9 +1,4 @@
 /** 静的生成とOGP生成で共有する、ルート配信専用の公開設定。 */
-import { fileURLToPath } from 'node:url'
-
-/** 作業ディレクトリに依存しない、リポジトリルートの絶対パス。 */
-export const ROOT = fileURLToPath(new URL('../', import.meta.url))
-
 /** メタ情報とフッターで共有する、先頭の`@`を含まないXアカウント名。 */
 const X_ID = 'munieru_jp'
 

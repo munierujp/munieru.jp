@@ -70,7 +70,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 
 ## テストの実行単位
 
-`npm test`はNode標準の探索で`*.test.ts`などをディレクトリに限定せず実行し、Nuxtの準備や`dist`を必要としません。現在は`config/site.test.ts`の3件で、公開設定の上書き・不正なオリジン・Nodeと型定義の整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
+`npm test`はNode標準の探索で`*.test.ts`などをディレクトリに限定せず実行し、Nuxtの準備や`dist`を必要としません。現在は`test/node-version.test.ts`の1件で、Node・型定義・package.jsonのバージョン整合を検証します。生成HTML・画像・配信サーバーの結合テストは[Issue #451](https://github.com/munierujp/munieru.jp/issues/451)で管理します。
 
 ## TypeScriptと型チェック
 
@@ -84,7 +84,7 @@ npm run typecheck
 
 Nuxtが生成する設定を使い、Vueのテンプレート・props・共通処理・Nuxt設定をチェックします。
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
-`scripts/*.ts`・`config/*.ts`（設定と同じディレクトリの`*.test.ts`を含む）はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
+`scripts/*.ts`・`config/*.ts`・`test/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
 
 新しいツール用ファイルは隠しファイルも含めて自動探索します。`server/`やレイヤーなど、新しいNuxt用のソース領域を導入するときは、Nuxtとの検査対象の分担を確認し、必要に応じて`tsconfig.tools.json`の除外設定を更新してください。
 
