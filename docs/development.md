@@ -201,12 +201,12 @@ npm run lint:lockfile-lint
 
 ## 設定
 
-公開設定は`config/site.ts`に定義します。ルート配信専用とし、公開オリジン・リポジトリURL・Xアカウントは同名の環境変数で上書きできます。公開先の設定は生成時に反映します。
+公開設定は`config/site.ts`の`SITE_CONFIG`に固定値として定義します。ルート配信専用とし、公開URL・リポジトリURL・Xアカウントを環境変数で切り替えません。プレビューでも正規URLとOGP画像内のURLは本番サイトを指します。固定値の変数名はコンスタントケース（`FOO_BAR`）にします。
 `nuxt.config.ts`ではテーマ・アイコン・サイトマップ・画像・多言語・メタ情報・静的生成を用途別の定数へ分け、`NuxtConfig`の各設定型と`AppHeadMetaObject`で検査してから組み合わせます。直下のオブジェクト設定は長さにかかわらず定数へ切り出し、内部はさらに細分化しません。
 
-- `ORIGIN`: 公開サイトのオリジン。既定は `https://munieru.jp/`
-- `REPOSITORY_URL`: フッターから案内するサイトのソースコードURL
-- `X_ID`: Xアカウント名。`loadConfig()`でフッター用の`X_URL`も生成します（先頭の`@`は除去）。`X_URL`自体は環境変数で上書きしません。
+- `SITE_CONFIG.BASE_URL`: 公開サイトのルートURL。`https://munieru.jp/`のように末尾のスラッシュを含めます。
+- `SITE_CONFIG.REPOSITORY_URL`: フッターから案内するサイトのソースコードURL
+- `X_ID`: 先頭の`@`なしで定義するXアカウント名。`SITE_CONFIG.X_ID`と、フッター用の`SITE_CONFIG.X_URL`で共有します。
 
 日本語は`/`、英語は`/en/`で配信します。OGP画像の出力先は`public/ogp.png`・`public/en/ogp.png`に固定し、サイトの画像URLと生成先で同じ定義を共有します。`BASE_DIR`・`OG_IMAGE_PATH`・`OG_IMAGE_PATH_EN`の環境変数による変更には対応しません。
 

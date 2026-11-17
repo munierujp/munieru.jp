@@ -3,11 +3,10 @@
  */
 import { fileURLToPath } from 'node:url'
 import type { AppHeadMetaObject, NuxtConfig } from 'nuxt/schema'
-import { loadConfig } from './config/site.ts'
+import { SITE_CONFIG } from './config/site.ts'
 import { OGP_WIDTH, OGP_HEIGHT } from './config/ogp.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 
-const config = loadConfig()
 // サイト共通の設定で使う日本語のサイト名。
 const { name: siteName } = ja.nuxtSiteConfig
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
@@ -53,7 +52,7 @@ const i18n: NonNullable<NuxtConfig['i18n']> = {
   trailingSlash: true,
   // URLに対応する言語を常に表示し、ブラウザ言語・Cookieで転送しない。
   detectBrowserLanguage: false,
-  baseUrl: new URL(config.BASE_URL).origin,
+  baseUrl: new URL(SITE_CONFIG.BASE_URL).origin,
   locales: [
     { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' },
     { code: 'en', language: 'en-US', name: 'English', file: 'en.json' }
@@ -73,8 +72,8 @@ const head: AppHeadMetaObject = {
     { property: 'og:image:width', content: String(OGP_WIDTH) },
     { property: 'og:image:height', content: String(OGP_HEIGHT) },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:site', content: '@' + config.X_ID.replace(/^@/, '') },
-    { name: 'twitter:creator', content: '@' + config.X_ID.replace(/^@/, '') }
+    { name: 'twitter:site', content: '@' + SITE_CONFIG.X_ID },
+    { name: 'twitter:creator', content: '@' + SITE_CONFIG.X_ID }
   ],
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -96,14 +95,14 @@ const ui: NonNullable<NuxtConfig['ui']> = { fonts: false }
 
 /** 公開サイトの正規オリジン・サイト名・URL末尾の方針。 */
 const site: NonNullable<NuxtConfig['site']> = {
-  url: new URL(config.BASE_URL).origin,
+  url: new URL(SITE_CONFIG.BASE_URL).origin,
   name: siteName,
   trailingSlash: true
 }
 
-/** ブラウザでも参照する、検証・正規化済みの公開設定。 */
+/** ブラウザでも参照する、サイト共通の固定の公開設定。 */
 const runtimeConfig: NonNullable<NuxtConfig['runtimeConfig']> = {
-  public: config
+  public: SITE_CONFIG
 }
 
 /** 全ページ共通のメタ情報。 */
