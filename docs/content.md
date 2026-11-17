@@ -28,7 +28,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 
 ## OGP画像の更新
 
-名前・サイト名（`site.name`・`nuxtSiteConfig.name`）、公開URL（`constants/site.ts`の`BASE_URL`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
+名前・サイト名（`site.name`・`nuxtSiteConfig.name`）、公開URL（`shared/utils/site.ts`の`BASE_URL`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
 ビルドやCIでは自動生成しないため、生成したPNGも変更に含めます。出力先は`public/ogp.png`・`public/en/ogp.png`に固定しています。
 実行にはmacOSのヒラギノ角ゴシックが必要です。Takumiの公式Node APIで生成します。[OGP画像の生成手順](ogp.md#再生成)を参照してください。
 

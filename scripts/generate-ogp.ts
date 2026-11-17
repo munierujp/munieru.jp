@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { Renderer } from '@takumi-rs/core'
 import type { Node } from '@takumi-rs/core'
-import { BASE_URL, OG_IMAGE_PATH, OG_IMAGE_PATH_EN } from '../constants/site.ts'
+import { BASE_URL, OG_IMAGE_PATH, OG_IMAGE_PATH_EN } from '../shared/utils/site.ts'
 import { OGP_WIDTH, OGP_HEIGHT } from '../constants/ogp.ts'
 import ja from '../i18n/locales/ja.json' with { type: 'json' }
 import en from '../i18n/locales/en.json' with { type: 'json' }

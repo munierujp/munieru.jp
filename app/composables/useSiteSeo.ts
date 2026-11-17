@@ -7,7 +7,6 @@ import { serviceLinks } from '~/data/serviceLinks'
  */
 export function useSiteSeo (): void {
   const { isEnglish, t } = useSiteLocale()
-  const config = useRuntimeConfig().public
   const site = useSiteConfig()
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。
   const localeHead = useLocaleHead()
@@ -16,9 +15,9 @@ export function useSiteSeo (): void {
   /** 主名義と異なる文字表記。PersonのalternateNameへ残す。 */
   const alternateName = computed(() => t('site.alternateName'))
   /** 共有元ページの言語に対応するOGP画像の絶対URL。クローラー向けの静的HTMLにも出力する。 */
-  const shareImage = withSiteUrl(computed(() => isEnglish.value ? config.OG_IMAGE_PATH_EN : config.OG_IMAGE_PATH))
+  const shareImage = withSiteUrl(computed(() => isEnglish.value ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
   /** OGP画像内のサイト名とURL。翻訳・公開先の変更を代替テキストにも反映する。 */
-  const shareImageAlt = computed(() => `${site.name} / ${config.BASE_URL}`)
+  const shareImageAlt = computed(() => `${site.name} / ${BASE_URL}`)
   // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
   useSeoMeta({
     title: () => site.name,
@@ -39,13 +38,13 @@ export function useSiteSeo (): void {
   useSchemaOrg([
     defineWebPage({
       '@type': 'ProfilePage',
-      mainEntity: { '@id': config.BASE_URL + '#person' }
+      mainEntity: { '@id': BASE_URL + '#person' }
     }),
     definePerson({
-      '@id': config.BASE_URL + '#person',
+      '@id': BASE_URL + '#person',
       name: () => displayName.value,
       alternateName: () => alternateName.value,
-      url: config.BASE_URL,
+      url: BASE_URL,
       image: withSiteUrl('/profile.png'),
       sameAs: serviceLinks.map(link => link.url)
     })

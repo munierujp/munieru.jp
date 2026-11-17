@@ -23,6 +23,7 @@
     "dist",
     "app",
     "i18n",
+    "shared",
     "nuxt.config.ts"
   ]
 }

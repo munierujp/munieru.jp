@@ -86,6 +86,8 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 型チェック用の開発依存はTypeScript 6.0.3・vue-tsc 3.3.14・Node.js 26用の型定義です。TypeScript 7は現在のvue-tscでは起動できないため採用していません。
 `scripts/*.ts`・`constants/*.ts`・`test/*.test.ts`はNode.js 26の標準TS対応で実行します。`tsconfig.tools.json`では`@tsconfig/node26`・`@tsconfig/node-ts`・`@tsconfig/strictest`を重ね、配列要素の未存在・未使用変数・省略可能プロパティの扱いなども含めてスクリプト・テスト・リンター設定を検査し、GitHub Actionsでも同じ`npm run typecheck`を使います。専用ローダーがTSに対応しないSecretlintの設定は、`@ts-check`付きのJSを使います。
 
+`shared/`はNuxtが生成する共有コンテキストの設定で検査します。
+
 新しいツール用ファイルは隠しファイルも含めて自動探索します。`server/`やレイヤーなど、新しいNuxt用のソース領域を導入するときは、Nuxtとの検査対象の分担を確認し、必要に応じて`tsconfig.tools.json`の除外設定を更新してください。
 
 ### 型注釈とsatisfiesの使い分け
@@ -201,7 +203,7 @@ npm run lint:lockfile-lint
 
 ## 設定
 
-公開定数は`constants/site.ts`から名前付きでエクスポートします。ルート配信専用とし、公開URL・リポジトリURL・Xアカウントを環境変数で切り替えません。プレビューでも正規URLとOGP画像内のURLは本番サイトを指します。固定値の変数名はコンスタントケース（`FOO_BAR`）にします。
+公開定数は`shared/utils/site.ts`から名前付きでエクスポートします。アプリではNuxtの自動インポート、Nuxt設定とOGP生成スクリプトでは相対パスのインポートで直接参照し、独自の`runtimeConfig.public`への登録は行いません。ルート配信専用とし、公開URL・リポジトリURL・Xアカウントを環境変数で切り替えません。プレビューでも正規URLとOGP画像内のURLは本番サイトを指します。固定値の変数名はコンスタントケース（`FOO_BAR`）にします。
 `nuxt.config.ts`ではテーマ・アイコン・サイトマップ・画像・多言語・メタ情報・静的生成を用途別の定数へ分け、`NuxtConfig`の各設定型と`AppHeadMetaObject`で検査してから組み合わせます。直下のオブジェクト設定は長さにかかわらず定数へ切り出し、内部はさらに細分化しません。
 
 - `BASE_URL`: 公開サイトのルートURL。`https://munieru.jp/`のように末尾のスラッシュを含めます。

@@ -3,7 +3,7 @@
  */
 import { fileURLToPath } from 'node:url'
 import type { AppHeadMetaObject, NuxtConfig } from 'nuxt/schema'
-import * as SITE_CONSTANTS from './constants/site.ts'
+import * as SITE_CONSTANTS from './shared/utils/site.ts'
 import { OGP_WIDTH, OGP_HEIGHT } from './constants/ogp.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 
@@ -98,11 +98,6 @@ const site: NonNullable<NuxtConfig['site']> = {
   trailingSlash: true
 }
 
-/** ブラウザでも参照する、サイト共通の固定の公開設定。 */
-const runtimeConfig: NonNullable<NuxtConfig['runtimeConfig']> = {
-  public: { ...SITE_CONSTANTS }
-}
-
 /** 全ページ共通のメタ情報。 */
 const app: NonNullable<NuxtConfig['app']> = {
   head
@@ -120,7 +115,6 @@ export default defineNuxtConfig({
   image,
   i18n,
   css: ['~~/assets/style/main.css'],
-  runtimeConfig,
   app,
   nitro
 })
