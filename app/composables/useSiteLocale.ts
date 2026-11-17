@@ -17,8 +17,8 @@ export interface SiteLocale {
   t: SiteI18n['t']
   /** 原題の読み上げに必要なlang属性を判定する。 */
   titleLanguage: (title: string) => 'ja' | undefined
-  /** ISO日付を現在の表示言語の書式へ整形する。 */
-  formatDate: (date: string) => string
+  /** 現在の表示言語と名前付き書式で日付を整形する標準関数。 */
+  d: SiteI18n['d']
 }
 
 /**
@@ -35,11 +35,5 @@ export function useSiteLocale (): SiteLocale {
    * @returns 日本語文字がある英語ページではja、それ以外は親要素の言語を継承するundefined。
    */
   const titleLanguage = (title: string): 'ja' | undefined => isEnglish.value && /[\u3040-\u30ff\u3400-\u9fff]/u.test(title) ? 'ja' : undefined
-  /**
-   * ISO日付を現在の言語の表示形式へ整形する。
-   * @param date - 元データに保存されたYYYY-MM-DD形式の日付。
-   * @returns Nuxt I18nのdate書式に従う日付文字列。datetime属性の元データは変更しない。
-   */
-  const formatDate = (date: string): string => d(date, 'date')
-  return { isEnglish, locale, t, titleLanguage, formatDate }
+  return { isEnglish, locale, t, titleLanguage, d }
 }

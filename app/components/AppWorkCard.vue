@@ -26,7 +26,7 @@
         />
       </div>
       <p class="mt-3 text-xs text-muted">
-        {{ category.label }} / <time :datetime="work.date">{{ formatDate(work.date) }}</time>
+        {{ category.label }} / <time :datetime="work.date">{{ d(work.date, 'date') }}</time>
       </p>
     </template>
     <template #title>
@@ -50,7 +50,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { locale, t, titleLanguage, formatDate } = useSiteLocale()
+const { locale, t, titleLanguage, d } = useSiteLocale()
 const icons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',

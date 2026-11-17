@@ -24,7 +24,7 @@
         decoding="async"
       />
       <p class="mt-3 text-xs text-muted">
-        {{ talk.format }} / <time :datetime="talk.date">{{ formatDate(talk.date) }}</time>
+        {{ talk.format }} / <time :datetime="talk.date">{{ d(talk.date, 'date') }}</time>
       </p>
     </template>
     <template #title><h3 :lang="titleLanguage(talk.title)">{{ talk.title }}</h3></template>
@@ -57,5 +57,5 @@ interface Props {
 }
 
 defineProps<Props>()
-const { isEnglish, t, titleLanguage, formatDate } = useSiteLocale()
+const { isEnglish, t, titleLanguage, d } = useSiteLocale()
 </script>
