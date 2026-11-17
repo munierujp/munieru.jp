@@ -3,8 +3,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { Renderer } from '@takumi-rs/core'
 import type { Node } from '@takumi-rs/core'
-import { SITE_CONFIG } from '../config/site.ts'
-import { OGP_WIDTH, OGP_HEIGHT } from '../config/ogp.ts'
+import { BASE_URL, OG_IMAGE_PATH, OG_IMAGE_PATH_EN } from '../constants/site.ts'
+import { OGP_WIDTH, OGP_HEIGHT } from '../constants/ogp.ts'
 import ja from '../i18n/locales/ja.json' with { type: 'json' }
 import en from '../i18n/locales/en.json' with { type: 'json' }
 
@@ -21,7 +21,7 @@ for (const weight of [3, 6, 9]) {
 /** ネットワーク取得や一時コピーをせず、サイトと同じプロフィール画像を渡す。 */
 const images = [{ src: '/profile.png', data: await readFile(new URL('public/profile.png', root)) }]
 // 英語名も画像との余白を確保する、比較済みの文字サイズを使う。
-for (const [messages, nameSize, outputPath] of [[ja, 128, SITE_CONFIG.OG_IMAGE_PATH], [en, 113, SITE_CONFIG.OG_IMAGE_PATH_EN]] as const) {
+for (const [messages, nameSize, outputPath] of [[ja, 128, OG_IMAGE_PATH], [en, 113, OG_IMAGE_PATH_EN]] as const) {
   const { name } = messages.site
   const title = messages.nuxtSiteConfig.name
   /** 位置・字間・円形クリップはCSSで宣言し、計測と描画はTakumiへ任せる。 */
@@ -31,7 +31,7 @@ for (const [messages, nameSize, outputPath] of [[ja, 128, SITE_CONFIG.OG_IMAGE_P
     children: [
       { type: 'text', text: name, style: { display: 'flex', position: 'absolute', left: 64, top: 176, fontSize: nameSize, fontWeight: 900, lineHeight: 1, letterSpacing: -2, whiteSpace: 'nowrap' } },
       { type: 'text', text: title.slice(name.length).trim(), style: { display: 'flex', position: 'absolute', left: 64, top: 328, fontSize: 64, fontWeight: 600, lineHeight: 1, letterSpacing: -1, whiteSpace: 'nowrap' } },
-      { type: 'text', text: SITE_CONFIG.BASE_URL, style: { display: 'flex', position: 'absolute', left: 64, top: 414, fontSize: 44, fontWeight: 300, lineHeight: 1, whiteSpace: 'nowrap' } },
+      { type: 'text', text: BASE_URL, style: { display: 'flex', position: 'absolute', left: 64, top: 414, fontSize: 44, fontWeight: 300, lineHeight: 1, whiteSpace: 'nowrap' } },
       { type: 'image', src: '/profile.png', width: 448, height: 448, style: { position: 'absolute', left: 688, top: 91, width: 448, height: 448, borderRadius: 224, objectFit: 'cover' } }
     ]
   }
