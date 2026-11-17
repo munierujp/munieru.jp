@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 /** SVGを維持し、画像最適化と標準の代替表示を使う装飾アイコン。 */
-import { computed } from 'vue'
 import type { IconName } from '~/types/IconName'
 
 /** このコンポーネントが受け取る入力。 */

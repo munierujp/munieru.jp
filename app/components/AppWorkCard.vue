@@ -41,7 +41,6 @@
 /** 標準のカードスロットで、作品の説明と独立したソースコードへのリンクを表示する。 */
 import type { Work } from '~/types/Work'
 import type { IconName } from '~/types/IconName'
-import { computed } from 'vue'
 
 /** このコンポーネントが受け取る入力。 */
 interface Props {

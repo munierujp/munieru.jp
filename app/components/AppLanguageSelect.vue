@@ -16,7 +16,6 @@
 <script setup lang="ts">
 /** 言語選択の表示と、Nuxt I18nによるURL切り替え・Cookie保存をまとめる。 */
 import { ja, en } from '@nuxt/ui/locale'
-import { iconSelectUi } from '~/utils/iconSelectUi'
 
 const { locale, t, setLocale } = useI18n()
 </script>

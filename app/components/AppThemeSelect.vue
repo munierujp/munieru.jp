@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 /** テーマ選択の円形トリガーと、その用途を示す読み上げ名を提供する。 */
-import { iconSelectUi } from '~/utils/iconSelectUi'
 
 const { t } = useI18n()
 </script>

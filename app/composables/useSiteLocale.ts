@@ -1,7 +1,6 @@
 /**
  * Nuxt I18nによる表示文・日付・原題の言語指定を共通化する。
  */
-import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 
 /** Nuxt I18nが提供する翻訳関数・言語状態の型。 */

@@ -1,7 +1,4 @@
 /** トップページの言語別メタ情報と構造化データを設定する。 */
-import { computed } from 'vue'
-import { useSchemaOrg, defineWebPage, definePerson } from '#schema-org/app'
-import { useHead, useRuntimeConfig, useSeoMeta, useSiteConfig, withSiteUrl } from '#imports'
 import { serviceLinks } from '~/data/serviceLinks'
 
 /**
