@@ -92,7 +92,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。
 保存できない環境ではそのページ内で切り替えます。システム選択時はOS設定の変更にも追従します。別タブで選択されたテーマは再読み込み時に反映します。
-`UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。保存キーは`app-theme`です。
+`UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。localStorageの保存キーは標準の`nuxt-color-mode`を使い、独自指定しません。
 静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名は日本語で「表示モードを選択」、英語で「Select appearance」に固定し、現在値の管理は公式コンポーネントへ任せます。
 言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。円形表示の設定は`app/utils/iconSelectUi.ts`で共有します。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。

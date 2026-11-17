@@ -11,12 +11,10 @@ import ja from './i18n/locales/ja.json' with { type: 'json' }
 const { name: siteName } = ja.nuxtSiteConfig
 const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 
-/** テーマの初期選択・判定できない場合の配色・保存先。 */
+/** テーマの初期選択と、判定できない場合の配色。 */
 const colorMode: NonNullable<NuxtConfig['colorMode']> = {
   preference: 'system',
-  fallback: 'light',
-  // 利用者のテーマ選択を保存するlocalStorageのキー。
-  storageKey: 'app-theme'
+  fallback: 'light'
 }
 
 /** 外部APIへ依存せずローカル同梱するアイコンの設定。 */
