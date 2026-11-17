@@ -4,7 +4,7 @@
 import { fileURLToPath } from 'node:url'
 import type { AppHeadMetaObject, NuxtConfig } from 'nuxt/schema'
 import * as SITE_CONSTANTS from './shared/utils/site.ts'
-import { OGP_WIDTH, OGP_HEIGHT } from './constants/ogp.ts'
+import { OGP_WIDTH, OGP_HEIGHT } from './shared/utils/ogp.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 
 // サイト共通の設定で使う日本語のサイト名。
