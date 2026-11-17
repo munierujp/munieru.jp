@@ -22,8 +22,6 @@ export interface Book {
   chapterTitle?: string
   /** 表示言語に対応する説明文。 */
   description?: string
-  /** 英語版で章名に添える寄稿内容の説明。 */
-  contributionLabel?: string
   /** 日本語の章名を置き換えず、英語ページで補足する参考訳。 */
   englishChapterTitle?: string
 }

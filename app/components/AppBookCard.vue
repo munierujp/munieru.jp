@@ -22,11 +22,10 @@
     <template #title><h3>{{ book.title }}</h3></template>
     <template #description>
       <template v-if="book.chapterTitle">
-        <template v-if="isEnglish">
-          {{ book.contributionLabel }} <span lang="ja">「{{ book.chapterTitle }}」</span>.
-          <span v-if="book.englishChapterTitle" class="mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
-        </template>
-        <template v-else>「{{ book.chapterTitle }}」の章を寄稿</template>
+        <i18n-t keypath="ui.contributedChapter" scope="global">
+          <template #chapter><span lang="ja">「{{ book.chapterTitle }}」</span></template>
+        </i18n-t>
+        <span v-if="isEnglish && book.englishChapterTitle" class="mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
       </template>
       <template v-else>{{ book.description }}</template>
     </template>

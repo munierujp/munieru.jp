@@ -16,7 +16,6 @@ export const books: Book[] = [
       en: 'Technical zine (Japanese)'
     },
     chapterTitle: 'Go + Echoでウェブページをフェッチするツールを作る',
-    contributionLabel: 'Contributed the chapter',
     englishChapterTitle: 'Building a web page fetching tool with Go + Echo'
   }
 ]
