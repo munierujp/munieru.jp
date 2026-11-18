@@ -5,7 +5,6 @@
     :title="talk.title"
     :to="talk.url"
     target="_blank"
-    rel="noopener"
     :aria-label="t('ui.slidesInfo', { title: talk.title })"
   >
     <template #header>
@@ -33,7 +32,6 @@
         class="relative z-1 inline-flex min-h-11 flex-col justify-center underline underline-offset-4"
         :to="talk.eventUrl"
         target="_blank"
-        rel="noopener"
         :aria-label="t('ui.eventInfo', { title: talk.eventTitle })"
       >
         <span :lang="talk.eventTitleLang">{{ talk.eventTitle }}</span>

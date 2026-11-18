@@ -6,7 +6,6 @@
       :to="href"
       external
       target="_blank"
-      rel="noopener"
       :aria-label="label"
     >
       <UIcon class="block size-6 shrink-0" aria-hidden="true" :name="icon" />

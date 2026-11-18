@@ -7,7 +7,6 @@
     :ui="{ header: 'w-full' }"
     :to="work.publicationEnded ? undefined : work.url"
     target="_blank"
-    rel="noopener"
   >
     <template #header>
       <div class="flex items-start justify-between gap-3">
