@@ -35,11 +35,13 @@ const props = defineProps<{ error: NuxtError }>()
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
 const site = useSiteConfig()
-// 静的404を各URLで再利用できるよう、生成時のURLをペイロードへ残さない。
+// /en/404.htmlなどの生成済みHTMLを、実際の未知URLでもそのまま配信する。
+// payload.pathが残るとNuxtが生成元URLへ遷移するため、生成時だけ削除する。
 if (import.meta.prerender) {
   useNuxtApp().hook('app:rendered', ({ ssrContext }) => {
     if (!ssrContext) return
     delete ssrContext.payload.path
+    // エラーに記録するURLも、生成元の値を使い回さない。
     if (ssrContext.payload.error) {
       Reflect.deleteProperty(ssrContext.payload.error, 'url')
     }
