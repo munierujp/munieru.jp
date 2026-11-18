@@ -90,9 +90,8 @@ const nitro: NonNullable<NuxtConfig['nitro']> = {
 /** 端末フォントを使い、Nuxt Fontsの自動登録を止める。 */
 const ui: NonNullable<NuxtConfig['ui']> = { fonts: false }
 
-/** 公開サイトの正規オリジン・サイト名・URL末尾の方針。 */
+/** サイト名とURL末尾の方針。公開URLはi18n.baseUrlからの標準連携に任せる。 */
 const site: NonNullable<NuxtConfig['site']> = {
-  url: new URL(SITE_CONSTANTS.BASE_URL).origin,
   name: siteName,
   trailingSlash: true
 }

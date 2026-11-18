@@ -18,22 +18,22 @@ export function useSiteSeo (): void {
   const shareImage = withSiteUrl(computed(() => locale.value === 'en' ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
   /** OGP画像内のサイト名とURL。翻訳・公開先の変更を代替テキストにも反映する。 */
   const shareImageAlt = computed(() => `${site.name} / ${BASE_URL}`)
-  // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。
+  // プロパティはgetter、computedはrefのまま渡し、言語切り替えに追従させる。
   useSeoMeta({
     title: () => site.name,
     description: () => site.description,
-    author: () => displayName.value,
+    author: displayName,
     ogTitle: () => site.name,
     ogSiteName: () => site.name,
     ogDescription: () => site.description,
-    ogImage: () => shareImage.value,
-    ogImageAlt: () => shareImageAlt.value,
+    ogImage: shareImage,
+    ogImageAlt: shareImageAlt,
     twitterTitle: () => site.name,
     twitterDescription: () => site.description,
-    twitterImage: () => shareImage.value,
-    twitterImageAlt: () => shareImageAlt.value
+    twitterImage: shareImage,
+    twitterImageAlt: shareImageAlt
   })
-  useHead(() => localeHead.value)
+  useHead(localeHead)
   // WebSiteと翻訳関係はモジュールに任せ、プロフィールページと人物情報を定義する。
   useSchemaOrg([
     defineWebPage({
