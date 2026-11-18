@@ -65,5 +65,8 @@ useSeoMeta({
   description: () => message.value.message,
   robots: 'noindex, nofollow'
 })
-useSocialMeta(() => `${pageTitle.value} | ${site.name}`, () => message.value.message)
+useSocialMeta({
+  title: () => `${pageTitle.value} | ${site.name}`,
+  description: () => message.value.message
+})
 </script>

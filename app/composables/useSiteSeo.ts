@@ -19,7 +19,10 @@ export function useSiteSeo (): void {
     description: () => site.description,
     author: displayName
   })
-  useSocialMeta(() => site.name, () => site.description)
+  useSocialMeta({
+    title: () => site.name,
+    description: () => site.description
+  })
   useHead(localeHead)
   // WebSiteと翻訳関係はモジュールに任せ、プロフィールページと人物情報を定義する。
   useSchemaOrg([
