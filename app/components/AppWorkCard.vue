@@ -37,7 +37,6 @@
 </template>
 
 <script setup lang="ts">
-/** 標準のカードスロットで、作品の説明と独立したソースコードへのリンクを表示する。 */
 import type { Work } from '~/types/Work'
 import type { IconName } from '~/types/IconName'
 
@@ -52,7 +51,6 @@ const icons: Record<Work['category'], IconName> = {
   library: 'i-lucide-code',
   cli: 'i-lucide-terminal'
 }
-/** 作品分類に対応する、翻訳済みの表示名と代替アイコン。 */
 const category = computed(() => ({
   label: t(`ui.categories.${props.work.category}`),
   icon: icons[props.work.category]

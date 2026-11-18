@@ -1,12 +1,8 @@
-/**
- * ルーティング・多言語・画像・SEOと、静的ホスト向け成果物の生成を設定する。
- */
 import type { AppHeadMetaObject, NuxtConfig } from 'nuxt/schema'
 import * as SITE_CONSTANTS from './shared/utils/site.ts'
 import { OGP_WIDTH, OGP_HEIGHT } from './shared/utils/ogp.ts'
 import ja from './i18n/locales/ja.json' with { type: 'json' }
 
-// サイト共通の設定で使う日本語のサイト名。
 const { name: siteName } = ja.nuxtSiteConfig
 
 /** テーマの初期選択と、判定できない場合の配色。 */
@@ -101,7 +97,6 @@ const site: NonNullable<NuxtConfig['site']> = {
   trailingSlash: true
 }
 
-/** 全ページ共通のメタ情報。 */
 const app: NonNullable<NuxtConfig['app']> = {
   head
 }

@@ -7,7 +7,6 @@ import eslintComments from '@eslint-community/eslint-plugin-eslint-comments/conf
 import tsdoc from 'eslint-plugin-tsdoc'
 import jsdoc from 'eslint-plugin-jsdoc'
 
-// Nuxtが生成するVue・TypeScript・JavaScriptの推奨設定を使う。
 export default withNuxt(
   // 無制限の無効化や無効化・再有効化の対応ミスは、公式の推奨設定で検出する。
   eslintComments.recommended,

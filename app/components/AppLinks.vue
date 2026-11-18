@@ -1,5 +1,4 @@
 <template>
-  <!-- 各サービスへのリンク。名前とアイコンを含む領域全体をタップできる。 -->
   <UPageSection :title="t('ui.headings.links')">
     <template #body>
       <ul class="flex flex-wrap items-center gap-3" role="list">
@@ -12,9 +11,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 公開アカウントへのリンクを、ローカルのサービスアイコンとともに表示する。
- */
 import { serviceLinks } from '~/data/serviceLinks'
 
 const { t } = useI18n()

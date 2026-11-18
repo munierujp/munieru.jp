@@ -1,4 +1,3 @@
-/** トップページの言語別メタ情報と構造化データを設定する。 */
 import { serviceLinks } from '~/data/serviceLinks'
 
 /**

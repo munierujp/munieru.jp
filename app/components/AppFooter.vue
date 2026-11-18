@@ -1,5 +1,4 @@
 <template>
-  <!-- 全ページ共通の著作権表記と、公開アカウント・サイトのソースコードへのリンク。 -->
   <UFooter class="text-muted">
     <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
     <template #right>
@@ -18,8 +17,5 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 現在の言語に合わせた著作権表記と、用途を説明するアイコンリンクを表示する。
- */
 const { locale, t } = useI18n()
 </script>

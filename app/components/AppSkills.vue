@@ -1,5 +1,4 @@
 <template>
-  <!-- スキルの一覧。見出しとアイコン付きのスキル名を表示する。 -->
   <UPageSection :title="t('ui.headings.skills')">
     <template #body>
       <ul class="flex flex-wrap items-center gap-3" role="list">
@@ -18,9 +17,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 技術名とローカルのアイコンを、リンクではない一覧として表示する。
- */
 import { skills } from '~/data/skills'
 
 const { locale, t } = useI18n()

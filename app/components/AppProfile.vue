@@ -30,6 +30,5 @@
 </template>
 
 <script setup lang="ts">
-/** 名前・自己紹介を標準スロットへ渡し、画像の最適化はNuxtPictureへ任せる。 */
 const { locale, t } = useI18n()
 </script>

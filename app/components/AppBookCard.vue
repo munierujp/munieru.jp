@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-/** 標準のカードへ書籍の表紙・紹介文・販売ページを渡す。 */
 import type { Book } from '~/types/Book'
 
 defineProps<{

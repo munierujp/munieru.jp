@@ -1,5 +1,4 @@
 <template>
-  <!-- 遷移先を持つ標準メニューと、円形の言語アイコンを使う。 -->
   <UDropdownMenu :items="items" :ui="{ content: 'min-w-40' }">
     <UButton square icon="i-lucide-languages" :aria-label="t('ui.language', { language: localeProperties.name ?? locale })" />
     <template #item-trailing="{ item }">
@@ -13,7 +12,6 @@
 const { locale, locales, localeProperties, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 const error = useError()
-/** URLと現在の言語をNuxt I18nの情報から取得する。 */
 const items = computed(() => locales.value.map(language => ({
   label: language.name,
   to: switchLocalePath(language.code),

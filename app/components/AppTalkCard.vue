@@ -42,7 +42,6 @@
 </template>
 
 <script setup lang="ts">
-/** 標準カードの表紙・原題・補足・フッターを使い、資料とイベントのリンクを分ける。 */
 import type { Talk } from '~/types/Talk'
 
 defineProps<{

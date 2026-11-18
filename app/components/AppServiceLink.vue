@@ -1,5 +1,4 @@
 <template>
-  <!-- サービス名を読み上げ名とし、画像を含む領域全体から外部ページを開く。 -->
   <UButton :to="link.url" external target="_blank" class="whitespace-nowrap">
     <span class="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
       <AppIconImage

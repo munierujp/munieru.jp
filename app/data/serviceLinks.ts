@@ -1,4 +1,3 @@
-/** サービスリンクの元データを、定義時に型検査する。 */
 import type { ServiceLink } from '~/types/ServiceLink'
 
 /** 日英で共有するサービスリンク一覧。サービス名は原表記を維持する。 */

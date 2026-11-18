@@ -1,5 +1,4 @@
 <template>
-  <!-- アイコンだけのリンクには、読み上げ名とツールチップを共通で付ける。 -->
   <UTooltip :text="label">
     <UButton
       square

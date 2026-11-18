@@ -7,7 +7,5 @@
 </template>
 
 <script setup lang="ts">
-/** テーマ選択の円形トリガーと、その用途を示す読み上げ名を提供する。 */
-
 const { t } = useI18n()
 </script>

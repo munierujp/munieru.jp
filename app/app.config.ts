@@ -1,14 +1,11 @@
-/** Nuxt UIの公式テーマ設定に、部品の角丸と操作領域をまとめる。 */
 import type { AppConfigInput } from 'nuxt/schema'
 
-/** Nuxt UIが拡張する公式のアプリ設定型。 */
 type UiConfig = NonNullable<AppConfigInput['ui']>
 
 /** 通常ボタンと円形ボタンの外観・操作領域。 */
 const button: NonNullable<UiConfig['button']> = {
   // 操作可能なボタンだけポインターにし、無効な操作と区別する。
   slots: { base: 'cursor-pointer disabled:cursor-default aria-disabled:cursor-default min-h-11 motion-reduce:transition-none' },
-  // UButtonを直接使い、通常の文字色・外枠・サイズと円形操作を共通化する。
   defaultVariants: { color: 'neutral', variant: 'outline', size: 'lg' },
   variants: { square: { true: 'size-11 min-w-11 shrink-0 justify-center rounded-full p-0' } }
 }
@@ -48,7 +45,6 @@ const selectMenu: NonNullable<UiConfig['selectMenu']> = {
 /** 独自の色値を持たず、Nuxt UI標準パレットの意味別カラーを使う。 */
 const colors: NonNullable<UiConfig['colors']> = { primary: 'cyan', neutral: 'zinc' }
 
-/** 配色と各部品の設定を組み合わせた、サイト共通のUIテーマ。 */
 const ui: UiConfig = {
   colors,
   button,
