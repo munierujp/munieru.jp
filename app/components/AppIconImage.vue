@@ -32,7 +32,7 @@ interface Props {
   sizes?: string
 }
 
-const props = withDefaults(defineProps<Props>(), { size: 24, sizes: undefined, src: undefined, icon: undefined })
+const { src = undefined, icon = undefined, size = 24, sizes = undefined } = defineProps<Props>()
 /** SVGは元画像を直接配信し、ラスター画像はNuxt Imageへ渡す。 */
-const isSvg = computed(() => props.src?.endsWith('.svg') ?? false)
+const isSvg = computed(() => src?.endsWith('.svg') ?? false)
 </script>
