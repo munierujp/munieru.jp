@@ -23,5 +23,5 @@
  */
 import { skills } from '~/data/skills'
 
-const { locale, t } = useSiteLocale()
+const { locale, t } = useI18n()
 </script>

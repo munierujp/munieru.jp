@@ -17,7 +17,7 @@
  */
 import { talks as talkData } from '~/data/talks'
 
-const { t } = useSiteLocale()
+const { t } = useI18n()
 /** 元データを変更せず、公開日の新しい順に並べる。 */
 const talks = talkData.toSorted((a, b) => b.date.localeCompare(a.date))
 </script>

@@ -15,5 +15,5 @@
  */
 import { supportLinks } from '~/data/supportLinks'
 
-const { locale, t } = useSiteLocale()
+const { locale, t } = useI18n()
 </script>

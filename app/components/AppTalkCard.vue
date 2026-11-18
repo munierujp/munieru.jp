@@ -24,8 +24,8 @@
         {{ talk.format }} / <time :datetime="talk.date">{{ d(talk.date, 'date') }}</time>
       </p>
     </template>
-    <template #title><h3 :lang="titleLanguage(talk.title)">{{ talk.title }}</h3></template>
-    <template v-if="isEnglish && talk.englishTitle" #description>
+    <template #title><h3 :lang="talk.titleLang">{{ talk.title }}</h3></template>
+    <template v-if="locale === 'en' && talk.englishTitle" #description>
       <p lang="en">{{ talk.englishTitle }}</p>
     </template>
     <template #footer>
@@ -36,8 +36,8 @@
         rel="noopener"
         :aria-label="t('ui.eventInfo', { title: talk.eventTitle })"
       >
-        <span :lang="titleLanguage(talk.eventTitle)">{{ talk.eventTitle }}</span>
-        <span v-if="isEnglish && talk.englishEventTitle" class="mt-1 block" lang="en">{{ talk.englishEventTitle }}</span>
+        <span :lang="talk.eventTitleLang">{{ talk.eventTitle }}</span>
+        <span v-if="locale === 'en' && talk.englishEventTitle" class="mt-1 block" lang="en">{{ talk.englishEventTitle }}</span>
       </ULink>
     </template>
   </UPageCard>
@@ -54,5 +54,5 @@ interface Props {
 }
 
 defineProps<Props>()
-const { isEnglish, t, titleLanguage, d } = useSiteLocale()
+const { locale, t, d } = useI18n()
 </script>

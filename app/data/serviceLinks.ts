@@ -30,11 +30,13 @@ export const serviceLinks: ServiceLink[] = [
   },
   {
     title: 'はてなブログ',
+    titleLang: 'ja',
     url: 'https://blog.munieru.jp/',
     image: '/service-icons/blog.png'
   },
   {
     title: 'はてなブックマーク',
+    titleLang: 'ja',
     url: 'https://b.hatena.ne.jp/munieru_jp/',
     image: '/service-icons/hatena-bookmark.png'
   },
@@ -70,26 +72,31 @@ export const serviceLinks: ServiceLink[] = [
   },
   {
     title: 'ブクログ',
+    titleLang: 'ja',
     url: 'https://booklog.jp/users/munierujp',
     image: '/service-icons/booklog.png'
   },
   {
     title: '映画.com',
+    titleLang: 'ja',
     url: 'https://eiga.com/user/861618/',
     image: '/service-icons/eiga.png'
   },
   {
     title: 'シネファボ',
+    titleLang: 'ja',
     url: 'https://cinefav.com/user_page/86',
     image: '/service-icons/cinefav.png'
   },
   {
     title: '食べログ',
+    titleLang: 'ja',
     url: 'https://tabelog.com/rvwr/munieru/',
     image: '/service-icons/tabelog.png'
   },
   {
     title: 'ボドゲーマ',
+    titleLang: 'ja',
     url: 'https://bodoge.hoobby.net/friends/111403',
     image: '/service-icons/bodogema.png'
   },

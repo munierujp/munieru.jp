@@ -17,7 +17,7 @@
  */
 import { books as booksData } from '~/data/books'
 
-const { t } = useSiteLocale()
+const { t } = useI18n()
 /** 元データを変更せず、公開日の新しい順に並べる。 */
 const books = booksData.toSorted((a, b) => b.date.localeCompare(a.date))
 </script>

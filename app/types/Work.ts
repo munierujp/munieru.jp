@@ -9,6 +9,8 @@ export interface Work {
   key: string
   /** カードや一覧に表示する名称。 */
   title: string
+  /** 原題の言語タグ。省略時はページの言語を継承する。 */
+  titleLang?: string
   /** 表示言語に対応する説明文。 */
   description: LocalizedText
   /** 日付をYYYY-MM-DDで保存する。表示の整形と並べ替えに共用する。 */

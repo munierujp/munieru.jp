@@ -7,7 +7,7 @@
         :src="link.image"
       />
     </span>
-    <span :lang="titleLanguage(link.title)">{{ link.title }}</span>
+    <span :lang="link.titleLang">{{ link.title }}</span>
   </UButton>
 </template>
 
@@ -22,6 +22,4 @@ interface Props {
 }
 
 defineProps<Props>()
-
-const { titleLanguage } = useSiteLocale()
 </script>

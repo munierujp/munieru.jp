@@ -33,6 +33,7 @@ export const works: Work[] = [
   {
     key: 'kaibunmaker',
     title: '回文メーカー',
+    titleLang: 'ja',
     description: {
       ja: '回文を作って共有できるサービス',
       en: 'A service for creating and sharing palindromes.'
@@ -128,6 +129,7 @@ export const works: Work[] = [
   {
     key: 'anohi-no-tweet',
     title: '#あの日のツイートを表示するやつ',
+    titleLang: 'ja',
     description: {
       ja: '指定した条件にマッチするツイートの検索結果、Twilog、ツイセーブなどを開くためのウェブアプリ',
       en: 'A web app that opens tweet search results, Twilog, and Twisave for specified search conditions.'
@@ -141,6 +143,7 @@ export const works: Work[] = [
   {
     key: 'inochi-no-sunadokei',
     title: '命の砂時計',
+    titleLang: 'ja',
     description: {
       ja: '人生の残り時間を砂時計で表示するウェブアプリ',
       en: 'A web app that visualizes the time remaining in your life as an hourglass.'

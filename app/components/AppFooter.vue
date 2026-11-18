@@ -21,5 +21,5 @@
 /**
  * 現在の言語に合わせた著作権表記と、用途を説明するアイコンリンクを表示する。
  */
-const { locale, t } = useSiteLocale()
+const { locale, t } = useI18n()
 </script>

@@ -6,7 +6,7 @@ import { serviceLinks } from '~/data/serviceLinks'
  * @remarks ページのsetupから同期的に呼び出す。メタ情報は言語切り替えに追従し、本番の構造化データは初期HTMLに出力する。
  */
 export function useSiteSeo (): void {
-  const { isEnglish, t } = useSiteLocale()
+  const { locale, t } = useI18n()
   const site = useSiteConfig()
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。
   const localeHead = useLocaleHead()
@@ -15,7 +15,7 @@ export function useSiteSeo (): void {
   /** 主名義と異なる文字表記。PersonのalternateNameへ残す。 */
   const alternateName = computed(() => t('site.alternateName'))
   /** 共有元ページの言語に対応するOGP画像の絶対URL。クローラー向けの静的HTMLにも出力する。 */
-  const shareImage = withSiteUrl(computed(() => isEnglish.value ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
+  const shareImage = withSiteUrl(computed(() => locale.value === 'en' ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
   /** OGP画像内のサイト名とURL。翻訳・公開先の変更を代替テキストにも反映する。 */
   const shareImageAlt = computed(() => `${site.name} / ${BASE_URL}`)
   // 言語切り替え後も更新されるよう、翻訳とcomputedの値はgetterで渡す。

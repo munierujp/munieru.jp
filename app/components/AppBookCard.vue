@@ -22,7 +22,7 @@
         <i18n-t keypath="ui.contributedChapter" scope="global">
           <template #chapter><span lang="ja">「{{ book.chapterTitle }}」</span></template>
         </i18n-t>
-        <span v-if="isEnglish && book.englishChapterTitle" class="mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
+        <span v-if="locale === 'en' && book.englishChapterTitle" class="mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
       </template>
       <template v-else>{{ book.description }}</template>
     </template>
@@ -40,5 +40,5 @@ interface Props {
 }
 
 defineProps<Props>()
-const { isEnglish, locale, t, d } = useSiteLocale()
+const { locale, t, d } = useI18n()
 </script>

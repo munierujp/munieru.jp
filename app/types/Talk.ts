@@ -4,12 +4,16 @@ export interface Talk {
   key: string
   /** カードや一覧に表示する名称。 */
   title: string
+  /** 原題の言語タグ。省略時はページの言語を継承する。 */
+  titleLang?: string
   /** 日付をYYYY-MM-DDで保存する。表示の整形と並べ替えに共用する。 */
   date: string
   /** 書籍・発表の形式を示す表示名。 */
   format: string
   /** 登壇したイベントの正式名称。 */
   eventTitle: string
+  /** イベント原名の言語タグ。省略時はページの言語を継承する。 */
+  eventTitleLang?: string
   /** イベント名のテキストリンクから開く開催情報ページ。 */
   eventUrl: string
   /** public配下のローカル画像パス。外部画像を表示時に取得しない。 */

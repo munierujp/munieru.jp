@@ -7,7 +7,7 @@
   >
     <template #title>
       <span :lang="locale">{{ t('site.name') }}</span>
-      <span class="mt-[0.25em] block text-[0.5em] font-medium text-muted" :lang="isEnglish ? 'ja' : 'en'">{{ t('site.alternateName') }}</span>
+      <span class="mt-[0.25em] block text-[0.5em] font-medium text-muted" :lang="locale === 'en' ? 'ja' : 'en'">{{ t('site.alternateName') }}</span>
     </template>
     <template #description>
       <p>{{ t('profile.summary') }}</p>
@@ -31,5 +31,5 @@
 
 <script setup lang="ts">
 /** 名前・自己紹介を標準スロットへ渡し、画像の最適化はNuxtPictureへ任せる。 */
-const { isEnglish, locale, t } = useSiteLocale()
+const { locale, t } = useI18n()
 </script>

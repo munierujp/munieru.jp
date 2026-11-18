@@ -30,8 +30,8 @@
       </p>
     </template>
     <template #title>
-      <h3 :lang="titleLanguage(work.title)">
-        {{ work.title }} <UBadge v-if="work.publicationEnded">{{ t('ui.publicationEnded') }}</UBadge>
+      <h3>
+        <span :lang="work.titleLang">{{ work.title }}</span> <UBadge v-if="work.publicationEnded">{{ t('ui.publicationEnded') }}</UBadge>
       </h3>
     </template>
   </UPageCard>
@@ -49,7 +49,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { locale, t, titleLanguage, d } = useSiteLocale()
+const { locale, t, d } = useI18n()
 const icons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',
