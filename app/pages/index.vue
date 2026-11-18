@@ -1,11 +1,13 @@
 <template>
-  <AppProfile />
-  <AppLinks />
-  <AppSkills />
-  <AppWorks />
-  <AppBooks />
-  <AppTalks />
-  <AppSupport />
+  <main>
+    <AppProfile />
+    <AppLinks />
+    <AppSkills />
+    <AppWorks />
+    <AppBooks />
+    <AppTalks />
+    <AppSupport />
+  </main>
 </template>
 
 <script setup lang="ts">

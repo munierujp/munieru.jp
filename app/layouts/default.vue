@@ -1,10 +1,8 @@
 <template>
   <div>
-    <!-- 共通レイアウトのルート要素。各ページはmain内のslotへ本文を渡す。 -->
+    <!-- ヘッダー・フッターを共有し、本文のmainは各ページのルートに置く。 -->
     <AppHeader />
-    <main>
-      <slot />
-    </main>
+    <slot />
     <AppFooter />
   </div>
 </template>

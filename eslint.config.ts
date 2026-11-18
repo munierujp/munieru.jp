@@ -29,13 +29,6 @@ export default withNuxt(
     ...jsdoc.configs['flat/recommended-tsdoc-error'],
     name: 'app/jsdoc-tsdoc',
     files: ['**/*.{ts,mts,cts,vue}']
-  },
-  {
-    name: 'app/homepage-fragment',
-    files: ['app/pages/index.vue'],
-    // トップページはFragmentで構成し、ページ遷移アニメーションは使用しない。
-    // Nuxtの単一ルートのチェックは、このページだけ例外にする。
-    rules: { 'vue/no-multiple-template-root': 'off' },
   }
 ).prepend(
   // script setupにもTS規約を適用する。Vueのパーサー・自動インポートは後段のNuxt設定を優先する。
