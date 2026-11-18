@@ -15,7 +15,9 @@ export const books: Book[] = [
       ja: '技術同人誌',
       en: 'Technical zine (Japanese)'
     },
-    chapterTitle: 'Go + Echoでウェブページをフェッチするツールを作る',
-    englishChapterTitle: 'Building a web page fetching tool with Go + Echo'
+    description: {
+      ja: '「Go + Echoでウェブページをフェッチするツールを作る」の章を寄稿',
+      en: 'Contributed the chapter “Go + Echoでウェブページをフェッチするツールを作る” (Building a web page fetching tool with Go + Echo).'
+    }
   }
 ]

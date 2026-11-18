@@ -1,5 +1,5 @@
 <template>
-  <!-- 書籍一覧。表紙・寄稿内容・販売ページへのリンクはAppBookCardが担当する。 -->
+  <!-- 書籍一覧。表紙・紹介文・販売ページへのリンクはAppBookCardが担当する。 -->
   <UPageSection :title="t('ui.headings.books')">
     <template #body>
       <UPageGrid as="ul" role="list">
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 /**
- * 寄稿書籍を読み込み、日付の新しい順に表示する。
+ * 書籍を読み込み、日付の新しい順に表示する。
  */
 import { books as booksData } from '~/data/books'
 

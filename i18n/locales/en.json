@@ -32,7 +32,6 @@
     "publicationEnded": "Discontinued",
     "sourceCode": "Source code for {title} (GitHub)",
     "cover": "Cover: {title}",
-    "contributedChapter": "Contributed the chapter {chapter}.",
     "eventInfo": "Event information for {title} (connpass)",
     "slidesInfo": "Slides for {title} (Speaker Deck)",
     "profileImage": "Profile image",

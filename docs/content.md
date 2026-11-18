@@ -38,12 +38,12 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 日本語版: `/`、英語版: `/en/`。ブラウザ言語・保存した言語による自動転送は行わず、アクセスしたURLの言語を表示します。ヘッダーの言語切り替えアイコンを押し、`USelectMenu`の選択肢（`日本語`・`English`）から切り替えます。国旗と検索欄は表示しません。
 - プロフィール: `i18n/locales/ja.json`・`i18n/locales/en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
-- 作品・書籍・登壇など: `app/data/*.ts`の各項目に日英の表示文をまとめます。作品の説明は`description: { ja, en }`、書籍の形式は`format: { ja, en }`です。スキル名・支援先名は共通なら文字列、言語別なら`{ ja, en }`にします。
+- 作品・書籍・登壇など: `app/data/*.ts`の各項目に日英の表示文をまとめます。作品の説明は`description: { ja, en }`、書籍の紹介文は`description: { ja, en }`、形式は`format: { ja, en }`です。スキル名・支援先名は共通なら文字列、言語別なら`{ ja, en }`にします。
 - URL・日付・画像・並び順は共有します。リンク先や作品の正式名称を認識しやすくするため、固有名詞は基本的に元の表記を使い、原題と、必要な参考英訳を表示します。
 - サービス名・作品名・登壇タイトルの原題に言語指定が必要な場合は、データの`titleLang`へ`ja`などの言語タグを記述します。登壇イベントの原名は`eventTitleLang`です。HTMLの`lang`属性へ直接渡し、文字種からの自動判定はしません。省略した名称はページの言語を継承します。
 - 日付は元データと`datetime`属性では`YYYY-MM-DD`を使い、表示はVue I18n標準の`d(date, 'date')`で日本語の「2026年11月3日」、英語の「Nov 3, 2026」に整形します。書式は`i18n/i18n.config.ts`で管理し、日付が端末のタイムゾーンでずれないようUTCに固定しています。
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`app/data/talks.ts`の同じ項目の`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
-- 寄稿した章名も原題を残します。`app/data/books.ts`の`chapterTitle`が原題、同じ項目の`englishChapterTitle`が参考英訳です。寄稿を示す説明は`i18n/locales/ja.json`・`i18n/locales/en.json`の`ui.contributedChapter`で管理し、`i18n-t`で原題を差し込みます。
+- 書籍の紹介・寄稿内容は`app/data/books.ts`の`description`に日英それぞれの文章で記述します。寄稿章専用の項目は設けず、章名や参考英訳が必要な場合は紹介文に含めます。原題部分だけの言語指定や、参考英訳を別行にする専用処理は行いません。
 - 言語・UI翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。`/`は日本語、`/en/`は英語を常に表示し、利用者が言語を切り替えると対応するURLへ移動します。言語Cookieによる表示言語の上書きは行いません。
 - 見出し・操作ラベルはVue I18nの`t()`、一覧の言語別の表示文は`description[locale]`などで取得します。`LocalizedText`型はNuxt I18nの対応言語に従い、言語ごとの表示文の不足を型検査します。一覧の翻訳を結合する独自処理は使いません。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用します。選択肢は`locales`、選択中の言語名は`localeProperties.name`から取得し、`nuxt.config.ts`の言語設定に追従させます。
 - トップページの言語属性・canonical・hreflangは`useLocaleHead()`で生成します。トップページのOGPの説明は`i18n/locales/*.json`の`nuxtSiteConfig.description`、エラー画面の説明は`ui.error.notFoundDescription`・`ui.error.description`を編集します。

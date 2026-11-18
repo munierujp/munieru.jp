@@ -1,6 +1,6 @@
 import type { LocalizedText } from './LocalizedText'
 
-/** 寄稿書籍の販売先・表紙・原題と、英語ページ向けの補足情報。 */
+/** 書籍の販売先・表紙と、言語別の紹介文。 */
 export interface Book {
   /** 項目を識別する安定したキー。表示タイトルを変更しても維持する。 */
   key: string
@@ -18,10 +18,6 @@ export interface Book {
   imageHeight: number
   /** 言語別の書籍形式の表示名。 */
   format: LocalizedText
-  /** 寄稿した章の原題。 */
-  chapterTitle?: string
-  /** 寄稿章の指定がない場合に表示する、日英共通の説明文。 */
-  description?: string
-  /** 日本語の章名を置き換えず、英語ページで補足する参考訳。 */
-  englishChapterTitle?: string
+  /** 言語別の書籍紹介・寄稿内容。 */
+  description: LocalizedText
 }

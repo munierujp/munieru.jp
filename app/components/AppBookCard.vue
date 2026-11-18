@@ -1,5 +1,5 @@
 <template>
-  <UPageCard as="article" class="h-full" :title="book.title" :to="book.url" target="_blank">
+  <UPageCard as="article" class="h-full" :title="book.title" :description="book.description[locale]" :to="book.url" target="_blank">
     <template #header>
       <NuxtPicture
         class="block w-[clamp(96px,20vw,128px)] max-w-full"
@@ -17,24 +17,15 @@
       </p>
     </template>
     <template #title><h3>{{ book.title }}</h3></template>
-    <template #description>
-      <template v-if="book.chapterTitle">
-        <i18n-t keypath="ui.contributedChapter" scope="global">
-          <template #chapter><span lang="ja">「{{ book.chapterTitle }}」</span></template>
-        </i18n-t>
-        <span v-if="locale === 'en' && book.englishChapterTitle" class="mt-1 block" lang="en">{{ book.englishChapterTitle }}</span>
-      </template>
-      <template v-else>{{ book.description }}</template>
-    </template>
   </UPageCard>
 </template>
 
 <script setup lang="ts">
-/** 標準のカードスロットへ書籍の表紙・寄稿内容・販売ページを渡す。 */
+/** 標準のカードへ書籍の表紙・紹介文・販売ページを渡す。 */
 import type { Book } from '~/types/Book'
 
 defineProps<{
-  /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
+  /** 表紙・紹介文・販売先を含む書籍の情報。 */
   book: Book
 }>()
 const { locale, t, d } = useI18n()
