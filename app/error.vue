@@ -44,16 +44,17 @@ if (import.meta.prerender) {
     }
   })
 }
-/** Nuxtの状態コードを使い、従来の形式で渡されたエラーにも対応する。 */
+/** NuxtのJSON形式にはstatusCodeも残るため、入力の互換処理を維持する。 */
 const status = computed(() => props.error.status ?? props.error.statusCode ?? 500)
 /** 内部のエラー詳細を公開せず、状態に合う案内を現在の言語で表示する。 */
 const message = computed(() => ({
-  statusCode: status.value === 404 ? undefined : status.value,
-  statusMessage: t(status.value === 404 ? 'ui.error.notFoundTitle' : 'ui.error.title'),
+  // 404は見出しに含めるため、数値だけの重複表示を抑える。
+  status: status.value === 404 ? undefined : status.value,
+  statusText: t(status.value === 404 ? 'ui.error.notFoundTitle' : 'ui.error.title'),
   message: t(status.value === 404 ? 'ui.error.notFoundDescription' : 'ui.error.description')
 }))
 /** ページタイトルと共有時のタイトルで、状態コードの表示を揃える。 */
-const pageTitle = computed(() => status.value === 404 ? message.value.statusMessage : `${status.value} - ${message.value.statusMessage}`)
+const pageTitle = computed(() => status.value === 404 ? message.value.statusText : `${status.value} - ${message.value.statusText}`)
 
 useHead(() => ({
   htmlAttrs: { lang: locale.value },
