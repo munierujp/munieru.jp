@@ -1,7 +1,6 @@
 /**
  * ルーティング・多言語・画像・SEOと、静的ホスト向け成果物の生成を設定する。
  */
-import { fileURLToPath } from 'node:url'
 import type { AppHeadMetaObject, NuxtConfig } from 'nuxt/schema'
 import * as SITE_CONSTANTS from './shared/utils/site.ts'
 import { OGP_WIDTH, OGP_HEIGHT } from './shared/utils/ogp.ts'
@@ -9,7 +8,6 @@ import ja from './i18n/locales/ja.json' with { type: 'json' }
 
 // サイト共通の設定で使う日本語のサイト名。
 const { name: siteName } = ja.nuxtSiteConfig
-const rootPath = (path: string): string => fileURLToPath(new URL(path, import.meta.url))
 
 /** テーマの初期選択と、判定できない場合の配色。 */
 const colorMode: NonNullable<NuxtConfig['colorMode']> = {
@@ -80,11 +78,10 @@ const head: AppHeadMetaObject = {
   ]
 }
 
-/** 静的成果物の出力先と事前描画するページ。 */
+/** 静的配信と事前描画するページ。出力先は標準の.output/publicを使う。 */
 const nitro: NonNullable<NuxtConfig['nitro']> = {
   preset: 'static',
   prerender: { routes: ['/', '/en/', '/en/404.html'] },
-  output: { publicDir: rootPath('./dist') },
   hooks: {
     // 英語用の404もNuxtのエラー画面から生成する。意図した404応答だけを書き出し対象にする。
     'prerender:generate' (route): void {

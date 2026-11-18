@@ -43,7 +43,8 @@ npm run preview
 
 `npm run build`は`nuxt build`、`npm run generate`は`nuxt generate`を実行します。
 Netlifyへの静的公開とローカルプレビューには、事前描画する`npm run generate`を使います。
-公開するファイルは `dist/` に出力します。Netlifyにも同じコマンド・出力先を `netlify.toml` で指定しています。
+公開するファイルはNuxt標準の `.output/public/` に出力します。Netlifyにも同じコマンド・出力先を `netlify.toml` で指定しています。
+Nuxtが互換用に作成する`dist`は、この出力先へのリンクです。生成物としてGit管理・型チェックから除外します。
 本番用のNodeサーバーやAPIは不要です。
 
 `npm run preview`はNuxt標準の`nuxt preview`で生成済みのサイトを配信します。
