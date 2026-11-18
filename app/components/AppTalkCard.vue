@@ -14,7 +14,6 @@
         :src="talk.image"
         :img-attrs="{ class: 'block h-auto w-full rounded-lg' }"
         sizes="100vw sm:576px"
-        densities="1x 2x"
         :alt="t('ui.cover', { title: talk.title })"
         :width="talk.imageWidth"
         :height="talk.imageHeight"

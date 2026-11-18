@@ -20,7 +20,6 @@
         src="/profile.png"
         :img-attrs="{ class: 'block size-full object-cover', fetchpriority: 'high' }"
         sizes="112px 448:25vw sm:25vw md:25vw 1040:260px"
-        densities="1x 2x"
         :alt="t('ui.profileImage')"
         width="512"
         height="512"

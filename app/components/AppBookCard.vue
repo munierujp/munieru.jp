@@ -6,7 +6,6 @@
         :src="book.image"
         :img-attrs="{ class: 'block h-auto w-full rounded-lg' }"
         sizes="96px 480:20vw sm:128px"
-        densities="1x 2x"
         :alt="t('ui.cover', { title: book.title })"
         :width="book.imageWidth"
         :height="book.imageHeight"

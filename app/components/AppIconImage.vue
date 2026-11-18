@@ -6,7 +6,7 @@
     :icon="icon"
     :width="size"
     :height="size"
-    v-bind="isSvg ? {} : { format: 'webp', sizes, densities: '1x 2x', fit: 'inside' }"
+    v-bind="isSvg ? {} : { format: 'webp', sizes, fit: 'inside' }"
     :ui="{ image: 'object-contain', icon: 'size-6', fallback: 'hidden' }"
     class="size-6 rounded-none bg-transparent"
     alt=""
