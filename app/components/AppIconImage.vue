@@ -20,8 +20,7 @@
 /** SVGを維持し、画像最適化と標準の代替表示を使う装飾アイコン。 */
 import type { IconName } from '~/types/IconName'
 
-/** このコンポーネントが受け取る入力。 */
-interface Props {
+const { src = undefined, icon = undefined, size = 24, sizes = undefined } = defineProps<{
   /** public配下の画像パス。未指定・読み込み失敗時は標準の代替表示を使う。 */
   src?: string
   /** 画像がない場合に表示する分類アイコン。未指定時は空の領域を保つ。 */
@@ -30,9 +29,7 @@ interface Props {
   size?: number
   /** 表示幅が変わる場合のNuxt Imageのsizes指定。 */
   sizes?: string
-}
-
-const { src = undefined, icon = undefined, size = 24, sizes = undefined } = defineProps<Props>()
+}>()
 /** SVGは元画像を直接配信し、ラスター画像はNuxt Imageへ渡す。 */
 const isSvg = computed(() => src?.endsWith('.svg') ?? false)
 </script>

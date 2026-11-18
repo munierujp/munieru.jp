@@ -45,12 +45,9 @@
 /** 標準カードの表紙・原題・補足・フッターを使い、資料とイベントのリンクを分ける。 */
 import type { Talk } from '~/types/Talk'
 
-/** このコンポーネントが受け取る入力。 */
-interface Props {
+defineProps<{
   /** イベント・表紙・発表資料を含む登壇の情報。 */
   talk: Talk
-}
-
-defineProps<Props>()
+}>()
 const { locale, t, d } = useI18n()
 </script>

@@ -33,12 +33,9 @@
 /** 標準のカードスロットへ書籍の表紙・寄稿内容・販売ページを渡す。 */
 import type { Book } from '~/types/Book'
 
-/** このコンポーネントが受け取る入力。 */
-interface Props {
+defineProps<{
   /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
   book: Book
-}
-
-defineProps<Props>()
+}>()
 const { locale, t, d } = useI18n()
 </script>

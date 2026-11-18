@@ -41,13 +41,10 @@
 import type { Work } from '~/types/Work'
 import type { IconName } from '~/types/IconName'
 
-/** このコンポーネントが受け取る入力。 */
-interface Props {
+const props = defineProps<{
   /** 分類・公開状態・ソースコードを含む作品の情報。 */
   work: Work
-}
-
-const props = defineProps<Props>()
+}>()
 const { locale, t, d } = useI18n()
 const icons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
