@@ -72,7 +72,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 ## TypeScriptと型チェック
 
 Vueの処理は`<script setup lang="ts">`、共通処理は`app/composables/*.ts`で記述します。
-`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedText.ts`が日英の表示文の型、`IconName.ts`がUIのアイコン名の型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`で検査し、各カードは`UPageCard`の標準スロットを直接使います。
+`app/types/`で型を主な責務ごとに分け、ファイル名を型名に合わせています。`ServiceLink.ts`・`SupportLink.ts`・`Skill.ts`・`Work.ts`・`Book.ts`・`Talk.ts`がコンテンツ、`LocalizedText.ts`が対応言語ごとの表示文の型、`IconName.ts`がUIのアイコン名の型です。作品分類の補助型`WorkCategory`は`Work.ts`に置きます。セレクトの共有設定はNuxt UIの`SelectMenuProps`で検査し、各カードは`UPageCard`の標準スロットを直接使います。
 一覧の元データは`app/data/*.ts`で編集できます。各配列は`Skill[]`・`Work[]`などの型注釈で対応する型を検査し、必須項目の不足や作品分類の誤記を`npm run typecheck`で検出します。
 
 ```sh
@@ -86,6 +86,26 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 `shared/`はNuxtが生成する共有コンテキストの設定で検査します。公開値は`shared/utils/site.ts`、OGP寸法は`shared/utils/ogp.ts`に定義し、Nuxt設定とOGP生成スクリプトでも共有します。
 
 新しいツール用ファイルは隠しファイルも含めて自動探索します。`server/`やレイヤーなど、新しいNuxt用のソース領域を導入するときは、Nuxtとの検査対象の分担を確認し、必要に応じて`tsconfig.tools.json`の除外設定を更新してください。
+
+### 翻訳データの言語型
+
+`LocalizedText`は、Vue I18nが公開する`Locale`を使った`Record<Locale, string>`です。`Locale`はNuxt I18nが`nuxt.config.ts`の対応言語から生成する型に従うため、言語名を別の型へ重複して列挙しません。
+言語を追加してNuxtの型を再生成すると、`LocalizedText`を使うデータにも追加言語の表示文が必須となり、翻訳の不足を型検査で検出できます。生成型の準備には`npm run prepare`を使います。
+
+### コンポーネントのprops
+
+そのコンポーネントだけで使う短いprops型は、`defineProps`へ直接記述します。名前を付けるだけの中継定義を減らし、入力と宣言を同じ場所で読めるようにします。
+
+```ts
+defineProps<{
+  /** 表紙・寄稿内容・販売先を含む書籍の情報。 */
+  book: Book
+}>()
+```
+
+複数箇所で共有する型や、長く複雑で名前が理解を助ける型は名前付きで残します。`Book`・`Work`などのコンテンツ型も共有するため、インライン化しません。
+
+既定値を指定する場合は、Vue 3.5のリアクティブなprops分割代入を使えます。`AppIconImage`の`size = 24`のように記述し、分割代入した変数もpropsの変更に追従します。現行の`vue/require-default-prop`規約では、分割代入するBoolean以外の任意propsに既定値の明示が必要なため、値を補わない場合は`src = undefined`のように記述します。
 
 ### 型注釈とsatisfiesの使い分け
 
