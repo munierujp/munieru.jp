@@ -39,8 +39,7 @@ const image: NonNullable<NuxtConfig['image']> = {
   // Netlifyの画像サービスへ依存せず、静的生成時にローカルへ書き出す。
   provider: 'ipx',
   // 圧縮による劣化を抑える方針で、生成画像の品質値を最大にする。
-  quality: 100,
-  screens: { mobile: 560, tablet: 561 }
+  quality: 100
 }
 
 /** 日本語はルート、英語は接頭辞付きのURLで表示する。 */

@@ -2,10 +2,10 @@
   <UPageCard as="article" class="h-full" :title="book.title" :to="book.url" target="_blank" rel="noopener">
     <template #header>
       <NuxtPicture
-        class="block w-24 max-w-full min-[561px]:w-32"
+        class="block w-[clamp(96px,20vw,128px)] max-w-full"
         :src="book.image"
         :img-attrs="{ class: 'block h-auto w-full rounded-lg' }"
-        sizes="96px tablet:128px"
+        sizes="96px 480:20vw sm:128px"
         densities="1x 2x"
         :alt="t('ui.cover', { title: book.title })"
         :width="book.imageWidth"

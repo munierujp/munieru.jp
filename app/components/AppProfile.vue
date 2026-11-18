@@ -16,10 +16,10 @@
     <div class="grid place-items-center order-first">
       <!-- 背景や枠を設けず、表示幅に合わせて生成した画像自体を円形で表示する。 -->
       <NuxtPicture
-        class="block aspect-square w-[260px] overflow-hidden rounded-full max-[560px]:w-28"
+        class="block aspect-square w-[clamp(112px,25vw,260px)] overflow-hidden rounded-full"
         src="/profile.png"
         :img-attrs="{ class: 'block size-full object-cover', fetchpriority: 'high' }"
-        sizes="112px tablet:260px"
+        sizes="112px 448:25vw sm:25vw md:25vw 1040:260px"
         densities="1x 2x"
         :alt="t('ui.profileImage')"
         width="512"

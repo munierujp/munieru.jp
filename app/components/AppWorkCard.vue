@@ -12,10 +12,10 @@
     <template #header>
       <div class="flex items-start justify-between gap-3">
         <AppIconImage
-          class="size-[66px] rounded-xl object-contain max-[560px]:size-12"
+          class="size-[clamp(48px,10vw,66px)] rounded-xl object-contain"
           :src="work.image"
           :size="66"
-          sizes="48px tablet:66px"
+          sizes="48px 480:10vw sm:10vw 660:66px"
           :icon="category.icon"
         />
         <AppIconLink
