@@ -53,12 +53,28 @@ const message = computed(() => ({
   message: t(status.value === 404 ? 'ui.error.notFoundDescription' : 'ui.error.description')
 }))
 
+/** ページタイトルと共有時のタイトルで、状態コードの表示を揃える。 */
+const pageTitle = computed(() => status.value === 404 ? message.value.statusMessage : `${status.value} - ${message.value.statusMessage}`)
+/** トップページと同じ言語別OGP画像を、エラー画面の共有にも使う。 */
+const shareImage = withSiteUrl(computed(() => locale.value === 'en' ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
+const shareImageAlt = computed(() => `${site.name} / ${BASE_URL}`)
+
 useHead(() => ({
   htmlAttrs: { lang: locale.value },
   titleTemplate: title => `${title} | ${site.name}`
 }))
 useSeoMeta({
-  title: () => status.value === 404 ? message.value.statusMessage : `${status.value} - ${message.value.statusMessage}`,
+  title: pageTitle,
+  description: () => message.value.message,
+  ogTitle: () => `${pageTitle.value} | ${site.name}`,
+  ogSiteName: () => site.name,
+  ogDescription: () => message.value.message,
+  ogImage: shareImage,
+  ogImageAlt: shareImageAlt,
+  twitterTitle: () => `${pageTitle.value} | ${site.name}`,
+  twitterDescription: () => message.value.message,
+  twitterImage: shareImage,
+  twitterImageAlt: shareImageAlt,
   robots: 'noindex, nofollow'
 })
 </script>
