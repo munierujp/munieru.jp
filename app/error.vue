@@ -10,9 +10,9 @@
         :clear="{ label: t('ui.error.backHome'), color: 'neutral', variant: 'outline' }"
         class="min-h-0 flex-1 px-6 py-16"
       >
-        <template #leading>
+        <template v-if="status === 404" #leading>
           <NuxtImg
-            src="/error.png"
+            src="/404.png"
             alt=""
             width="144"
             height="144"
