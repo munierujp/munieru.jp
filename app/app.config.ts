@@ -36,7 +36,7 @@ const badge: NonNullable<UiConfig['badge']> = {
   variants: { size: { lg: { base: 'gap-2 rounded-full' } } }
 }
 
-/** 言語・テーマの選択メニューに使う外観・操作領域。 */
+/** テーマなどの選択メニューに使う外観・操作領域。 */
 const selectMenu: NonNullable<UiConfig['selectMenu']> = {
   defaultVariants: { color: 'neutral', variant: 'outline', size: 'lg' },
   slots: {

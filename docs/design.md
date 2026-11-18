@@ -21,9 +21,9 @@
 - 書籍一覧: `app/components/AppBooks.vue`
 - 登壇一覧: `app/components/AppTalks.vue`
 - 支援先一覧: `app/components/AppSupport.vue`
-- 言語選択メニュー: `app/components/AppLanguageSelect.vue`の`USelectMenu`
+- 言語選択メニュー: `app/components/AppLanguageSelect.vue`の`UDropdownMenu`
 - テーマ選択メニュー: `app/components/AppThemeSelect.vue`の`UColorModeSelect`
-- 言語・テーマの円形表示: `app/utils/iconSelectUi.ts`
+- テーマ選択の円形表示: `app/utils/iconSelectUi.ts`（言語ボタンは`UButton square`で表示）
 - 作品カード: `app/components/AppWorkCard.vue`
 - 書籍カード: `app/components/AppBookCard.vue`
 - 登壇カード: `app/components/AppTalkCard.vue`
@@ -54,7 +54,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 - ボタン・バッジの色・サイズ・形は`app/app.config.ts`へ置きます。サービス名・画像付きの外部リンクは`AppServiceLink`内で`UButton`を使い、画像URL・名前の言語属性・改行抑止・別タブ設定をまとめます。リンク一覧と支援先一覧は、データの取得・翻訳・表示条件・並び順・一覧の配置を担当します。その他のボタン・バッジには`UButton`・`UBadge`を使います。
 - 作品・書籍・登壇は`UPageCard as="article"`を直接使います。作品はheader内に作品アイコンと右上のGitHubリンクを配置し、その下に日付・題名・説明を表示します。書籍・登壇は表紙を上部に配置します。登壇の表紙は最大幅576pxに制限します。
-- 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形セレクトです。トリガーの文字・下向き矢印は隠し、選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
+- 言語は言語切り替えアイコン、テーマは状態アイコンを表示する44pxの円形トリガーです。言語は`UButton`からリンクのメニューを開き、テーマはセレクトの文字・下向き矢印を隠します。選択肢には文字を表示します。GitHub・Xへのアイコンリンクも円形です。
 - 言語・テーマの選択やメニュー項目の操作は、ブラウザで確認します。
 - フォントは端末搭載の書体を使うため自動フォントだけを無効にします。テーマ選択はNuxt UIのColor Mode連携を使い、メニュー用のLucideアイコンはローカルにバンドルします。
 
@@ -97,7 +97,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 保存できない環境ではそのページ内で切り替えます。システム選択時はOS設定の変更にも追従します。別タブで選択されたテーマは再読み込み時に反映します。
 `UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。localStorageの保存キーは標準の`nuxt-color-mode`を使い、独自指定しません。
 静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名は日本語で「表示モードを選択」、英語で「Select appearance」に固定し、現在値の管理は公式コンポーネントへ任せます。
-言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。ヘッダーをコンパクトに保つためトリガーは文字を省いた円形アイコンとし、44pxの操作領域を確保します。選択肢はメニュー内で文字を表示します。この表示設定は`app/utils/iconSelectUi.ts`で共有し、標準の文字付きトリガーへ戻す場合は両方の選択部品を一緒に見直します。
+言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。ヘッダーをコンパクトに保つためトリガーは文字を省いた円形アイコンとし、44pxの操作領域を確保します。選択肢はメニュー内で文字を表示します。言語は`UDropdownMenu`と`UButton square`、テーマは`UColorModeSelect`と`app/utils/iconSelectUi.ts`で表示します。言語の選択肢は`useSwitchLocalePath()`が生成したURLへのリンクとし、別タブで開く・URLをコピーする操作にも対応します。閉じたメニューの選択肢は初期HTMLには出力されないため、言語版の通知は引き続きhreflang・サイトマップで行います。
 [Googleの多言語サイト向け推奨](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites?hl=ja)に合わせ、ブラウザ言語やCookieから言語を推測して自動転送しません。`detectBrowserLanguage: false`とし、`/`は日本語、`/en/`は英語を表示します。言語の変更は利用者の操作によるURL切り替えに任せ、リロード後もそのURLの言語を維持します。各言語のURLはcanonical・hreflang・サイトマップで検索エンジンへ伝えます。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
 アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは中央揃えにし、見出し幅に沿う下線を付けています。リンク・スキル・支援の一覧も中央に配置し、カード内の配置は維持します。セクション見出しは本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
@@ -139,7 +139,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 ## 存在しないURL
 
 存在しないURLは、URLを変えずに404画面を表示します。`app/error.vue`が`UApp`・共通ヘッダー・`UError`・共通フッターを配置し、表示中の言語だけで案内します。戻るボタンは1個とし、文言はNuxt UI標準の翻訳に任せます。`UError`標準のエラー解除・遷移機能で各言語のトップへ戻します。予期しないエラーでも内部の詳細を公開せず、汎用の案内を表示します。
-`app/pages/[...slug].vue`で未知のパスを受け取り、404エラーを返します。このキャッチオールページもNuxt I18nが日英のルートへ展開するため、404画面の言語選択でもパス・クエリ・フラグメントを保ったまま言語別URLへ切り替えられます。
+`app/pages/[...slug].vue`で未知のパスを受け取り、404エラーを返します。このキャッチオールページもNuxt I18nが日英のルートへ展開するため、404画面の言語選択でもパス・クエリ・フラグメントを保ったまま言語別URLへ切り替えられます。エラー状態を持ち越さないよう、エラー画面の言語リンクは`external`を指定して通常のページ読み込みで遷移します。
 404専用の謝罪するキャラクターの透過画像は`public/404.png`へ置き、`NuxtImg`で144px・1倍/2倍密度のWebPを生成します。案内文と重複する装飾画像なので、代替テキストは空にします。
 エラー画面にもOGP・Xカードのタイトル・説明・画像を設定します。タイトルは「ページ名 | サイト名」、説明は表示中の案内文、画像はトップページと同じ言語別OGP画像を使い、言語切り替えに追従します。検索対象にはせず、`noindex, nofollow`を維持します。
 Nuxtの実験的設定`experimental.prerenderErrorPages`で日本語の`.output/public/404.html`をHTMLへ事前描画します。英語の`/en/404.html`もNuxtのエラー画面を使って事前描画し、Nitroの`prerender:generate`フックでこのURLの意図した404応答だけを書き出し対象にします。他の生成エラーは通常どおり失敗させます。静的404は複数のURLで使うため、`app:rendered`フックで生成時のパスとエラーURLをペイロードから除き、ブラウザーのURLが`/en/404.html`へ変わるのを防ぎます。
