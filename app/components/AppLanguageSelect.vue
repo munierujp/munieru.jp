@@ -14,6 +14,6 @@
 </template>
 
 <script setup lang="ts">
-/** 言語選択の表示と、Nuxt I18nによるURL切り替え・Cookie保存をまとめる。 */
+/** 言語選択の表示と、Nuxt I18nによる言語別URLへの切り替えをまとめる。 */
 const { locale, locales, localeProperties, t, setLocale } = useI18n()
 </script>

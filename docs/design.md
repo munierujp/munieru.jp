@@ -97,6 +97,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 `UColorModeSelect`と、Nuxt UIが自動登録するNuxt Color Modeが、初期描画前の適用・OS追従・保存を担当します。localStorageの保存キーは標準の`nuxt-color-mode`を使い、独自指定しません。
 静的HTMLでは保存値が分からないため、`AppThemeSelect`内の`UColorModeSelect`はクライアント初期化まで無効なシステム選択のフォールバックを表示します。読み上げ名は日本語で「表示モードを選択」、英語で「Select appearance」に固定し、現在値の管理は公式コンポーネントへ任せます。
 言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。ヘッダーをコンパクトに保つためトリガーは文字を省いた円形アイコンとし、44pxの操作領域を確保します。選択肢はメニュー内で文字を表示します。この表示設定は`app/utils/iconSelectUi.ts`で共有し、標準の文字付きトリガーへ戻す場合は両方の選択部品を一緒に見直します。
+[Googleの多言語サイト向け推奨](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites?hl=ja)に合わせ、ブラウザ言語やCookieから言語を推測して自動転送しません。`detectBrowserLanguage: false`とし、`/`は日本語、`/en/`は英語を表示します。言語の変更は利用者の操作によるURL切り替えに任せ、リロード後もそのURLの言語を維持します。各言語のURLはcanonical・hreflang・サイトマップで検索エンジンへ伝えます。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
 アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは中央揃えにし、見出し幅に沿う下線を付けています。リンク・スキル・支援の一覧も中央に配置し、カード内の配置は維持します。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
 

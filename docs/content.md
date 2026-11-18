@@ -35,7 +35,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 
 ## 日本語・英語の更新
 
-- 日本語版: `/`、英語版: `/en/`。ブラウザ言語・保存した言語による自動転送は行いません。ヘッダーの言語切り替えアイコンを押し、`USelectMenu`の選択肢（`日本語`・`English`）から切り替えます。国旗と検索欄は表示しません。
+- 日本語版: `/`、英語版: `/en/`。ブラウザ言語・保存した言語による自動転送は行わず、アクセスしたURLの言語を表示します。ヘッダーの言語切り替えアイコンを押し、`USelectMenu`の選択肢（`日本語`・`English`）から切り替えます。国旗と検索欄は表示しません。
 - プロフィール: `i18n/locales/ja.json`・`i18n/locales/en.json`の`profile`が本文、`site.name`・`site.alternateName`が主名義と別表記です。
 - 見出し・操作ラベル: 日本語は`i18n/locales/ja.json`、英語は`i18n/locales/en.json`の、それぞれ`ui`を編集します。
 - 作品・書籍・登壇など: `app/data/*.ts`の各項目に日英の表示文をまとめます。作品の説明は`description: { ja, en }`、書籍の形式は`format: { ja, en }`です。スキル名・支援先名は共通なら文字列、言語別なら`{ ja, en }`にします。
@@ -44,7 +44,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 日付は元データと`datetime`属性では`YYYY-MM-DD`を使い、表示はVue I18n標準の`d(date, 'date')`で日本語の「2026年11月3日」、英語の「Nov 3, 2026」に整形します。書式は`i18n/i18n.config.ts`で管理し、日付が端末のタイムゾーンでずれないようUTCに固定しています。
 - 登壇の題名・イベント名は英語版でも原名を主に表示します。参考英訳は`app/data/talks.ts`の同じ項目の`englishTitle`・`englishEventTitle`に記述し、補足として添えます。
 - 寄稿した章名も原題を残します。`app/data/books.ts`の`chapterTitle`が原題、同じ項目の`englishChapterTitle`が参考英訳です。寄稿を示す説明は`i18n/locales/ja.json`・`i18n/locales/en.json`の`ui.contributedChapter`で管理し、`i18n-t`で原題を差し込みます。
-- 言語・UI翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。`/`は日本語、`/en/`は英語を常に表示し、利用者が言語を切り替えると対応するURLへ移動します。
+- 言語・UI翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。`/`は日本語、`/en/`は英語を常に表示し、利用者が言語を切り替えると対応するURLへ移動します。言語Cookieによる表示言語の上書きは行いません。
 - 見出し・操作ラベルはVue I18nの`t()`、一覧の言語別の表示文は`description[locale]`などで取得します。`LocalizedText`型で日英の定義漏れを検査し、一覧の翻訳を結合する独自処理は使いません。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用します。選択肢は`locales`、選択中の言語名は`localeProperties.name`から取得し、`nuxt.config.ts`の言語設定に追従させます。
 - 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`nuxtSiteConfig.description`を編集します。
 - Nuxt I18nの`prefix_except_default`構成を使い、日本語・英語とも静的HTMLを生成します。入口専用のCSR用HTMLのコピー処理はありません。

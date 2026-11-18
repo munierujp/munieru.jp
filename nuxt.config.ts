@@ -45,7 +45,7 @@ const i18n: NonNullable<NuxtConfig['i18n']> = {
   defaultLocale: 'ja',
   strategy: 'prefix_except_default',
   trailingSlash: true,
-  // URLに対応する言語を常に表示し、ブラウザ言語・Cookieで転送しない。
+  // Googleの多言語サイト向け推奨に合わせ、言語を推測して転送せずURLを尊重する。
   detectBrowserLanguage: false,
   baseUrl: new URL(SITE_CONSTANTS.BASE_URL).origin,
   locales: [
