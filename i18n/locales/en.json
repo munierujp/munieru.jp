@@ -9,6 +9,13 @@
     "copyright": "© {name}"
   },
   "ui": {
+    "error": {
+      "notFoundTitle": "404 Error",
+      "notFoundDescription": "The page may have been moved or deleted.",
+      "title": "Something went wrong",
+      "description": "Please try again later.",
+      "backHome": "Back to home"
+    },
     "headings": {
       "links": "Links",
       "skills": "Skills",

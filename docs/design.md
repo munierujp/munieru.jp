@@ -77,7 +77,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ### ヘッダー
 
-`AppHeader`は`UHeader`の背景・下線・追従を使用します。1ページ構成のため、サイト名は`left`スロットの`h1`として表示し、リンクにしません。ナビゲーションがないためメニューの開閉ボタンは表示しません。言語のトリガーには現在の言語を含む読み上げ名、テーマのトリガーには用途を示す固定の読み上げ名を付け、スマホでも44pxの操作領域を保ちます。
+`AppHeader`は`UHeader`の背景・下線・追従を使用します。サイト名は`left`スロットの`h1`内に`NuxtLink`で表示し、`useLocalePath()`で各言語のトップへリンクします。404画面からも同じリンクで戻れます。ナビゲーションがないためメニューの開閉ボタンは表示しません。言語のトリガーには現在の言語を含む読み上げ名、テーマのトリガーには用途を示す固定の読み上げ名を付け、スマホでも44pxの操作領域を保ちます。
 
 ### カード一覧のグリッド
 
@@ -124,7 +124,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 - `/sitemap_index.xml`が入口で、`/__sitemap__/ja-JP.xml`・`en-US.xml`に各言語の正規URLと相互参照を出力します。
 - `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。404 HTMLへの`noindex`指定もモジュールへ任せます。
 - HTMLの言語属性・canonical・hreflangとサイトマップはモジュールの標準機能で生成します。HTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
-- 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。サイト名・説明文は`i18n/locales/*.json`の`nuxtSiteConfig.name`・`nuxtSiteConfig.description`で定義し、Nuxt Site Configの多言語連携を通じてヘッダー・メタ情報・構造化データで共有します。
+- 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。トップページのページタイトルはサイト名だけ、エラー画面は`titleTemplate`で「ページ名 | サイト名」とします。日英とも半角の`|`の前後に半角スペースを入れます。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。サイト名・説明文は`i18n/locales/*.json`の`nuxtSiteConfig.name`・`nuxtSiteConfig.description`で定義し、Nuxt Site Configの多言語連携を通じてヘッダー・メタ情報・構造化データで共有します。
 - 著者・OGP・Xカードの言語別メタ情報・共有画像の説明・構造化データは`useSiteSeo()`で登録し、共通設定の初期値との二重定義はしません。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、`Person.alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。サイト名の翻訳は各言語の`WebSite.name`で表し、`WebSite.alternateName`は指定しません。
 - 言語別の`WebSite`のURL・ID・サイト名・説明・言語と翻訳関係は`nuxt-schema-org`の標準生成に任せます。型付きAPIで`ProfilePage`と共通の`Person`を定義し、人物のIDと人物への参照は明示します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
@@ -133,6 +133,8 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 ## 存在しないURL
 
-存在しないURLは専用の404画面を表示せず、トップページへ自動移動します。
-Netlifyの転送ルールは`public/_redirects`へ直接記載し、Nuxtがビルド時に`dist/_redirects`へコピーします。見つからない`/en/*`は英語トップ、それ以外は日本語トップへ302転送します。既存ファイルは転送せず通常配信します。
-ローカルの`nuxt preview`ではNetlify固有の転送ルールは再現せず、Deploy Previewで確認します。転送専用のVueページは用意せず、公開時はNetlifyの転送機能を使います。
+存在しないURLは、URLを変えずに404画面を表示します。`app/error.vue`が`UApp`・共通ヘッダー・`UError`・共通フッターを配置し、表示中の言語だけで案内します。戻るボタンは1個とし、`UError`標準のエラー解除・遷移機能で各言語のトップへ戻します。予期しないエラーでも内部の詳細を公開せず、汎用の案内を表示します。
+`app/pages/[...slug].vue`で未知のパスを受け取り、404エラーを返します。このキャッチオールページもNuxt I18nが日英のルートへ展開するため、404画面の言語選択でもパス・クエリ・フラグメントを保ったまま言語別URLへ切り替えられます。
+謝罪するキャラクターの透過画像は`public/error.png`へ置き、`NuxtImg`で144px・1倍/2倍密度のWebPを生成します。案内文と重複する装飾画像なので、代替テキストは空にします。
+Nuxtの実験的設定`experimental.prerenderErrorPages`で日本語の`dist/404.html`をHTMLへ事前描画します。英語の`/en/404.html`もNuxtのエラー画面を使って事前描画し、Nitroの`prerender:generate`フックでこのURLの意図した404応答だけを書き出し対象にします。他の生成エラーは通常どおり失敗させます。静的404は複数のURLで使うため、`app:rendered`フックで生成時のパスとエラーURLをペイロードから除き、ブラウザーのURLが`/en/404.html`へ変わるのを防ぎます。
+Netlifyは日本語の404 HTMLを標準で使用します。英語URLは`public/_redirects`の404ルールで英語のHTMLを返します。既存ファイルは通常配信し、見つからないURLをトップへ自動転送する302ルールは置きません。言語ごとのHTMLに分けることで、JavaScript無効時にも各言語で読め、初期描画と言語判定の不一致も避けます。Netlify固有の配信ルールはDeploy Previewで確認します。

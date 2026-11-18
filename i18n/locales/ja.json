@@ -9,6 +9,13 @@
     "copyright": "© {name}"
   },
   "ui": {
+    "error": {
+      "notFoundTitle": "404エラー",
+      "notFoundDescription": "お探しのページは、移動または削除された可能性があります。",
+      "title": "エラーが発生しました",
+      "description": "時間をおいて、もう一度お試しください。",
+      "backHome": "トップページへ戻る"
+    },
     "headings": {
       "links": "リンク",
       "skills": "スキル",

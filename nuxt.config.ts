@@ -83,8 +83,16 @@ const head: AppHeadMetaObject = {
 /** 静的成果物の出力先と事前描画するページ。 */
 const nitro: NonNullable<NuxtConfig['nitro']> = {
   preset: 'static',
-  prerender: { routes: ['/', '/en/'] },
-  output: { publicDir: rootPath('./dist') }
+  prerender: { routes: ['/', '/en/', '/en/404.html'] },
+  output: { publicDir: rootPath('./dist') },
+  hooks: {
+    // 英語用の404もNuxtのエラー画面から生成する。意図した404応答だけを書き出し対象にする。
+    'prerender:generate' (route): void {
+      if (route.route === '/en/404.html' && route.error?.statusCode === 404) {
+        delete route.error
+      }
+    }
+  }
 }
 
 /** 端末フォントを使い、Nuxt Fontsの自動登録を止める。 */
@@ -101,6 +109,11 @@ const app: NonNullable<NuxtConfig['app']> = {
   head
 }
 
+/** JavaScriptを実行する前にも案内を読めるよう、404画面をHTMLへ事前描画する。 */
+const experimental: NonNullable<NuxtConfig['experimental']> = {
+  prerenderErrorPages: true
+}
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-12',
   ssr: true,
@@ -114,5 +127,6 @@ export default defineNuxtConfig({
   i18n,
   css: ['~~/assets/style/main.css'],
   app,
+  experimental,
   nitro
 })
