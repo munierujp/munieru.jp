@@ -7,7 +7,7 @@
     <!-- サイト名から、表示中の言語のトップページへ戻れるようにする。 -->
     <template #left>
       <h1 class="font-bold text-[clamp(0.875rem,4vw,1.25rem)]">
-        <NuxtLink :to="localePath('/')">{{ site.name }}</NuxtLink>
+        <NuxtLinkLocale to="index">{{ site.name }}</NuxtLinkLocale>
       </h1>
     </template>
     <template #right>
@@ -19,5 +19,4 @@
 <script setup lang="ts">
 /** ヘッダーはサイト名と選択部品の配置だけを担当する。 */
 const site = useSiteConfig()
-const localePath = useLocalePath()
 </script>
