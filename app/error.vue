@@ -5,6 +5,7 @@
       <AppHeader />
       <UError
         :error="message"
+        :ui="{ statusCode: status === 404 ? 'hidden' : undefined }"
         :as="{ statusMessage: 'h2' }"
         :redirect="localePath('/')"
         :clear="{ color: 'neutral', variant: 'outline' }"
@@ -44,12 +45,11 @@ if (import.meta.prerender) {
     }
   })
 }
-/** NuxtのJSON形式にはstatusCodeも残るため、入力の互換処理を維持する。 */
+/** JSON経由のエラーはstatusCodeを持つため、NuxtErrorのstatusと両方を受け付ける。 */
 const status = computed(() => props.error.status ?? props.error.statusCode ?? 500)
 /** 内部のエラー詳細を公開せず、状態に合う案内を現在の言語で表示する。 */
 const message = computed(() => ({
-  // 404は見出しに含めるため、数値だけの重複表示を抑える。
-  status: status.value === 404 ? undefined : status.value,
+  status: status.value,
   statusText: t(status.value === 404 ? 'ui.error.notFoundTitle' : 'ui.error.title'),
   message: t(status.value === 404 ? 'ui.error.notFoundDescription' : 'ui.error.description')
 }))
