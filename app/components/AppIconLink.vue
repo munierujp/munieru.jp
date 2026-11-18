@@ -7,9 +7,9 @@
       external
       target="_blank"
       :aria-label="label"
-    >
-      <UIcon class="block size-6 shrink-0" aria-hidden="true" :name="icon" />
-    </UButton>
+      :icon="icon"
+      :ui="{ leadingIcon: 'size-6' }"
+    />
   </UTooltip>
 </template>
 
