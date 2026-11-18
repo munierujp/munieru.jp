@@ -63,7 +63,7 @@ PR・既定ブランチ（master）へのpush・手動実行で、以下のチ�
 - `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
 
-各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。Nuxtの生成物を利用するチェックでは`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
+各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。lockfile-lint以外は`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
 公開はNetlify、依存更新はRenovateで行います。
 
@@ -190,7 +190,7 @@ npm run lint:stylelint
 npm run lint:stylelint -- --fix
 ```
 
-`-- --fix`を渡すと自動修正できる指摘を修正します。標準設定のルールを無効にする例外は設けていません。
+`-- --fix`を渡すと自動修正できる指摘を修正します。パッケージ名によるCSSの読込を維持するため、`import-notation`だけを`string`へ上書きします。その他は標準設定を使います。
 Vueコンポーネント内には現在`<style>`がないため、CSSファイルだけが対象です。今後Vue内にCSSを書く場合は、Vue用の構文解析設定と対象ファイルを追加してください。
 GitHub Actionsの`stylelint.yml`でも実行します。
 
@@ -234,7 +234,7 @@ npm run lint:lockfile-lint
 
 ## npm設定
 
-直接の依存はNuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Sitemap・Nuxt UI・Tailwind CSSで、バージョンを固定しています。
+実行用の直接依存は`package.json`の`dependencies`に記載し、Nuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Robots・Nuxt Sitemap・Nuxt Schema.org・Nuxt UI・Tailwind CSSのバージョンを固定しています。リンター・型検査・OGP生成・ローカルプレビューに使うツールは`devDependencies`へ置きます。
 `.npmrc` ではインストール時のスクリプト実行抑止、バージョン固定、対応npmでの公開後7日間の待機を設定しています。
 `min-release-age` が適用されるかは使用するnpmの対応状況によります。
 

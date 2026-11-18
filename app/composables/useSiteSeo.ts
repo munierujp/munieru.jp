@@ -3,7 +3,7 @@ import { serviceLinks } from '~/data/serviceLinks'
 
 /**
  * 現在の言語に対応するSEO情報とプロフィールの構造化データを登録する。
- * @remarks ページのsetupから同期的に呼び出す。メタ情報は言語切り替えに追従し、本番の構造化データは初期HTMLに出力する。
+ * @remarks ProfilePageとPersonも登録するトップページ専用の処理。setupから同期的に呼び出す。メタ情報は言語切り替えに追従し、本番の構造化データは初期HTMLに出力する。
  */
 export function useSiteSeo (): void {
   const { t } = useI18n()

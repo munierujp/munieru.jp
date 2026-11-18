@@ -9,7 +9,8 @@
 - 共通フッター: `app/components/AppFooter.vue`
 - 全ページ共通の配置・main: `app/layouts/default.vue`
 - 日英共通のページ構成: `app/pages/index.vue` の `<template>`
-- ページのメタ情報・構造化データ: `app/composables/useSiteSeo.ts`（`index.vue`のsetupから呼び出す）
+- トップページのメタ情報・構造化データ: `app/composables/useSiteSeo.ts`（`index.vue`のsetupから呼び出す）
+- トップとエラー画面で共有するOGP・Xカード情報: `app/composables/useSocialMeta.ts`
 - 名前・プロフィール文・画像: `app/components/AppProfile.vue`
 - サービスへのリンク一覧: `app/components/AppLinks.vue`
 - サービス名・画像付きの共通リンク: `app/components/AppServiceLink.vue`（`ServiceLink`型の`link`を受け取る）
@@ -90,7 +91,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 プロフィール・リンク・全作品・書籍・登壇・OGPは、ビルド時のHTMLに含めます。
 JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて同じサイトから配信します。
 作品は公開日の新しい順に全件を常時表示します。分類による絞り込みの再検討は[Issue #447](https://github.com/munierujp/munieru.jp/issues/447)で扱います。
-リンク移動そのものにはJavaScriptを使いません。
+外部リンクは通常のリンクとして開き、内部リンクはJavaScriptが有効ならNuxtのクライアント遷移を使います。どちらもJavaScript無効時には通常のページ移動ができます。
 
 テーマはシステム・ライト・ダークから選択でき、ブラウザへ保存します。
 保存できない環境ではそのページ内で切り替えます。システム選択時はOS設定の変更にも追従します。別タブで選択されたテーマは再読み込み時に反映します。
@@ -99,7 +100,7 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 言語選択は`AppLanguageSelect`、テーマ選択は`AppThemeSelect`へまとめ、`AppHeader`は配置を担当します。ヘッダーをコンパクトに保つためトリガーは文字を省いた円形アイコンとし、44pxの操作領域を確保します。選択肢はメニュー内で文字を表示します。この表示設定は`app/utils/iconSelectUi.ts`で共有し、標準の文字付きトリガーへ戻す場合は両方の選択部品を一緒に見直します。
 [Googleの多言語サイト向け推奨](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites?hl=ja)に合わせ、ブラウザ言語やCookieから言語を推測して自動転送しません。`detectBrowserLanguage: false`とし、`/`は日本語、`/en/`は英語を表示します。言語の変更は利用者の操作によるURL切り替えに任せ、リロード後もそのURLの言語を維持します。各言語のURLはcanonical・hreflang・サイトマップで検索エンジンへ伝えます。
 メニューの開閉・キー操作・フォーカス管理はライブラリへ委譲します。
-アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは中央揃えにし、見出し幅に沿う下線を付けています。リンク・スキル・支援の一覧も中央に配置し、カード内の配置は維持します。本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
+アクセント色と本文色はNuxt UI標準のcyan・zincです。`app/app.config.ts`でパレットを選びます。各セクションの見出しは中央揃えにし、見出し幅に沿う下線を付けています。リンク・スキル・支援の一覧も中央に配置し、カード内の配置は維持します。セクション見出しは本文と一緒にスクロールし、画面上部には固定しません。作品・書籍・登壇は日付の新しい順で固定表示します。
 
 ## フォント
 
@@ -125,14 +126,14 @@ JavaScriptが無効でも内容とリンクを閲覧でき、画像はすべて�
 
 - `@nuxtjs/sitemap`がページを自動検出し、Nuxt I18nの言語設定に従ってサイトマップを生成します。`app/pages/`へ静的なページを追加する場合は、サイトマップへの手動登録は不要です。
 - `/sitemap_index.xml`が入口で、`/__sitemap__/ja-JP.xml`・`en-US.xml`に各言語の正規URLと相互参照を出力します。
-- `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。404 HTMLへの`noindex`指定もモジュールへ任せます。
-- HTMLの言語属性・canonical・hreflangとサイトマップはモジュールの標準機能で生成します。HTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
+- `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。エラー画面は`app/error.vue`でも`noindex, nofollow`を明示します。
+- トップページのHTMLの言語属性・canonical・hreflangは`useLocaleHead()`、サイトマップはモジュールの標準機能で生成します。トップページのHTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。エラー画面の`lang`は`app/error.vue`で現在の`locale`に合わせて`ja`・`en`を設定し、canonical・hreflangは登録しません。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
 - 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。トップページのページタイトルはサイト名だけ、エラー画面は`titleTemplate`で「ページ名 | サイト名」とします。日英とも半角の`|`の前後に半角スペースを入れます。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。サイト名・説明文は`i18n/locales/*.json`の`nuxtSiteConfig.name`・`nuxtSiteConfig.description`で定義し、Nuxt Site Configの多言語連携を通じてヘッダー・メタ情報・構造化データで共有します。
 - トップページの著者・メタ情報・構造化データは`useSiteSeo()`で登録します。OGP・Xカードのタイトル・説明・言語別画像・画像の説明は`useSocialMeta(title, description)`へまとめ、トップとエラー画面で共有します。引数は文字列・ref・getterを受け取り、言語切り替えに追従します。各画面のsetupから同期的に呼び出し、ページタイトル・説明・検索可否は各画面の`useSeoMeta()`で指定します。共通設定の初期値との二重定義はしません。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。画像内の名前を日本語では「ムニエル」、英語では「Munieru」と表示するため、日英2枚を維持します。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、`Person.alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。サイト名の翻訳は各言語の`WebSite.name`で表し、`WebSite.alternateName`は指定しません。
 - 言語別の`WebSite`のURL・ID・サイト名・説明・言語と翻訳関係は`nuxt-schema-org`の標準生成に任せます。型付きAPIで`ProfilePage`と共通の`Person`を定義し、人物のIDと人物への参照は明示します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
 - 構造化データはモジュールの標準設定を使い、本番では各URLの初期HTMLへ出力します。画面内で言語を切り替えてもJSON-LDは更新せず、対応するURLを直接取得した際にその言語のデータを返します。
-- `nuxt.config.ts`が共通設定、`app/composables/useSiteSeo.ts`が言語別メタ情報を担当します。公開URLは`BASE_URL`から`i18n.baseUrl`へ指定し、Nuxt Site Configの標準連携で共有します。`site.url`には重複して指定しません。SEO用のページ・画像の絶対URLはNuxt Site Configの`withSiteUrl()`で組み立てます。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
+- `nuxt.config.ts`が全ページ共通の固定メタ情報、`useSiteSeo()`がトップ専用のSEO情報、`useSocialMeta()`が各画面で共有するOGP・Xカード情報を担当します。公開URLは`BASE_URL`から`i18n.baseUrl`へ指定し、Nuxt Site Configの標準連携で共有します。`site.url`には重複して指定しません。SEO用の画像の絶対URLはNuxt Site Configの`withSiteUrl()`で組み立て、ページの正規URLはNuxt I18nへ任せます。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
 
 ## 存在しないURL
 

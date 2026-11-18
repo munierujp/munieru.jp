@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-/** 共通部品とNuxt UI標準のエラー表示・復帰操作で、存在しないページを案内する。 */
+/** 共通部品とNuxt UI標準の表示・復帰操作で、404を含むエラーを案内する。 */
 import type { NuxtError } from '#app'
 
 const props = defineProps<{ error: NuxtError }>()

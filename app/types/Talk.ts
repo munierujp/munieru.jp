@@ -8,7 +8,7 @@ export interface Talk {
   titleLang?: string
   /** 日付をYYYY-MM-DDで保存する。表示の整形と並べ替えに共用する。 */
   date: string
-  /** 書籍・発表の形式を示す表示名。 */
+  /** LTなど、登壇の形式を示す表示名。 */
   format: string
   /** 登壇したイベントの正式名称。 */
   eventTitle: string

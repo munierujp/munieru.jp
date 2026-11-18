@@ -10,7 +10,7 @@
 - 名前・プロフィール本文: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site`・`profile`
 - 著作権表記の文面: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
 - サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`i18n/locales/en.json`（ページ・共通設定・OGP画像の生成で共有）
-- OGPの説明: `i18n/locales/ja.json`・`i18n/locales/en.json`の`nuxtSiteConfig.description`
+- トップページのOGPの説明: `i18n/locales/ja.json`・`i18n/locales/en.json`の`nuxtSiteConfig.description`
 - SNS・各サービス: `app/data/serviceLinks.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
 - 活動への支援先: `app/data/supportLinks.ts`（URL・名称・並び順・アイコン）。言語別の表示名は同じ項目の`title: { ja, en }`で管理します。URLは必須とし、掲載をやめる場合は該当項目を削除
 - スキル: `app/data/skills.ts`
@@ -46,7 +46,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - 寄稿した章名も原題を残します。`app/data/books.ts`の`chapterTitle`が原題、同じ項目の`englishChapterTitle`が参考英訳です。寄稿を示す説明は`i18n/locales/ja.json`・`i18n/locales/en.json`の`ui.contributedChapter`で管理し、`i18n-t`で原題を差し込みます。
 - 言語・UI翻訳・ルーティングは`@nuxtjs/i18n`（内部でVue I18nを使用）で管理します。`/`は日本語、`/en/`は英語を常に表示し、利用者が言語を切り替えると対応するURLへ移動します。言語Cookieによる表示言語の上書きは行いません。
 - 見出し・操作ラベルはVue I18nの`t()`、一覧の言語別の表示文は`description[locale]`などで取得します。`LocalizedText`型はNuxt I18nの対応言語に従い、言語ごとの表示文の不足を型検査します。一覧の翻訳を結合する独自処理は使いません。言語切り替えは`AppLanguageSelect.vue`で`useI18n().setLocale()`を使用します。選択肢は`locales`、選択中の言語名は`localeProperties.name`から取得し、`nuxt.config.ts`の言語設定に追従させます。
-- 言語別のSEO情報は`useLocaleHead()`で生成します。OGPの説明は`i18n/locales/*.json`の`nuxtSiteConfig.description`を編集します。
+- トップページの言語属性・canonical・hreflangは`useLocaleHead()`で生成します。トップページのOGPの説明は`i18n/locales/*.json`の`nuxtSiteConfig.description`、エラー画面の説明は`ui.error.notFoundDescription`・`ui.error.description`を編集します。
 - Nuxt I18nの`prefix_except_default`構成を使い、日本語・英語とも静的HTMLを生成します。入口専用のCSR用HTMLのコピー処理はありません。
 - ヘッダーは`UHeader`を使い、言語選択は`USelectMenu`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は`app/app.config.ts`の共通テーマと`app/utils/iconSelectUi.ts`で調整します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。

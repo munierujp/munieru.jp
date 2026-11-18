@@ -20,7 +20,7 @@ export interface Book {
   format: LocalizedText
   /** 寄稿した章の原題。 */
   chapterTitle?: string
-  /** 表示言語に対応する説明文。 */
+  /** 寄稿章の指定がない場合に表示する、日英共通の説明文。 */
   description?: string
   /** 日本語の章名を置き換えず、英語ページで補足する参考訳。 */
   englishChapterTitle?: string
