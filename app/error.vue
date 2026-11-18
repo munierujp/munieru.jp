@@ -7,7 +7,7 @@
         :error="message"
         :as="{ statusMessage: 'h2' }"
         :redirect="localePath('/')"
-        :clear="{ label: t('ui.error.backHome'), color: 'neutral', variant: 'outline' }"
+        :clear="{ color: 'neutral', variant: 'outline' }"
         class="min-h-0 flex-1 px-6 py-16"
       >
         <template v-if="status === 404" #leading>

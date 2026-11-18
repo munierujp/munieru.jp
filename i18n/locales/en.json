@@ -13,8 +13,7 @@
       "notFoundTitle": "404 Error",
       "notFoundDescription": "The page may have been moved or deleted.",
       "title": "Something went wrong",
-      "description": "Please try again later.",
-      "backHome": "Back to home"
+      "description": "Please try again later."
     },
     "headings": {
       "links": "Links",
