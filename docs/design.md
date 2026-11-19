@@ -7,7 +7,7 @@
 
 - 共通ヘッダー: `app/components/AppHeader.vue`
 - 共通フッター: `app/components/AppFooter.vue`
-- 全ページ共通のヘッダー・フッター配置: `app/layouts/default.vue`
+- 全ページ共通のヘッダー・ページ・フッター配置: `app/app.vue`
 - 日英共通のページ構成: `app/pages/index.vue` の `<template>`
 - トップページのメタ情報・構造化データ: `app/composables/useSiteSeo.ts`（`index.vue`のsetupから呼び出す）
 - トップとエラー画面で共有するOGP・Xカード情報: `app/composables/useSocialMeta.ts`
@@ -30,7 +30,6 @@
 - 装飾アイコン: Nuxt UIの`UIcon`を直接使い、ローカルのLucide・Simple Iconsを参照します（例: `i-lucide-globe`・`i-simple-icons-github`）。用途の読み上げ名は親のリンク・ボタンへ指定し、アイコン自体は`aria-hidden="true"`にします。
 - アイコンだけのリンク: `app/components/AppIconLink.vue`（`href`・`label`・Iconify名の`icon`を必須で指定）。`UButton`の`icon`プロパティで表示し、`ui.leadingIcon`で24pxを維持します。
 - 動的に選ぶアイコン名の型: `app/types/IconName.ts`。`nuxt.config.ts`でVue・TSの名前を走査して同梱し、実行時のアイコン取得と外部APIフォールバックは無効にします。
-- ページとレイアウトの接続: `app/app.vue`
 - 共通の部品テーマ: `app/app.config.ts`。Nuxt UIの公式設定で中立色のボタン・操作領域・円形ボタンを指定し、通常のボタン・カード・メニューの角丸や操作時の装飾は標準テーマを使います。
 - 配置・余白・文字サイズ・レスポンシブ: 各コンポーネントのTailwindクラス。カードは`UPageCard`の標準スロットとスタイルを使い、画像寸法や補助リンクの重なりだけを各コンポーネントで調整します。
 - 配色: `app/app.config.ts`の`ui.colors`でNuxt UI標準のcyan・zincを選びます。背景色・文字色の具体値は独自定義しません。
@@ -43,7 +42,7 @@ HTMLをJavaScript文字列として編集する必要はありません。
 各カードはデータをpropsで受け取り、`UPageCard`のheader・leading・title・description・footerスロットで用途ごとの表示を組み立てます。見出しはtitleスロット内の`h3`とし、原題の言語属性を維持します。
 `app/pages/index.vue`はセクションの配置と`useSiteSeo()`の呼び出しを担当し、各セクションのコンポーネントがデータの読み込み・並び順・操作を管理します。コンテンツの言語別の表示文はTSの各項目へまとめ、表示側で`locale`に対応する値を取得します。見出し・操作ラベル・プロフィールは翻訳辞書と`t()`を使います。`@nuxtjs/i18n`がこの1ページから日本語・英語のルートを生成します。
 `AppProfile`の名前・プロフィール本文と`AppFooter`の著作権表記は、`i18n/locales/ja.json`・`i18n/locales/en.json`で管理します。表示構造は各コンポーネントのテンプレートで編集します。
-`app/layouts/default.vue`がヘッダー・ページ・フッターを配置し、本文の`main`は各ページのルートに置きます。新しい表示ページも`app/pages/`へ追加し、ルートを`main`にします。余分なラッパー要素を増やさず、Nuxtの単一ルートの規約を満たすためです。共通レイアウトは既定で適用されます。
+共通の外枠は1種類だけなので、Nuxtの推奨に従い`app/app.vue`にヘッダー・`NuxtPage`・フッターを直接配置します。`NuxtLayout`と`app/layouts/`は使用しません。本文の`main`は各ページのルートに置きます。新しい表示ページも`app/pages/`へ追加し、ルートを`main`にします。余分なラッパー要素を増やさず、Nuxtの単一ルートの規約を満たすためです。別の外枠が必要になった場合にレイアウト機能の導入を検討します。
 作品・書籍・登壇カードは項目ごとに内容が異なるため、propsでデータを受け取ります。
 
 ## Nuxt UIの構成
