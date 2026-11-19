@@ -34,6 +34,8 @@ export function useSiteSeo (): void {
       '@id': BASE_URL + '#person',
       name: () => displayName.value,
       alternateName: () => alternateName.value,
+      // 画面に表示する自己紹介文を再利用し、人物説明を二重管理しない。
+      description: () => t('profile.summary'),
       url: BASE_URL,
       image: withSiteUrl('/profile.png'),
       sameAs: serviceLinks.map(link => link.url)
