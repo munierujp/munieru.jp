@@ -3,16 +3,18 @@
  */
 import type { Config } from '@markuplint/ml-config'
 
-/** リンターへ渡す設定。専用のConfig型で構造を検査する。 */
 const config: Config = {
   // Vueのテンプレート構文に対応した推奨ルールを共通の基準にする。
   extends: ['markuplint:recommended-vue'],
+  // Vueテンプレートの構文を解析する。
   parser: {
     '\\.vue$': '@markuplint/vue-parser'
   },
+  // Vue固有の要素・属性の仕様を読み込む。
   specs: {
     '\\.vue$': '@markuplint/vue-spec'
   },
+  // 必要な要素にだけ検査の例外を適用する。
   nodeRules: [
     {
       selector: 'ul[role="list"]',
