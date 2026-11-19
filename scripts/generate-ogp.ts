@@ -8,6 +8,9 @@ import { OGP_WIDTH, OGP_HEIGHT } from '../shared/utils/ogp.ts'
 import ja from '../i18n/locales/ja.json' with { type: 'json' }
 import en from '../i18n/locales/en.json' with { type: 'json' }
 
+/** OGP画像で名前の下に表示する副題。日英共通。 */
+const OGP_SUBTITLE = 'OFFICIAL SITE'
+
 // 必要な書体がない環境では、代替フォントで公開画像を上書きしない。
 if (process.platform !== 'darwin') throw new Error('OGPの再生成にはヒラギノのあるmacOSが必要です')
 /** 実行ディレクトリに依存せず、サイト内の画像と出力先を解決する。 */
@@ -23,14 +26,13 @@ const images = [{ src: '/profile.png', data: await readFile(new URL('public/prof
 // 英語名も画像との余白を確保する、比較済みの文字サイズを使う。
 for (const [messages, nameSize, outputPath] of [[ja, 128, OG_IMAGE_PATH], [en, 113, OG_IMAGE_PATH_EN]] as const) {
   const { name } = messages.site
-  const title = messages.nuxtSiteConfig.name
   /** 位置・字間・円形クリップはCSSで宣言し、計測と描画はTakumiへ任せる。 */
   const node: Node = {
     type: 'container',
     style: { display: 'flex', position: 'relative', width: OGP_WIDTH, height: OGP_HEIGHT, backgroundColor: '#9CC9DA', color: '#242824', fontFamily: 'OGP Hiragino' },
     children: [
       { type: 'text', text: name, style: { display: 'flex', position: 'absolute', left: 64, top: 176, fontSize: nameSize, fontWeight: 900, lineHeight: 1, letterSpacing: -2, whiteSpace: 'nowrap' } },
-      { type: 'text', text: title.slice(name.length).trim(), style: { display: 'flex', position: 'absolute', left: 64, top: 328, fontSize: 64, fontWeight: 600, lineHeight: 1, letterSpacing: -1, whiteSpace: 'nowrap' } },
+      { type: 'text', text: OGP_SUBTITLE, style: { display: 'flex', position: 'absolute', left: 64, top: 328, fontSize: 64, fontWeight: 600, lineHeight: 1, letterSpacing: -1, whiteSpace: 'nowrap' } },
       { type: 'text', text: BASE_URL, style: { display: 'flex', position: 'absolute', left: 64, top: 414, fontSize: 44, fontWeight: 300, lineHeight: 1, whiteSpace: 'nowrap' } },
       { type: 'image', src: '/profile.png', width: 448, height: 448, style: { position: 'absolute', left: 688, top: 91, width: 448, height: 448, borderRadius: 224, objectFit: 'cover' } }
     ]

@@ -9,7 +9,7 @@
 
 - 名前・プロフィール本文: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site`・`profile`
 - 著作権表記の文面: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
-- サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`i18n/locales/en.json`（ページ・共通設定・OGP画像の生成で共有）
+- サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`i18n/locales/en.json`（OGP画像の生成では名前だけを参照）
 - トップページのOGPの説明: `i18n/locales/ja.json`・`i18n/locales/en.json`の`nuxtSiteConfig.description`
 - SNS・各サービス: `app/data/serviceLinks.ts`。サービス名は英語版でも翻訳せず、原表記を共有します
 - 活動への支援先: `app/data/supportLinks.ts`（URL・名称・並び順・アイコン）。言語別の表示名は同じ項目の`title: { ja, en }`で管理します。URLは必須とし、掲載をやめる場合は該当項目を削除
@@ -29,7 +29,7 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 
 ## OGP画像の更新
 
-名前・サイト名（`site.name`・`nuxtSiteConfig.name`）、公開URL（`shared/utils/site.ts`の`BASE_URL`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
+名前（`site.name`）、副題（`scripts/generate-ogp.ts`の`OGP_SUBTITLE`）、公開URL（`shared/utils/site.ts`の`BASE_URL`）、プロフィール画像（`public/profile.png`）を変更した場合は、`npm run generate:ogp`で日本語・英語のOGP画像を再生成してください。
 ビルドやCIでは自動生成しないため、生成したPNGも変更に含めます。出力先は`public/ogp.png`・`public/en/ogp.png`に固定しています。
 実行にはmacOSのヒラギノ角ゴシックが必要です。Takumiの公式Node APIで生成します。[OGP画像の生成手順](ogp.md#再生成)を参照してください。
 

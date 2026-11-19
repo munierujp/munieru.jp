@@ -19,7 +19,7 @@ npm run generate:ogp
 
 ## 更新時の確認
 
-寸法は`../shared/utils/ogp.ts`、名前・サイト名は`../i18n/locales/ja.json`・`../i18n/locales/en.json`、公開URLは`../shared/utils/site.ts`で管理します。描画の詳細は生成スクリプトを参照してください。
+寸法は`../shared/utils/ogp.ts`、名前は`../i18n/locales/ja.json`・`../i18n/locales/en.json`の`site.name`、公開URLは`../shared/utils/site.ts`で管理します。日英共通の副題は生成スクリプトの`OGP_SUBTITLE`で定義し、サイト名からは抽出しません。描画の詳細は生成スクリプトを参照してください。
 
 再生成後は日英両方の画像を開き、文字の収まり・プロフィール画像との重なりを確認します。SNSでの縮小表示を想定して、名前やURLが読めるかも確認してください。
 
