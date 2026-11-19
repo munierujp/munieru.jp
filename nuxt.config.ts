@@ -8,9 +8,10 @@ export default defineNuxtConfig({
   /** 初期HTMLへ本文とメタ情報を出力する。 */
   ssr: true,
   /** 多言語・画像・SEO・検査・UIを担当するモジュール。 */
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/robots', '@nuxtjs/sitemap', 'nuxt-schema-org', '@nuxt/eslint', '@nuxt/ui'],
-  /** 端末フォントを使い、Nuxt Fontsの自動登録を止める。 */
-  ui: { fonts: false },
+  // Nuxt UIの追加検査を初回の設定生成から含めるため、ESLintはUIの後に読み込む。
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/robots', '@nuxtjs/sitemap', 'nuxt-schema-org', '@nuxt/ui', '@nuxt/eslint'],
+  /** 端末フォントを使い、Nuxt UI向けのクラス検査を公式ESLint設定へ委ねる。 */
+  ui: { fonts: false, eslint: true },
   /** テーマの初期選択と、判定できない場合の配色。 */
   colorMode: {
     preference: 'system',

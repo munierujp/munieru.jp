@@ -51,6 +51,7 @@
     "@tsconfig/strictest": "2.0.9",
     "@types/node": "26.6.6",
     "eslint": "10.14.0",
+    "eslint-plugin-better-tailwindcss": "4.11.0",
     "eslint-plugin-jsdoc": "65.4.5",
     "eslint-plugin-tsdoc": "0.5.4",
     "jiti": "2.7.0",

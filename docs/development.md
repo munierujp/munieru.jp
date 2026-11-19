@@ -130,6 +130,10 @@ Nuxt公式の`@nuxt/eslint`で、Vue・TypeScript・JavaScriptの推奨ルール
 設定は`eslint.config.ts`で、Standard系の規約を提供する`neostandard`と、Nuxtが生成するプロジェクト用の設定を組み合わせます。`ts: true`と`filesTs: ['**/*.vue']`でTypeScriptとVueの`script setup`を対象にし、JSX向けのルールは使いません。neostandardを先に適用し、Vueのパーサー・自動インポートなどは後段のNuxt設定に任せます。TS設定の読み込みにはESLintが対応する`jiti`を使います。
 インストール直後は`npm run prepare`で生成ファイルを用意してください。
 
+Nuxt設定の`ui.eslint: true`で、Nuxt UI公式の`@nuxt/ui/eslint`も生成設定へ追加します。`npm run prepare`だけでも追加検査を含む設定が生成されるよう、モジュールは`@nuxt/ui`の後に`@nuxt/eslint`を読み込みます。検査エンジンの`eslint-plugin-better-tailwindcss`は開発用依存として指定します。標準設定で有効なのは、生の色指定を制限するルールとクラスの競合検査です。クラスの並び替え・改行や、存在しないクラスの検査は有効にしていません。`--max-warnings=0`を使うため、公式設定の警告も検査失敗として扱います。
+
+公式設定はVueの`class`・`:ui`と、`defineAppConfig`内のテーマのクラスを検査します。Nuxt UIの配色読み取りとクラス検査が設定を追跡できるよう、`app/app.config.ts`の`ui`は変数へ切り出さず直接記述します。配色の定義はここだけに置き、独自の解析処理や色定義の二重管理は追加しません。
+
 ```sh
 npm run lint:eslint
 npm run lint:eslint -- --fix
