@@ -1,11 +1,9 @@
 <template>
   <UButton :to="link.url" external target="_blank" class="whitespace-nowrap">
-    <span class="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
-      <AppIconImage
-        class="size-6 object-contain rounded-lg bg-white"
-        :src="link.image"
-      />
-    </span>
+    <AppIconImage
+      class="size-6 object-contain rounded-lg bg-white"
+      :src="link.image"
+    />
     <span :lang="link.titleLang">{{ link.title }}</span>
   </UButton>
 </template>
