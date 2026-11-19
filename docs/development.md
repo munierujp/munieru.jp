@@ -174,6 +174,12 @@ TSDoc向けの推奨設定が、TSDocにない型注釈を要求する`require-t
 TSDoc固有の構文は引き続き`tsdoc/syntax`で検査し、JSでは型付きJSDocを利用できます。
 検査は`npm run lint:eslint`と既存のESLintワークフローで実行します。
 
+### 翻訳辞書の検査
+
+`@intlify/eslint-plugin-vue-i18n`の公式推奨設定を、`app/`内のVue・TSと`i18n/locales/*.json`へ適用します。Vue・TSのパーサーは既存のNuxt設定を優先し、外部JSON辞書には`jsonc-eslint-parser`を指定して辞書向けの検査を有効にします。辞書のメッセージ構文はVue I18n 11系として検査し、存在しない静的な翻訳キーの参照や翻訳文の直書きも検出します。推奨設定に`no-missing-keys-in-other-locales`を追加し、日英のキー不一致も検出します。日付・分類の区切り記号`/`だけは日英共通のため、直書きを許可します。検査は既存の`npm run lint:eslint`とGitHub Actionsで実行し、警告も失敗として扱います。
+
+未使用キーの削除と動的キーの禁止は有効にしません。作品分類の動的なキーや、Nuxt Site Config・OGP生成が直接参照する辞書項目を維持するためです。動的に組み立てたキーの存在や、TSのコンテンツデータ内にある日英の文章は、この検査では確認できません。コンテンツデータの対応言語の不足は`LocalizedText`の型で検査します。
+
 ## Secretlint
 
 公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。
@@ -214,7 +220,7 @@ npm run lint:markuplint
 
 ## lockfile-lint
 
-`lockfile-lint.config.js`で`package-lock.json`を検査します。取得先をnpm公式レジストリのHTTPSに限定し、パッケージ名と取得先URLの一致、SHA-512ハッシュの欠落・形式不正をチェックします。ホスト名のない取得先も許可せず、例外指定は設けていません。
+`lockfile-lint.config.js`で`package-lock.json`を検査します。取得先をnpm公式レジストリのHTTPSに限定し、パッケージ名と取得先URLの一致、SHA-512ハッシュの欠落・形式不正をチェックします。ホスト名のない取得先も許可しません。翻訳検査の依存先にある`@isaacs/cliui`が使うCommonJS互換用のnpmエイリアス（`string-width-cjs`・`strip-ansi-cjs`・`wrap-ansi-cjs`）だけは、設定で元パッケージとの組を指定して名前の検査から除外します。
 
 ```sh
 npm run lint:lockfile-lint

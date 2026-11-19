@@ -13,6 +13,8 @@ export default {
   'validate-https': true,
   // 同じレジストリ内でも、別名のパッケージへの差し替えを検知する。
   'validate-package-names': true,
+  // 翻訳検査プラグインのglobが使う、@isaacs/cliuiのCommonJS互換用npmエイリアスを許可する。
+  'allowed-package-name-aliases': ['string-width-cjs:string-width', 'strip-ansi-cjs:strip-ansi', 'wrap-ansi-cjs:wrap-ansi'],
   // ハッシュの種類だけでなく、欠落や不完全なSHA-512も検知する。
   'validate-integrity-strict': true
 }
