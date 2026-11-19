@@ -14,6 +14,7 @@
     </template>
     <template #description>
       <p>{{ t('profile.summary') }}</p>
+      <p class="mt-3">{{ t('profile.development') }}</p>
       <p class="mt-3">{{ t('profile.activities') }}</p>
     </template>
     <div class="grid place-items-center order-first">
