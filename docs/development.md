@@ -162,7 +162,7 @@ TSDocの本文でタグではない`@`を書く場合は、インラインコー
 
 ### コメントの記載・整合性
 
-`eslint-plugin-jsdoc`はNuxtが使うバージョンと同じ63.3.3を直接の開発用依存として指定します。
+`eslint-plugin-jsdoc`は直接の開発用依存として指定し、プロジェクトのコメント検査に使います。
 JS（`.js`・`.mjs`・`.cjs`）には`flat/recommended-error`、TS（`.ts`・`.mts`・`.cts`）とVueには`flat/recommended-tsdoc-error`を適用します。
 コメントの引数名・説明・戻り値の整合性や、タグ・型の記法などを推奨設定に従って検査します。
 関数へのコメントの記載必須化も推奨設定に従い、関数宣言が対象になります。公開APIだけに限定する独自設定は設けません。
@@ -237,6 +237,9 @@ npm run lint:lockfile-lint
 実行用の直接依存は`package.json`の`dependencies`に記載し、Nuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Robots・Nuxt Sitemap・Nuxt Schema.org・Nuxt UI・Tailwind CSSのバージョンを固定しています。リンター・型検査・OGP生成・ローカルプレビューに使うツールは`devDependencies`へ置きます。
 `.npmrc` ではインストール時のスクリプト実行抑止、バージョン固定、対応npmでの公開後7日間の待機を設定しています。
 `min-release-age` が適用されるかは使用するnpmの対応状況によります。
+
+TypeScriptはESLintのTypeScriptパーサーが対応する6系を使います。7系への更新時は、`typescript-eslint`のpeer dependencyの対応範囲を確認してください。
+Takumiは2.15.0を維持しています。2.20.0では同じヒラギノのTTCを渡しても名前の字形・文字幅が変わるため、更新時は日英のOGP画像を再生成して比較してください。
 
 ## 設定ファイル・コメントの方針
 
