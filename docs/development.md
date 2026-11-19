@@ -135,7 +135,7 @@ npm run lint:eslint
 npm run lint:eslint -- --fix
 ```
 
-自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で5種類のリンターを順に実行します。整形はneostandardに従い、個別のスタイルルールは追加していません。
+自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で5種類のリンターを順に実行します。JS・TSの整形はneostandardに従います。Vueテンプレートは`vue/attributes-order`の既定順を使い、属性が2個以上あるタグは改行して1行1属性に揃えます。`vue/max-attributes-per-line`・`vue/first-attribute-linebreak`・`vue/html-closing-bracket-newline`・`vue/html-indent`で、先頭属性と閉じ括弧の改行・2スペースのインデントも自動修正します。属性が1個だけのタグは1行で記述できます。
 表示ページは`main`をルート要素とし、Nuxtの単一ルートのルールを適用します。`app/app.vue`がヘッダー・ページ・フッターを直接配置し、ページ側で本文の領域を定義します。外枠が1種類のため、レイアウトファイルは設けません。
 
 ### ESLint制御コメント

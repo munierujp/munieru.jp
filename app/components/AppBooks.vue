@@ -1,8 +1,15 @@
 <template>
   <UPageSection :title="t('ui.headings.books')">
     <template #body>
-      <UPageGrid as="ul" role="list">
-        <li v-for="book in books" :key="book.key" class="min-w-0">
+      <UPageGrid
+        as="ul"
+        role="list"
+      >
+        <li
+          v-for="book in books"
+          :key="book.key"
+          class="min-w-0"
+        >
           <AppBookCard :book="book" />
         </li>
       </UPageGrid>

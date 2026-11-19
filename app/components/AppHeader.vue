@@ -4,7 +4,7 @@
     :toggle="false"
     :ui="{ root: 'h-auto min-h-(--ui-header-height)', container: 'flex-wrap gap-2 py-2.5', left: 'lg:flex-none', right: 'ms-auto gap-2 lg:flex-none' }"
   >
-      <template #left>
+    <template #left>
       <h1 class="font-bold text-[clamp(0.875rem,4vw,1.25rem)]">
         <NuxtLinkLocale to="index">{{ site.name }}</NuxtLinkLocale>
       </h1>

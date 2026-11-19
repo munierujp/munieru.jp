@@ -7,7 +7,10 @@
   >
     <template #title>
       <span :lang="locale">{{ t('site.name') }}</span>
-      <span class="mt-[0.25em] block text-[0.5em] font-medium text-muted" :lang="locale === 'en' ? 'ja' : 'en'">{{ t('site.alternateName') }}</span>
+      <span
+        class="mt-[0.25em] block text-[0.5em] font-medium text-muted"
+        :lang="locale === 'en' ? 'ja' : 'en'"
+      >{{ t('site.alternateName') }}</span>
     </template>
     <template #description>
       <p>{{ t('profile.summary') }}</p>

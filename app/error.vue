@@ -11,7 +11,10 @@
         :clear="{ color: 'neutral', variant: 'outline' }"
         class="min-h-0 flex-1 px-6 py-16"
       >
-        <template v-if="status === 404" #leading>
+        <template
+          v-if="status === 404"
+          #leading
+        >
           <NuxtImg
             src="/404.png"
             alt=""

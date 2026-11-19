@@ -1,6 +1,9 @@
 <template>
   <UFooter class="text-muted">
-    <small class="text-xs" :lang="locale">{{ t('site.copyright', { name: t('site.name') }) }}</small>
+    <small
+      class="text-xs"
+      :lang="locale"
+    >{{ t('site.copyright', { name: t('site.name') }) }}</small>
     <template #right>
       <AppIconLink
         :href="X_URL"

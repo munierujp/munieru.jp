@@ -28,6 +28,17 @@ export default withNuxt(
     ...jsdoc.configs['flat/recommended-tsdoc-error'],
     name: 'app/jsdoc-tsdoc',
     files: ['**/*.{ts,mts,cts,vue}']
+  },
+  {
+    name: 'app/vue-template-format',
+    files: ['**/*.vue'],
+    rules: {
+      'vue/attributes-order': 'error',
+      'vue/max-attributes-per-line': 'error',
+      'vue/first-attribute-linebreak': 'error',
+      'vue/html-closing-bracket-newline': 'error',
+      'vue/html-indent': ['error', 2]
+    }
   }
 ).prepend(
   // script setupにもTS規約を適用する。Vueのパーサー・自動インポートは後段のNuxt設定を優先する。

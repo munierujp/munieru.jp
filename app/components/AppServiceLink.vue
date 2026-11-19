@@ -1,5 +1,10 @@
 <template>
-  <UButton :to="link.url" external target="_blank" class="whitespace-nowrap">
+  <UButton
+    :to="link.url"
+    external
+    target="_blank"
+    class="whitespace-nowrap"
+  >
     <AppIconImage
       class="size-6 object-contain rounded-lg bg-white"
       :src="link.image"

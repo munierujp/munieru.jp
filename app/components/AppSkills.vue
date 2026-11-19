@@ -1,8 +1,15 @@
 <template>
   <UPageSection :title="t('ui.headings.skills')">
     <template #body>
-      <ul class="flex flex-wrap items-center gap-3" role="list">
-        <li v-for="skill in skills" :key="skill.image" class="min-w-0">
+      <ul
+        class="flex flex-wrap items-center gap-3"
+        role="list"
+      >
+        <li
+          v-for="skill in skills"
+          :key="skill.image"
+          class="min-w-0"
+        >
           <UBadge>
             <AppIconImage
               class="size-6 object-contain rounded-lg bg-white"

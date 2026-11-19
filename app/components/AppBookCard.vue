@@ -1,5 +1,12 @@
 <template>
-  <UPageCard as="article" class="h-full" :title="book.title" :description="book.description[locale]" :to="book.url" target="_blank">
+  <UPageCard
+    as="article"
+    class="h-full"
+    :title="book.title"
+    :description="book.description[locale]"
+    :to="book.url"
+    target="_blank"
+  >
     <template #header>
       <NuxtPicture
         class="block w-[clamp(96px,20vw,128px)] max-w-full"

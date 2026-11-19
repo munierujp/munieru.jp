@@ -1,8 +1,20 @@
 <template>
-  <UDropdownMenu :items="items" :ui="{ content: 'min-w-40' }">
-    <UButton square icon="i-lucide-languages" :aria-label="t('ui.language', { language: localeProperties.name ?? locale })" />
+  <UDropdownMenu
+    :items="items"
+    :ui="{ content: 'min-w-40' }"
+  >
+    <UButton
+      square
+      icon="i-lucide-languages"
+      :aria-label="t('ui.language', { language: localeProperties.name ?? locale })"
+    />
     <template #item-trailing="{ item }">
-      <UIcon v-if="item.active" name="i-lucide-check" class="size-4" aria-hidden="true" />
+      <UIcon
+        v-if="item.active"
+        name="i-lucide-check"
+        class="size-4"
+        aria-hidden="true"
+      />
     </template>
   </UDropdownMenu>
 </template>
