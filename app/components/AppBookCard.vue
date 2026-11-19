@@ -1,6 +1,6 @@
 <template>
   <UPageCard
-    as="article"
+    :as="{ root: 'article', title: 'h3' }"
     class="h-full"
     :title="book.title"
     :description="book.description[locale]"
@@ -23,7 +23,6 @@
         {{ book.format[locale] }} / <time :datetime="book.date">{{ d(book.date, 'date') }}</time>
       </p>
     </template>
-    <template #title><h3>{{ book.title }}</h3></template>
   </UPageCard>
 </template>
 

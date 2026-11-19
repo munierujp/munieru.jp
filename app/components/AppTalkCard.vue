@@ -1,6 +1,6 @@
 <template>
   <UPageCard
-    as="article"
+    :as="{ root: 'article', title: 'h3' }"
     class="h-full"
     :title="talk.title"
     :to="talk.url"
@@ -23,7 +23,7 @@
         {{ talk.format }} / <time :datetime="talk.date">{{ d(talk.date, 'date') }}</time>
       </p>
     </template>
-    <template #title><h3 :lang="talk.titleLang">{{ talk.title }}</h3></template>
+    <template #title><span :lang="talk.titleLang">{{ talk.title }}</span></template>
     <template
       v-if="locale === 'en' && talk.englishTitle"
       #description

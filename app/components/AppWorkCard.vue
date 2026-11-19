@@ -1,6 +1,6 @@
 <template>
   <UPageCard
-    as="article"
+    :as="{ root: 'article', title: 'h3' }"
     class="h-full"
     :title="work.title"
     :description="work.description[locale]"
@@ -29,9 +29,7 @@
       </p>
     </template>
     <template #title>
-      <h3>
-        <span :lang="work.titleLang">{{ work.title }}</span> <UBadge v-if="work.publicationEnded">{{ t('ui.publicationEnded') }}</UBadge>
-      </h3>
+      <span :lang="work.titleLang">{{ work.title }}</span> <UBadge v-if="work.publicationEnded">{{ t('ui.publicationEnded') }}</UBadge>
     </template>
   </UPageCard>
 </template>
