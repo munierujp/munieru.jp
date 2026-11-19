@@ -84,7 +84,7 @@ Nuxtが生成する設定を使い、Vueのテンプレート・props・共通�
 
 `shared/`はNuxtが生成する共有コンテキストの設定で検査します。公開値は`shared/utils/site.ts`、OGP寸法は`shared/utils/ogp.ts`に定義し、Nuxt設定とOGP生成スクリプトでも共有します。
 
-新しいツール用ファイルは隠しファイルも含めて自動探索します。`server/`やレイヤーなど、新しいNuxt用のソース領域を導入するときは、Nuxtとの検査対象の分担を確認し、必要に応じて`tsconfig.tools.json`の除外設定を更新してください。
+`scripts/`内に追加したTSファイルは自動で検査対象になります。新しいリンター設定や別のツール用ディレクトリを追加するときは、`tsconfig.tools.json`の`include`へ登録してください。Nuxt用のソース領域は、Nuxtが生成するTSConfigに検査を任せます。
 
 ### 翻訳データの言語型
 
@@ -121,7 +121,7 @@ Nuxt本体は生成されたTSConfigを使用し、ツール用の`tsconfig.tool
 - `@tsconfig/node-ts`: NodeでTSを直接実行する際の制約（`erasableSyntaxOnly`・`verbatimModuleSyntax`など）
 - `@tsconfig/strictest`: 配列要素の未存在や未使用変数など、`strict`より厳格なチェック
 
-このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。`allowJs`で型付きJS設定も検査します。プロジェクト全体を再帰的に探索し、新規ディレクトリやドットファイル内のJS・TSも対象にします。VueはNuxtの`vue-tsc`による検査を使います。Nuxtが検査する`app/`・`server/`・`shared/`・`i18n/`などの領域と`nuxt.config.ts`、依存関係・生成物はツール用設定から除外します。他のTSConfigの対象を自動的に差し引く機能はないため、Nuxt側との分担はディレクトリ単位の除外パスで明示しています。新しいツールや設定ファイルごとの登録は不要です。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
+このリポジトリでは型検査だけを行うため`noEmit`を指定します。`node-ts`の`rewriteRelativeImportExtensions`により`.ts`付きimportが許可されるので、`allowImportingTsExtensions`の個別指定は不要です。`allowJs`で型付きJS設定も検査します。ツール用の検査対象は`include`で`scripts/**/*.ts`とESLint・Stylelint・Markuplint・Secretlintの設定ファイルを明示し、プロジェクト全体の探索と個別の除外設定は使いません。対象ファイルからimportされるファイルも型検査に含まれます。Vue・Nuxt用のソースと`nuxt.config.ts`はNuxtが生成するTSConfigに任せます。新しい設定ファイルや別のツール用ディレクトリを追加したときは`include`も更新します。Nodeの直接実行時にtsconfigが読み込まれるわけではなく、これらはTypeScriptによる事前検査の設定です。
 
 ## ESLint
 

@@ -10,20 +10,12 @@
     "noEmit": true,
     "allowJs": true
   },
-  // 新規ディレクトリ・ドットファイルも探索し、個別のファイル名を登録しない。
-  "include": ["**/*", "**/.*", "**/.*/**/*"],
-  // Nuxtが検査するソース領域と、依存関係・生成物・Git管理データを除く。
-  "exclude": [
-    "**/node_modules",
-    ".git",
-    ".nuxt",
-    ".output",
-    ".cache",
-    ".data",
-    "dist",
-    "app",
-    "i18n",
-    "shared",
-    "nuxt.config.ts"
+  // Nuxt外のスクリプトと設定ファイルを明示し、生成物を広く探索しない。
+  "include": [
+    "scripts/**/*.ts",
+    "eslint.config.ts",
+    "stylelint.config.ts",
+    "markuplint.config.ts",
+    ".secretlintrc.js"
   ]
 }
