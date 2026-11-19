@@ -4,7 +4,6 @@
 [![secretlint](https://github.com/munierujp/munieru.jp/actions/workflows/secretlint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/secretlint.yml)
 [![stylelint](https://github.com/munierujp/munieru.jp/actions/workflows/stylelint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/stylelint.yml)
 [![markuplint](https://github.com/munierujp/munieru.jp/actions/workflows/markuplint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/markuplint.yml)
-[![lockfile-lint](https://github.com/munierujp/munieru.jp/actions/workflows/lockfile-lint.yml/badge.svg)](https://github.com/munierujp/munieru.jp/actions/workflows/lockfile-lint.yml)
 [![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-7fffff?style=flat&labelColor=ff80ff)](https://github.com/neostandard/neostandard)
 

@@ -60,10 +60,9 @@ Netlify固有の転送ルールは`public/_redirects`で管理し、NetlifyのDe
 PR・既定ブランチ（master）へのpush・手動実行で、以下のチェックをそれぞれ実行します。
 
 - `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
-- `.github/workflows/lockfile-lint.yml`: lockfileの取得先・ハッシュ形式を検査
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
 
-各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。lockfile-lint以外は`npm run prepare`も実行します。lockfile-lintはNuxtを使わないためprepareを実行しません。
+各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`と`npm run prepare`を先に実行します。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
 公開はNetlify、依存更新はRenovateで行います。
 
@@ -139,7 +138,7 @@ npm run lint:eslint
 npm run lint:eslint -- --fix
 ```
 
-自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で5種類のリンターを順に実行します。JS・TSの整形はneostandardに従います。Vueテンプレートは`eslint-plugin-vue`の公式`flat/recommended`を使い、属性の順序・1行の属性数・改行・インデントを推奨設定に従って自動修正します。ページ・エラー画面などの命名に関するNuxt固有の例外を維持するため、このプリセットは`nuxt/disables/routes`の前へ追加します。ルールを個別に列挙せず、警告も`--max-warnings=0`で失敗として扱います。
+自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で4種類のリンターを順に実行します。JS・TSの整形はneostandardに従います。Vueテンプレートは`eslint-plugin-vue`の公式`flat/recommended`を使い、属性の順序・1行の属性数・改行・インデントを推奨設定に従って自動修正します。ページ・エラー画面などの命名に関するNuxt固有の例外を維持するため、このプリセットは`nuxt/disables/routes`の前へ追加します。ルールを個別に列挙せず、警告も`--max-warnings=0`で失敗として扱います。
 表示ページは`main`をルート要素とし、Nuxtの単一ルートのルールを適用します。`app/app.vue`がヘッダー・ページ・フッターを直接配置し、ページ側で本文の領域を定義します。外枠が1種類のため、レイアウトファイルは設けません。
 
 ### ESLint制御コメント
@@ -218,16 +217,6 @@ npm run lint:markuplint
 `list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
 その他の指摘はテンプレート側で修正します。メニュー内部のIDはNuxt UIへ任せます。
 
-## lockfile-lint
-
-`lockfile-lint.config.js`で`package-lock.json`を検査します。取得先をnpm公式レジストリのHTTPSに限定し、パッケージ名と取得先URLの一致、SHA-512ハッシュの欠落・形式不正をチェックします。ホスト名のない取得先も許可しません。翻訳検査の依存先にある`@isaacs/cliui`が使うCommonJS互換用のnpmエイリアス（`string-width-cjs`・`strip-ansi-cjs`・`wrap-ansi-cjs`）だけは、設定で元パッケージとの組を指定して名前の検査から除外します。
-
-```sh
-npm run lint:lockfile-lint
-```
-
-`npm run lint`にも含め、GitHub Actionsの`lockfile-lint.yml`で独立して実行します。チェック対象はURLやlockfileの整合性情報です。配布物の内容とハッシュの照合はnpmが行い、既知の脆弱性の確認には別途`npm audit`を使います。
-
 ## 設定
 
 公開定数は`shared/utils/site.ts`から名前付きでエクスポートします。アプリではNuxtの自動インポート、Nuxt設定とOGP生成スクリプトでは相対パスのインポートで直接参照し、独自の`runtimeConfig.public`への登録は行いません。ルート配信専用とし、公開URL・リポジトリURL・Xアカウントを環境変数で切り替えません。プレビューでも正規URLとOGP画像内のURLは本番サイトを指します。固定値の変数名はコンスタントケース（`FOO_BAR`）にします。
@@ -266,7 +255,7 @@ Takumiは2.15.0を維持しています。2.20.0では同じヒラギノのTTC�
 
 GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用の形式が必要な設定はその形式を維持します。翻訳・アイコンのデータJSONと、自動生成するロックファイルは設定ファイルの形式変更方針の対象外です。コンテンツ一覧は型検査のため`app/data/*.ts`で定義します。
 
-ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。lockfile-lintはTS設定と公式の型定義に対応しないため、ES Modules形式の`lockfile-lint.config.js`を使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
+ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
 
 ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。
 
