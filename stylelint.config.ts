@@ -8,7 +8,7 @@ const config: Config = {
   extends: ['stylelint-config-standard'],
   // パッケージCSSのimport構文に合わせるためのルール調整。
   rules: {
-    // Nuxt UI/TailwindのVite処理がパッケージ名を解決できるよう、公式例の文字列importを維持する。
+    // 公式例に合わせた文字列importを、標準設定のurl記法へ自動修正させない。
     'import-notation': 'string'
   }
 }
