@@ -6,6 +6,7 @@ import { neostandard } from 'neostandard'
 import eslintComments from '@eslint-community/eslint-plugin-eslint-comments/configs'
 import tsdoc from 'eslint-plugin-tsdoc'
 import jsdoc from 'eslint-plugin-jsdoc'
+import vue from 'eslint-plugin-vue'
 import vueI18n from '@intlify/eslint-plugin-vue-i18n'
 import * as jsoncParser from 'jsonc-eslint-parser'
 import { defineConfig } from 'eslint/config'
@@ -38,18 +39,11 @@ export default withNuxt(
     ...jsdoc.configs['flat/recommended-tsdoc-error'],
     name: 'app/jsdoc-tsdoc',
     files: ['**/*.{ts,mts,cts,vue}']
-  },
-  {
-    name: 'app/vue-template-format',
-    files: ['**/*.vue'],
-    rules: {
-      'vue/attributes-order': 'error',
-      'vue/max-attributes-per-line': 'error',
-      'vue/first-attribute-linebreak': 'error',
-      'vue/html-closing-bracket-newline': 'error',
-      'vue/html-indent': ['error', 2]
-    }
   }
+).insertBefore(
+  // Vue公式の推奨設定を使い、ページ名などのNuxt固有の例外は後段で維持する。
+  'nuxt/disables/routes',
+  ...vue.configs['flat/recommended']
 ).prepend(
   // 翻訳の推奨検査はアプリと辞書へ限定し、Vue・TSの解析設定は後段のNuxt設定を優先する。
   ...defineConfig({

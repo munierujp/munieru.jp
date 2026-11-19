@@ -14,8 +14,12 @@
     </template>
     <template #description>
       <p>{{ t('profile.summary') }}</p>
-      <p class="mt-3">{{ t('profile.development') }}</p>
-      <p class="mt-3">{{ t('profile.activities') }}</p>
+      <p class="mt-3">
+        {{ t('profile.development') }}
+      </p>
+      <p class="mt-3">
+        {{ t('profile.activities') }}
+      </p>
     </template>
     <div class="grid place-items-center order-first">
       <!-- 背景や枠を設けず、表示幅に合わせて生成した画像自体を円形で表示する。 -->

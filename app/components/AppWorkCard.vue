@@ -29,7 +29,9 @@
       </p>
     </template>
     <template #title>
-      <span :lang="work.titleLang">{{ work.title }}</span> <UBadge v-if="work.publicationEnded">{{ t('ui.publicationEnded') }}</UBadge>
+      <span :lang="work.titleLang">{{ work.title }}</span> <UBadge v-if="work.publicationEnded">
+        {{ t('ui.publicationEnded') }}
+      </UBadge>
     </template>
   </UPageCard>
 </template>

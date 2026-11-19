@@ -23,12 +23,16 @@
         {{ talk.format }} / <time :datetime="talk.date">{{ d(talk.date, 'date') }}</time>
       </p>
     </template>
-    <template #title><span :lang="talk.titleLang">{{ talk.title }}</span></template>
+    <template #title>
+      <span :lang="talk.titleLang">{{ talk.title }}</span>
+    </template>
     <template
       v-if="locale === 'en' && talk.englishTitle"
       #description
     >
-      <p lang="en">{{ talk.englishTitle }}</p>
+      <p lang="en">
+        {{ talk.englishTitle }}
+      </p>
     </template>
     <template #footer>
       <ULink

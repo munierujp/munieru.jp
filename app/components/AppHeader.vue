@@ -6,7 +6,9 @@
   >
     <template #left>
       <h1 class="font-bold text-[clamp(0.875rem,4vw,1.25rem)]">
-        <NuxtLinkLocale to="index">{{ site.name }}</NuxtLinkLocale>
+        <NuxtLinkLocale to="index">
+          {{ site.name }}
+        </NuxtLinkLocale>
       </h1>
     </template>
     <template #right>
