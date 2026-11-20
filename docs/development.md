@@ -22,6 +22,10 @@ npm run prepare
 `.npmrc` でインストール時のスクリプト実行を無効にしているため、Nuxtの準備は明示的に実行します。
 `npm run dev` やビルドでもNuxtの生成ファイルは準備されます。
 
+## npm scriptsの説明
+
+`npm run about`で説明コマンドの使い方を、`npm run about:lint`や`npm run about:generate:ogp`で各スクリプトの用途・前提条件を表示できます。`package.json`では、対象スクリプトの直前に`about:<コマンド名>`を置きます。スクリプトを追加・変更するときは説明も更新してください。
+
 ## ローカル開発
 
 ```sh
