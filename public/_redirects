@@ -1,0 +1,5 @@
+# Redirect default Netlify subdomain to primary domain
+https://munieru.netlify.app/* https://munieru.jp/:splat 301!
+
+# Show the English error page without redirecting missing English URLs
+/en/* /en/404.html 404

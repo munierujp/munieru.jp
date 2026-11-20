@@ -1,0 +1,48 @@
+{
+  "nuxtSiteConfig": {
+    "name": "Munieru OFFICIAL SITE",
+    "description": "Munieru's personal website: profile, blog, social links, skills, works, books, and talks."
+  },
+  "site": {
+    "name": "Munieru",
+    "alternateName": "ムニエル",
+    "copyright": "© {name}"
+  },
+  "ui": {
+    "error": {
+      "notFoundTitle": "404 Error",
+      "notFoundDescription": "The page may have been moved or deleted.",
+      "title": "Something went wrong",
+      "description": "Please try again later."
+    },
+    "headings": {
+      "links": "Links",
+      "skills": "Skills",
+      "works": "Works",
+      "books": "Books",
+      "talks": "Talks",
+      "support": "Support my work"
+    },
+    "categories": {
+      "web": "Web apps",
+      "extension": "Chrome extensions",
+      "library": "Libraries",
+      "cli": "CLI tools"
+    },
+    "publicationEnded": "Discontinued",
+    "sourceCode": "Source code for {title} (GitHub)",
+    "cover": "Cover: {title}",
+    "eventInfo": "Event information for {title} (connpass)",
+    "slidesInfo": "Slides for {title} (Speaker Deck)",
+    "profileImage": "Profile image",
+    "theme": "Select appearance",
+    "language": "Language: {language}",
+    "xAccount": "{name} on X",
+    "siteSourceCode": "Source code for this website (GitHub)"
+  },
+  "profile": {
+    "summary": "I'm an otaku and IT engineer based in Edogawa, Tokyo, Japan. Originally from Kawaguchi, Saitama.",
+    "development": "I develop web apps, Chrome extensions, and other personal projects.",
+    "activities": "On my days off, you'll usually find me at the cinema or at live shows, concerts, festivals, plays, and musicals."
+  }
+}
