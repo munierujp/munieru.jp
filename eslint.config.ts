@@ -10,7 +10,6 @@ import vue from 'eslint-plugin-vue'
 import vueI18n from '@intlify/eslint-plugin-vue-i18n'
 import * as jsoncParser from 'jsonc-eslint-parser'
 import { defineConfig } from 'eslint/config'
-import type { Linter } from 'eslint'
 
 export default withNuxt(
   // 無制限の無効化や無効化・再有効化の対応ミスは、公式の推奨設定で検出する。
@@ -49,8 +48,8 @@ export default withNuxt(
   ...defineConfig({
     name: 'app/i18n',
     files: ['app/**/*.{vue,ts}', 'i18n/locales/*.json'],
-    // 外部プリセットの型推論がexactOptionalPropertyTypesに対応しないため、公式の設定型へ揃える。
-    extends: vueI18n.configs.recommended as unknown as Linter.Config[],
+    // @ts-expect-error -- 外部プリセットの型定義がexactOptionalPropertyTypesに未対応のため、この参照だけを除外する。
+    extends: vueI18n.configs.recommended,
     settings: {
       'vue-i18n': {
         localeDir: 'i18n/locales/*.json',
