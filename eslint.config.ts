@@ -59,9 +59,7 @@ export default withNuxt(
     },
     rules: {
       // フォールバックで翻訳漏れを隠さず、言語間で同じキーを揃える。
-      '@intlify/vue-i18n/no-missing-keys-in-other-locales': 'error',
-      // 日付・分類の区切り記号は日英で共通とし、翻訳辞書へ移さない。
-      '@intlify/vue-i18n/no-raw-text': ['warn', { ignoreText: ['/'] }]
+      '@intlify/vue-i18n/no-missing-keys-in-other-locales': 'error'
     }
   }),
   // script setupにもTS規約を適用する。Vueのパーサー・自動インポートは後段のNuxt設定を優先する。

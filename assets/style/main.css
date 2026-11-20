@@ -1,2 +1,4 @@
+/* stylelint-disable-next-line import-notation -- Tailwind CSS公式例の文字列importを維持する。 */
 @import 'tailwindcss';
+/* stylelint-disable-next-line import-notation -- Nuxt UI公式例の文字列importを維持する。 */
 @import '@nuxt/ui';

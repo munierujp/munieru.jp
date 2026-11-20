@@ -20,6 +20,7 @@
         decoding="async"
       />
       <p class="mt-3 text-xs text-muted">
+        <!-- eslint-disable-next-line @intlify/vue-i18n/no-raw-text -- 形式と日付の区切り記号は日英で共通のため。 -->
         {{ book.format[locale] }} / <time :datetime="book.date">{{ d(book.date, 'date') }}</time>
       </p>
     </template>

@@ -175,7 +175,7 @@ TSDoc固有の構文は引き続き`tsdoc/syntax`で検査し、JSでは型付�
 
 ### 翻訳辞書の検査
 
-`@intlify/eslint-plugin-vue-i18n`の公式推奨設定を、`app/`内のVue・TSと`i18n/locales/*.json`へ適用します。Vue・TSのパーサーは既存のNuxt設定を優先し、外部JSON辞書には`jsonc-eslint-parser`を指定して辞書向けの検査を有効にします。辞書のメッセージ構文はVue I18n 11系として検査し、存在しない静的な翻訳キーの参照や翻訳文の直書きも検出します。推奨設定に`no-missing-keys-in-other-locales`を追加し、日英のキー不一致も検出します。日付・分類の区切り記号`/`だけは日英共通のため、直書きを許可します。検査は既存の`npm run lint:eslint`とGitHub Actionsで実行し、警告も失敗として扱います。
+`@intlify/eslint-plugin-vue-i18n`の公式推奨設定を、`app/`内のVue・TSと`i18n/locales/*.json`へ適用します。Vue・TSのパーサーは既存のNuxt設定を優先し、外部JSON辞書には`jsonc-eslint-parser`を指定して辞書向けの検査を有効にします。辞書のメッセージ構文はVue I18n 11系として検査し、存在しない静的な翻訳キーの参照や翻訳文の直書きも検出します。推奨設定に`no-missing-keys-in-other-locales`を追加し、日英のキー不一致も検出します。日付・分類の区切り記号`/`は日英共通のため、各カードの該当行に理由付きの`eslint-disable-next-line`を置きます。設定側の一括除外は使いません。検査は既存の`npm run lint:eslint`とGitHub Actionsで実行し、警告も失敗として扱います。
 
 未使用キーの削除と動的キーの禁止は有効にしません。作品分類の動的なキーや、Nuxt Site Config・OGP生成が直接参照する辞書項目を維持するためです。動的に組み立てたキーの存在や、TSのコンテンツデータ内にある日英の文章は、この検査では確認できません。コンテンツデータの対応言語の不足は`LocalizedText`の型で検査します。
 
@@ -199,7 +199,7 @@ npm run lint:stylelint
 npm run lint:stylelint -- --fix
 ```
 
-`-- --fix`を渡すと自動修正できる指摘を修正します。パッケージ名によるCSSの読込を維持するため、`import-notation`だけを`string`へ上書きします。その他は標準設定を使います。
+`-- --fix`を渡すと自動修正できる指摘を修正します。ルールは標準設定のまま使います。Tailwind CSS・Nuxt UI公式例の文字列`@import`を維持するため、各importの直前に理由付きの`stylelint-disable-next-line import-notation`を置きます。
 Vueコンポーネント内には現在`<style>`がないため、CSSファイルだけが対象です。今後Vue内にCSSを書く場合は、Vue用の構文解析設定と対象ファイルを追加してください。
 GitHub Actionsの`stylelint.yml`でも実行します。
 
@@ -214,7 +214,7 @@ npm run lint:markuplint
 警告も失敗として扱い、GitHub Actionsの`markuplint.yml`でも実行します。JavaScript・TypeScriptやVueコードのチェックはESLintが担当します。
 カスタムコンポーネントを展開した最終HTMLの検証は行いません。
 
-`list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。この要素に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
+`list-style: none`を指定したリストがSafariでもリストとして読み上げられるよう、`ul`の`role="list"`は維持しています。使用中のMarkuplintは行単位のdisableコメントに対応していないため、`nodeRules`で`ul[role="list"]`に限り、暗黙のroleと重複するという指摘を除外します（[MDNの説明](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/list-style#accessibility)）。
 その他の指摘はテンプレート側で修正します。メニュー内部のIDはNuxt UIへ任せます。
 
 ## 設定
@@ -257,6 +257,6 @@ GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用
 
 ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
 
-ルールを追加・上書き・無効化する場合は、設定の直前に理由をコメントで記載します。対象を限定する例外では、その範囲と必要性も記載します。
+リンターは公式の推奨設定・共有設定を基本とし、設定ファイルは簡潔に保ちます。少数の箇所だけに必要な例外は、ルール全体を上書きせず、対象コードの理由付きdisableコメントで扱います。ルール名を指定し、行単位など必要最小限の範囲に限定します。ツールがdisableコメントに対応しない場合だけ、対象を絞った例外設定を使います。プロジェクト共通の検査方針としてルールを追加・変更する場合は、設定の直前に理由を記載します。
 
 関数・クラス・型・意味や制約のある変数には、TSDoc形式の`/** ... */`コメントを積極的に記載します。ファイル全体の責務は冒頭の説明コメント、引数は`@param`、戻り値は`@returns`、副作用や設計上の注意は`@remarks`、例外は`@throws`で説明します。独自に定義するオブジェクト型・props・公開設定の各プロパティにもTSDocコメントを記載します。関数宣言と名前付き関数は、`void`・`undefined`を含め戻り値の型を明記します。TypeScriptの型をコメントで繰り返すより、用途・単位・前提条件・変更理由を優先します。JavaScriptでは、必要な型情報をJSDocの型構文で補います。処理途中の判断理由やテンプレート内の説明は、通常のコメントを併用します。

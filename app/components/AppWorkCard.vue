@@ -25,6 +25,7 @@
         />
       </div>
       <p class="mt-3 text-xs text-muted">
+        <!-- eslint-disable-next-line @intlify/vue-i18n/no-raw-text -- 分類と日付の区切り記号は日英で共通のため。 -->
         {{ category.label }} / <time :datetime="work.date">{{ d(work.date, 'date') }}</time>
       </p>
     </template>
