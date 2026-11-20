@@ -22,13 +22,13 @@
     "typecheck": "nuxt typecheck",
     "about:lint": "echo \"ESLint・Secretlint・Stylelint・Markuplintを順番に実行します。\"",
     "lint": "run-s lint:eslint lint:secretlint lint:stylelint lint:markuplint",
-    "about:lint:secretlint": "echo \"リポジトリ内のファイルに秘密情報が含まれていないか検査します。\"",
+    "about:lint:secretlint": "echo \"Secretlintを用いてリポジトリ内のファイルに秘密情報が含まれていないか検査します。\"",
     "lint:secretlint": "secretlint \"**/*\"",
-    "about:lint:stylelint": "echo \"assets内のCSSを検査します。警告も失敗として扱います。\"",
+    "about:lint:stylelint": "echo \"Stylelintを用いてassets内のCSSを検査します。警告も失敗として扱います。\"",
     "lint:stylelint": "stylelint \"assets/**/*.css\" --max-warnings=0",
-    "about:lint:markuplint": "echo \"app内のVueテンプレートのマークアップを検査します。警告も失敗として扱います。\"",
+    "about:lint:markuplint": "echo \"Markuplintを用いてapp内のVueテンプレートのマークアップを検査します。警告も失敗として扱います。\"",
     "lint:markuplint": "markuplint \"app/**/*.vue\" --max-warnings=0",
-    "about:lint:eslint": "echo \"JavaScript・TypeScript・Vue・翻訳辞書を検査します。警告も失敗として扱います。\"",
+    "about:lint:eslint": "echo \"ESLintを用いてJavaScript・TypeScript・Vue・翻訳辞書を検査します。警告も失敗として扱います。\"",
     "lint:eslint": "eslint . --max-warnings=0"
   },
   "engines": {
