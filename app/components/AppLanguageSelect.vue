@@ -9,7 +9,11 @@
       :aria-label="t('ui.language', { language: localeProperties.name ?? locale })"
     />
     <template #item-label="{ item }">
-      <span :lang="item.lang">{{ item.label }}</span>
+      <!-- 自動翻訳中でも、自分の言語を原表記で見つけられるようにする。 -->
+      <span
+        :lang="item.lang"
+        translate="no"
+      >{{ item.label }}</span>
     </template>
     <template #item-trailing="{ item }">
       <UIcon
