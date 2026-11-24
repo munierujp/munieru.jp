@@ -20,7 +20,7 @@ export const supportLinks: SupportLink[] = [
       ja: 'ほしい物リスト',
       en: 'Wish list'
     },
-    url: 'http://amzn.asia/9qD1BsF',
+    url: 'https://amzn.asia/9qD1BsF',
     image: '/service-icons/amazon.png'
   },
   {

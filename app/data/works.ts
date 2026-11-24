@@ -38,7 +38,7 @@ export const works: Work[] = [
       en: 'A service for creating and sharing palindromes.'
     },
     date: '2018-12-21',
-    url: 'http://kaibunmaker.com',
+    url: 'https://kaibunmaker.com',
     github: 'https://github.com/kaibunmaker/kaibunmaker',
     category: 'web',
     image: '/work-icons/kaibunmaker.png'
@@ -134,7 +134,7 @@ export const works: Work[] = [
       en: 'A web app that opens tweet search results, Twilog, and Twisave for specified search conditions.'
     },
     date: '2023-04-06',
-    url: 'http://anohi-no-tweet.munieru.app/',
+    url: 'https://anohi-no-tweet.munieru.app/',
     github: 'https://github.com/munierujp/anohi-no-tweet',
     category: 'web',
     image: '/work-icons/anohi-no-tweet.png'
