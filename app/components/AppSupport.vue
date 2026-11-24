@@ -1,13 +1,18 @@
 <template>
   <UPageSection :title="t('ui.headings.support')">
     <template #body>
-      <div class="flex flex-wrap items-center gap-3">
-        <AppServiceLink
+      <ul
+        class="flex flex-wrap items-center gap-3"
+        role="list"
+      >
+        <li
           v-for="link in supportLinks"
           :key="link.key"
-          :link="{ ...link, title: typeof link.title === 'string' ? link.title : link.title[locale] }"
-        />
-      </div>
+          class="min-w-0"
+        >
+          <AppServiceLink :link="{ ...link, title: typeof link.title === 'string' ? link.title : link.title[locale] }" />
+        </li>
+      </ul>
     </template>
   </UPageSection>
 </template>
