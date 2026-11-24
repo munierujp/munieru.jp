@@ -1,3 +1,10 @@
 [build]
 command = "npm run generate"
 publish = ".output/public"
+
+# IPXのWebP変換URLには元画像の拡張子が残るため、実形式に合わせて配信する。
+[[headers]]
+for = "/_ipx/f_webp&*/*"
+
+[headers.values]
+Content-Type = "image/webp"
