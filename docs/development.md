@@ -141,7 +141,7 @@ defineProps<{
 
 複数箇所で共有する型や、長く複雑で名前が理解を助ける型は名前付きで残します。`Book`・`Work`などのコンテンツ型も共有するため、インライン化しません。
 
-既定値を指定する場合は、Vue 3.5のリアクティブなprops分割代入を使えます。`AppIconImage`の`size = 24`のように記述し、分割代入した変数もpropsの変更に追従します。現行の`vue/require-default-prop`規約では、分割代入するBoolean以外の任意propsに既定値の明示が必要なため、値を補わない場合は`src = undefined`のように記述します。
+既定値を指定する場合は、Vue 3.5のリアクティブなprops分割代入を使えます。`AppIconImage`の`size = 24`のように記述し、分割代入した変数もpropsの変更に追従します。値を補わない任意propsには、`= undefined`を付けずVue標準の省略時の値を使います。`AppIconImage`では`vue/require-default-prop`との違いを、props宣言だけに限定した理由付きのdisable・enableコメントで扱っています。ルール全体は変更しません。
 
 ### 型注釈とsatisfiesの使い分け
 
