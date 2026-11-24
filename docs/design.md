@@ -125,17 +125,18 @@ HTMLをJavaScript文字列として編集する必要はありません。
 
 ## 検索・共有用のメタ情報
 
-- `@nuxtjs/sitemap`がページを自動検出し、Nuxt I18nの言語設定に従ってサイトマップを生成します。`app/pages/`へ静的なページを追加する場合は、サイトマップへの手動登録は不要です。
-- `/sitemap_index.xml`が入口で、`/__sitemap__/ja-JP.xml`・`en-US.xml`に各言語の正規URLと相互参照を出力します。
-- `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。エラー画面は`app/error.vue`でも`noindex, nofollow`を明示します。
-- トップページのHTMLの言語属性・canonical・hreflangは`useLocaleHead()`、サイトマップはモジュールの標準機能で生成します。トップページのHTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。エラー画面の`lang`は`app/error.vue`で現在の`locale`に合わせて`ja`・`en`を設定し、canonical・hreflangは登録しません。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
+`nuxt.config.ts`が全ページ共通の固定メタ情報、`app/pages/index.vue`がトップページの著者・メタ情報・構造化データ、`app/error.vue`がエラー画面のメタ情報を担当します。
+
+- `@nuxtjs/sitemap`がページを自動検出し、Nuxt I18nの言語設定に従ってサイトマップを生成します。`app/pages/`へ静的なページを追加する場合は、サイトマップへの手動登録は不要です。`/sitemap_index.xml`が入口で、`/__sitemap__/ja-JP.xml`・`en-US.xml`に各言語の正規URLと相互参照を出力します。
+- `@nuxtjs/robots`がビルド時に`robots.txt`を生成し、Sitemapモジュールとの連携で公開先のサイトマップURLを記載します。
+- トップページのHTMLの言語属性・canonical・hreflangは`useLocaleHead()`で登録します。トップページのHTMLの`lang`はNuxt I18nの`language`に従い、日本語版は`ja-JP`、英語版は`en-US`です。エラー画面の`lang`は`app/error.vue`で現在の`locale`に合わせて`ja`・`en`を設定し、canonical・hreflangは登録しません。`x-default`は既定言語の日本語ページ（`/`）を指し、入口URLへの独自の上書きは行いません。
 - 検索・共有用のタイトルとヘッダーのサイト名は、日本語で「ムニエル OFFICIAL SITE」、英語で「Munieru OFFICIAL SITE」です。トップページのページタイトルはサイト名だけ、エラー画面は`titleTemplate`で「ページ名 | サイト名」とします。日英とも半角の`|`の前後に半角スペースを入れます。英語版プロフィールは「Munieru」を主表示、「ムニエル」を補足にします。サイト名・説明文は`i18n/locales/*.json`の`nuxtSiteConfig.name`・`nuxtSiteConfig.description`で定義し、Nuxt Site Configの多言語連携を通じてヘッダー・メタ情報・構造化データで共有します。
-- トップページの著者・メタ情報・構造化データは`app/pages/index.vue`、エラー画面のメタ情報は`app/error.vue`で登録します。通常のページタイトル・説明とOGP・Xカードのタイトル・説明・画像・画像の説明は、各画面でNuxt標準の`useSeoMeta()`1回へまとめます。共有用のラッパーは設けず、登録される項目を各画面で直接確認できる形にします。値はref・getterで渡して言語切り替えに追従させ、各画面のsetupから同期的に登録します。検索除外はエラー画面だけに指定し、共通設定の初期値との二重定義はしません。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。画像内の名前を日本語では「ムニエル」、英語では「Munieru」と表示するため、日英2枚を維持します。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
+- 通常のページタイトル・説明とOGP・Xカードのタイトル・説明・画像・画像の説明は、各画面でNuxt標準の`useSeoMeta()`1回へまとめます。共有用のラッパーは設けず、登録される項目を各画面で直接確認できる形にします。値はref・getterで渡して言語切り替えに追従させ、各画面のsetupから同期的に登録します。検索除外の`noindex, nofollow`はエラー画面だけに指定し、共通設定の初期値との二重定義はしません。共有画像は日本語版が`public/ogp.png`、英語版が`public/en/ogp.png`（どちらも1200×630pxのPNG）で、共有元のページの言語に合わせて選びます。画像内の名前を日本語では「ムニエル」、英語では「Munieru」と表示するため、日英2枚を維持します。Xカードは`summary_large_image`を使います。文字はTakumiでmacOSのヒラギノ角ゴシックW9・W6・W3を描画します。生成方針と再生成手順は`docs/ogp.md`、Node.jsでの再生成は`npm run generate:ogp`で実行します。書き出しスクリプトは`scripts/generate-ogp.ts`にあります。
 - 著者名と構造化データの人物名・サイト名は表示言語に合わせます。英語版では`Munieru`を主表記にし、`Person.alternateName`に日本語表記を残します。日本語版では主表記と別名を逆にします。サイト名の翻訳は各言語の`WebSite.name`で表し、`WebSite.alternateName`は指定しません。
 - [Google検索のサイト名](https://developers.google.com/search/docs/appearance/site-names?hl=ja)はドメインまたはサブドメイン単位で扱われ、サブディレクトリ別の指定には対応していません。言語別のサイト名設定は、検索結果での言語別表示を保証するものではありません。
 - 言語別の`WebSite`のURL・ID・サイト名・説明・言語と翻訳関係は`nuxt-schema-org`の標準生成に任せます。型付きAPIで`ProfilePage`と共通の`Person`を定義し、人物のIDと人物への参照は明示します。`Person.description`には画面に表示する`profile.summary`を再利用し、各言語の人物説明を出力します。公開アカウントとの対応は`app/data/serviceLinks.ts`から取得します。
 - 構造化データはモジュールの標準設定を使い、本番では各URLの初期HTMLへ出力します。画面内で言語を切り替えてもJSON-LDは更新せず、対応するURLを直接取得した際にその言語のデータを返します。
-- `nuxt.config.ts`が全ページ共通の固定メタ情報、`app/pages/index.vue`がトップ専用のSEO情報、`app/error.vue`がエラー画面のSEO情報を担当します。OGP・Xカードも各画面の`useSeoMeta()`へ直接記述します。公開URLは`BASE_URL`から`i18n.baseUrl`へ指定し、Nuxt Site Configの標準連携で共有します。`site.url`には重複して指定しません。SEO用の画像の絶対URLはNuxt Site Configの`withSiteUrl()`で組み立て、ページの正規URLはNuxt I18nへ任せます。サイトマップはSitemapモジュールとNuxt I18nの連携に任せます。
+- 公開URLは`BASE_URL`から`i18n.baseUrl`へ指定し、Nuxt Site Configの標準連携で共有します。`site.url`には重複して指定しません。SEO用の画像の絶対URLはNuxt Site Configの`withSiteUrl()`で組み立て、ページの正規URLはNuxt I18nへ任せます。
 
 ## 存在しないURL
 
