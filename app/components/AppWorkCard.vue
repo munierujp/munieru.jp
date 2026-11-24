@@ -2,7 +2,6 @@
   <UPageCard
     :as="{ root: 'article', title: 'h3' }"
     class="h-full"
-    :title="work.title"
     :description="work.description[locale]"
     :ui="{ header: 'w-full' }"
     :to="work.publicationEnded ? undefined : work.url"

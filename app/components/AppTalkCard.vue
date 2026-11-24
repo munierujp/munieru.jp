@@ -2,7 +2,6 @@
   <UPageCard
     :as="{ root: 'article', title: 'h3' }"
     class="h-full"
-    :title="talk.title"
     :to="talk.url"
     target="_blank"
     :aria-label="t('ui.slidesInfo', { title: talk.title })"
