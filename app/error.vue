@@ -57,17 +57,27 @@ const message = computed(() => ({
 /** ページタイトルと共有時のタイトルで、状態コードの表示を揃える。 */
 const pageTitle = computed(() => status.value === 404 ? message.value.statusText : `${status.value} - ${message.value.statusText}`)
 
+// 共有画像内の名前を表示言語と揃えるため、日英2枚を使い分ける。
+const image = withSiteUrl(computed(() => locale.value === 'en' ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
+const imageAlt = computed(() => `${config.name} / ${BASE_URL}`)
+
 useHead(() => ({
   htmlAttrs: { lang: locale.value },
   titleTemplate: title => `${title} | ${config.name}`
 }))
+// 通常のメタ情報・検索除外・OGP・Xカードを、標準APIへまとめて登録する。
 useSeoMeta({
   title: pageTitle,
   description: () => message.value.message,
-  robots: 'noindex, nofollow'
-})
-useSocialMeta({
-  title: () => `${pageTitle.value} | ${config.name}`,
-  description: () => message.value.message
+  robots: 'noindex, nofollow',
+  ogTitle: () => `${pageTitle.value} | ${config.name}`,
+  ogSiteName: () => config.name,
+  ogDescription: () => message.value.message,
+  ogImage: image,
+  ogImageAlt: imageAlt,
+  twitterTitle: () => `${pageTitle.value} | ${config.name}`,
+  twitterDescription: () => message.value.message,
+  twitterImage: image,
+  twitterImageAlt: imageAlt
 })
 </script>
