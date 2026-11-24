@@ -59,6 +59,19 @@ Nuxtが互換用に作成する`dist`は、この出力先へのリンクです�
 編集しながら確認する場合は、自動反映される`npm run dev`を使います。
 Netlify固有の転送ルールは`public/_redirects`で管理し、NetlifyのDeploy Previewで確認します。
 
+### 英語404の生成ログ
+
+`npm run generate`では、英語のエラー画面をHTMLへ事前描画するため、`/en/404.html`へアクセスして意図的に404を発生させます。この際、次のログがスタックトレースとともに出ることがあります。
+
+```text
+ERROR  [request error] [fatal] [GET] http://localhost/en/404.html
+Page Not Found
+```
+
+`nuxt.config.ts`の`prerender:generate`フックは、このパスの404だけを正常な書き出し対象として扱います。ログの`ERROR`・`fatal`という表記だけで生成失敗と判断せず、コマンドが終了コード0で完了し、`Generated public .output/public`が表示され、`.output/public/en/404.html`が生成されていることを確認してください。既存ファイルが残っている場合もあるため、ファイルの存在だけでは成功と判断しません。
+
+このパス以外のエラー、404以外のステータス、生成コマンドの非ゼロ終了は想定内の扱いにせず、原因を確認してください。ログを消すために、生成エラーを一括で無視する設定は追加しません。
+
 ## 文字サイズ・ズームの確認
 
 ヘッダーや文字サイズ、レイアウトを変更した場合は、日本語の`/`と英語の`/en/`で以下を確認します。文字サイズ設定とページ全体のズームは別々に検証します。ズームで拡大できても、ブラウザの既定文字サイズへの追従を確認したことにはなりません（[Googleの解説](https://web.dev/articles/baseline-in-action-fluid-type)）。
