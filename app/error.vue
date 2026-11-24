@@ -37,7 +37,7 @@ import type { NuxtError } from '#app'
 const props = defineProps<{ error: NuxtError }>()
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
-const site = useSiteConfig()
+const config = useSiteConfig()
 // /en/404.htmlなどの生成済みHTMLを、実際の未知URLでもそのまま配信する。
 // payload.pathが残るとNuxtが生成元URLへ遷移するため、生成時だけ削除する。
 if (import.meta.prerender) {
@@ -63,7 +63,7 @@ const pageTitle = computed(() => status.value === 404 ? message.value.statusText
 
 useHead(() => ({
   htmlAttrs: { lang: locale.value },
-  titleTemplate: title => `${title} | ${site.name}`
+  titleTemplate: title => `${title} | ${config.name}`
 }))
 useSeoMeta({
   title: pageTitle,
@@ -71,7 +71,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 useSocialMeta({
-  title: () => `${pageTitle.value} | ${site.name}`,
+  title: () => `${pageTitle.value} | ${config.name}`,
   description: () => message.value.message
 })
 </script>

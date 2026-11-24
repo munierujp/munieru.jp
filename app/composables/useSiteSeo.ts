@@ -6,7 +6,7 @@ import { serviceLinks } from '~/data/serviceLinks'
  */
 export function useSiteSeo (): void {
   const { t } = useI18n()
-  const site = useSiteConfig()
+  const config = useSiteConfig()
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。
   const localeHead = useLocaleHead()
   /** ページの言語に合わせた主名義。メタ情報と構造化データで共有する。 */
@@ -15,13 +15,13 @@ export function useSiteSeo (): void {
   const alternateName = computed(() => t('site.alternateName'))
   // プロパティはgetter、computedはrefのまま渡し、言語切り替えに追従させる。
   useSeoMeta({
-    title: () => site.name,
-    description: () => site.description,
+    title: () => config.name,
+    description: () => config.description,
     author: displayName
   })
   useSocialMeta({
-    title: () => site.name,
-    description: () => site.description
+    title: () => config.name,
+    description: () => config.description
   })
   useHead(localeHead)
   // WebSiteと翻訳関係はモジュールに任せ、プロフィールページと人物情報を定義する。

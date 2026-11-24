@@ -14,13 +14,13 @@ export function useSocialMeta (options: {
 }): void {
   /* eslint-enable jsdoc/require-param, jsdoc/check-param-names */
   const { locale } = useI18n()
-  const site = useSiteConfig()
+  const config = useSiteConfig()
   // 共有画像内の名前を表示言語と揃えるため、日英2枚を使い分ける。
   const image = withSiteUrl(computed(() => locale.value === 'en' ? OG_IMAGE_PATH_EN : OG_IMAGE_PATH))
-  const imageAlt = computed(() => `${site.name} / ${BASE_URL}`)
+  const imageAlt = computed(() => `${config.name} / ${BASE_URL}`)
   useSeoMeta({
     ogTitle: options.title,
-    ogSiteName: () => site.name,
+    ogSiteName: () => config.name,
     ogDescription: options.description,
     ogImage: image,
     ogImageAlt: imageAlt,
