@@ -44,10 +44,6 @@ if (import.meta.prerender) {
   useNuxtApp().hook('app:rendered', ({ ssrContext }) => {
     if (!ssrContext) return
     delete ssrContext.payload.path
-    // エラーに記録するURLも、生成元の値を使い回さない。
-    if (ssrContext.payload.error) {
-      Reflect.deleteProperty(ssrContext.payload.error, 'url')
-    }
   })
 }
 /** JSON経由のエラーはstatusCodeを持つため、NuxtErrorのstatusと両方を受け付ける。 */
