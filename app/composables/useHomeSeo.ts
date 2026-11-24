@@ -4,7 +4,7 @@ import { serviceLinks } from '~/data/serviceLinks'
  * 現在の言語に対応するSEO情報とプロフィールの構造化データを登録する。
  * @remarks ProfilePageとPersonも登録するトップページ専用の処理。setupから同期的に呼び出す。メタ情報は言語切り替えに追従し、本番の構造化データは初期HTMLに出力する。
  */
-export function useSiteSeo (): void {
+export function useHomeSeo (): void {
   const { locale, t } = useI18n()
   const config = useSiteConfig()
   // HTMLの言語属性・canonical・hreflang・OGPロケールはNuxt I18nに任せる。

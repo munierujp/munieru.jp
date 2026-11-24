@@ -11,5 +11,5 @@
 </template>
 
 <script setup lang="ts">
-useSiteSeo()
+useHomeSeo()
 </script>
