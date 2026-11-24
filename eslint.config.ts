@@ -9,15 +9,15 @@ import jsdoc from 'eslint-plugin-jsdoc'
 import vue from 'eslint-plugin-vue'
 import vueI18n from '@intlify/eslint-plugin-vue-i18n'
 import * as jsoncParser from 'jsonc-eslint-parser'
-import { defineConfig } from 'eslint/config'
 
 export default withNuxt(
+  // YAMLの汎用検査は別Issueで扱い、翻訳プリセットによる対象形式の拡大を避ける。
+  { ignores: ['**/*.{yaml,yml}'] },
   // 無制限の無効化や無効化・再有効化の対応ミスは、公式の推奨設定で検出する。
   eslintComments.recommended,
   {
-    name: 'app/i18n-json',
+    // Nuxtの解析設定より後に、翻訳JSONのメッセージ検査に必要なパーサーを指定する。
     files: ['i18n/locales/*.json'],
-    // 外部辞書はSFCとしてではなくJSONとして解析し、メッセージ構文とキーの検査を有効にする。
     languageOptions: { parser: jsoncParser }
   },
   {
@@ -44,23 +44,17 @@ export default withNuxt(
   'nuxt/disables/routes',
   ...vue.configs['flat/recommended']
 ).prepend(
-  // 翻訳の推奨検査はアプリと辞書へ限定し、Vue・TSの解析設定は後段のNuxt設定を優先する。
-  ...defineConfig({
-    name: 'app/i18n',
-    files: ['app/**/*.{vue,ts}', 'i18n/locales/*.json'],
-    // @ts-expect-error -- 外部プリセットの型定義がexactOptionalPropertyTypesに未対応のため、この参照だけを除外する。
-    extends: vueI18n.configs.recommended,
+  // 翻訳の検査は公式推奨設定に従い、Vue・TSの解析設定は後段のNuxt設定を優先する。
+  // @ts-expect-error -- 外部プリセットの型定義がexactOptionalPropertyTypesに未対応のため、この参照だけを除外する。
+  ...vueI18n.configs.recommended,
+  {
     settings: {
       'vue-i18n': {
         localeDir: 'i18n/locales/*.json',
         messageSyntaxVersion: '^11.0.0'
       }
-    },
-    rules: {
-      // フォールバックで翻訳漏れを隠さず、言語間で同じキーを揃える。
-      '@intlify/vue-i18n/no-missing-keys-in-other-locales': 'error'
     }
-  }),
+  },
   // script setupにもTS規約を適用する。Vueのパーサー・自動インポートは後段のNuxt設定を優先する。
   // JSXは使わないため、対応するルールは読み込まない。
   ...neostandard({ ts: true, filesTs: ['**/*.vue'], noJsx: true })

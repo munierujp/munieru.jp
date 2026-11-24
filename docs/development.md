@@ -212,9 +212,13 @@ TSDoc固有の構文は引き続き`tsdoc/syntax`で検査し、JSでは型付�
 
 ### 翻訳辞書の検査
 
-`@intlify/eslint-plugin-vue-i18n`の公式推奨設定を、`app/`内のVue・TSと`i18n/locales/*.json`へ適用します。Vue・TSのパーサーは既存のNuxt設定を優先し、外部JSON辞書には`jsonc-eslint-parser`を指定して辞書向けの検査を有効にします。辞書のメッセージ構文はVue I18n 11系として検査し、存在しない静的な翻訳キーの参照や翻訳文の直書きも検出します。推奨設定に`no-missing-keys-in-other-locales`を追加し、日英のキー不一致も検出します。日付・分類の区切り記号`/`は日英共通のため、各カードの該当行に理由付きの`eslint-disable-next-line`を置きます。設定側の一括除外は使いません。検査は既存の`npm run lint:eslint`とGitHub Actionsで実行し、警告も失敗として扱います。
+`@intlify/eslint-plugin-vue-i18n`の公式`recommended`を直接組み込み、ルールの追加・上書きはしません。辞書の場所を`localeDir`、メッセージ構文を`messageSyntaxVersion: '^11.0.0'`で指定します。存在しない静的な翻訳キーの参照・翻訳文の直書き・辞書のHTML・メッセージ構文を推奨ルールで検査し、警告も`--max-warnings=0`で失敗として扱います。日付・分類の区切り記号`/`は日英共通のため、各カードの該当行に理由付きの`eslint-disable-next-line`を置きます。検査は既存の`npm run lint:eslint`とGitHub Actionsで実行します。
 
-適用範囲はESLint標準の`defineConfig`で指定します。外部プリセットの型定義と`exactOptionalPropertyTypes`の不整合は、該当する参照だけに理由付きの`@ts-expect-error`を置き、二重の型変換や独自の設定加工処理は使いません。上流の型が修正されて指定が不要になれば、TypeScriptが未使用として検出します。
+Vue・TSのパーサーは後段のNuxt設定を優先します。外部JSON辞書のメッセージ検査に必要な`jsonc-eslint-parser`だけは、Nuxt設定より後に明示します。YAMLの汎用検査は別Issueで扱うため、今回は`**/*.{yaml,yml}`をESLintの対象外にし、翻訳プリセットによって既存のCIファイルへ解析対象が広がることを防ぎます。JSON・JSONCの汎用検査や設定内容の検証を追加するものではありません。
+
+外部プリセットの型定義と`exactOptionalPropertyTypes`の不整合は、該当する参照だけに理由付きの`@ts-expect-error`を置きます。適用範囲を組み立てるための`defineConfig`や型変換は使いません。上流の型が修正されて指定が不要になれば、TypeScriptが未使用として検出します。
+
+日英辞書のキーを総当たりで一致させる`no-missing-keys-in-other-locales`は推奨設定に含まれないため追加しません。静的に参照されたキーの存在は推奨の`no-missing-keys`で検査しますが、各言語に同じキーが揃うことまでは保証しません。
 
 未使用キーの削除と動的キーの禁止は有効にしません。作品分類の動的なキーや、Nuxt Site Config・OGP生成が直接参照する辞書項目を維持するためです。動的に組み立てたキーの存在や、TSのコンテンツデータ内にある日英の文章は、この検査では確認できません。コンテンツデータの対応言語の不足は`LocalizedText`の型で検査します。
 
