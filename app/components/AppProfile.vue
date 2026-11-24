@@ -18,7 +18,7 @@
         {{ t('profile.development') }}
       </p>
       <p class="mt-3">
-        {{ t('profile.activities') }}
+        {{ t('profile.hobbies') }}
       </p>
     </template>
     <div class="grid place-items-center order-first">
