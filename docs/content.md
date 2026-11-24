@@ -7,7 +7,7 @@
 
 コンテンツ一覧と各項目の日英の表示文は`app/data/*.ts`、見出し・操作ラベル・プロフィールは`i18n/locales/*.json`を編集します。既存の項目をコピーして追加できます。
 
-- 名前・プロフィール本文: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site`・`profile`
+- 名前・プロフィール本文: `i18n/locales/ja.json`・`i18n/locales/en.json`。名前は`site.name`・`site.alternateName`、本文は`profile.summary`（自己紹介）・`profile.development`（個人開発）・`profile.hobbies`（趣味）
 - 著作権表記の文面: `i18n/locales/ja.json`・`i18n/locales/en.json`の`site.copyright`。表示する名前は`site.name`、配置は`app/components/AppFooter.vue`
 - サイト名（`nuxtSiteConfig.name`）・名前（`site.name`）: `i18n/locales/ja.json`・`i18n/locales/en.json`（OGP画像の生成では名前だけを参照）
 - トップページのOGPの説明: `i18n/locales/ja.json`・`i18n/locales/en.json`の`nuxtSiteConfig.description`
@@ -50,3 +50,5 @@ GitHubリンクはそのまま表示します。作品・書籍・登壇は日�
 - Nuxt I18nの`prefix_except_default`構成を使い、日本語・英語とも静的HTMLを生成します。入口専用のCSR用HTMLのコピー処理はありません。
 - ヘッダーは`UHeader`を使い、言語選択は`UDropdownMenu`と`UButton`、テーマ選択は`UColorModeSelect`で提供します。トリガーは44pxの円形アイコンとし、選択肢には文字を表示します。言語には国旗を使わず、検索欄も表示しません。寸法・配色は`app/app.config.ts`の共通テーマで調整し、テーマ選択のアイコン表示は`app/utils/iconSelectUi.ts`で指定します。
 - 両言語を静的HTMLとして生成し、それぞれに`lang`・canonical・OGP説明と、相互参照の`hreflang`を出力します。
+
+翻訳キーを追加・改名する際は、日英両方の辞書と呼び出し側を一緒に更新します。翻訳lintは静的に参照したキーの存在を検査しますが、各言語の全キーの一致までは保証しません。プロフィール本文の変更だけではOGP画像の再生成は不要です。画像内の名前なども変える場合は、前述のOGP画像の更新手順に従ってください。
