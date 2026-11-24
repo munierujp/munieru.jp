@@ -1,0 +1,48 @@
+{
+  "nuxtSiteConfig": {
+    "name": "ムニエル OFFICIAL SITE",
+    "description": "ムニエルのプロフィール、ブログ、SNS・各サービスへのリンクを掲載。スキルや作品、書籍、登壇も紹介しています。"
+  },
+  "site": {
+    "name": "ムニエル",
+    "alternateName": "Munieru",
+    "copyright": "© {name}"
+  },
+  "ui": {
+    "error": {
+      "notFoundTitle": "404エラー",
+      "notFoundDescription": "お探しのページは、移動または削除された可能性があります。",
+      "title": "エラーが発生しました",
+      "description": "時間をおいて、もう一度お試しください。"
+    },
+    "headings": {
+      "links": "リンク",
+      "skills": "スキル",
+      "works": "作品",
+      "books": "書籍",
+      "talks": "登壇",
+      "support": "活動を支援する"
+    },
+    "categories": {
+      "web": "ウェブアプリ",
+      "extension": "Chrome拡張機能",
+      "library": "ライブラリ",
+      "cli": "CLI"
+    },
+    "publicationEnded": "公開終了",
+    "sourceCode": "{title}のソースコード（GitHub）",
+    "cover": "{title}の表紙",
+    "eventInfo": "{title}のイベント情報（connpass）",
+    "slidesInfo": "{title}の発表資料（Speaker Deck）",
+    "profileImage": "プロフィール画像",
+    "theme": "表示モードを選択",
+    "language": "言語：{language}",
+    "xAccount": "{name}のXアカウント",
+    "siteSourceCode": "このサイトのソースコード（GitHub）"
+  },
+  "profile": {
+    "summary": "東京都江戸川区在住のオタク兼ITエンジニア。埼玉県川口市出身。",
+    "development": "個人でウェブアプリやChrome拡張機能などを開発しています。",
+    "hobbies": "趣味は読書、アニメ、ゲーム、ラジオ、映画、ライブ、コンサート、フェス、舞台、ミュージカルなど、エンタメ全般です。"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  // Nuxt外で実行するスクリプト・設定を検査する。
+  // Node 26の実行環境・TS直接実行の制約・厳格なチェックは共有設定へ委譲する。
+  "extends": [
+    "@tsconfig/node26/tsconfig.json",
+    "@tsconfig/node-ts/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true
+  },
+  // Nuxt外のスクリプトと設定ファイルを明示し、生成物を広く探索しない。
+  "include": [
+    "scripts/**/*.ts",
+    "eslint.config.ts",
+    "stylelint.config.ts",
+    "markuplint.config.ts",
+    ".secretlintrc.js"
+  ]
+}
