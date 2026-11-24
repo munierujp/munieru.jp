@@ -65,18 +65,13 @@ Deploy Previewの検索除外は、[Netlifyが標準で付与する`X-Robots-Tag
 
 プレビューでも、トップページのcanonicalは本番の言語別URL（日本語は`https://munieru.jp/`、英語は`https://munieru.jp/en/`）を指します。canonicalによる正規URLの通知と、`noindex`による検索除外は役割が異なります。検索除外の確認では、HTMLのメタタグだけでなく、Deploy PreviewのHTTPレスポンスに`X-Robots-Tag: noindex`が含まれることをブラウザの開発者ツールなどで確認してください。本番ではDeploy Preview用の検索除外を適用しません。
 
-### 英語404の生成ログ
+### 静的404の確認
 
-`npm run generate`では、英語のエラー画面をHTMLへ事前描画するため、`/en/404.html`へアクセスして意図的に404を発生させます。この際、次のログがスタックトレースとともに出ることがあります。
+404はNuxt標準の`404.html` SPAフォールバックを使います。実験的な`prerenderErrorPages`、英語専用404の事前描画、生成時の404エラーを許可するフックは使いません。`npm run generate`のエラーは通常どおり確認し、終了コードと生成結果で成功を判断します。
 
-```text
-ERROR  [request error] [fatal] [GET] http://localhost/en/404.html
-Page Not Found
-```
+生成済みサイトの未知URL（例：`/missing/`・`/en/missing/`）で、JavaScript実行後に各言語の案内・画像・戻るボタンが表示されること、パス・クエリ・フラグメントが勝手に変わらないことを確認します。JavaScript無効時には専用の案内を表示せず、404用の言語別OGPも初期HTMLには出しません。HTTP 404の配信はNetlifyのDeploy Previewでも確認します。
 
-`nuxt.config.ts`の`prerender:generate`フックは、このパスの404だけを正常な書き出し対象として扱います。ログの`ERROR`・`fatal`という表記だけで生成失敗と判断せず、コマンドが終了コード0で完了し、`Generated public .output/public`が表示され、`.output/public/en/404.html`が生成されていることを確認してください。既存ファイルが残っている場合もあるため、ファイルの存在だけでは成功と判断しません。
-
-このパス以外のエラー、404以外のステータス、生成コマンドの非ゼロ終了は想定内の扱いにせず、原因を確認してください。ログを消すために、生成エラーを一括で無視する設定は追加しません。
+404画像は通常ページのHTMLに現れないため、[Nuxt Imageの公式の静的生成方法](https://image.nuxt.com/advanced/static-images)に従って`nitro.prerender.routes`へ1倍・2倍の画像URLを指定しています。`app/error.vue`の表示寸法や画像品質を変更した場合は、この指定も合わせて更新し、生成物とブラウザからの画像読み込みを確認してください。
 
 ## 文字サイズ・ズームの確認
 

@@ -85,21 +85,13 @@ export default defineNuxtConfig({
       ]
     }
   },
-  /** JavaScriptを実行する前にも案内を読めるよう、404画面をHTMLへ事前描画する。 */
-  experimental: {
-    prerenderErrorPages: true
-  },
   /** 静的配信と事前描画するページ。出力先は標準の.output/publicを使う。 */
   nitro: {
     preset: 'static',
-    prerender: { routes: ['/', '/en/', '/en/404.html'] },
-    hooks: {
-      // 英語用の404もNuxtのエラー画面から生成する。意図した404応答だけを書き出し対象にする。
-      'prerender:generate' (route): void {
-        if (route.route === '/en/404.html' && route.error?.statusCode === 404) {
-          delete route.error
-        }
-      }
+    prerender: {
+      // 404画面はクライアントで描画するため、そこで使う画像だけは明示して静的生成する。
+      // app/error.vueの144px表示・1倍/2倍密度と、image.qualityの指定に合わせる。
+      routes: ['/', '/en/', '/_ipx/f_webp&q_100&s_144x144/404.png', '/_ipx/f_webp&q_100&s_288x288/404.png']
     }
   }
 })
