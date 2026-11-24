@@ -59,6 +59,12 @@ Nuxtが互換用に作成する`dist`は、この出力先へのリンクです�
 編集しながら確認する場合は、自動反映される`npm run dev`を使います。
 Netlify固有の転送ルールは`public/_redirects`で管理し、NetlifyのDeploy Previewで確認します。
 
+### Deploy Previewの検索除外
+
+Deploy Previewの検索除外は、[Netlifyが標準で付与する`X-Robots-Tag: noindex`レスポンスヘッダー](https://docs.netlify.com/deploy/deploy-types/deploy-previews/#keep-deploy-previews-out-of-search-indexes)に任せます。この用途だけのメタタグ・ヘッダー設定や、環境別の独自処理は追加しません。これはNetlifyで配信するDeploy Previewの機能であり、ローカルの`npm run preview`には同じヘッダーは付きません。
+
+プレビューでも、トップページのcanonicalは本番の言語別URL（日本語は`https://munieru.jp/`、英語は`https://munieru.jp/en/`）を指します。canonicalによる正規URLの通知と、`noindex`による検索除外は役割が異なります。検索除外の確認では、HTMLのメタタグだけでなく、Deploy PreviewのHTTPレスポンスに`X-Robots-Tag: noindex`が含まれることをブラウザの開発者ツールなどで確認してください。本番ではDeploy Preview用の検索除外を適用しません。
+
 ### 英語404の生成ログ
 
 `npm run generate`では、英語のエラー画面をHTMLへ事前描画するため、`/en/404.html`へアクセスして意図的に404を発生させます。この際、次のログがスタックトレースとともに出ることがあります。
