@@ -45,7 +45,8 @@ const props = defineProps<{
   work: Work
 }>()
 const { locale, t, d } = useI18n()
-const icons: Record<Work['category'], IconName> = {
+/** 作品の分類に対応する、ローカル同梱のアイコン名。 */
+const categoryIcons: Record<Work['category'], IconName> = {
   web: 'i-lucide-globe',
   extension: 'i-lucide-puzzle',
   library: 'i-lucide-code',
@@ -53,6 +54,6 @@ const icons: Record<Work['category'], IconName> = {
 }
 const category = computed(() => ({
   label: t(`ui.categories.${props.work.category}`),
-  icon: icons[props.work.category]
+  icon: categoryIcons[props.work.category]
 }))
 </script>
