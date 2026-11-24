@@ -28,6 +28,8 @@ npm run dev
 
 開発サーバーは [http://localhost:3000/](http://localhost:3000/) です。
 
+AIエージェントで作業する場合は、先に[作業方針](AGENTS.md)を確認してください。レビュー対応や引き継ぎなどの具体的な手順は[AI向けの作業手順](docs/ai-workflow.md)にまとめています。
+
 ## ドキュメント
 
 - [こだわりポイント](docs/features.md): 表示・操作・多言語・アクセシビリティ・配信の工夫
