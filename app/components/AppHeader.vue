@@ -8,7 +8,7 @@
       <!-- 利用者の文字サイズ設定に比例して拡大する、標準の相対サイズを使う。 -->
       <h1 class="text-base font-bold">
         <NuxtLinkLocale to="index">
-          {{ site.name }}
+          {{ config.name }}
         </NuxtLinkLocale>
       </h1>
     </template>
@@ -19,5 +19,5 @@
   </UHeader>
 </template>
 <script setup lang="ts">
-const site = useSiteConfig()
+const config = useSiteConfig()
 </script>
