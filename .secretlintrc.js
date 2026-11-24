@@ -8,7 +8,7 @@
 module.exports = {
   rules: [
     {
-      // APIキー・トークン・秘密鍵などの検出を、公式推奨プリセットにまとめて任せる。
+      // APIキー・トークン・秘密鍵などの検出を、v14組み込みの公式推奨プリセットに任せる（同名パッケージは不要）。
       id: '@secretlint/secretlint-rule-preset-recommend'
     }
   ]

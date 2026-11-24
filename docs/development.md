@@ -219,13 +219,14 @@ Vue・TSのパーサーは後段のNuxt設定を優先します。外部JSON辞�
 
 ## Secretlint
 
-公式の`@secretlint/secretlint-rule-preset-recommend`で、APIキー・トークン・秘密鍵などの混入をチェックします。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。
+Secretlint v14の`@secretlint/core`に組み込まれた公式推奨プリセットで、APIキー・トークン・秘密鍵などの混入をチェックします。設定IDは`@secretlint/secretlint-rule-preset-recommend`を使い、同名のパッケージはインストールしません（[公式の移行ガイド](https://github.com/secretlint/secretlint/blob/v14.0.1/docs/migrations/v13-to-v14.md)）。設定は`.secretlintrc.js`へ直接記述し、`// @ts-check`と`@secretlint/types`の型定義で設定の構造を検査します。このファイルはSecretlintの専用ローダーがCommonJSとして読み込むため、プロジェクトが`"type": "module"`でも`module.exports`を使います。
 
 ```sh
 npm run lint:secretlint
 ```
 
 作業ツリー内のファイルを対象とし、隠しファイルもチェックします。`.gitignore`の対象（依存関係・生成物・`.env`など）とGitの管理データは対象外です。Gitの過去の履歴はスキャンしません。
+v14では組み込みの除外・`.gitignore`・`.secretlintignore`・`--secretlintignore`の除外がそれぞれ適用され、いずれかで除外されたファイルは検査しません。`!`による再追加は同じ種類のignoreファイル内だけで有効です。現在は`.secretlintignore`や追加のignore指定を使っていません。
 GitHub Actionsの`secretlint.yml`でも独立して実行します。指摘内容は既定のマスク表示を使い、誤検出があれば該当箇所だけを調整します。
 
 ## Stylelint
