@@ -20,7 +20,8 @@
 /** SVGを維持し、画像最適化と標準の代替表示を使う装飾アイコン。 */
 import type { IconName } from '~/types/IconName'
 
-const { src = undefined, icon = undefined, size = 24, sizes = undefined } = defineProps<{
+/* eslint-disable vue/require-default-prop -- 省略可能な画像設定はVue標準のundefinedを使い、明示的な既定値は指定しない。 */
+const { src, icon, size = 24, sizes } = defineProps<{
   /** public配下の画像パス。未指定・読み込み失敗時は標準の代替表示を使う。 */
   src?: string
   /** 画像がない場合に表示する分類アイコン。未指定時は空の領域を保つ。 */
@@ -30,6 +31,7 @@ const { src = undefined, icon = undefined, size = 24, sizes = undefined } = defi
   /** 表示幅が変わる場合のNuxt Imageのsizes指定。 */
   sizes?: string
 }>()
+/* eslint-enable vue/require-default-prop */
 /** SVGは元画像を直接配信し、ラスター画像はNuxt Imageへ渡す。 */
 const isSvg = computed(() => src?.endsWith('.svg') ?? false)
 </script>
