@@ -9,12 +9,6 @@ export const supportLinks: SupportLink[] = [
     image: '/service-icons/github.svg'
   },
   {
-    key: 'paypal',
-    title: 'PayPal',
-    url: 'https://www.paypal.me/munieru',
-    image: '/service-icons/paypal.png'
-  },
-  {
     key: 'wish-list',
     title: {
       ja: 'ほしい物リスト',
