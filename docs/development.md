@@ -293,7 +293,14 @@ npm run lint:markuplint
 
 ## npm設定
 
-実行用の直接依存は`package.json`の`dependencies`に記載し、Nuxt・Vue・Vue Router・Nuxt I18n・Nuxt Image・Nuxt Robots・Nuxt Sitemap・Nuxt Schema.org・Nuxt UI・Tailwind CSSのバージョンを固定しています。リンター・型検査・OGP生成・ローカルプレビューに使うツールは`devDependencies`へ置きます。
+直接依存の分類は公式の導入手順を優先し、指定がない場合は用途で判断します。Nuxt・Vue・Vue Router・Nuxt Image・Nuxt Robots・Nuxt Sitemap・Nuxt Schema.org・Nuxt UI・Tailwind CSSは`dependencies`に置き、バージョンを固定しています。[Nuxt UIの導入手順](https://ui.nuxt.com/docs/getting-started/installation/nuxt)に合わせ、Tailwind CSSも通常依存として管理します。
+
+[Nuxt I18nの導入手順](https://i18n.nuxtjs.org/docs/getting-started)では開発依存が明示されているため、`@nuxtjs/i18n`は`devDependencies`へ置きます。リンター・型検査・OGP生成・ローカルプレビューに使うツールも開発依存です。
+
+静的配信では生成済みの`.output/public/`だけを公開しますが、それを理由にすべての依存を`devDependencies`へまとめません。依存分類を変えても、ブラウザ向けにバンドルされるJavaScriptが減るわけではありません。
+
+生成時には開発依存も必要です。Netlifyの本番・Deploy Previewともに、`NODE_ENV`・`NPM_FLAGS`・npmのomit設定で開発依存を省略しないようにします。[Netlifyの依存管理](https://docs.netlify.com/build/configure-builds/manage-dependencies/#node-js-environment)では、`NODE_ENV=production`を設定すると開発依存がインストールされないと説明されています。
+
 `.npmrc` ではインストール時のスクリプト実行抑止、バージョン固定、対応npmでの公開後7日間の待機を設定しています。
 `min-release-age` が適用されるかは使用するnpmの対応状況によります。
 
