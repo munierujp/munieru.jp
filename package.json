@@ -22,7 +22,7 @@
     "typecheck": "nuxt typecheck",
     "about:lint": "echo \"lockfile-lint・ESLint・Secretlint・Stylelint・Markuplintを順番に実行します。\"",
     "lint": "run-s lint:lockfile-lint lint:eslint lint:secretlint lint:stylelint lint:markuplint",
-    "about:lint:lockfile-lint": "echo \"package-lock.jsonの取得先・名前・SHA-512と、許可したnpmエイリアスの対応先を検査します。Nuxtの準備は不要です。\"",
+    "about:lint:lockfile-lint": "echo \"lockfile-lintでpackage-lock.jsonの取得先・名前・SHA-512を検査し、補助スクリプトで取得先の欠落と許可したnpmエイリアスの対応先を検査します。Nuxtの準備は不要です。\"",
     "lint:lockfile-lint": "lockfile-lint && node scripts/check-lockfile-entries.ts",
     "about:lint:secretlint": "echo \"Secretlintを用いてリポジトリ内のファイルに秘密情報が含まれていないか検査します。\"",
     "lint:secretlint": "secretlint \"**/*\"",
