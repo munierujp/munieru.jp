@@ -91,10 +91,11 @@ Deploy Previewの検索除外は、[Netlifyが標準で付与する`X-Robots-Tag
 
 PR・既定ブランチ（master）へのpush・手動実行で、以下のチェックをそれぞれ実行します。
 
-- `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`: リンターごとに独立して実行
+- `.github/workflows/eslint.yml`・`secretlint.yml`・`stylelint.yml`・`markuplint.yml`・`lockfile-lint.yml`: リンターごとに独立して実行
 - `.github/workflows/typecheck.yml`: TypeScriptの型チェック
 
-各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`と`npm run prepare`を先に実行します。
+各ワークフローは`.nvmrc`のNode.jsを使い、`npm ci`を先に実行します。
+`lockfile-lint.yml`はNuxtに依存しないため準備を省略し、それ以外は`npm run prepare`も実行します。
 公式ActionsはリリースのコミットSHAで固定し、権限は`contents: read`のみです。
 公開はNetlify、依存更新はRenovateで行います。
 
@@ -172,7 +173,7 @@ npm run lint:eslint
 npm run lint:eslint -- --fix
 ```
 
-自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で4種類のリンターを順に実行します。JS・TSの整形はneostandardに従います。Vueテンプレートは`eslint-plugin-vue`の公式`flat/recommended`を使い、属性の順序・1行の属性数・改行・インデントを推奨設定に従って自動修正します。ページ・エラー画面などの命名に関するNuxt固有の例外を維持するため、このプリセットは`nuxt/disables/routes`の前へ追加します。ルールを個別に列挙せず、警告も`--max-warnings=0`で失敗として扱います。
+自動修正が必要な場合は`-- --fix`を渡します。専用のfixスクリプトは設けず、`npm run lint`はnpm-run-all2の`run-s`で5種類のリンターを順に実行します。JS・TSの整形はneostandardに従います。Vueテンプレートは`eslint-plugin-vue`の公式`flat/recommended`を使い、属性の順序・1行の属性数・改行・インデントを推奨設定に従って自動修正します。ページ・エラー画面などの命名に関するNuxt固有の例外を維持するため、このプリセットは`nuxt/disables/routes`の前へ追加します。ルールを個別に列挙せず、警告も`--max-warnings=0`で失敗として扱います。
 表示ページは`main`をルート要素とし、Nuxtの単一ルートのルールを適用します。`app/app.vue`がヘッダー・ページ・フッターを直接配置し、ページ側で本文の領域を定義します。外枠が1種類のため、レイアウトファイルは設けません。
 
 ### ESLint制御コメント
@@ -218,6 +219,24 @@ Vue・TSのパーサーは後段のNuxt設定を優先します。外部JSON辞�
 日英辞書のキーを総当たりで一致させる`no-missing-keys-in-other-locales`は推奨設定に含まれないため追加しません。静的に参照されたキーの存在は推奨の`no-missing-keys`で検査しますが、各言語に同じキーが揃うことまでは保証しません。
 
 未使用キーの削除と動的キーの禁止は有効にしません。作品分類の動的なキーや、Nuxt Site Config・OGP生成が直接参照する辞書項目を維持するためです。動的に組み立てたキーの存在や、TSのコンテンツデータ内にある日英の文章は、この検査では確認できません。コンテンツデータの対応言語の不足は`LocalizedText`の型で検査します。
+
+## lockfile-lint
+
+`lockfile-lint` 5.1.0で`package-lock.json`の配布元・パッケージ名・整合性情報を検査します。設定は`lockfile-lint.config.js`に直接記述し、`// @ts-check`とツール用TSConfigで検査します。設定の専用ローダーはTSに対応しないため、ESMのJavaScriptを使います。
+
+```sh
+npm run lint:lockfile-lint
+```
+
+取得先はnpm公式レジストリのHTTPSに限定し、ホスト名のないURLを許可しません。URLとパッケージ名を照合し、`validateIntegrityStrict: true`で完全なSHA-512の存在・形式を要求します。従来の`validateIntegrity`だけでは欠落や短いハッシュを検出できないため使いません（[公式説明](https://github.com/lirantal/lockfile-lint/tree/master/packages/lockfile-lint#strict-integrity-validation)）。
+
+`@isaacs/cliui`の互換用エイリアス3組（`string-width-cjs:string-width`・`strip-ansi-cjs:strip-ansi`・`wrap-ansi-cjs:wrap-ansi`）だけを設定に列挙します。上流の`allowedPackageNameAliases`は対象の名前検査を省略するため、続けて`scripts/check-lockfile-entries.ts`で、ネストした依存も含めて対応先のパッケージ名・バージョンと公式tarball URLが一致することを検査します。対応表は設定から読み込み、重複管理しません。新しいエイリアスを許可する際は、依存元の宣言と必要性を確認してください。
+
+補助スクリプトは取得先の欠落も拒否します。取得先・ハッシュを持たない同梱依存だけは例外とし、先に実行する厳密モードで同梱元の宣言・SHA-512を検査します。同梱依存やエイリアスを理由に、ホスト・HTTPS・整合性情報の検査を無効化したり、`integrityExclude`を追加したりしません。
+
+`npm run lint`の先頭と、GitHub Actionsの`lockfile-lint.yml`で同じコマンドを実行します。Nuxtの生成ファイルを使わないため、この検査だけなら`npm ci`後の`npm run prepare`は不要です。
+
+検査対象はlockfileのメタ情報です。ダウンロードした配布物とハッシュの照合はnpmが行い、既知の脆弱性の検査は`npm audit`が担当します。公式レジストリ内の悪意あるパッケージを判別するものではなく、CIでの`npm ci`による取得も事前に防ぎません。
 
 ## Secretlint
 
@@ -298,7 +317,7 @@ Takumiは2.15.0を維持しています。2.20.0では同じヒラギノのTTC�
 
 GitHub ActionsのYAML、NetlifyのTOML、`.npmrc`など、JSONも使えず専用の形式が必要な設定はその形式を維持します。翻訳・アイコンのデータJSONと、自動生成するロックファイルは設定ファイルの形式変更方針の対象外です。コンテンツ一覧は型検査のため`app/data/*.ts`で定義します。
 
-ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJSを使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
+ESLint・Stylelint・Markuplint・Nuxt・多言語設定・共有の公開設定はTS、Secretlintは型定義付きのCommonJS、lockfile-lintは型定義がないため`@ts-check`付きのESMを使います。Renovateは`.github/renovate.json`をJSONCとして読み込むため、拡張子を維持してコメントを記載します。`tsconfig.json`は拡張子を維持したままコメントを記載できます。`package.json`はコメントに対応しないため、通常のJSONのままにします。
 
 リンターは公式の推奨設定・共有設定を基本とし、設定ファイルは簡潔に保ちます。少数の箇所だけに必要な例外は、ルール全体を上書きせず、対象コードの理由付きdisableコメントで扱います。ルール名を指定し、行単位など必要最小限の範囲に限定します。ツールがdisableコメントに対応しない場合だけ、対象を絞った例外設定を使います。プロジェクト共通の検査方針としてルールを追加・変更する場合は、設定の直前に理由を記載します。
 

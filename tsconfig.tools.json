@@ -16,6 +16,7 @@
     "eslint.config.ts",
     "stylelint.config.ts",
     "markuplint.config.ts",
+    "lockfile-lint.config.js",
     ".secretlintrc.js"
   ]
 }
