@@ -34,7 +34,7 @@
     "lint:eslint": "eslint . --max-warnings=0"
   },
   "engines": {
-    "node": "26.6.0"
+    "node": "26.13.1"
   },
   "dependencies": {
     "@nuxt/image": "2.2.1",
