@@ -230,9 +230,9 @@ npm run lint:lockfile-lint
 
 取得先はnpm公式レジストリのHTTPSに限定し、ホスト名のないURLを許可しません。URLとパッケージ名を照合し、`validateIntegrityStrict: true`で完全なSHA-512の存在・形式を要求します。従来の`validateIntegrity`だけでは欠落や短いハッシュを検出できないため使いません（[公式説明](https://github.com/lirantal/lockfile-lint/tree/master/packages/lockfile-lint#strict-integrity-validation)）。
 
-`@isaacs/cliui`の互換用エイリアス3組（`string-width-cjs:string-width`・`strip-ansi-cjs:strip-ansi`・`wrap-ansi-cjs:wrap-ansi`）だけを設定に列挙します。上流の`allowedPackageNameAliases`は対象の名前検査を省略するため、続けて`scripts/check-lockfile-entries.ts`で、ネストした依存も含めて対応先のパッケージ名・バージョンと公式tarball URLが一致することを検査します。対応表は設定から読み込み、重複管理しません。新しいエイリアスを許可する際は、依存元の宣言と必要性を確認してください。
+`@isaacs/cliui`の互換用エイリアス3組（`string-width-cjs:string-width`・`strip-ansi-cjs:strip-ansi`・`wrap-ansi-cjs:wrap-ansi`）だけを`allowedPackageNameAliases`に列挙します。この標準オプションは対象の名前検査を省略するため、指定した対応先との一致は保証しません。ホスト・HTTPS・整合性情報の検査は維持します。新しいエイリアスを許可する際は、依存元の宣言と必要性を確認してください。
 
-補助スクリプトは取得先の欠落も拒否します。取得先・ハッシュを持たない同梱依存だけは例外とし、先に実行する厳密モードで同梱元の宣言・SHA-512を検査します。同梱依存やエイリアスを理由に、ホスト・HTTPS・整合性情報の検査を無効化したり、`integrityExclude`を追加したりしません。
+検査はlockfile-lintの標準機能だけで行い、独自の補助スクリプトは追加しません。取得先の`resolved`自体が欠落したエントリーではホスト・HTTPS・名前の検査が省略されるため、取得先の存在は保証しません。厳密モードによるSHA-512の要求は維持し、取得先・ハッシュを持たない同梱依存は同梱元の宣言・SHA-512で検査します。`integrityExclude`による個別の検査除外は追加しません。
 
 `npm run lint`の先頭と、GitHub Actionsの`lockfile-lint.yml`で同じコマンドを実行します。Nuxtの生成ファイルを使わないため、この検査だけなら`npm ci`後の`npm run prepare`は不要です。
 
